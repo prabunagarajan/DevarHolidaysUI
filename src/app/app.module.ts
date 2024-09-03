@@ -25,7 +25,6 @@ import { ToggleFullScreenDirective } from './theme/shared/full-screen/toggle-ful
 import { NavigationItem } from './theme/layout/admin/navigation/navigation';
 import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -54,7 +53,6 @@ import { ToastrModule } from 'ngx-toastr';
     NgbButtonsModule,
     NgbTabsetModule,
     HttpClientModule,
-    ToastrModule.forRoot(),  // ToastrModule added
   ],
   providers: [NavigationItem],
   bootstrap: [AppComponent]

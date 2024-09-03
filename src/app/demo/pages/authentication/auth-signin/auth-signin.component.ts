@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthserviceService } from '../authservice.service';
-import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -16,8 +15,7 @@ export class AuthSigninComponent implements OnInit {
 
   constructor(
     private formBuilde: FormBuilder,
-    public authservice: AuthserviceService,
-    private toastr: ToastrService
+    public authservice: AuthserviceService
   ) { }
 
   ngOnInit() {
@@ -42,7 +40,6 @@ export class AuthSigninComponent implements OnInit {
       this.authservice.signInValidate(signInRequest).subscribe(
         (signInResponse: any) => {
           if (signInResponse.errorCode == 200) {
-            this.toastr.success('Message sent successfully!', 'Success');
           } else {
             alert(signInResponse.userDisplayMesg);
           }
