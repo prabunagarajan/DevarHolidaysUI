@@ -24,8 +24,9 @@ import { ToggleFullScreenDirective } from './theme/shared/full-screen/toggle-ful
 /* Menu Items */
 import { NavigationItem } from './theme/layout/admin/navigation/navigation';
 import { NgbButtonsModule, NgbDropdownModule, NgbModule, NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { LoginInterceptor } from './demo/pages/interceptor/login-interceptor';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { ToastrModule } from 'ngx-toastr';
     NavSearchComponent,
     NavRightComponent,
     ConfigurationComponent,
-    ToggleFullScreenDirective
+    ToggleFullScreenDirective,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +64,10 @@ import { ToastrModule } from 'ngx-toastr';
     })
 
   ],
-  providers: [NavigationItem],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoginInterceptor, multi: true },
+    NavigationItem
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

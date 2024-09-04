@@ -44,10 +44,13 @@ export class AuthSigninComponent implements OnInit {
       this.authservice.signInValidate(signInRequest).subscribe(
         (signInResponse: any) => {
           if (signInResponse.errorCode == 200) {
-            this.alertMsg.success("Success", signInResponse.userDisplayMesg);
-            this.router.navigate(['dashboard/analytics']);
+            this.alertMsg.success(signInResponse.userDisplayMesg, 'Sucsess');
+            sessionStorage.setItem('X-Authorization', signInResponse.data.auth.token);
+            sessionStorage.setItem('userName', signInResponse.data.auth.userName);
+            this.router.navigate(['dashboard']);
+            this.getUserProfileDetails(signInResponse.data.auth);
           } else {
-            this.alertMsg.info(signInResponse.userDisplayMesg);
+            this.alertMsg.error(signInResponse.userDisplayMesg, 'Error');
           }
         });
     }
@@ -56,6 +59,25 @@ export class AuthSigninComponent implements OnInit {
 
   get signInFormControls(): { [key: string]: AbstractControl } {
     return this.signInForm.controls;
+  }
+
+  getUserProfileDetails(signInDetails) {
+    if (signInDetails) {
+      this.authservice.signInGetUserProfile(signInDetails.id).subscribe(getUserProfileDetailsResponse => {
+        if (getUserProfileDetailsResponse.errorCode == 200) {
+          sessionStorage.setItem('userName', getUserProfileDetailsResponse.data.userName);
+          sessionStorage.setItem('Email', getUserProfileDetailsResponse.data.email);
+          sessionStorage.setItem('mobileNumber', getUserProfileDetailsResponse.data.phoneNumber);
+          sessionStorage.setItem('roll', getUserProfileDetailsResponse.data.roll);
+          sessionStorage.setItem('roll', getUserProfileDetailsResponse.data.roll);
+        } else {
+          this.alertMsg.error(getUserProfileDetailsResponse.userDisplayMesg);
+        }
+      })
+    } else {
+      this.alertMsg.error('Somthing Went Wrong... ');
+    }
+
   }
 
 }
