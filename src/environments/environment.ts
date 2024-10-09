@@ -1,11 +1,13 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-const domainURL = 'http://192.168.3.95:3333/DevarCabs/'
+/* const domainURL = 'http://192.168.3.222:3333/DevarCabs/' */
+
+const domainURL = 'https://prabu-holidays.onrender.com/DevarCabs/'
 
 export const environment = {
   production: false,
-  baseURL:domainURL
+  baseURL: domainURL
 };
 
 /*

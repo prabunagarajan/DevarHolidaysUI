@@ -26,6 +26,22 @@ export interface Navigation extends NavigationItem {
 }
 
 const NavigationItems = [
+
+  {
+    id: 'master',
+    title: 'Master',
+    type: 'group',
+    icon: 'feather icon-monitor',
+    children: [
+      {
+        id: 'driverdetails',
+        title: 'Driver Details',
+        type: 'item',
+        url: '/master/driver-detail/list',
+        icon: 'feather icon-home'
+      }
+    ]
+  },
   {
     id: 'navigation',
     title: 'Navigation',
