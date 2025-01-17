@@ -21,8 +21,7 @@ const routes: Routes = [
   {
     path: 'view/:id',
     component: ViewDriverDetailsComponent
-  },
-
+  }
 ];
 
 @NgModule({

@@ -39,7 +39,15 @@ const NavigationItems = [
         type: 'item',
         url: '/master/driver-detail/list',
         icon: 'feather icon-home'
+      },
+      {
+        id: 'vehicledetails',
+        title: 'Vehicle Details',
+        type: 'item',
+        url: '/master/vehicle-detail/list',
+        icon: 'feather icon-home'
       }
+           
     ]
   },
   {

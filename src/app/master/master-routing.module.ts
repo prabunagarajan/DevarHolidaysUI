@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: 'driver-detail',
     loadChildren: () => import('./driver-details/driver-details.module').then(module => module.DriverDetailsModule)
+  },
+  {
+    path: 'vehicle-detail',
+    loadChildren: () => import('./vehicle-details/vehicle-details.module').then(module => module.VehicleDetailsModule)
   }
 ];
 

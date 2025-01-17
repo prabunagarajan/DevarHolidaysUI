@@ -5,6 +5,7 @@ import { DriverDetailsRoutingModule } from './driver-details-routing.module';
 import { AddEditDriverDetailsComponent } from './add-edit-driver-details/add-edit-driver-details.component';
 import { ViewDriverDetailsComponent } from './view-driver-details/view-driver-details.component';
 import { DriverDetailsComponent } from './driver-details.component';
+import { SharedModule } from 'src/app/theme/shared/shared.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { DriverDetailsComponent } from './driver-details.component';
     ViewDriverDetailsComponent],
   imports: [
     CommonModule,
-    DriverDetailsRoutingModule
+    DriverDetailsRoutingModule,
+    SharedModule
   ]
 })
 export class DriverDetailsModule { }

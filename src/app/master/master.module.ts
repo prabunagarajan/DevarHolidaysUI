@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { MasterRoutingModule } from './master-routing.module';
 import { SharedModule } from '../theme/shared/shared.module';
 
-
 @NgModule({
   declarations: [],
   imports: [
