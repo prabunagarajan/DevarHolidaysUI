@@ -4,10 +4,10 @@ import { AuthComponent } from '../theme/layout/auth/auth.component';
 
 
 const routes: Routes = [
-  {
+  /* {
     path: 'driver-detail',
     loadChildren: () => import('./driver-details/driver-details.module').then(module => module.DriverDetailsModule)
-  }
+  } */
 ];
 
 @NgModule({

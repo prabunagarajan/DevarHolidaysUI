@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common';
 import { MasterRoutingModule } from './master-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../theme/shared/shared.module';
-import { DriverDetailsRoutingModule } from './driver-details/driver-details-routing.module';
+/* import { DriverDetailsRoutingModule } from './driver-details/driver-details-routing.module';
 import { MainMaterialModule } from '../meterial/material-module';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator'; */
 
 
 @NgModule({
@@ -14,9 +14,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   imports: [
     CommonModule,
     MasterRoutingModule,
-    MainMaterialModule,
+   /*  MainMaterialModule, */
     SharedModule,
-    MatPaginatorModule
+   /*  MatPaginatorModule */
   ]
 })
 export class MasterModule { }
