@@ -6,13 +6,14 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        /* path: 'signup', */
+        /* path: 'signin', */
         path: '',
-        loadChildren: () => import('./auth-signup/auth-signup.module').then(module => module.AuthSignupModule)
+        loadChildren: () => import('./auth-signin/auth-signin.module').then(module => module.AuthSigninModule)
       },
       {
-        path: 'signin',
-        loadChildren: () => import('./auth-signin/auth-signin.module').then(module => module.AuthSigninModule)
+        /* path: 'signup', */
+        path: 'signup',
+        loadChildren: () => import('./auth-signup/auth-signup.module').then(module => module.AuthSignupModule)
       },
       {
         path: 'reset-password',

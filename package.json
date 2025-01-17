@@ -28,6 +28,7 @@
     "ng-click-outside": "^4.0.0",
     "ng2-validation": "^4.2.0",
     "ngx-perfect-scrollbar": "^8.0.0",
+    "ngx-toastr": "^11.2.1",
     "rxjs": "^6.5.2",
     "rxjs-compat": "^6.5.2",
     "screenfull": "^4.2.0",

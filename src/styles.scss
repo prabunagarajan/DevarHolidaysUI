@@ -2,3 +2,7 @@
 
 /* SCSS */
 @import "scss/style";
+@import '~ngx-toastr/toastr';
+.toast-top-right {
+    position: fixed !important;
+  }
