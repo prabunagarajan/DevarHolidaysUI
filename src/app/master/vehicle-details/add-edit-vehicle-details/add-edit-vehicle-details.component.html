@@ -1,1 +1,73 @@
-<p>add-edit-vehicle-details works!</p>
+<p>Add Vehicle Details</p>
+<div class="row">
+    <div class="col-xl-12">
+        <form [formGroup]="vehicleFormDetails" autocomplete="off">
+            <h5>Image Caps</h5>
+            <hr>
+            <app-card [hidHeader]="true" class="list-panel add-panel">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>FC Date</label>
+                            <input type="text" formControlName="fcDate" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Insurance Date</label>
+                            <input type="text" formControlName="insuranceDate" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Polution Date</label>
+                            <input type="text" formControlName="polutionDate" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Remarks</label>
+                            <input type="text" formControlName="remarks" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <input type="text" formControlName="status" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Tax Date</label>
+                            <input type="text" formControlName="taxDate" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Vehicle Color</label>
+                            <input type="text" formControlName="vehicleColor" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Vehicle Name</label>
+                            <input type="text" formControlName="vehicleName" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Vehicle Number</label>
+                            <input type="text" formControlName="vehicleNumber" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </app-card>
+        </form>
+    </div>
+</div>
