@@ -4,6 +4,9 @@ import { AdminComponent } from './theme/layout/admin/admin.component';
 import { AuthComponent } from './theme/layout/auth/auth.component';
 
 const routes: Routes = [
+
+
+  { path: "common", loadChildren: () => import('./common-components/common-components.module').then(module => module.CommonComponentsModule) },
   {
     path: '',
     component: AuthComponent,

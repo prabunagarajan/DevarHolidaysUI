@@ -27,6 +27,7 @@ import { NgbButtonsModule, NgbDropdownModule, NgbModule, NgbTabsetModule, NgbToo
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginInterceptor } from './demo/pages/interceptor/login-interceptor';
+import { CommonComponentsModule } from './common-components/common-components.module';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,6 @@ import { LoginInterceptor } from './demo/pages/interceptor/login-interceptor';
       preventDuplicates: true,
       closeButton: true
     })
-
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoginInterceptor, multi: true },
