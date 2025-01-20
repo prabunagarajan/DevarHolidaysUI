@@ -8,11 +8,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class AddEditVehicleDetailsComponent implements OnInit {
   vehicleFormDetails: FormGroup;
+  startDate = new Date(1990, 0, 1);
   constructor(
     private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
+    
     this.vehicleFormDetails = this.formBuilder.group({
       fcDate: [''],
       insuranceDate: [''],

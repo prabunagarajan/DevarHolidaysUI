@@ -9,7 +9,13 @@ import { ClickOutsideModule } from 'ng-click-outside';
 
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ApexChartComponent } from './components/chart/apex-chart/apex-chart.component';
-import {ApexChartService} from './components/chart/apex-chart/apex-chart.service';
+import { ApexChartService } from './components/chart/apex-chart/apex-chart.service';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -25,7 +31,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CardModule,
     BreadcrumbModule,
     ModalModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    MatTableModule,
+    // MatPaginatorModule,
+    // MatButtonModule,
+    // BsDatepickerModule.forRoot(),
+    // MatInputModule,
+    // MatNativeDateModule
   ],
   exports: [
     CommonModule,
@@ -39,7 +51,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DataFilterPipe,
     ClickOutsideModule,
     SpinnerComponent,
-    ApexChartComponent
+    ApexChartComponent,
+    // MatTableModule,
+    // MatPaginatorModule,
+    // MatButtonModule,
+    // // BsDatepickerModule.forRoot(),
+    // MatInputModule,
+    // MatNativeDateModule
   ],
   declarations: [
     DataFilterPipe,

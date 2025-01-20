@@ -42,8 +42,9 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Tax Date</label>
-                            <input type="text" formControlName="taxDate" class="form-control" />
-                        </div>
+                            <input type="text" formControlName="taxDate" class="form-control" bsDatepicker 
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }" />
+                                                </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
