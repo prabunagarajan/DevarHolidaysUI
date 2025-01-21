@@ -1,1 +1,227 @@
-<p>add-edit-driver-details works!</p>
+<h3>Add Driver Details</h3>
+
+<ul class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a [routerLink]="['/dashboard']" >Home</a>
+  </li>
+  <ng-container >
+    <li class="breadcrumb-item" [routerLink]="['/master/driver-detail/list']"><a href="javascript:" >Driver Details</a></li>
+    <li class="breadcrumb-item" ><a href="javascript:">{{screenName}}</a></li>
+  </ng-container>
+</ul>
+
+
+<div class="row">
+  <div class="col-xl-12">
+    <form [formGroup]="driverFormDetails"  autocomplete="off">
+      <!-- <h5>Driver Details</h5> -->
+      <hr>
+      <app-card [hidHeader]="true" class="list-panel add-panel">
+        <div class="row">
+          <!-- Aadhar Number -->
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Aadhar Number <span class="text-danger">*</span></label>
+              <input type="text" formControlName="aadharNumber" class="form-control" placeholder="Enter Aadhar Number"
+                maxlength="12" required 
+                [ngClass]="{ 'is-invalid': formSubmitted && driverForm.aadharNumber.errors }"
+                (keypress)="keyPress($event)" />
+
+              <div *ngIf="formSubmitted && driverForm.aadharNumber.errors" class="invalid-feedback">
+                <div *ngIf="driverForm.aadharNumber.errors.required">AadharNumber is required</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- County -->
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>County <span class="text-danger">*</span></label>
+              <input type="text" formControlName="county" class="form-control" placeholder="Enter County"
+                [ngClass]="{ 'is-invalid': formSubmitted && driverForm.county.errors }"
+                (keypress)="allowOnlyLetters($event)" />
+              <div *ngIf="formSubmitted && driverForm.county.errors" class="invalid-feedback">
+                <div *ngIf="driverForm.county.errors.required">County is required</div>
+              </div>
+            </div>
+          </div>
+          <!-- District -->
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>District <span class="text-danger">*</span></label>
+              <input type="text" formControlName="district" class="form-control" placeholder=" Enter District"
+                [ngClass]="{ 'is-invalid': formSubmitted && driverForm.district.errors }"
+                (keypress)="allowOnlyLetters($event)" />
+              <div *ngIf="formSubmitted && driverForm.district.errors" class="invalid-feedback">
+                <div *ngIf="driverForm.district.errors.required">District is required</div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Door Number -->
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Door Number <span class="text-danger">*</span></label>
+              <input type="text" formControlName="doorNumber" class="form-control" placeholder="Enter Door Number"
+                [ngClass]="{ 'is-invalid': formSubmitted && driverForm.doorNumber.errors }" />
+              <div *ngIf="formSubmitted && driverForm.doorNumber.errors" class="invalid-feedback">
+                <div *ngIf="driverForm.doorNumber.errors.required">DoorNumber is required</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Driving License Number -->
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Driving License Number <span class="text-danger">*</span></label>
+              <input type="text" formControlName="drivingLicenseNumber" class="form-control"
+                placeholder=" Enter Driving License Number"
+                [ngClass]="{ 'is-invalid': formSubmitted && driverForm.drivingLicenseNumber.errors }" />
+              <div *ngIf="formSubmitted && driverForm.drivingLicenseNumber.errors" class="invalid-feedback">
+                <div *ngIf="driverForm.drivingLicenseNumber.errors.required">DrivingLicenseNumber is required</div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <!-- Is Permanent Driver -->
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Is Permanent Driver <span class="text-danger">*</span></label>
+              <select formControlName="isPermanentDriver" class="form-control"
+                [ngClass]="{ 'is-invalid': formSubmitted && driverForm.isPermanentDriver.errors }">
+                <option value="" disabled selected>Select an option</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+              <div *ngIf="formSubmitted && driverForm.isPermanentDriver.errors?.required" class="invalid-feedback">
+                Is Permanent Driver is required
+              </div>
+            </div>
+          </div>
+          <!-- Mobile Number -->
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Mobile Number <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" formControlName="mobileNumber" placeholder="Enter Mobile Number"
+                maxlength="10" required  (keypress)="keyPress($event)"
+                [ngClass]="{ 'is-invalid': formSubmitted && driverForm.mobileNumber.errors }" />
+              <div *ngIf="formSubmitted && driverForm.mobileNumber.errors" class="invalid-feedback">
+                <div *ngIf="driverForm.mobileNumber.errors.required">MobileNumber is required</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Name -->
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Name <span class="text-danger">*</span></label>
+              <input type="text" formControlName="name" class="form-control" placeholder="Enter Name"
+                [ngClass]="{ 'is-invalid': formSubmitted && driverForm.name.errors }"
+                (keypress)="allowOnlyLetters($event)" />
+              <div *ngIf="formSubmitted && driverForm.name.errors" class="invalid-feedback">
+                <div *ngIf="driverForm.name.errors.required">Name is required</div>
+                <div *ngIf="driverForm.name.errors.pattern">Name must contain only letters (A-Z, a-z)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- State -->
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>State <span class="text-danger">*</span></label>
+              <input type="text" formControlName="state" class="form-control" placeholder="Enter State"
+                [ngClass]="{ 'is-invalid': formSubmitted && driverForm.state.errors }"
+                (keypress)="allowOnlyLetters($event)" />
+              <div *ngIf="formSubmitted && driverForm.state.errors" class="invalid-feedback">
+                <div *ngIf="driverForm.state.errors.required">State is required</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Status <span class="text-danger">*</span></label>
+              <select formControlName="status" class="form-control"
+                [ngClass]="{ 'is-invalid': formSubmitted && driverForm.status.errors }">
+                <option value="" disabled selected>Select Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+              <div *ngIf="formSubmitted && driverForm.status.errors" class="invalid-feedback">
+                <div *ngIf="driverForm.status.errors.required">Status is required</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Street -->
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Street <span class="text-danger">*</span></label>
+              <input type="text" formControlName="street" class="form-control" placeholder="Enter Street"
+                [ngClass]="{ 'is-invalid': formSubmitted && driverForm.street.errors }" />
+              <div *ngIf="formSubmitted && driverForm.street.errors" class="invalid-feedback">
+                <div *ngIf="driverForm.street.errors.required">Street is required</div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Village or City -->
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Village or City <span class="text-danger">*</span></label>
+              <input type="text" formControlName="villageOrCity" class="form-control"
+                placeholder="Enter Village or City"
+                [ngClass]="{ 'is-invalid': formSubmitted && driverForm.villageOrCity.errors }"
+                (keypress)="allowOnlyLetters($event)" />
+              <div *ngIf="formSubmitted && driverForm.villageOrCity.errors" class="invalid-feedback">
+                <div *ngIf="driverForm.villageOrCity.errors.required">VillageOrCity is required</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit and Cancel buttons -->
+        <div class="row mt-3">
+          <div class="col-lg-12 text-end">
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-outline-success" (click)="submit()">Submit</button>
+              <button type="button" class="btn btn-outline-secondary" [routerLink]="['/master/driver-detail/list']" (click)="back()">Back</button>
+
+            </div>
+          </div>
+        </div>
+      </app-card>
+    </form>
+  </div>
+</div>
+
+<app-ui-modal #submitPopUp [hideFooter]="true" [dialogClass]="'modal-lg'">
+  <div class="app-modal-header">
+    <h5 class="modal-title">Confirm</h5>
+    <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+      (click)="submitPopUp.hide()"><span aria-hidden="true">&times;</span></button>
+  </div>
+
+  <div class="app-modal-body">
+    <p>Are you sure whant submit?</p>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="finalSubmit()">
+        <i class="feather icon-thumbs-up"></i> Yes
+      </button>
+      <button type="button" class="btn btn-outline-danger" (click)="onCancel()">
+        <i class="feather icon-slash"></i> No
+      </button>
+    </div>
+  </div>
+</app-ui-modal>

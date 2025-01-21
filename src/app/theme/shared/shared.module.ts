@@ -16,6 +16,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -33,11 +34,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ModalModule,
     ClickOutsideModule,
     MatTableModule,
-    // MatPaginatorModule,
-    // MatButtonModule,
-    // BsDatepickerModule.forRoot(),
-    // MatInputModule,
-    // MatNativeDateModule
+    MatPaginatorModule,
+    MatButtonModule,
+    BsDatepickerModule.forRoot(),
+    MatInputModule,
+    MatNativeDateModule,
+    MatRadioModule
   ],
   exports: [
     CommonModule,
@@ -52,12 +54,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ClickOutsideModule,
     SpinnerComponent,
     ApexChartComponent,
-    // MatTableModule,
-    // MatPaginatorModule,
-    // MatButtonModule,
-    // // BsDatepickerModule.forRoot(),
-    // MatInputModule,
-    // MatNativeDateModule
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    // BsDatepickerModule.forRoot(),
+    MatInputModule,
+    MatNativeDateModule,
+    MatRadioModule
   ],
   declarations: [
     DataFilterPipe,

@@ -1,1 +1,138 @@
-<p>driver-details works!</p>
+<div class="row">
+    <div class="col-xl-12">
+        <form [formGroup]="driverFormSearchDetails" autocomplete="off">
+            <!-- <h5>Driver Details</h5> -->
+            <app-card [hidHeader]="true" class="list-panel add-panel">
+                <h4>Search</h4>
+                <div class="row">
+                    <!-- Aadhar Number -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Aadhar Number </label>
+                            <input type="text" formControlName="aadharNumber" class="form-control"
+                                placeholder="Enter Aadhar Number" maxlength="12" required
+                                (keypress)="keyPress($event)" />
+                        </div>
+                    </div>
+
+                    <!-- Aadhar Number -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Driving License Number</label>
+                            <input type="text" formControlName="drivingLicenseNumber" class="form-control"
+                                placeholder="Enter Driving Licence Number" />
+                        </div>
+                    </div>
+
+                    <!-- Aadhar Number -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Mobile Number </label>
+                            <input type="text" formControlName="mobileNumber" class="form-control"
+                                placeholder="Enter Mobiel Number" maxlength="10" (keypress)="keyPress($event)" />
+                        </div>
+                    </div>
+
+                    <!-- Aadhar Number -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Driver Name</label>
+                            <input type="text" formControlName="driverName" class="form-control"
+                                placeholder="Enter Driver Name" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit and Cancel buttons -->
+                <div class="row mt-3">
+                    <div class="col-lg-12 text-end">
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-outline-info" (click)="search()">Submit</button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="onclear()">Clear</button>
+
+                        </div>
+                    </div>
+                </div>
+
+            </app-card>
+        </form>
+    </div>
+</div>
+
+<div class="outer-container">
+    <div class="button-container">
+        <button class="btn btn-outline-success" [routerLink]="['/master/driver-detail/add']">
+            <span>Add</span>
+        </button>
+        <button class="btn btn-outline-secondary" (click)="onEdit()" [disabled]="!editEnable">
+            <span>Edit</span>
+        </button>
+        <button class="btn btn-outline-warning" (click)="onView()" [disabled]="!viewEnable">
+            <span>View</span>
+        </button>
+        <!-- <button (click)="onclear()">
+            <span>Clear</span>
+        </button> -->
+    </div>
+</div>
+
+<table mat-table [dataSource]="dataSource" class="driver-table">
+    <!-- Serial No Column -->
+    <ng-container matColumnDef="serialNo">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> S.No </th>
+        <td mat-cell *matCellDef="let element; let i = index" class="text-center"> {{ i + 1 }} </td>
+    </ng-container>
+
+    <!-- Driver Name Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Driver Name </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Mobile Number Column -->
+    <ng-container matColumnDef="mobileNumber">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Mobile Number </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.mobileNumber}} </td>
+    </ng-container>
+
+    <!-- Driving License Number Column -->
+    <ng-container matColumnDef="drivingLicenseNumber">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Driving License No </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.drivingLicenseNumber}} </td>
+    </ng-container>
+
+    <!-- Aadhar Number Column -->
+    <ng-container matColumnDef="aadharNumber">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Aadhar No </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.aadharNumber}} </td>
+    </ng-container>
+
+    <!-- District Column -->
+    <ng-container matColumnDef="district">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> District </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.district}} </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Status </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.status ? 'Active' : 'Inactive'}} </td>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Select </th>
+        <td mat-cell *matCellDef="let element" class="text-center">
+            <mat-radio-button (click)="onSelect(element)"></mat-radio-button>
+        </td>
+    </ng-container>
+
+
+    <!-- Header and Row Definitions -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [length]="totelCount" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]"
+    (page)="pageEvent($event)">
+</mat-paginator>
