@@ -27,6 +27,7 @@ import { NgbButtonsModule, NgbDropdownModule, NgbModule, NgbTabsetModule, NgbToo
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginInterceptor } from './demo/pages/interceptor/login-interceptor';
+import { AnimatorModule } from 'css-animator';
 
 @NgModule({
   declarations: [
@@ -52,10 +53,11 @@ import { LoginInterceptor } from './demo/pages/interceptor/login-interceptor';
     SharedModule,
     NgbDropdownModule,
     NgbTooltipModule,
-    NgbButtonsModule,
+    NgbButtonsModule, 
     NgbTabsetModule,
     HttpClientModule,
     NgbModule,
+    AnimatorModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-top-right',
