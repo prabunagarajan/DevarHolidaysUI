@@ -35,13 +35,15 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 Project Setup Details
 
 Node - 12.0.0
-
-Angular -  
-8.1.3 - npm install -g @angular/cli@8.1.2 , 
-npm install css-animator@2.1.0 --save, 
-npm install ngx-toastr@11.2.1
-
 Npm - 6.9.0 
+Angular - 8.1.3 
+
+npm install -g @angular/cli@8.1.2 , 
+npm install css-animator@2.1.0 --save, 
+npm install ngx-toastr@11.2.1,
+npm install ngx-bootstrap@5.6.2 --save
+ng add @angular/material
+npm install typescript@3.4.5 --save-dev
 
 **************************************************************************************************
 
