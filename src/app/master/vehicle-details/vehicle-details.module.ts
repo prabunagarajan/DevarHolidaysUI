@@ -12,6 +12,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     VehicleDetailsComponent,
@@ -28,7 +31,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule,
     // BsDatepickerModule.forRoot(),
     MatInputModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatRadioModule,
+
   ]
 })
 export class VehicleDetailsModule { }

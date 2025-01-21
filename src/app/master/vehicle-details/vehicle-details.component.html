@@ -3,15 +3,15 @@
     <button [routerLink]="'/master/vehicle-detail/add'">
       <span>Add</span>
     </button>
-    <button>
+    <button [disabled]="!editDisabled" (click)="edit()">
       <span>Edit</span>
     </button>
-    <button>
+    <button [disabled]="!viewDisabled" (click)="view()">
       <span>View</span>
     </button>
-    <button>
+    <!-- <button (click)="clearSelection()">
       <span>Clear</span>
-    </button>
+    </button> -->
   </div>
 </div>
 <table mat-table [dataSource]="dataSource" class="vehicle-table">
@@ -24,7 +24,7 @@
   <!-- Vehicle No Column -->
   <ng-container matColumnDef="vehicleNo">
     <th mat-header-cell *matHeaderCellDef class="text-center"> Vehicle No </th>
-    <td mat-cell *matCellDef="let element" class="text-center"> {{element.vehicleNo}} </td>
+    <td mat-cell *matCellDef="let element" class="text-center"> {{element.vehicleNumber}} </td>
   </ng-container>
 
   <!-- Vehicle Name Column -->
@@ -34,28 +34,45 @@
   </ng-container>
 
   <!-- Driver Name Column -->
-  <ng-container matColumnDef="driverName">
-    <th mat-header-cell *matHeaderCellDef class="text-center"> Driver Name </th>
-    <td mat-cell *matCellDef="let element" class="text-center"> {{element.driverName}} </td>
+  <ng-container matColumnDef="insuranceDate">
+    <th mat-header-cell *matHeaderCellDef class="text-center">InsuranceDate </th>
+    <td mat-cell *matCellDef="let element" class="text-center"> {{element.insuranceDate | date: 'dd-MM-yyyy'}} </td>
   </ng-container>
 
   <!-- District Column -->
-  <ng-container matColumnDef="district">
-    <th mat-header-cell *matHeaderCellDef class="text-center"> District </th>
-    <td mat-cell *matCellDef="let element" class="text-center"> {{element.district}} </td>
+  <ng-container matColumnDef="taxDate">
+    <th mat-header-cell *matHeaderCellDef class="text-center"> Tax Date </th>
+    <td mat-cell *matCellDef="let element" class="text-center"> {{element.taxDate | date: 'dd-MM-yyyy'}} </td>
   </ng-container>
 
   <!-- Phone No Column -->
-  <ng-container matColumnDef="phoneNo">
-    <th mat-header-cell *matHeaderCellDef class="text-center"> Phone No </th>
-    <td mat-cell *matCellDef="let element" class="text-center"> {{element.phoneNo}} </td>
+  <ng-container matColumnDef="fcDate">
+    <th mat-header-cell *matHeaderCellDef class="text-center"> FC Date </th>
+    <td mat-cell *matCellDef="let element" class="text-center"> {{element.fcDate | date: 'dd-MM-yyyy'}} </td>
   </ng-container>
+
+
+  <!-- Phone No Column -->
+  <ng-container matColumnDef="polutionDate">
+    <th mat-header-cell *matHeaderCellDef class="text-center"> Polution Date </th>
+    <td mat-cell *matCellDef="let element" class="text-center"> {{element.polutionDate | date: 'dd-MM-yyyy'}} </td>
+  </ng-container>
+
+  <!-- Action Column -->
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef class="text-center"> Select </th>
+    <td mat-cell *matCellDef="let element" class="text-center">
+      <mat-radio-button (change)="selectRecord(element)"></mat-radio-button>
+    </td>
+  </ng-container>
+
+
 
   <!-- Header and Row Definitions -->
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<mat-paginator [length]="dataSource.data.length" [pageSize]="pageSize" [pageSizeOptions]="[10,15, 25, 50]"
+<mat-paginator [length]="totalCounts" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]"
   (page)="pageEvent($event)">
 </mat-paginator>

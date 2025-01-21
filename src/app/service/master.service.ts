@@ -43,6 +43,24 @@ export class MasterService {
     return this.httpClient.get(url);
   }
   
+  driverDetailsGetAllList(obj): Observable<any> {
+    const url = this.baseUrl + 'vehicleDetails/search';
+    return this.httpClient.post(url, obj);
+  }
 
+  vehicleDetailsAdd(obj: any): Observable<any> {
+    const url = this.baseUrl + 'vehicleDetails/add';
+    return this.httpClient.post(url, obj);
+  }
+
+  updateVehicle(vehicle: any): Observable<any> {
+    const url = this.baseUrl + 'vehicleDetails/update';
+    return this.httpClient.put<any>(url, vehicle);
+  }
+
+  getVehicleById(id: number): Observable<any> {
+    const url = this.baseUrl + 'vehicleDetails/getById/'+id;
+    return this.httpClient.get<any>(url);
+  }
 
 }

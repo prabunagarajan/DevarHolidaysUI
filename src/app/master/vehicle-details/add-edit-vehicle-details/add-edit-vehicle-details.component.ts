@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { MasterService } from 'src/app/service/master.service';
 
 @Component({
   selector: 'app-add-edit-vehicle-details',
@@ -9,23 +12,149 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class AddEditVehicleDetailsComponent implements OnInit {
   vehicleFormDetails: FormGroup;
   startDate = new Date(1990, 0, 1);
+  formSubmitted = false;
+  flagSubmitButton: boolean;
+  vehicleId: any;
+  @ViewChild('submitPopUp', { static: false }) submitPopUp;
+  screenName = 'Add';
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private masterService: MasterService,
+    private toasterMsg: ToastrService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    
+    this.vehicleId = this.route.snapshot.paramMap.get('id');
+
     this.vehicleFormDetails = this.formBuilder.group({
-      fcDate: [''],
-      insuranceDate: [''],
-      polutionDate: [''],
-      remarks: [''],
-      status: [''],
-      taxDate: [''],
-      vehicleColor: [''],
-      vehicleName: [''],
-      vehicleNumber: [''],
+      fcDate: ['', Validators.required],
+      insuranceDate: ['', Validators.required],
+      polutionDate: ['', Validators.required],
+      remarks: ['', [Validators.required, Validators.maxLength(200)]],
+      status: ['', Validators.required],
+      taxDate: ['', Validators.required],
+      vehicleColor: ['', Validators.required],
+      vehicleName: ['', Validators.required],
+      vehicleNumber: ['', [Validators.required]]
     });
+
+    if (this.vehicleId) {
+      this.screenName = 'Edit'
+      this.loadVehicleDetails();
+    }
+  }
+
+  loadVehicleDetails() {
+    this.masterService.getVehicleById(this.vehicleId).subscribe(res => {
+      if (res.status === 's') {
+        const taxDate = this.formatDate(res.data.taxDate);
+        const fcDate = this.formatDate(res.data.fcDate);
+        const insuranceDate = this.formatDate(res.data.insuranceDate);
+        const polutionDate = this.formatDate(res.data.polutionDate);
+        const status = res.data.status ? 'Active' : 'Inactive';
+
+        this.vehicleFormDetails.patchValue({
+          fcDate: fcDate,
+          insuranceDate: insuranceDate,
+          polutionDate: polutionDate,
+          remarks: res.data.remarks,
+          status: status,
+          taxDate: taxDate,
+          vehicleColor: res.data.vehicleColor,
+          vehicleName: res.data.vehicleName,
+          vehicleNumber: res.data.vehicleNumber
+        });
+
+        this.flagSubmitButton = true;
+      } else {
+        this.toasterMsg.error('Failed to load vehicle details');
+      }
+    });
+  }
+
+  formatDate(date: string): string {
+    const parsedDate = new Date(date);
+    const day = ('0' + parsedDate.getDate()).slice(-2);
+    const month = ('0' + (parsedDate.getMonth() + 1)).slice(-2);
+    const year = parsedDate.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+  get f() {
+    return this.vehicleFormDetails.controls;
+  }
+
+  submit() {
+    if (this.vehicleFormDetails.valid) {
+      this.submitPopUp.show();
+    } else {
+      this.formSubmitted = true;
+    }
+  }
+
+  finalSubmit() {
+    if (this.vehicleId) {
+      this.vechileUpdate();
+    } else {
+      this.vehicleAdd();
+    }
+  }
+
+  vehicleAdd() {
+    const vehicleFormDetails = this.vehicleFormDetails.value;
+    const vehicleAddRequest =
+    {
+      fcDate: vehicleFormDetails.fcDate,
+      insuranceDate: vehicleFormDetails.insuranceDate,
+      polutionDate: vehicleFormDetails.polutionDate,
+      remarks: vehicleFormDetails.remarks,
+      status: vehicleFormDetails.status == 'Active' ? true : false,
+      taxDate: vehicleFormDetails.taxDate,
+      vehicleColor: vehicleFormDetails.vehicleColor,
+      vehicleName: vehicleFormDetails.vehicleName,
+      vehicleNumber: vehicleFormDetails.vehicleNumber
+    }
+    this.masterService.vehicleDetailsAdd(vehicleAddRequest).subscribe(vehicleAddResponse => {
+      if (vehicleAddResponse.status = 's') {
+        this.submitPopUp.hide();
+        this.toasterMsg.success("Vehicle details submitted successfully");
+        this.router.navigate(['/master/vehicle-detail/list'])
+      } else {
+        this.toasterMsg.error(vehicleAddResponse.userDisplayMesg);
+      }
+    });
+  }
+
+  vechileUpdate() {
+    const vehicleFormDetails = this.vehicleFormDetails.value;
+    const vechileUpdateRequest =
+    {
+      fcDate: vehicleFormDetails.fcDate,
+      insuranceDate: vehicleFormDetails.insuranceDate,
+      polutionDate: vehicleFormDetails.polutionDate,
+      remarks: vehicleFormDetails.remarks,
+      status: vehicleFormDetails.status == 'Active' ? true : false,
+      taxDate: vehicleFormDetails.taxDate,
+      vehicleColor: vehicleFormDetails.vehicleColor,
+      vehicleName: vehicleFormDetails.vehicleName,
+      vehicleNumber: vehicleFormDetails.vehicleNumber,
+      id: this.vehicleId
+    }
+    this.masterService.updateVehicle(vechileUpdateRequest).subscribe(vechileUpdateResponse => {
+      if (vechileUpdateResponse.status = 's') {
+        this.submitPopUp.hide();
+        this.toasterMsg.success("Vehicele details updated successfully");
+        this.router.navigate(['/master/vehicle-detail/list'])
+      } else {
+        this.toasterMsg.error(vechileUpdateResponse.userDisplayMesg);
+      }
+    })
+  }
+
+  onCancel() {
+    this.submitPopUp.hide();
   }
 
 }
