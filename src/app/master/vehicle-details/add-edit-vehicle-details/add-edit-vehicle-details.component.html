@@ -1,74 +1,157 @@
 <p>Add Vehicle Details</p>
+<ul class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a [routerLink]="['/dashboard']">Home</a>
+  </li>
+  <ng-container>
+    <li class="breadcrumb-item" [routerLink]="['/master/vehicle-detail/list']"><a href="javascript:"> Vehicle
+        Details</a>
+    </li>
+    <li class="breadcrumb-item"><a href="javascript:">{{screenName}}</a></li>
+  </ng-container>
+</ul>
 <div class="row">
-    <div class="col-xl-12">
-        <form [formGroup]="vehicleFormDetails" autocomplete="off">
-            <h5>Image Caps</h5>
-            <hr>
-            <app-card [hidHeader]="true" class="list-panel add-panel">
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>FC Date</label>
-                            <input type="text" formControlName="fcDate" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Insurance Date</label>
-                            <input type="text" formControlName="insuranceDate" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Polution Date</label>
-                            <input type="text" formControlName="polutionDate" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Remarks</label>
-                            <input type="text" formControlName="remarks" class="form-control" />
-                        </div>
-                    </div>
-                </div>
+  <div class="col-xl-12">
+    <form [formGroup]="vehicleFormDetails" autocomplete="off">
+      <h5>Image Caps</h5>
+      <hr>
+      <app-card [hidHeader]="true" class="list-panel add-panel">
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>FC Date</label>
+              <input type="text" formControlName="fcDate" class="form-control" bsDatepicker
+                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
+                [ngClass]="{ 'is-invalid': formSubmitted && f.fcDate.errors }" />
+              <div *ngIf="formSubmitted && f.fcDate.errors" class="invalid-feedback">
+                <div *ngIf="f.fcDate.errors.required">FC Date is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Insurance Date</label>
+              <input type="text" formControlName="insuranceDate" class="form-control" bsDatepicker
+                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
+                [ngClass]="{ 'is-invalid': formSubmitted && f.insuranceDate.errors }" />
+              <div *ngIf="formSubmitted && f.insuranceDate.errors" class="invalid-feedback">
+                <div *ngIf="f.insuranceDate.errors.required">Insurance Date is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Pollution Date</label>
+              <input type="text" formControlName="polutionDate" class="form-control" bsDatepicker
+                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
+                [ngClass]="{ 'is-invalid': formSubmitted && f.polutionDate.errors }" />
+              <div *ngIf="formSubmitted && f.polutionDate.errors" class="invalid-feedback">
+                <div *ngIf="f.polutionDate.errors.required">Pollution Date is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Remarks</label>
+              <input type="text" formControlName="remarks" class="form-control"
+                [ngClass]="{ 'is-invalid': formSubmitted && f.remarks.errors }" />
+              <div *ngIf="formSubmitted && f.remarks.errors" class="invalid-feedback">
+                <div *ngIf="f.remarks.errors.required">Remarks are required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Status</label>
+              <select formControlName="status" class="form-control"
+                [ngClass]="{ 'is-invalid': formSubmitted && f.status.errors }">
+                <option selected disabled>Select Status</option>
+                <option value="Active">Active</option>
+                <option value="InActive">InActive</option>
+              </select>
+              <div *ngIf="formSubmitted && f.status.errors" class="invalid-feedback">
+                <div *ngIf="f.status.errors.required">Status is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Tax Date</label>
+              <input type="text" formControlName="taxDate" class="form-control" bsDatepicker
+                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
+                [ngClass]="{ 'is-invalid': formSubmitted && f.taxDate.errors }" />
+              <div *ngIf="formSubmitted && f.taxDate.errors" class="invalid-feedback">
+                <div *ngIf="f.taxDate.errors.required">Tax Date is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Vehicle Color</label>
+              <input type="text" formControlName="vehicleColor" class="form-control"
+                [ngClass]="{ 'is-invalid': formSubmitted && f.vehicleColor.errors }" />
+              <div *ngIf="formSubmitted && f.vehicleColor.errors" class="invalid-feedback">
+                <div *ngIf="f.vehicleColor.errors.required">Vehicle Color is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Vehicle Name</label>
+              <input type="text" formControlName="vehicleName" class="form-control"
+                [ngClass]="{ 'is-invalid': formSubmitted && f.vehicleName.errors }" />
+              <div *ngIf="formSubmitted && f.vehicleName.errors" class="invalid-feedback">
+                <div *ngIf="f.vehicleName.errors.required">Vehicle Name is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Vehicle Number</label>
+              <input type="text" formControlName="vehicleNumber" class="form-control"
+                [ngClass]="{ 'is-invalid': formSubmitted && f.vehicleNumber.errors }" />
+              <div *ngIf="formSubmitted && f.vehicleNumber.errors" class="invalid-feedback">
+                <div *ngIf="f.vehicleNumber.errors.required">Vehicle Number is required</div>
+                <!-- <div *ngIf="f.vehicleNumber.errors.pattern">Invalid Vehicle Number format</div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-lg-12 text-end">
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-outline-success" (click)="submit()">Submit</button>
+              <button type="button" class="btn btn-outline-secondary" [routerLink]="['/master/vehicle-detail/list']" (click)="back()">Back</button>
 
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Status</label>
-                            <input type="text" formControlName="status" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Tax Date</label>
-                            <input type="text" formControlName="taxDate" class="form-control" bsDatepicker 
-                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }" />
-                                                </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Vehicle Color</label>
-                            <input type="text" formControlName="vehicleColor" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Vehicle Name</label>
-                            <input type="text" formControlName="vehicleName" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Vehicle Number</label>
-                            <input type="text" formControlName="vehicleNumber" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-            </app-card>
-        </form>
-    </div>
+            </div>
+          </div>
+        </div>
+      </app-card>
+    </form>
+  </div>
 </div>
+
+
+<app-ui-modal #submitPopUp [hideFooter]="true" [dialogClass]="'modal-lg'">
+  <div class="app-modal-header">
+    <h5 class="modal-title">Confirm</h5>
+    <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+      (click)="submitPopUp.hide()"><span aria-hidden="true">&times;</span></button>
+  </div>
+
+  <div class="app-modal-body">
+    <p>Are you sure whant submit?</p>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="finalSubmit()">
+        <i class="feather icon-thumbs-up"></i> Yes
+      </button>
+      <button type="button" class="btn btn-outline-danger" (click)="onCancel()">
+        <i class="feather icon-slash"></i> No
+      </button>
+    </div>
+  </div>
+</app-ui-modal>
