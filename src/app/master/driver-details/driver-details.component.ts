@@ -70,7 +70,12 @@ export class DriverDetailsComponent implements OnInit, AfterViewInit {
   }
 
   onclear() {
-
+    this.driverFormSearchDetails.patchValue({
+      aadharNumber: '',
+      drivingLicenseNumber: '',
+      mobileNumber: '',
+      name: ''
+    });
     const request = {
       filters: {
         aadharNumber: '',

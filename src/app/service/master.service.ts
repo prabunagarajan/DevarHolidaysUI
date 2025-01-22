@@ -19,11 +19,6 @@ export class MasterService {
     const url = this.baseUrl + 'vehicleDetails/getAll';
     return this.httpClient.get(url);
   }
-
-  vehicleDetailsGetAllList(obj): Observable<any> {
-    const url = this.baseUrl + 'DriverDetails/search';
-    return this.httpClient.post(url,obj);
-  }
   driverDetailsSearchList(obj): Observable<any> {
     const url = this.baseUrl + 'DriverDetails/search';
     return this.httpClient.post(url, obj);
@@ -43,7 +38,7 @@ export class MasterService {
     return this.httpClient.get(url);
   }
   
-  driverDetailsGetAllList(obj): Observable<any> {
+  vehicleDetailsGetAllList(obj): Observable<any> {
     const url = this.baseUrl + 'vehicleDetails/search';
     return this.httpClient.post(url, obj);
   }
