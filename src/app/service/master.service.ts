@@ -37,6 +37,11 @@ export class MasterService {
     const url = this.baseUrl + 'DriverDetails/getById/' + requestId;
     return this.httpClient.get(url);
   }
+
+  getDriverById(id: number): Observable<any> {
+    const url = this.baseUrl + 'DriverDetails/getById/'+id;
+    return this.httpClient.get<any>(url);
+  }
   
   vehicleDetailsGetAllList(obj): Observable<any> {
     const url = this.baseUrl + 'vehicleDetails/search';
