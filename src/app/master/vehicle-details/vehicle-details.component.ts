@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -18,11 +19,18 @@ export class VehicleDetailsComponent implements OnInit {
   viewDisabled: boolean;
   editDisabled: boolean;
   public pageSize = 10;
-  constructor(private driverService: MasterService,
+  vehicleFormSearchDetails: FormGroup;
+  constructor(private masterService: MasterService,
     private toaster: ToastrService,
-    private router: Router) { }
+    private router: Router,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.vehicleFormSearchDetails = this.formBuilder.group({
+      vehicleNumber: [''],
+      vehicleName: ['']
+    });
+
     this.loadDriverDetails();
   }
 
@@ -39,19 +47,15 @@ export class VehicleDetailsComponent implements OnInit {
       sortOrder: 'DESC',
     };
 
-    this.driverService.driverDetailsGetAllList(request).subscribe(
+    this.masterService.vehicleDetailsGetAllList(request).subscribe(
       (res) => {
         if (res.status === 's') {
           this.dataSource.data = res.data.contents;
           this.totalCounts = res.data.totalElements;
         } else {
-          console.error('Failed to fetch driver details');
+          this.dataSource = new MatTableDataSource();
         }
-      },
-      (error) => {
-        console.error('Error fetching driver details:', error);
-      }
-    );
+      });
   }
 
   selectRecord(record) {
@@ -78,5 +82,55 @@ export class VehicleDetailsComponent implements OnInit {
     const pageIndex = event.pageIndex;
     const pageSize = event.pageSize
     this.loadDriverDetails(pageIndex, pageSize);
+  }
+
+  search() {
+    const vehicleFormSearchDetails = this.vehicleFormSearchDetails.value;
+    const searchRequest = {
+      filters: {
+        vehicleNumber: vehicleFormSearchDetails.vehicleNumber ? vehicleFormSearchDetails.vehicleNumber : '',
+        vehicleName: vehicleFormSearchDetails.vehicleName ? vehicleFormSearchDetails.vehicleName : ''
+      },
+      pageNo: 0,
+      paginationSize: 10,
+      sortField: "modifiedDate",
+      sortOrder: "DESC"
+    }
+    this.masterService.vehicleDetailsGetAllList(searchRequest).subscribe(
+      (searchResponse) => {
+        if (searchResponse.status === 's') {
+          this.dataSource.data = searchResponse.data.contents;
+          this.totalCounts = searchResponse.data.totalElements;
+        } else {
+          this.dataSource = new MatTableDataSource();
+        }
+      }
+    );
+  }
+
+  onclear() {
+
+    this.vehicleFormSearchDetails.patchValue({
+      vehicleNumber: '',
+      vehicleName: ''
+    });
+
+    const clearRequest = {
+      filters: {},
+      pageNo: 0,
+      paginationSize: 10,
+      sortField: 'modifiedDate',
+      sortOrder: 'DESC',
+    };
+
+    this.masterService.vehicleDetailsGetAllList(clearRequest).subscribe(
+      (clearResponse) => {
+        if (clearResponse.status === 's') {
+          this.dataSource.data = clearResponse.data.contents;
+          this.totalCounts = clearResponse.data.totalElements;
+        } else {
+          this.dataSource = new MatTableDataSource();
+        }
+      });
   }
 }
