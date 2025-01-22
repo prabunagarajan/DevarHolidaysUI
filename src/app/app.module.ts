@@ -28,6 +28,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginInterceptor } from './demo/pages/interceptor/login-interceptor';
 import { AnimatorModule } from 'css-animator';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import { AnimatorModule } from 'css-animator';
     SharedModule,
     NgbDropdownModule,
     NgbTooltipModule,
-    NgbButtonsModule, 
+    NgbButtonsModule,
     NgbTabsetModule,
     HttpClientModule,
     NgbModule,
@@ -68,6 +69,7 @@ import { AnimatorModule } from 'css-animator';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoginInterceptor, multi: true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     NavigationItem
   ],
   bootstrap: [AppComponent]
