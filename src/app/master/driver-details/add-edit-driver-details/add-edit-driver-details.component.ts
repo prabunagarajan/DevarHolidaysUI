@@ -19,7 +19,7 @@ export class AddEditDriverDetailsComponent implements OnInit {
   listId: any;
   editDetails: any;
   submitFlag: boolean;
-
+  btnLoder: boolean;
   constructor(
     private fb: FormBuilder,
     private masterService: MasterService,
@@ -115,8 +115,10 @@ export class AddEditDriverDetailsComponent implements OnInit {
         street: this.driverFormDetails.value.street,
         villageOrCity: this.driverFormDetails.value.villageOrCity
       };
+      this.btnLoder = true;
       this.masterService.driverDetailsAdd(addDriverDetailsRequest).subscribe(
         (addDriverDetailsResponse: any) => {
+          this.btnLoder = false;
           if (addDriverDetailsResponse.status == 's') {
             this.toastr.success(addDriverDetailsResponse.userDisplayMesg ? addDriverDetailsResponse.userDisplayMesg : 'Driver details submited successfully!');
             this.router.navigate(['master/driver-detail/list']);
@@ -147,8 +149,10 @@ export class AddEditDriverDetailsComponent implements OnInit {
         villageOrCity: this.driverFormDetails.value.villageOrCity,
         id: this.listId
       };
+      this.btnLoder = true;
       this.masterService.driverDetailsUpdate(updateDriverDetailsRequest).subscribe(
         (updateDriverDetailsResponse: any) => {
+          this.btnLoder = false
           if (updateDriverDetailsResponse.status == 's') {
             this.toastr.success(updateDriverDetailsResponse.userDisplayMesg ? updateDriverDetailsResponse.userDisplayMesg : 'Driver details updated successfully!');
             this.router.navigate(['master/driver-detail/list']);
