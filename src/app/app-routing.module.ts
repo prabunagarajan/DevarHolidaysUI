@@ -59,6 +59,10 @@ const routes: Routes = [
       {
         path: 'master',
         loadChildren: () => import('./master/master.module').then(module => module.MasterModule)
+      },
+      {
+        path: 'container',
+        loadChildren: () => import('./container/container.module').then(module => module.ContainerModule)
       }
     ]
   }
