@@ -17,6 +17,7 @@ export class AddEditVehicleDetailsComponent implements OnInit {
   vehicleId: any;
   @ViewChild('submitPopUp', { static: false }) submitPopUp;
   screenName = 'Add';
+  btnLoder: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -116,7 +117,9 @@ export class AddEditVehicleDetailsComponent implements OnInit {
       vehicleName: vehicleFormDetails.vehicleName,
       vehicleNumber: vehicleFormDetails.vehicleNumber
     }
+    this.btnLoder = true;
     this.masterService.vehicleDetailsAdd(vehicleAddRequest).subscribe(vehicleAddResponse => {
+      this.btnLoder = false;
       if (vehicleAddResponse.status = 's') {
         this.submitPopUp.hide();
         this.toasterMsg.success("Vehicle details submitted successfully");
@@ -142,7 +145,9 @@ export class AddEditVehicleDetailsComponent implements OnInit {
       vehicleNumber: vehicleFormDetails.vehicleNumber,
       id: this.vehicleId
     }
+    this.btnLoder = true;
     this.masterService.updateVehicle(vechileUpdateRequest).subscribe(vechileUpdateResponse => {
+      this.btnLoder = false;
       if (vechileUpdateResponse.status = 's') {
         this.submitPopUp.hide();
         this.toasterMsg.success("Vehicele details updated successfully");
