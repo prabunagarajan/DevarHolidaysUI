@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 export interface NavigationItem {
   id: string;
@@ -47,7 +47,22 @@ const NavigationItems = [
         url: '/master/vehicle-detail/list',
         icon: 'feather icon-home'
       }
-           
+
+    ]
+  },
+  {
+    id: 'trip-details',
+    title: 'Trip Details',
+    type: 'group',
+    icon: 'feather icon-monitor',
+    children: [
+      {
+        id: 'tripdetails',
+        title: 'Trip Details',
+        type: 'item',
+        url: '/container/trip-detail/list',
+        icon: 'feather icon-home'
+      }
     ]
   },
   {
