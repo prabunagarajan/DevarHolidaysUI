@@ -347,6 +347,10 @@ const routes = [
             {
                 path: 'master',
                 loadChildren: () => __webpack_require__.e(/*! import() | master-master-module */ "master-master-module").then(__webpack_require__.bind(null, /*! ./master/master.module */ "./src/app/master/master.module.ts")).then(module => module.MasterModule)
+            },
+            {
+                path: 'container',
+                loadChildren: () => __webpack_require__.e(/*! import() | container-container-module */ "container-container-module").then(__webpack_require__.bind(null, /*! ./container/container.module */ "./src/app/container/container.module.ts")).then(module => module.ContainerModule)
             }
         ]
     }
@@ -1761,6 +1765,21 @@ const NavigationItems = [
         ]
     },
     {
+        id: 'trip-details',
+        title: 'Trip Details',
+        type: 'group',
+        icon: 'feather icon-monitor',
+        children: [
+            {
+                id: 'tripdetails',
+                title: 'Trip Details',
+                type: 'item',
+                url: '/container/trip-detail/list',
+                icon: 'feather icon-home'
+            }
+        ]
+    },
+    {
         id: 'navigation',
         title: 'Navigation',
         type: 'group',
@@ -2342,7 +2361,7 @@ let BreadcrumbComponent = class BreadcrumbComponent {
             }
         });
         this.navigationList = result;
-        this.titleService.setTitle(title + ' | Next Angular 8+ Admin Template');
+        this.titleService.setTitle('Devar Holidays | ' + title);
     }
 };
 BreadcrumbComponent.ctorParameters = () => [
