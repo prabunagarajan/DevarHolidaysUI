@@ -47,8 +47,11 @@
                 <div class="row mt-3">
                     <div class="col-lg-12 text-end">
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-outline-info" (click)="search()">Submit</button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="onclear()">Clear</button>
+                            <button type="submit" class="btn btn-outline-info list-button-container" (click)="search()">
+                                <span class="list-text-alaign-center">Submit</span>
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary list-button-container" (click)="onclear()"><span
+                                    class="list-text-alaign-center">Clear</span></button>
 
                         </div>
                     </div>
@@ -61,14 +64,14 @@
 
 <div class="outer-container">
     <div class="button-container">
-        <button class="btn btn-outline-success" [routerLink]="['/master/driver-detail/add']">
-            <span>Add</span>
+        <button class="btn btn-outline-success list-button-container" [routerLink]="['/master/driver-detail/add']">
+            <span class="list-text-alaign-center">Add</span>
         </button>
-        <button class="btn btn-outline-secondary" (click)="onEdit()" [disabled]="!editEnable">
-            <span>Edit</span>
+        <button class="btn btn-outline-secondary list-button-container" (click)="onEdit()" [disabled]="!editEnable">
+            <span class="list-text-alaign-center">Edit</span>
         </button>
-        <button class="btn btn-outline-warning" (click)="onView()" [disabled]="!viewEnable">
-            <span>View</span>
+        <button class="btn btn-outline-warning list-button-container" (click)="onView()" [disabled]="!viewEnable">
+            <span class="list-text-alaign-center">View</span>
         </button>
         <!-- <button (click)="onclear()">
             <span>Clear</span>
@@ -76,7 +79,7 @@
     </div>
 </div>
 
-<table mat-table [dataSource]="dataSource" class="driver-table">
+<table mat-table [dataSource]="dataSource" class="table-design">
     <!-- Serial No Column -->
     <ng-container matColumnDef="serialNo">
         <th mat-header-cell *matHeaderCellDef class="text-center"> S.No </th>
