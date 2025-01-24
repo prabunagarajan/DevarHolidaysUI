@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/service/common.service';
 
 @Component({
@@ -18,10 +20,13 @@ export class TripDetailsComponent implements OnInit {
   totelCount = 0;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   public pageSize = 10;
+  selectObj: any;
   constructor(
     private formBuilder: FormBuilder,
-    private commonService: CommonService
-  ) { }
+    private commonService: CommonService,
+    private router:Router,
+    private toastrMsg:ToastrService
+ ) { }
 
   ngOnInit() {
 
@@ -117,4 +122,29 @@ export class TripDetailsComponent implements OnInit {
     const pageSize = event.pageSize
     this.getAll(pageIndex, pageSize);
   }
+
+  onSelect(obj) {
+    this.selectObj = obj ? obj : undefined;
+    if (obj) {
+      this.viewEnable = true;
+      this.editEnable = true;
+    }
+  }
+
+  onEdit() {
+    if (this.selectObj) {
+      this.router.navigate(['/container/trip-detail/modification', this.selectObj.id]);
+    } else {
+      this.toastrMsg.error('View not able');
+    }
+  }
+
+  onView() {
+    if (this.selectObj) {
+      this.router.navigate(['/container/trip-detail/view', this.selectObj.id]);
+    } else {
+      this.toastrMsg.error('View not able');
+    }
+  }
+
 }
