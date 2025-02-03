@@ -14,6 +14,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatNativeDateModule,
     MatRadioModule,
-
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ]
 })
 export class VehicleDetailsModule { }

@@ -20,9 +20,11 @@
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
               <label>FC Date</label>
-              <input type="text" formControlName="fcDate" class="form-control" bsDatepicker
+              <!-- <input type="text" formControlName="fcDate" class="form-control" bsDatepicker
                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
-                [ngClass]="{ 'is-invalid': formSubmitted && f.fcDate.errors }" />
+                [ngClass]="{ 'is-invalid': formSubmitted && f.fcDate.errors }" /> -->
+                <input type="text"  [owlDateTime]="dt1" class="form-control" [owlDateTimeTrigger]="dt1" placeholder="Date Time" formControlName="fcDate">
+                <owl-date-time #dt1></owl-date-time>
               <div *ngIf="formSubmitted && f.fcDate.errors" class="invalid-feedback">
                 <div *ngIf="f.fcDate.errors.required">FC Date is required</div>
               </div>
@@ -31,9 +33,11 @@
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
               <label>Insurance Date</label>
-              <input type="text" formControlName="insuranceDate" class="form-control" bsDatepicker
+              <!-- <input type="text" formControlName="insuranceDate" class="form-control" bsDatepicker
                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
-                [ngClass]="{ 'is-invalid': formSubmitted && f.insuranceDate.errors }" />
+                [ngClass]="{ 'is-invalid': formSubmitted && f.insuranceDate.errors }" /> -->
+                <input type="text"  [owlDateTime]="dt2" class="form-control" [owlDateTimeTrigger]="dt2" placeholder="Date Time" formControlName="insuranceDate">
+                <owl-date-time #dt2></owl-date-time>
               <div *ngIf="formSubmitted && f.insuranceDate.errors" class="invalid-feedback">
                 <div *ngIf="f.insuranceDate.errors.required">Insurance Date is required</div>
               </div>
@@ -42,9 +46,11 @@
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
               <label>Pollution Date</label>
-              <input type="text" formControlName="polutionDate" class="form-control" bsDatepicker
+              <!-- <input type="text" formControlName="polutionDate" class="form-control" bsDatepicker
                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
-                [ngClass]="{ 'is-invalid': formSubmitted && f.polutionDate.errors }" />
+                [ngClass]="{ 'is-invalid': formSubmitted && f.polutionDate.errors }" /> -->
+                <input type="text"  [owlDateTime]="dt3" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="Date Time" formControlName="polutionDate">
+                <owl-date-time #dt3></owl-date-time>
               <div *ngIf="formSubmitted && f.polutionDate.errors" class="invalid-feedback">
                 <div *ngIf="f.polutionDate.errors.required">Pollution Date is required</div>
               </div>
@@ -79,9 +85,11 @@
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
               <label>Tax Date</label>
-              <input type="text" formControlName="taxDate" class="form-control" bsDatepicker
+              <!-- <input type="text" formControlName="taxDate" class="form-control" bsDatepicker
                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
-                [ngClass]="{ 'is-invalid': formSubmitted && f.taxDate.errors }" />
+                [ngClass]="{ 'is-invalid': formSubmitted && f.taxDate.errors }" /> -->
+                <input type="text"  [owlDateTime]="dt4" class="form-control" [owlDateTimeTrigger]="dt4" placeholder="Date Time" formControlName="taxDate">
+                <owl-date-time #dt4></owl-date-time>
               <div *ngIf="formSubmitted && f.taxDate.errors" class="invalid-feedback">
                 <div *ngIf="f.taxDate.errors.required">Tax Date is required</div>
               </div>

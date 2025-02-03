@@ -8,6 +8,7 @@ import { TripDetailsComponent } from './trip-details.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 
 @NgModule({
@@ -21,7 +22,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TripDetailsRoutingModule,
     SharedModule,
     BsDatepickerModule.forRoot(),
-    NgbModule
+    NgbModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ]
 })
 export class TripDetailsModule { }
