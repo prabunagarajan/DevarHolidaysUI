@@ -6,6 +6,8 @@ import { AddEditTripDetailsComponent } from './add-edit-trip-details/add-edit-tr
 import { ViewTripDetailsComponent } from './view-trip-details/view-trip-details.component';
 import { TripDetailsComponent } from './trip-details.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
   imports: [
     CommonModule,
     TripDetailsRoutingModule,
-    SharedModule
+    SharedModule,
+    BsDatepickerModule.forRoot(),
+    NgbModule
   ]
 })
 export class TripDetailsModule { }
