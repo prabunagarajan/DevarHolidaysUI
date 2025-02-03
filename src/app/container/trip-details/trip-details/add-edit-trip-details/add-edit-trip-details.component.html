@@ -34,7 +34,7 @@
                             <label>Date <span class="text-danger">*</span></label>
                             <!-- <input type="text" class="form-control" formControlName="date" placeholder="Select Date"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.date.errors }" /> -->
-                                <input type="text"  [owlDateTime]="dt1" class="form-control" [owlDateTimeTrigger]="dt1" placeholder="Date Time" formControlName="date">
+                                <input type="text"  [owlDateTime]="dt1" class="form-control" [owlDateTimeTrigger]="dt1" placeholder="Date Time" formControlName="date" [ngClass]="{ 'is-invalid': formSubmitted && tripForm.date.errors }">
                                 <owl-date-time #dt1></owl-date-time>
                             <div *ngIf="formSubmitted && tripForm.date.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.date.errors.required">Date is required</div>
@@ -118,9 +118,11 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Starting Time<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" formControlName="startingTime"
+                            <!-- <input type="text" class="form-control" formControlName="startingTime"
                                 placeholder="Select Starting Time" bsDatepicker
-                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue'}"[ngClass]="{ 'is-invalid': formSubmitted && tripForm.startingTime.errors }" />
+                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue'}"[ngClass]="{ 'is-invalid': formSubmitted && tripForm.startingTime.errors }" /> -->
+                                <input type="text"  [owlDateTime]="dt2" class="form-control" [owlDateTimeTrigger]="dt2" placeholder="Date Time" formControlName="startingTime" [ngClass]="{ 'is-invalid': formSubmitted && tripForm.date.errors }">
+                                <owl-date-time #dt2></owl-date-time>
                             <!-- <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Select Date & Time"  [ngModel]="startingTime" (ngModelChange)="updateDateTime($event)"  ngbDatepicker #dp="ngbDatepicker" container="body">
                                     <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button"> 📅</button>
@@ -138,11 +140,13 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Closing Time<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" formControlName="closingTime"
+                            <!-- <input type="text" class="form-control" formControlName="closingTime"
                                 placeholder="Enter Closing Time"
                                 bsDatepicker
                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue'}"
-                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.closingTime.errors }" />
+                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.closingTime.errors }" /> -->
+                                <input type="text"  [owlDateTime]="dt3" class="form-control" [owlDateTimeTrigger]="dt3" placeholder="Date Time" formControlName="startingTime" [ngClass]="{ 'is-invalid': formSubmitted && tripForm.date.errors }">
+                                <owl-date-time #dt3></owl-date-time>
                             <div *ngIf="formSubmitted && tripForm.closingTime.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.closingTime.errors.required">Closing Time is required
                                 </div>
