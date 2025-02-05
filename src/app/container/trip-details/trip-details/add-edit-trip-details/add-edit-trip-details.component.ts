@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-edit-trip-details',
@@ -12,7 +14,7 @@ export class AddEditTripDetailsComponent implements OnInit {
   formSubmitted: boolean;
   btnLoder: boolean;
   @ViewChild('submitPopUp', { static: false }) submitPopUp;
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private toastrMsg: ToastrService) { }
 
   ngOnInit() {
     this.tripFormDetails = this.formBuilder.group({
@@ -55,6 +57,30 @@ export class AddEditTripDetailsComponent implements OnInit {
       verifiedByManager: ['', Validators.required],
       verifiedByProprietor: ['', Validators.required]
     });
+    this.tripFormDetails.get('startingTime').valueChanges.subscribe(() => {
+      this.calculateTotalHours();
+    })
+    this.tripFormDetails.get('closingTime').valueChanges.subscribe(() => {
+      this.calculateTotalHours();
+    })
+
+  }
+
+  calculateTotalHours() {
+    const startTime = this.tripFormDetails.get('startingTime').value;
+    const closingTime = this.tripFormDetails.get('closingTime').value;
+    if (startTime && closingTime) {
+      const start = new Date(startTime);
+      const end = new Date(closingTime);
+
+      if (start < end) {
+        const diff = (end.getTime() - start.getTime()) / (1000 * 60 * 60);
+        this.tripFormDetails.patchValue({ totalTime: diff.toFixed(2) });
+      } else {
+        this.tripFormDetails.patchValue({ totalTime: 'Invalid Time' });
+        this.toastrMsg.error("Please Select Correct Date");
+      }
+    }
   }
 
   get tripForm(): { [key: string]: AbstractControl } {
@@ -71,12 +97,29 @@ export class AddEditTripDetailsComponent implements OnInit {
 
   }
 
+  acDetect(event) {
+    if (event === 'Non-AC') {
+      this.tripFormDetails.get('acStartingKM').disable();
+      this.tripFormDetails.get('acClosingKM').disable();
+      this.tripFormDetails.get('usedAcKM').disable();
+    } else {
+      this.tripFormDetails.get('acStartingKM').enable();
+      this.tripFormDetails.get('acClosingKM').enable();
+      this.tripFormDetails.get('usedAcKM').enable();
+    }
+  }
+
   finalSubmit() {
     this.addTripDetails();
   }
 
   addTripDetails() {
     const tripFormDetails = this.tripFormDetails.value;
+    console.log('date :', tripFormDetails.date)
+
+    const momentDate = moment(tripFormDetails.date).format('YYYY-MM-DD HH:mm:ss');
+    console.log('Formatted Date:', momentDate);
+
     const addTripDetailsRequest = {
       acClosingKM: tripFormDetails.acClosingKM || '',
       acNote: tripFormDetails.acNote || '',
@@ -86,10 +129,10 @@ export class AddEditTripDetailsComponent implements OnInit {
       advanceType: tripFormDetails.advanceType || '',
       balanceAmount: tripFormDetails.balanceAmount || '',
       closingKM: tripFormDetails.closingKM || '',
-      closingTime: tripFormDetails.closingTime || '',
+      closingTime: moment(tripFormDetails.closingTime).format('YYYY-MM-DD HH:mm:ss') || '',
       customerMobileNumber: tripFormDetails.customerMobileNumber || '',
       customerName: tripFormDetails.customerName || '',
-      date: tripFormDetails.date || '',
+      date: moment(tripFormDetails.date).format('YYYY-MM-DD HH:mm:ss') || '',
       dayRent: tripFormDetails.dayRent || '',
       diesel: tripFormDetails.diesel || '',
       driverName: tripFormDetails.driverName || '',
@@ -100,7 +143,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       profitAmount: tripFormDetails.profitAmount || '',
       receivedAmount: tripFormDetails.receivedAmount || '',
       startingKM: tripFormDetails.startingKM || '',
-      startingTime: tripFormDetails.startingTime || '',
+      startingTime: moment(tripFormDetails.startingTime).format('YYYY-MM-DD HH:mm:ss') || '',
       status: tripFormDetails.status || '',
       submittedBy: tripFormDetails.submittedBy || '',
       toll: tripFormDetails.toll || '',
@@ -113,6 +156,8 @@ export class AddEditTripDetailsComponent implements OnInit {
     }
 
     console.log('addTripDetailsRequest :', JSON.stringify(addTripDetailsRequest));
+
+    
 
   }
 
@@ -176,6 +221,8 @@ export class AddEditTripDetailsComponent implements OnInit {
       event.preventDefault();
     }
   }
+
+
 
 
 }

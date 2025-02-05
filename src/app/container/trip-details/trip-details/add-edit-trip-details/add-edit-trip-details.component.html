@@ -29,16 +29,35 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Date <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" formControlName="date" placeholder="Select Date"
-                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.date.errors }" />
-                            <div *ngIf="formSubmitted && tripForm.date.errors" class="invalid-feedback">
-                                <div *ngIf="tripForm.date.errors.required">Date is required</div>
+                            <label>Date<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <!-- DateTime Input -->
+                                <input type="text" [owlDateTime]="dt1" class="form-control" formControlName="date"
+                                    placeholder="Select Date & Time"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && tripForm.date.errors }" readonly>
+
+                                <!-- Calendar Icon Inside Input -->
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" [owlDateTimeTrigger]="dt1" type="button">
+                                        📅
+                                    </button>
+                                </div>
+
+                                <!-- Owl DateTime Picker -->
+                                <owl-date-time #dt1></owl-date-time>
+                            </div>
+
+                            <!-- Validation Message -->
+                            <div *ngIf="formSubmitted && tripForm.get('startingTime')?.errors" class="invalid-feedback">
+                                <div *ngIf="tripForm.get('startingTime')?.errors?.required">Date is required
+                                </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Customer Name<span class="text-danger">*</span></label>
@@ -116,33 +135,70 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Starting Time<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" formControlName="startingTime"
-                                placeholder="Select Starting Time" bsDatepicker
-                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue'}"[ngClass]="{ 'is-invalid': formSubmitted && tripForm.startingTime.errors }" />
-                            <!-- <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Select Date & Time"  [ngModel]="startingTime" (ngModelChange)="updateDateTime($event)"  ngbDatepicker #dp="ngbDatepicker" container="body">
-                                    <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button"> 📅</button>
-                                  </div>   
-                            <div class="input-group mt-2">
-                                <input type="time" class="form-control" [(ngModel)]="selectedTime"
-                                    (change)="updateTime()">
-                            </div> -->
-                            <div *ngIf="formSubmitted && tripForm.startingTime.errors" class="invalid-feedback">
-                                <div *ngIf="tripForm.startingTime.errors.required">Starting Time is required
+                            <div class="input-group">
+                                <!-- DateTime Input -->
+                                <input type="text" [owlDateTime]="dt2" class="form-control" placeholder="Select Staring Time"
+                                    formControlName="startingTime"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && tripForm.get('startingTime')?.errors }"
+                                    readonly />
+
+                                <!-- Calendar Icon Inside Input -->
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" [owlDateTimeTrigger]="dt2" type="button">
+                                        📅
+                                    </button>
+                                </div>
+
+                                <!-- Owl DateTime Picker -->
+                                <owl-date-time #dt2></owl-date-time>
+                            </div>
+
+                            <!-- Validation Message -->
+                            <div *ngIf="formSubmitted && tripForm.get('startingTime')?.errors" class="invalid-feedback">
+                                <div *ngIf="tripForm.get('startingTime')?.errors?.required">Starting Time is required
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Closing Time<span class="text-danger">*</span></label>
+                            <input type="text" [owlDateTime]="dt3" class="form-control" [owlDateTimeTrigger]="dt3"
+                                placeholder="Date Time" formControlName="closingTime"
+                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.date.errors }" readonly>
+
+
+                            <owl-date-time #dt3></owl-date-time>
+                            <div *ngIf="formSubmitted && tripForm.closingTime.errors" class="invalid-feedback">
+                                <div *ngIf="tripForm.closingTime.errors.required">Closing Time is required
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Closing Time<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" formControlName="closingTime"
-                                placeholder="Enter Closing Time"
-                                bsDatepicker
-                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue'}"
-                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.closingTime.errors }" />
-                            <div *ngIf="formSubmitted && tripForm.closingTime.errors" class="invalid-feedback">
-                                <div *ngIf="tripForm.closingTime.errors.required">Closing Time is required
+                            <div class="input-group">
+                                <!-- DateTime Input -->
+                                <input type="text" [owlDateTime]="dt3" class="form-control" placeholder="Select Closing Time"
+                                    formControlName="closingTime"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && tripForm.closingTime.errors }" readonly>
+
+                                <!-- Calendar Icon Inside Input -->
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" [owlDateTimeTrigger]="dt3" type="button">
+                                        📅
+                                    </button>
+                                </div>
+
+                                <!-- Owl DateTime Picker -->
+                                <owl-date-time #dt3></owl-date-time>
+                            </div>
+
+                            <!-- Validation Message -->
+                            <div *ngIf="formSubmitted && tripForm.get('startingTime')?.errors" class="invalid-feedback">
+                                <div *ngIf="tripForm.get('startingTime')?.errors?.required">Starting Time is required
                                 </div>
                             </div>
                         </div>
@@ -152,7 +208,7 @@
                             <label>Total Hrs<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="totalTime"
                                 placeholder="Enter Total HRS"
-                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.totalTime.errors }" />
+                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.totalTime.errors }" readonly />
                             <div *ngIf="formSubmitted && tripForm.totalTime.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.totalTime.errors.required">Total HRS is required
                                 </div>
@@ -163,6 +219,7 @@
                         <div class="form-group">
                             <label>AC Type<span class="text-danger">*</span></label>
                             <select class="form-control" formControlName="acOrNonAc"
+                                (click)="acDetect($event.target.value)"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.acOrNonAc.errors }">
                                 <option value="" disabled selected>Select AC or Non-AC</option>
                                 <option value="AC">AC</option>
