@@ -14,4 +14,9 @@ export class CommonService {
     const url = this.baseUrl + 'tripDetails/search';
     return this.httpClient.post(url, obj);
   }
+
+  tripDetailAddSubmit(requestObj): Observable<any> {
+    const url = this.baseUrl + 'tripDetails/search';
+    return this.httpClient.post(url, requestObj);
+  }
 }
