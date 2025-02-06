@@ -19,10 +19,10 @@
         <div class="row">
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
-              <label>FC Date</label>
-              <input type="text" formControlName="fcDate" class="form-control" bsDatepicker
-                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
-                [ngClass]="{ 'is-invalid': formSubmitted && f.fcDate.errors }" />
+              <label>FC Date <span class="text-danger">*</span></label>
+              <input type="text" [owlDateTime]="dt1" class="form-control" [owlDateTimeTrigger]="dt1"
+                placeholder="Date Time" formControlName="fcDate">
+              <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
               <div *ngIf="formSubmitted && f.fcDate.errors" class="invalid-feedback">
                 <div *ngIf="f.fcDate.errors.required">FC Date is required</div>
               </div>
@@ -30,10 +30,10 @@
           </div>
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
-              <label>Insurance Date</label>
-              <input type="text" formControlName="insuranceDate" class="form-control" bsDatepicker
-                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
-                [ngClass]="{ 'is-invalid': formSubmitted && f.insuranceDate.errors }" />
+              <label>Insurance Date<span class="text-danger">*</span></label>
+              <input type="text" [owlDateTime]="dt2" class="form-control" [owlDateTimeTrigger]="dt2"
+                placeholder="Date Time" formControlName="insuranceDate">
+              <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
               <div *ngIf="formSubmitted && f.insuranceDate.errors" class="invalid-feedback">
                 <div *ngIf="f.insuranceDate.errors.required">Insurance Date is required</div>
               </div>
@@ -41,10 +41,10 @@
           </div>
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
-              <label>Pollution Date</label>
-              <input type="text" formControlName="polutionDate" class="form-control" bsDatepicker
-                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
-                [ngClass]="{ 'is-invalid': formSubmitted && f.polutionDate.errors }" />
+              <label>Pollution Date<span class="text-danger">*</span></label>
+              <input type="text" [owlDateTime]="dt3" class="form-control" [owlDateTimeTrigger]="dt3"
+                placeholder="Date Time" formControlName="polutionDate">
+              <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
               <div *ngIf="formSubmitted && f.polutionDate.errors" class="invalid-feedback">
                 <div *ngIf="f.polutionDate.errors.required">Pollution Date is required</div>
               </div>
@@ -52,7 +52,7 @@
           </div>
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
-              <label>Remarks</label>
+              <label>Remarks<span class="text-danger">*</span></label>
               <input type="text" formControlName="remarks" class="form-control"
                 [ngClass]="{ 'is-invalid': formSubmitted && f.remarks.errors }" />
               <div *ngIf="formSubmitted && f.remarks.errors" class="invalid-feedback">
@@ -64,7 +64,7 @@
         <div class="row">
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
-              <label>Status</label>
+              <label>Status<span class="text-danger">*</span></label>
               <select formControlName="status" class="form-control"
                 [ngClass]="{ 'is-invalid': formSubmitted && f.status.errors }">
                 <option selected disabled>Select Status</option>
@@ -78,10 +78,13 @@
           </div>
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
-              <label>Tax Date</label>
-              <input type="text" formControlName="taxDate" class="form-control" bsDatepicker
+              <label>Tax Date<span class="text-danger">*</span></label>
+              <!-- <input type="text" formControlName="taxDate" class="form-control" bsDatepicker
                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
-                [ngClass]="{ 'is-invalid': formSubmitted && f.taxDate.errors }" />
+                [ngClass]="{ 'is-invalid': formSubmitted && f.taxDate.errors }" /> -->
+              <input type="text" [owlDateTime]="dt4" class="form-control" [owlDateTimeTrigger]="dt4"
+                placeholder="Date Time" formControlName="taxDate">
+              <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
               <div *ngIf="formSubmitted && f.taxDate.errors" class="invalid-feedback">
                 <div *ngIf="f.taxDate.errors.required">Tax Date is required</div>
               </div>
@@ -89,7 +92,7 @@
           </div>
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
-              <label>Vehicle Color</label>
+              <label>Vehicle Color<span class="text-danger">*</span></label>
               <input type="text" formControlName="vehicleColor" class="form-control"
                 [ngClass]="{ 'is-invalid': formSubmitted && f.vehicleColor.errors }" />
               <div *ngIf="formSubmitted && f.vehicleColor.errors" class="invalid-feedback">
@@ -99,7 +102,7 @@
           </div>
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
-              <label>Vehicle Name</label>
+              <label>Vehicle Name<span class="text-danger">*</span></label>
               <input type="text" formControlName="vehicleName" class="form-control"
                 [ngClass]="{ 'is-invalid': formSubmitted && f.vehicleName.errors }" />
               <div *ngIf="formSubmitted && f.vehicleName.errors" class="invalid-feedback">
@@ -111,12 +114,12 @@
         <div class="row">
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
-              <label>Vehicle Number</label>
+              <label>Vehicle Number<span class="text-danger">*</span></label>
               <input type="text" formControlName="vehicleNumber" class="form-control"
-                [ngClass]="{ 'is-invalid': formSubmitted && f.vehicleNumber.errors }" />
+                [ngClass]="{ 'is-invalid': formSubmitted && f.vehicleNumber.errors }"
+                (keydown)="spaceNotAllowd($event)" />
               <div *ngIf="formSubmitted && f.vehicleNumber.errors" class="invalid-feedback">
                 <div *ngIf="f.vehicleNumber.errors.required">Vehicle Number is required</div>
-                <!-- <div *ngIf="f.vehicleNumber.errors.pattern">Invalid Vehicle Number format</div> -->
               </div>
             </div>
           </div>
@@ -125,7 +128,8 @@
           <div class="col-lg-12 text-end">
             <div class="modal-footer">
               <button type="submit" class="btn btn-outline-success" (click)="submit()">Submit</button>
-              <button type="button" class="btn btn-outline-secondary" [routerLink]="['/master/vehicle-detail/list']" (click)="back()">Back</button>
+              <button type="button" class="btn btn-outline-secondary" [routerLink]="['/master/vehicle-detail/list']"
+                (click)="back()">Back</button>
 
             </div>
           </div>
@@ -146,8 +150,8 @@
   <div class="app-modal-body">
     <p>Are you sure whant submit?</p>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-primary" (click)="finalSubmit()">
-        <i class="feather icon-thumbs-up"></i> Yes
+      <button type="button" class="btn btn-outline-primary" [disabled]="btnLoder" (click)="finalSubmit()">
+        <i class="fa" [ngClass]="{'fa-spin fa-asterisk': btnLoder, 'fa-check': !btnLoder}"></i>Yes
       </button>
       <button type="button" class="btn btn-outline-danger" (click)="onCancel()">
         <i class="feather icon-slash"></i> No

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { MasterService } from 'src/app/service/master.service';
 
@@ -17,6 +18,7 @@ export class AddEditVehicleDetailsComponent implements OnInit {
   vehicleId: any;
   @ViewChild('submitPopUp', { static: false }) submitPopUp;
   screenName = 'Add';
+  btnLoder: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private masterService: MasterService,
@@ -106,17 +108,19 @@ export class AddEditVehicleDetailsComponent implements OnInit {
     const vehicleFormDetails = this.vehicleFormDetails.value;
     const vehicleAddRequest =
     {
-      fcDate: vehicleFormDetails.fcDate,
-      insuranceDate: vehicleFormDetails.insuranceDate,
-      polutionDate: vehicleFormDetails.polutionDate,
-      remarks: vehicleFormDetails.remarks,
+      fcDate: moment(vehicleFormDetails.fcDate).format('YYYY-MM-DD') || '',
+      insuranceDate: moment(vehicleFormDetails.insuranceDate).format('YYYY-MM-DD') || '',
+      polutionDate: moment(vehicleFormDetails.polutionDate).format('YYYY-MM-DD') || '',
+      remarks: vehicleFormDetails.remarks || '',
       status: vehicleFormDetails.status == 'Active' ? true : false,
-      taxDate: vehicleFormDetails.taxDate,
-      vehicleColor: vehicleFormDetails.vehicleColor,
-      vehicleName: vehicleFormDetails.vehicleName,
-      vehicleNumber: vehicleFormDetails.vehicleNumber
+      taxDate: moment(vehicleFormDetails.taxDate).format('YYYY-MM-DD') || '',
+      vehicleColor: vehicleFormDetails.vehicleColor || '',
+      vehicleName: vehicleFormDetails.vehicleName || '',
+      vehicleNumber: vehicleFormDetails.vehicleNumber || ''
     }
+    this.btnLoder = true;
     this.masterService.vehicleDetailsAdd(vehicleAddRequest).subscribe(vehicleAddResponse => {
+      this.btnLoder = false;
       if (vehicleAddResponse.status = 's') {
         this.submitPopUp.hide();
         this.toasterMsg.success("Vehicle details submitted successfully");
@@ -131,18 +135,20 @@ export class AddEditVehicleDetailsComponent implements OnInit {
     const vehicleFormDetails = this.vehicleFormDetails.value;
     const vechileUpdateRequest =
     {
-      fcDate: vehicleFormDetails.fcDate,
-      insuranceDate: vehicleFormDetails.insuranceDate,
-      polutionDate: vehicleFormDetails.polutionDate,
-      remarks: vehicleFormDetails.remarks,
+      fcDate: moment(vehicleFormDetails.fcDate).format('YYYY-MM-DD') || '',
+      insuranceDate: moment(vehicleFormDetails.insuranceDate).format('YYYY-MM-DD') || '',
+      polutionDate: moment(vehicleFormDetails.polutionDate).format('YYYY-MM-DD') || '',
+      remarks: vehicleFormDetails.remarks || '',
       status: vehicleFormDetails.status == 'Active' ? true : false,
-      taxDate: vehicleFormDetails.taxDate,
-      vehicleColor: vehicleFormDetails.vehicleColor,
-      vehicleName: vehicleFormDetails.vehicleName,
-      vehicleNumber: vehicleFormDetails.vehicleNumber,
+      taxDate: moment(vehicleFormDetails.taxDate).format('YYYY-MM-DD') || '',
+      vehicleColor: vehicleFormDetails.vehicleColor || '',
+      vehicleName: vehicleFormDetails.vehicleName || '',
+      vehicleNumber: vehicleFormDetails.vehicleNumber || '',
       id: this.vehicleId
     }
+    this.btnLoder = true;
     this.masterService.updateVehicle(vechileUpdateRequest).subscribe(vechileUpdateResponse => {
+      this.btnLoder = false;
       if (vechileUpdateResponse.status = 's') {
         this.submitPopUp.hide();
         this.toasterMsg.success("Vehicele details updated successfully");
@@ -155,6 +161,14 @@ export class AddEditVehicleDetailsComponent implements OnInit {
 
   onCancel() {
     this.submitPopUp.hide();
+  }
+
+  spaceNotAllowd(event: KeyboardEvent) {
+    const charCode = event.which ? event.which : event.keyCode;
+    if (charCode === 32) {
+      event.preventDefault();
+      return;
+    }
   }
 
 }

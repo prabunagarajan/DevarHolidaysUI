@@ -1,3 +1,5 @@
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
 .view-label {
     font-weight: bold;
     display: block;
@@ -8,3 +10,152 @@
     padding: 0.5rem 0;
     border-bottom: 1px solid #ddd;
 }
+
+
+// 
+
+
+.table-design {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    box-shadow: none;
+    /* Removed box-shadow */
+    border-radius: 0;
+    /* Removed border-radius */
+    overflow: hidden;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+}
+
+
+
+th {
+    background: linear-gradient(gray , gray );
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+
+tr:nth-child(even) td {
+    background-color: #f7f7f7;
+}
+
+.mat-header-row {
+    border-bottom: none;
+    /* Removed border */
+}
+
+.mat-row {
+    border-bottom: none;
+    /* Removed border */
+}
+
+.mat-header-cell,
+.mat-cell {
+    padding: 12px 20px;
+}
+
+.mat-paginator {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #ffffff;
+    border-radius: 0;
+    /* Removed border-radius */
+    box-shadow: none;
+    /* Removed box-shadow */
+    padding: 10px;
+}
+
+.mat-paginator-range-actions {
+    display: none;
+}
+
+.mat-paginator-previous,
+.mat-paginator-next {
+    color: #1e88e5;
+    transition: color 0.3s ease;
+}
+
+.mat-paginator-previous:hover,
+.mat-paginator-next:hover {
+    color: #42a5f5;
+}
+
+.mat-paginator-page-size {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+
+
+/* List Button Css Start*/
+
+/*Button Design*/
+.outer-container {
+    display: flex;
+    justify-content: flex-end; /* Align the button container to the right */
+    width: 100%; /* Ensures the outer container takes up the full width */
+  }
+  
+  .list-button-container {
+    display: flex;
+    justify-content: flex-start; /* Align buttons to the left within the container */
+    gap: 10px; /* Optional: adds space between buttons */
+  }
+  
+
+  
+  /* From Uiverse.io by mrhyddenn */ 
+.list-button-container {
+  background: #fff;
+  border: none;
+  padding: 10px 20px;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  width: 120px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: skew(-21deg);
+}
+
+.list-text-alaign-center {
+  display: inline-block;
+  transform: skew(21deg);
+}
+
+.list-button-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  left: 0;
+  background: rgb(82, 82, 82);
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.5s;
+}
+
+.list-button-container:hover {
+  color: #fff;
+}
+
+.list-button-container:hover::before {
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+
+
+/* List Buttons Css End */
