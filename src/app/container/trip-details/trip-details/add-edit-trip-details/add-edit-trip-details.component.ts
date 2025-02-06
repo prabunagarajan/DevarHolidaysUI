@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
+import { CommonService } from 'src/app/service/common.service';
 
 @Component({
   selector: 'app-add-edit-trip-details',
@@ -14,9 +16,28 @@ export class AddEditTripDetailsComponent implements OnInit {
   formSubmitted: boolean;
   btnLoder: boolean;
   @ViewChild('submitPopUp', { static: false }) submitPopUp;
-  constructor(private formBuilder: FormBuilder, private toastrMsg: ToastrService) { }
+  acValidationFlag: boolean;
+  maxDate = new Date();
+  vehicleList: any[];
+  driverList: any;
+  getTripDetails: any;
+  tripId = '';
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastrMsg: ToastrService,
+    private commonService: CommonService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+
+    this.activatedRoute.params.subscribe(tripIdResponse => {
+      if (tripIdResponse.id) {
+        this.tripId = tripIdResponse.id;
+        this.getTripDetailsForm(tripIdResponse.id);
+      }
+    })
+
     this.tripFormDetails = this.formBuilder.group({
       createdDate: [''],
       createdBy: [''],
@@ -59,11 +80,25 @@ export class AddEditTripDetailsComponent implements OnInit {
     });
     this.tripFormDetails.get('startingTime').valueChanges.subscribe(() => {
       this.calculateTotalHours();
-    })
+    });
     this.tripFormDetails.get('closingTime').valueChanges.subscribe(() => {
       this.calculateTotalHours();
-    })
+    });
 
+    this.commonService.activeVechicle().subscribe(vehicleResponse => {
+      if (vehicleResponse.status == 's') {
+        this.vehicleList = vehicleResponse.data;
+      } else {
+        this.vehicleList = [];
+      }
+    });
+    this.commonService.activeDriver().subscribe(driverResponse => {
+      if (driverResponse.status == 's') {
+        this.driverList = driverResponse.data;
+      } else {
+        this.driverList = [];
+      }
+    });
   }
 
   calculateTotalHours() {
@@ -83,43 +118,52 @@ export class AddEditTripDetailsComponent implements OnInit {
     }
   }
 
-  get tripForm(): { [key: string]: AbstractControl } {
+  get tripForm() {
     return this.tripFormDetails.controls;
   }
 
   submit(tripFormDetails) {
-    console.log("Form Validity:", tripFormDetails.valid);
-    if (!tripFormDetails.valid) {
+    if (this.tripFormDetails.invalid) {
       this.formSubmitted = true;
+    } else if (tripFormDetails.value.startingKM >= tripFormDetails.value.closingKM) {
+      this.toastrMsg.warning('Please enter Starting KM greater than Closing KM');
+    } else if (tripFormDetails.value.acStartingKM >= tripFormDetails.value.acClosingKM) {
+      this.toastrMsg.warning('Please enter AC Starting KM greater than AC Closing KM');
     } else {
       this.submitPopUp.show();
     }
-
   }
 
   acDetect(event) {
     if (event === 'Non-AC') {
-      this.tripFormDetails.get('acStartingKM').disable();
-      this.tripFormDetails.get('acClosingKM').disable();
-      this.tripFormDetails.get('usedAcKM').disable();
+      this.tripFormDetails.controls['usedAcKM'].clearValidators();
+      this.tripFormDetails.controls["usedAcKM"].updateValueAndValidity();
+      this.tripFormDetails.controls['acStartingKM'].clearValidators();
+      this.tripFormDetails.controls["acStartingKM"].updateValueAndValidity();
+      this.tripFormDetails.controls['acClosingKM'].clearValidators();
+      this.tripFormDetails.controls["acClosingKM"].updateValueAndValidity();
+      this.acValidationFlag = true;
     } else {
-      this.tripFormDetails.get('acStartingKM').enable();
-      this.tripFormDetails.get('acClosingKM').enable();
-      this.tripFormDetails.get('usedAcKM').enable();
+      this.tripFormDetails.controls['usedAcKM'].setValidators([Validators.required]);
+      this.tripFormDetails.controls["usedAcKM"].updateValueAndValidity();
+      this.tripFormDetails.controls['acStartingKM'].setValidators([Validators.required]);
+      this.tripFormDetails.controls["acStartingKM"].updateValueAndValidity();
+      this.tripFormDetails.controls['acClosingKM'].setValidators([Validators.required]);
+      this.tripFormDetails.controls["acClosingKM"].updateValueAndValidity();
+      this.acValidationFlag = false;
     }
   }
 
   finalSubmit() {
-    this.addTripDetails();
+    if (this.tripId) {
+      this.updateTripDetails();
+    } else {
+      this.addTripDetails();
+    }
   }
 
   addTripDetails() {
     const tripFormDetails = this.tripFormDetails.value;
-    console.log('date :', tripFormDetails.date)
-
-    const momentDate = moment(tripFormDetails.date).format('YYYY-MM-DD HH:mm:ss');
-    console.log('Formatted Date:', momentDate);
-
     const addTripDetailsRequest = {
       acClosingKM: tripFormDetails.acClosingKM || '',
       acNote: tripFormDetails.acNote || '',
@@ -132,7 +176,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       closingTime: moment(tripFormDetails.closingTime).format('YYYY-MM-DD HH:mm:ss') || '',
       customerMobileNumber: tripFormDetails.customerMobileNumber || '',
       customerName: tripFormDetails.customerName || '',
-      date: moment(tripFormDetails.date).format('YYYY-MM-DD HH:mm:ss') || '',
+      date: moment(tripFormDetails.date).format('YYYY-MM-DD') || '',
       dayRent: tripFormDetails.dayRent || '',
       diesel: tripFormDetails.diesel || '',
       driverName: tripFormDetails.driverName || '',
@@ -144,7 +188,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       receivedAmount: tripFormDetails.receivedAmount || '',
       startingKM: tripFormDetails.startingKM || '',
       startingTime: moment(tripFormDetails.startingTime).format('YYYY-MM-DD HH:mm:ss') || '',
-      status: tripFormDetails.status || '',
+      status: tripFormDetails.status || 'SUBMITTED',
       submittedBy: tripFormDetails.submittedBy || '',
       toll: tripFormDetails.toll || '',
       totalRent: tripFormDetails.totalRent || '',
@@ -152,17 +196,28 @@ export class AddEditTripDetailsComponent implements OnInit {
       usedAcKM: tripFormDetails.usedAcKM || '',
       usedKM: tripFormDetails.usedKM || '',
       vehicleNumber: tripFormDetails.vehicleNumber || '',
-      visitingPlace: tripFormDetails.visitingPlace || ''
+      visitingPlace: tripFormDetails.visitingPlace || '',
+      verifiedByManager: tripFormDetails.verifiedByManager || '',
+      verifiedByProprietor: tripFormDetails.verifiedByProprietor || '',
     }
 
-    console.log('addTripDetailsRequest :', JSON.stringify(addTripDetailsRequest));
+    this.btnLoder = true;
+    this.commonService.tripDetailAddSubmit(addTripDetailsRequest).subscribe(addTripDetailsResponse => {
+      this.btnLoder = false;
+      if (addTripDetailsResponse.status = 's') {
+        this.submitPopUp.hide();
+        this.toastrMsg.success("Vehicle details submitted successfully");
+        this.router.navigate(['/container/trip-detail/list'])
+      } else {
+        this.toastrMsg.error(addTripDetailsResponse.userDisplayMesg);
+      }
+    })
 
-    
+
 
   }
 
   startingKM(startingKMElemant) {
-    console.log('startingKMElemant :', startingKMElemant);
     if (startingKMElemant) {
       if (this.tripFormDetails.controls.closingKM.value) {
         const usedKM = parseFloat(startingKMElemant) + parseFloat(this.tripFormDetails.controls.closingKM.value);
@@ -181,11 +236,9 @@ export class AddEditTripDetailsComponent implements OnInit {
     }
   }
   closeingKM(closingKMElemant) {
-
-    console.log('closingKMElemant :', closingKMElemant);
     if (closingKMElemant) {
       if (this.tripFormDetails.controls.closingKM.value) {
-        const usedKM = parseFloat(closingKMElemant) + parseFloat(this.tripFormDetails.controls.startingKM.value);
+        const usedKM = parseFloat(closingKMElemant) - parseFloat(this.tripFormDetails.controls.startingKM.value);
         this.tripFormDetails.patchValue({
           usedKM: usedKM
         });
@@ -222,7 +275,254 @@ export class AddEditTripDetailsComponent implements OnInit {
     }
   }
 
+  getReceivedAmount(receivedAmount) {
+    const advanceAmount = this.tripFormDetails.controls.advanceAmount.value ? parseFloat(this.tripFormDetails.controls.advanceAmount.value) : 0;
+    const totalRentAmount = this.tripFormDetails.controls.totalRent.value ? parseFloat(this.tripFormDetails.controls.totalRent.value) : 0;
+    const finalAmount = advanceAmount + parseFloat(receivedAmount)
+    if (totalRentAmount < finalAmount) {
+      this.tripFormDetails.patchValue({
+        receivedAmount: ''
+      });
+    }
+    if (receivedAmount) {
+      this.tripFormDetails.patchValue({
+        pendingAmount: (totalRentAmount - (advanceAmount + parseFloat(receivedAmount))),
+        balanceAmount: (totalRentAmount - (advanceAmount + parseFloat(receivedAmount)))
+      });
+    } else if (this.tripFormDetails.controls.advanceAmount.value) {
+      this.tripFormDetails.patchValue({
+        pendingAmount: advanceAmount,
+        balanceAmount: advanceAmount
+      });
+    } else {
+      this.tripFormDetails.patchValue({
+        pendingAmount: 0,
+        balanceAmount: 0
+      });
+    }
+
+  }
+  getTotalRentAmount(totalRentAmount) {
+    const advanceAmount = this.tripFormDetails.controls.advanceAmount.value ? parseFloat(this.tripFormDetails.controls.advanceAmount.value) : 0;
+    const receivedAmount = this.tripFormDetails.controls.receivedAmount.value ? parseFloat(this.tripFormDetails.controls.receivedAmount.value) : 0;
+    if (this.tripFormDetails.controls.totalRent.value) {
+      this.tripFormDetails.patchValue({
+        pendingAmount: (parseFloat(totalRentAmount) - (advanceAmount + receivedAmount)),
+        balanceAmount: (parseFloat(totalRentAmount) - (advanceAmount + receivedAmount))
+      });
+    } else {
+      this.tripFormDetails.patchValue({
+        pendingAmount: 0,
+        balanceAmount: 0
+      });
+    }
+  }
+  getAdvanceAmount(advanceAmount) {
+    const totalRentAmount = this.tripFormDetails.controls.totalRent.value ? parseFloat(this.tripFormDetails.controls.totalRent.value) : 0;
+    const receivedAmount = this.tripFormDetails.controls.receivedAmount.value ? parseFloat(this.tripFormDetails.controls.receivedAmount.value) : 0;
+    const pendingAmount = this.tripFormDetails.controls.pendingAmount.value ? parseFloat(this.tripFormDetails.controls.pendingAmount.value) : 0;
+
+    const finalAmount = parseFloat(advanceAmount) + receivedAmount
+    if (totalRentAmount < finalAmount) {
+      this.tripFormDetails.patchValue({
+        advanceAmount: ''
+      });
+    }
+    if (this.tripFormDetails.controls.advanceAmount.value &&
+      this.tripFormDetails.controls.totalRent.value) {
+      this.tripFormDetails.patchValue({
+        pendingAmount: (totalRentAmount - (parseFloat(advanceAmount) + receivedAmount)),
+        balanceAmount: (totalRentAmount - (parseFloat(advanceAmount) + receivedAmount))
+      });
+    } else if (this.tripFormDetails.controls.receivedAmount.value) {
+      this.tripFormDetails.patchValue({
+        pendingAmount: receivedAmount,
+        balanceAmount: receivedAmount
+      });
+    } else {
+      this.tripFormDetails.patchValue({
+        pendingAmount: 0,
+        balanceAmount: 0
+      });
+    }
+
+  }
+
+  getStaringKM(statingKM) {
+    this.commonService.getStatingKM(statingKM).subscribe(vehicleResponse => {
+      if (vehicleResponse.status == 's') {
+        this.tripFormDetails.patchValue({
+          startingKM: vehicleResponse.data.closingKM,
+          closingKM: 0
+        });
+        if (vehicleResponse.data.closingKM && this.tripFormDetails.controls.closingKM.value) {
+          this.tripFormDetails.patchValue({
+            usedKM: parseFloat(this.tripFormDetails.controls.closingKM.value) - parseFloat(vehicleResponse.data.closingKM),
+          });
+        } else {
+          this.tripFormDetails.patchValue({
+            usedKM: 0,
+            closingKM: 0
+          });
+        }
+      } else {
+        this.tripFormDetails.patchValue({
+          startingKM: 0,
+          usedKM: 0,
+          closingKM: 0
+        });
+      }
+    });
+  }
+
+  acStaringKmCalculation(startingKM) {
+    // formula <==> ("u = c - s")
+    if (startingKM && this.tripFormDetails.controls.acClosingKM.value) {
+      this.tripFormDetails.patchValue({
+        usedAcKM: parseFloat(this.tripFormDetails.controls.acClosingKM.value) - parseFloat(startingKM)
+      });
+    }
+  }
+  acClosingKmCalculation(closingKM) {
+    // formula <==> ("u = c - s")
+    if (closingKM && this.tripFormDetails.controls.acStartingKM.value) {
+      this.tripFormDetails.patchValue({
+        usedAcKM: parseFloat(closingKM) - parseFloat(this.tripFormDetails.controls.acStartingKM.value)
+      });
+    }
+  }
+
+  profitAmoutCalculation(string) {
+    // Formula < == > ("Profit = Total Rent - (Toll + Fuel + Driver Payment + Permit)")
+    const totalRentAmount = this.tripFormDetails.value.totalRent ? parseFloat(this.tripFormDetails.value.totalRent) : 0;
+    const tollAmount = this.tripFormDetails.value.toll ? parseFloat(this.tripFormDetails.value.toll) : 0;
+    const fuelAmount = this.tripFormDetails.value.diesel ? parseFloat(this.tripFormDetails.value.diesel) : 0;
+    const driverPaymentAmount = this.tripFormDetails.value.driverPayment ? parseFloat(this.tripFormDetails.value.driverPayment) : 0;
+    const permitAmount = this.tripFormDetails.value.permitAmount ? parseFloat(this.tripFormDetails.value.permitAmount) : 0;
+    const profitAmount = (totalRentAmount - (tollAmount + fuelAmount + driverPaymentAmount + permitAmount));
+    this.tripFormDetails.patchValue({
+      profitAmount: profitAmount ? profitAmount : 0
+    });
+  }
+
+  updateTripDetails() {
+    const tripFormDetails = this.tripFormDetails.value;
+    const updateTripDetailsRequest = {
+      acClosingKM: tripFormDetails.acClosingKM || '',
+      acNote: tripFormDetails.acNote || '',
+      acOrNonAc: tripFormDetails.acOrNonAc || '',
+      acStartingKM: tripFormDetails.acStartingKM || '',
+      advanceAmount: tripFormDetails.advanceAmount || '',
+      advanceType: tripFormDetails.advanceType || '',
+      balanceAmount: tripFormDetails.balanceAmount || '',
+      closingKM: tripFormDetails.closingKM || '',
+      closingTime: moment(tripFormDetails.closingTime).format('YYYY-MM-DD HH:mm:ss') || '',
+      customerMobileNumber: tripFormDetails.customerMobileNumber || '',
+      customerName: tripFormDetails.customerName || '',
+      date: moment(tripFormDetails.date).format('YYYY-MM-DD') || '',
+      dayRent: tripFormDetails.dayRent || '',
+      diesel: tripFormDetails.diesel || '',
+      driverName: tripFormDetails.driverName || '',
+      driverPayment: tripFormDetails.driverPayment || '',
+      paymentType: tripFormDetails.paymentType || '',
+      pendingAmount: tripFormDetails.pendingAmount || '',
+      permitAmount: tripFormDetails.permitAmount || '',
+      profitAmount: tripFormDetails.profitAmount || '',
+      receivedAmount: tripFormDetails.receivedAmount || '',
+      startingKM: tripFormDetails.startingKM || '',
+      startingTime: moment(tripFormDetails.startingTime).format('YYYY-MM-DD HH:mm:ss') || '',
+      status: tripFormDetails.status || 'SUBMITTED',
+      submittedBy: tripFormDetails.submittedBy || '',
+      toll: tripFormDetails.toll || '',
+      totalRent: tripFormDetails.totalRent || '',
+      totalTime: tripFormDetails.totalTime || '',
+      usedAcKM: tripFormDetails.usedAcKM || '',
+      usedKM: tripFormDetails.usedKM || '',
+      vehicleNumber: tripFormDetails.vehicleNumber || '',
+      visitingPlace: tripFormDetails.visitingPlace || '',
+      verifiedByManager: tripFormDetails.verifiedByManager || '',
+      verifiedByProprietor: tripFormDetails.verifiedByProprietor || '',
+      id: this.tripId
+    }
+
+    this.btnLoder = true;
+    this.commonService.tripDetailModification(updateTripDetailsRequest).subscribe(updateTripDetailsResponse => {
+      this.btnLoder = false;
+      if (updateTripDetailsResponse.status = 's') {
+        this.submitPopUp.hide();
+        this.toastrMsg.success("Vehicle details modified successfully");
+        this.router.navigate(['/container/trip-detail/list'])
+      } else {
+        this.toastrMsg.error(updateTripDetailsResponse.userDisplayMesg);
+      }
+    })
 
 
+  }
+
+  getTripDetailsForm(tripId) {
+    this.commonService.getTripDetails(tripId).subscribe(getTripDetailsResponse => {
+      if (getTripDetailsResponse.status == 's') {
+        this.getTripDetails = getTripDetailsResponse.data;
+        this.tripFormDetails.patchValue({
+          acClosingKM: getTripDetailsResponse.data.acClosingKM,
+          acNote: getTripDetailsResponse.data.acNote,
+          acOrNonAc: getTripDetailsResponse.data.acOrNonAc,
+          acStartingKM: getTripDetailsResponse.data.acStartingKM,
+          advanceAmount: getTripDetailsResponse.data.advanceAmount,
+          advanceType: getTripDetailsResponse.data.advanceType,
+          balanceAmount: getTripDetailsResponse.data.balanceAmount,
+          closingKM: getTripDetailsResponse.data.closingKM,
+          /* closingTime: getTripDetailsResponse.data.closingTime
+            ? moment(getTripDetailsResponse.data.closingTime).format('YYYY-MM-DD HH:mm:ss')
+            : '', */
+          customerMobileNumber: getTripDetailsResponse.data.customerMobileNumber,
+          customerName: getTripDetailsResponse.data.customerName,
+          date: getTripDetailsResponse.data.date
+            ? moment(getTripDetailsResponse.data.date).format('YYYY-MM-DD')
+            : '',
+          dayRent: getTripDetailsResponse.data.dayRent,
+          diesel: getTripDetailsResponse.data.diesel,
+          driverName: getTripDetailsResponse.data.driverName,
+          driverPayment: getTripDetailsResponse.data.driverPayment,
+          paymentType: getTripDetailsResponse.data.paymentType,
+          pendingAmount: getTripDetailsResponse.data.pendingAmount,
+          permitAmount: getTripDetailsResponse.data.permitAmount,
+          profitAmount: getTripDetailsResponse.data.profitAmount,
+          receivedAmount: getTripDetailsResponse.data.receivedAmount,
+          startingKM: getTripDetailsResponse.data.startingKM,
+          /* startingTime: getTripDetailsResponse.data.startingTime
+            ? moment(getTripDetailsResponse.data.startingTime).format('YYYY-MM-DD HH:mm:ss')
+            : '', */
+          status: getTripDetailsResponse.data.status,
+          submittedBy: getTripDetailsResponse.data.submittedBy,
+          toll: getTripDetailsResponse.data.toll,
+          totalRent: getTripDetailsResponse.data.totalRent,
+          totalTime: getTripDetailsResponse.data.totalTime,
+          usedAcKM: getTripDetailsResponse.data.usedAcKM,
+          usedKM: getTripDetailsResponse.data.usedKM,
+          vehicleNumber: getTripDetailsResponse.data.vehicleNumber,
+          visitingPlace: getTripDetailsResponse.data.visitingPlace,
+          /* startingTime: getTripDetailsResponse.data.startingTime
+            ? moment(getTripDetailsResponse.data.startingTime).format('YYYY-MM-DD HH:mm')
+            : '', */
+          startingTime: getTripDetailsResponse.data.startingTime
+            ? moment(getTripDetailsResponse.data.startingTime).toDate()
+            : '',
+
+          closingTime: getTripDetailsResponse.data.closingTime
+            ? moment(getTripDetailsResponse.data.closingTime).toDate()
+            : ''
+        });
+
+        console.log("this.tripFormDetails.value ", this.tripFormDetails.value);
+        console.log('startingTime :', moment(getTripDetailsResponse.data.startingTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
+        console.log('closingTime :', moment(getTripDetailsResponse.data.closingTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
+      }
+    });
+  }
 
 }
+
+
+// transfetStartDate: this.editdata.dissolveStartDate ? new Date(new Date(this.editdata.dissolveStartDate).getTime() - (this.myDate.getTimezoneOffset() * 60000)).toISOString().slice(0, 16) : '',

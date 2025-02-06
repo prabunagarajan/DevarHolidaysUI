@@ -16,7 +16,27 @@ export class CommonService {
   }
 
   tripDetailAddSubmit(requestObj): Observable<any> {
-    const url = this.baseUrl + 'tripDetails/search';
+    const url = this.baseUrl + 'tripDetails/add';
     return this.httpClient.post(url, requestObj);
+  }
+  tripDetailModification(requestObj): Observable<any> {
+    const url = this.baseUrl + 'tripDetails/update';
+    return this.httpClient.put(url, requestObj);
+  }
+  activeVechicle(): Observable<any> {
+    const url = this.baseUrl + 'vehicleDetails/active';
+    return this.httpClient.get(url);
+  }
+  activeDriver(): Observable<any> {
+    const url = this.baseUrl + 'DriverDetails/active';
+    return this.httpClient.get(url);
+  }
+  getStatingKM(vehicleNumber): Observable<any> {
+    const url = this.baseUrl + 'tripDetails/getLastRecordByV/' + vehicleNumber;
+    return this.httpClient.get(url);
+  }
+  getTripDetails(tripId): Observable<any> {
+    const url = this.baseUrl + 'tripDetails/getById/' + tripId;
+    return this.httpClient.get(url);
   }
 }
