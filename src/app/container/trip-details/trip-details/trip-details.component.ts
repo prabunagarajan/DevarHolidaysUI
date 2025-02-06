@@ -12,7 +12,7 @@ import { CommonService } from 'src/app/service/common.service';
   styleUrls: ['./trip-details.component.scss']
 })
 export class TripDetailsComponent implements OnInit {
-  displayedColumns: string[] = ['createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent', 'status', 'action'];
+  displayedColumns: string[] = ['serialNo', 'createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent', 'status', 'action'];
   dataSource: MatTableDataSource<any>;
   viewEnable: boolean;
   editEnable: boolean;
@@ -24,9 +24,9 @@ export class TripDetailsComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private commonService: CommonService,
-    private router:Router,
-    private toastrMsg:ToastrService
- ) { }
+    private router: Router,
+    private toastrMsg: ToastrService
+  ) { }
 
   ngOnInit() {
 
@@ -94,7 +94,7 @@ export class TripDetailsComponent implements OnInit {
       driverNumber: '',
       vehiclenumber: ''
     });
-    const request = {
+    /* const request = {
       "filters": {
         "vehicleNumber": "",
         "customerName": "",
@@ -114,7 +114,9 @@ export class TripDetailsComponent implements OnInit {
       } else {
         this.dataSource = new MatTableDataSource();
       }
-    });
+    }); */
+    this.pageSize = 10;
+    this.search();
   }
 
   pageEvent(event) {
