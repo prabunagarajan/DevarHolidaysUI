@@ -19,7 +19,7 @@ __webpack_require__.r(__webpack_exports__);
 const routes = [
     {
         path: 'trip-detail',
-        loadChildren: () => __webpack_require__.e(/*! import() | trip-details-trip-details-trip-details-module */ "trip-details-trip-details-trip-details-module").then(__webpack_require__.bind(null, /*! ./trip-details/trip-details/trip-details.module */ "./src/app/container/trip-details/trip-details/trip-details.module.ts")).then(module => module.TripDetailsModule)
+        loadChildren: () => Promise.all(/*! import() | trip-details-trip-details-trip-details-module */[__webpack_require__.e("default~trip-details-trip-details-trip-details-module~vehicle-details-vehicle-details-module"), __webpack_require__.e("trip-details-trip-details-trip-details-module")]).then(__webpack_require__.bind(null, /*! ./trip-details/trip-details/trip-details.module */ "./src/app/container/trip-details/trip-details/trip-details.module.ts")).then(module => module.TripDetailsModule)
     },
 ];
 let ContainerRoutingModule = class ContainerRoutingModule {

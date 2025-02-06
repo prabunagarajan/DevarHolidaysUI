@@ -23,7 +23,7 @@ var routes = [
     },
     {
         path: 'vehicle-detail',
-        loadChildren: function () { return Promise.all(/*! import() | vehicle-details-vehicle-details-module */[__webpack_require__.e("common"), __webpack_require__.e("vehicle-details-vehicle-details-module")]).then(__webpack_require__.bind(null, /*! ./vehicle-details/vehicle-details.module */ "./src/app/master/vehicle-details/vehicle-details.module.ts")).then(function (module) { return module.VehicleDetailsModule; }); }
+        loadChildren: function () { return Promise.all(/*! import() | vehicle-details-vehicle-details-module */[__webpack_require__.e("default~trip-details-trip-details-trip-details-module~vehicle-details-vehicle-details-module"), __webpack_require__.e("common"), __webpack_require__.e("vehicle-details-vehicle-details-module")]).then(__webpack_require__.bind(null, /*! ./vehicle-details/vehicle-details.module */ "./src/app/master/vehicle-details/vehicle-details.module.ts")).then(function (module) { return module.VehicleDetailsModule; }); }
     }
 ];
 var MasterRoutingModule = /** @class */ (function () {
