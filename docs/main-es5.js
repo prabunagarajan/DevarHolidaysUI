@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<router-outlet>\r\n  <app-spinner></app-spinner>\r\n</router-outlet>\r\n"
+module.exports = "<app-loader></app-loader>\r\n\r\n<router-outlet>\r\n  <app-spinner></app-spinner>\r\n</router-outlet>\r\n"
 
 /***/ }),
 
@@ -207,6 +207,17 @@ module.exports = "<div class=\"card\" [ngClass]=\"cardClass\" [@cardRemove]=\"ca
 /***/ (function(module, exports) {
 
 module.exports = "<div id=\"{{this.chartID}}\"></div>\r\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/theme/shared/components/loader/loader.component.html":
+/*!************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/theme/shared/components/loader/loader.component.html ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div *ngIf=\"loading\" class=\"overlay\">\r\n    <mat-spinner></mat-spinner>\r\n</div>"
 
 /***/ }),
 
@@ -470,6 +481,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var css_animator__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! css-animator */ "./node_modules/css-animator/index.js");
 /* harmony import */ var css_animator__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(css_animator__WEBPACK_IMPORTED_MODULE_25__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _service_interceptors_loader_service__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./service/interceptors/loader.service */ "./src/app/service/interceptors/loader.service.ts");
+/* harmony import */ var _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @angular/material/progress-spinner */ "./node_modules/@angular/material/esm5/progress-spinner.es5.js");
 
 
 
@@ -491,6 +504,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* Menu Items */
+
+
 
 
 
@@ -536,9 +551,11 @@ var AppModule = /** @class */ (function () {
                     positionClass: 'toast-top-right',
                     preventDuplicates: true,
                     closeButton: true
-                })
+                }),
+                _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_28__["MatProgressSpinnerModule"]
             ],
             providers: [
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_22__["HTTP_INTERCEPTORS"], useClass: _service_interceptors_loader_service__WEBPACK_IMPORTED_MODULE_27__["LoaderInterceptor"], multi: true },
                 { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_22__["HTTP_INTERCEPTORS"], useClass: _demo_pages_interceptor_login_interceptor__WEBPACK_IMPORTED_MODULE_24__["LoginInterceptor"], multi: true },
                 { provide: _angular_common__WEBPACK_IMPORTED_MODULE_26__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_26__["HashLocationStrategy"] },
                 _theme_layout_admin_navigation_navigation__WEBPACK_IMPORTED_MODULE_20__["NavigationItem"]
@@ -593,6 +610,121 @@ var LoginInterceptor = /** @class */ (function () {
         })
     ], LoginInterceptor);
     return LoginInterceptor;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/service/interceptors/loader.service.ts":
+/*!********************************************************!*\
+  !*** ./src/app/service/interceptors/loader.service.ts ***!
+  \********************************************************/
+/*! exports provided: LoaderInterceptor */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoaderInterceptor", function() { return LoaderInterceptor; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _loader_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../loader.service */ "./src/app/service/loader.service.ts");
+
+
+
+
+
+var LoaderInterceptor = /** @class */ (function () {
+    function LoaderInterceptor(loaderService) {
+        this.loaderService = loaderService;
+        /* constructor(private loaderService: LoaderService) { }
+        intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+          this.loaderService.show(); // Show loader on request start
+          return next.handle(req).pipe(
+            finalize(() => this.loaderService.hide()) // Hide loader on request completion
+          );
+        } */
+        this.requests = [];
+    }
+    LoaderInterceptor.prototype.removeRequest = function (req) {
+        var i = this.requests.indexOf(req);
+        if (i >= 0) {
+            this.requests.splice(i, 1);
+        }
+        this.loaderService.isLoading.next(this.requests.length > 0);
+    };
+    LoaderInterceptor.prototype.intercept = function (req, next) {
+        var _this = this;
+        this.requests.push(req);
+        this.loaderService.isLoading.next(true);
+        return new rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"](function (observer) {
+            var subscription = next.handle(req).subscribe({
+                next: function (event) {
+                    if (event instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpResponse"]) {
+                        _this.removeRequest(req);
+                        observer.next(event);
+                    }
+                },
+                error: function (err) {
+                    console.log("err", err);
+                    _this.removeRequest(req);
+                    observer.error(err);
+                },
+                complete: function () {
+                    _this.removeRequest(req);
+                    observer.complete();
+                }
+            });
+            // Remove the request from the queue when canceled
+            return function () {
+                _this.removeRequest(req);
+                subscription.unsubscribe();
+            };
+        });
+    };
+    LoaderInterceptor.ctorParameters = function () { return [
+        { type: _loader_service__WEBPACK_IMPORTED_MODULE_4__["LoaderService"] }
+    ]; };
+    LoaderInterceptor = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_loader_service__WEBPACK_IMPORTED_MODULE_4__["LoaderService"]])
+    ], LoaderInterceptor);
+    return LoaderInterceptor;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/service/loader.service.ts":
+/*!*******************************************!*\
+  !*** ./src/app/service/loader.service.ts ***!
+  \*******************************************/
+/*! exports provided: LoaderService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoaderService", function() { return LoaderService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+var LoaderService = /** @class */ (function () {
+    function LoaderService() {
+        this.isLoading = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](false);
+    }
+    LoaderService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], LoaderService);
+    return LoaderService;
 }());
 
 
@@ -2910,6 +3042,70 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/app/theme/shared/components/loader/loader.component.scss":
+/*!**********************************************************************!*\
+  !*** ./src/app/theme/shared/components/loader/loader.component.scss ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n          align-items: center;\n  z-index: 1000; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvc2hhcmVkL2NvbXBvbmVudHMvbG9hZGVyL0Q6XFwxOS1WLURldmVyIEhvbGRheXMgVUlcXERIRC1PTEQtRGVzaWduc1xcRGV2YXJIb2xpZGF5c1VJL3NyY1xcYXBwXFx0aGVtZVxcc2hhcmVkXFxjb21wb25lbnRzXFxsb2FkZXJcXGxvYWRlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGVBQWU7RUFDZixNQUFNO0VBQ04sT0FBTztFQUNQLFdBQVc7RUFDWCxZQUFZO0VBQ1osb0NBQW9DO0VBQ3BDLG9CQUFhO0VBQWIsYUFBYTtFQUNiLHdCQUF1QjtVQUF2Qix1QkFBdUI7RUFDdkIseUJBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQixhQUFhLEVBQUEiLCJmaWxlIjoic3JjL2FwcC90aGVtZS9zaGFyZWQvY29tcG9uZW50cy9sb2FkZXIvbG9hZGVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm92ZXJsYXkge1xyXG4gICAgcG9zaXRpb246IGZpeGVkO1xyXG4gICAgdG9wOiAwO1xyXG4gICAgbGVmdDogMDtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAwLCAwLCAwLjUpO1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgIHotaW5kZXg6IDEwMDA7XHJcbiAgfSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/theme/shared/components/loader/loader.component.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/theme/shared/components/loader/loader.component.ts ***!
+  \********************************************************************/
+/*! exports provided: LoaderComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoaderComponent", function() { return LoaderComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_service_loader_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/service/loader.service */ "./src/app/service/loader.service.ts");
+
+
+
+var LoaderComponent = /** @class */ (function () {
+    function LoaderComponent(loaderService) {
+        var _this = this;
+        this.loaderService = loaderService;
+        /* loading$: Observable<boolean>;
+        constructor(private loaderService: LoaderService) { }
+        ngOnInit(): void {
+          // this.loading$ = this.loaderService.loading$; // Subscribe to loading state
+        } */
+        this.loading = true;
+        this.loaderService.isLoading.subscribe(function (v) {
+            setTimeout(function () {
+                _this.loading = v;
+            }, 1500);
+        });
+    }
+    LoaderComponent.prototype.ngOnInit = function () {
+        // this.loading$ = this.loaderService.loading$; // Subscribe to loading state
+    };
+    LoaderComponent.ctorParameters = function () { return [
+        { type: src_app_service_loader_service__WEBPACK_IMPORTED_MODULE_2__["LoaderService"] }
+    ]; };
+    LoaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-loader',
+            template: __webpack_require__(/*! raw-loader!./loader.component.html */ "./node_modules/raw-loader/index.js!./src/app/theme/shared/components/loader/loader.component.html"),
+            styles: [__webpack_require__(/*! ./loader.component.scss */ "./src/app/theme/shared/components/loader/loader.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_service_loader_service__WEBPACK_IMPORTED_MODULE_2__["LoaderService"]])
+    ], LoaderComponent);
+    return LoaderComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/theme/shared/components/modal/animation-modal/animation-modal.component.scss":
 /*!**********************************************************************************************!*\
   !*** ./src/app/theme/shared/components/modal/animation-modal/animation-modal.component.scss ***!
@@ -3307,6 +3503,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/input */ "./node_modules/@angular/material/esm5/input.es5.js");
 /* harmony import */ var _angular_material_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/core */ "./node_modules/@angular/material/esm5/core.es5.js");
 /* harmony import */ var _angular_material_radio__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/material/radio */ "./node_modules/@angular/material/esm5/radio.es5.js");
+/* harmony import */ var _components_loader_loader_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/loader/loader.component */ "./src/app/theme/shared/components/loader/loader.component.ts");
+/* harmony import */ var _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/material/progress-spinner */ "./node_modules/@angular/material/esm5/progress-spinner.es5.js");
+
+
 
 
 
@@ -3349,7 +3549,8 @@ var SharedModule = /** @class */ (function () {
                 ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_11__["BsDatepickerModule"].forRoot(),
                 _angular_material_input__WEBPACK_IMPORTED_MODULE_15__["MatInputModule"],
                 _angular_material_core__WEBPACK_IMPORTED_MODULE_16__["MatNativeDateModule"],
-                _angular_material_radio__WEBPACK_IMPORTED_MODULE_17__["MatRadioModule"]
+                _angular_material_radio__WEBPACK_IMPORTED_MODULE_17__["MatRadioModule"],
+                _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_19__["MatProgressSpinnerModule"],
             ],
             exports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
@@ -3370,12 +3571,14 @@ var SharedModule = /** @class */ (function () {
                 // BsDatepickerModule.forRoot(),
                 _angular_material_input__WEBPACK_IMPORTED_MODULE_15__["MatInputModule"],
                 _angular_material_core__WEBPACK_IMPORTED_MODULE_16__["MatNativeDateModule"],
-                _angular_material_radio__WEBPACK_IMPORTED_MODULE_17__["MatRadioModule"]
+                _angular_material_radio__WEBPACK_IMPORTED_MODULE_17__["MatRadioModule"],
+                _components_loader_loader_component__WEBPACK_IMPORTED_MODULE_18__["LoaderComponent"]
             ],
             declarations: [
                 _components_data_table_data_filter_pipe__WEBPACK_IMPORTED_MODULE_5__["DataFilterPipe"],
                 _components_spinner_spinner_component__WEBPACK_IMPORTED_MODULE_8__["SpinnerComponent"],
-                _components_chart_apex_chart_apex_chart_component__WEBPACK_IMPORTED_MODULE_9__["ApexChartComponent"]
+                _components_chart_apex_chart_apex_chart_component__WEBPACK_IMPORTED_MODULE_9__["ApexChartComponent"],
+                _components_loader_loader_component__WEBPACK_IMPORTED_MODULE_18__["LoaderComponent"]
             ],
             providers: [
                 {
