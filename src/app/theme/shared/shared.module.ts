@@ -17,6 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
+import { LoaderComponent } from './components/loader/loader.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -39,7 +41,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BsDatepickerModule.forRoot(),
     MatInputModule,
     MatNativeDateModule,
-    MatRadioModule
+    MatRadioModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     CommonModule,
@@ -60,12 +63,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // BsDatepickerModule.forRoot(),
     MatInputModule,
     MatNativeDateModule,
-    MatRadioModule
+    MatRadioModule,
+    LoaderComponent 
   ],
   declarations: [
     DataFilterPipe,
     SpinnerComponent,
-    ApexChartComponent
+    ApexChartComponent,
+    LoaderComponent
   ],
   providers: [
     {
