@@ -29,6 +29,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { LoginInterceptor } from './demo/pages/interceptor/login-interceptor';
 import { AnimatorModule } from 'css-animator';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { LoaderInterceptor } from './service/interceptors/loader.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -64,10 +66,12 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
       positionClass: 'toast-top-right',
       preventDuplicates: true,
       closeButton: true
-    })
+    }),
+    MatProgressSpinnerModule
 
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoginInterceptor, multi: true },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     NavigationItem
