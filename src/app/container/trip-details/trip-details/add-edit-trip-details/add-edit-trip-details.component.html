@@ -41,7 +41,7 @@
                             <div class="input-group">
                                 <!-- DateTime Input -->
                                 <input type="text" [owlDateTime]="dt1" class="form-control" formControlName="date"
-                                    placeholder="Select Date & Time" 
+                                    placeholder="Select Date & Time"
                                     [ngClass]="{ 'is-invalid': formSubmitted && tripForm.date.errors }" readonly
                                     [max]="maxDate" (keypress)="$event.preventDefault();"
                                     (keydown)="$event.preventDefault()">
@@ -54,7 +54,7 @@
                                 </div>
 
                                 <!-- Owl DateTime Picker -->
-                                <owl-date-time [pickerType]="'calendar'" #dt1 ></owl-date-time>
+                                <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                             </div>
 
                             <!-- Validation Message -->
@@ -163,7 +163,8 @@
                                 </div>
 
                                 <!-- Owl DateTime Picker -->
-                                <owl-date-time #dt2 [pickerType]="'both'" [format]="'DD/MM/YYYY HH:mm'" [minuteStep]="5"></owl-date-time>
+                                <owl-date-time #dt2 [pickerType]="'both'" [format]="'DD/MM/YYYY HH:mm'"
+                                    [minuteStep]="5"></owl-date-time>
                             </div>
 
                             <!-- Validation Message -->
@@ -192,7 +193,8 @@
                                 </div>
 
                                 <!-- Owl DateTime Picker -->
-                                <owl-date-time #dt3 [pickerType]="'both'" [format]="'DD/MM/YYYY HH:mm'" [minuteStep]="5"></owl-date-time>
+                                <owl-date-time #dt3 [pickerType]="'both'" [format]="'DD/MM/YYYY HH:mm'"
+                                    [minuteStep]="5"></owl-date-time>
                             </div>
 
                             <!-- Validation Message -->
@@ -393,9 +395,17 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Advance Type<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" formControlName="advanceType"
+                            <!-- <input type="text" class="form-control" formControlName="advanceType"
                                 placeholder="Enter Advance Type"
-                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.advanceType.errors }" />
+                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.advanceType.errors }" /> -->
+
+                            <select type="text" class="form-control" formControlName="advanceType"
+                                placeholder="Enter Advance Type"
+                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.advanceType.errors }">
+                                <option value="" hidden>Select Advance Type</option>
+                                <option value="Fuel">Fuel</option>
+                                <option value="Hand">Hand</option>
+                            </select>
                             <div *ngIf="formSubmitted && tripForm.advanceType.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.advanceType.errors.required">Advance Type is required
                                 </div>
@@ -405,9 +415,16 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Payment Type<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" formControlName="paymentType"
+                            <!-- <input type="text" class="form-control" formControlName="paymentType"
                                 placeholder="Enter Payment Type"
-                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.paymentType.errors }" />
+                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.paymentType.errors }" /> -->
+                            <select type="text" class="form-control" formControlName="paymentType"
+                                placeholder="Enter Payment Type"
+                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.paymentType.errors }">
+                                <option value="" hidden> Select Payment Type </option>
+                                <option value="UPI"> UPI - GPay / PhonePay </option>
+                                <option value="HAND"> Hand </option>
+                            </select>
                             <div *ngIf="formSubmitted && tripForm.paymentType.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.paymentType.errors.required">Payment Type is required
                                 </div>
@@ -455,9 +472,15 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Wrote By<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" formControlName="submittedBy"
+                            <!-- <input type="text" class="form-control" formControlName="submittedBy"
                                 placeholder="Enter Wrote By"
-                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.submittedBy.errors }" />
+                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.submittedBy.errors }" /> -->
+                            <select type="text" class="form-control" formControlName="submittedBy"
+                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.submittedBy.errors }">
+                                <option value="" hidden>Select Wrote By</option>
+                                <option *ngFor="let driverListElemnt of driverList" value="{{driverListElemnt?.name}}">
+                                    {{driverListElemnt?.name}}</option>
+                            </select>
                             <div *ngIf="formSubmitted && tripForm.submittedBy.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.submittedBy.errors.required">Wrote By is required
                                 </div>
