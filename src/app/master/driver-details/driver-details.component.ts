@@ -5,7 +5,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MasterService } from 'src/app/service/master.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 @Component({
   selector: 'app-driver-details',
   templateUrl: './driver-details.component.html',
@@ -162,4 +163,83 @@ export class DriverDetailsComponent implements OnInit, AfterViewInit {
     const pageSize = event.pageSize
     this.getAll(pageIndex, pageSize);
   }
+
+
+  /* generatePDF() {
+    const doc = new jsPDF();
+
+    // Title
+    doc.text('List of Users', 14, 10);
+
+    // Define table columns
+    const columns = ['S.No', 'Name', 'Mobile Number', 'Driving License Number', 'Aadhar Number', 'District'];
+
+    // Convert list data to an array format
+    const rows = this.dataSource.data.map((item, index) => [index + 1, item.name, item.mobileNumber, item.drivingLicenseNumber, item.aadharNumber, item.district]);
+
+    // Add table to the PDF
+    autoTable(doc, {
+      head: [columns],
+      body: rows,
+      startY: 20
+    });
+
+    // Save the PDF
+    doc.save('Driver Details.pdf');
+  } */
+
+    generatePDF() {
+      console.log('generatePDF :')
+      const doc = new jsPDF();
+    
+      // Get page dimensions
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+    
+      // Add Watermark - "DC Holidays"
+      doc.setTextColor(200, 200, 200); // Light gray color
+      doc.setFontSize(40); // Large font size
+      doc.setFont('helvetica', 'bold'); // Bold font
+    
+      // Calculate center position
+      const textWidth = doc.getTextWidth('DC Holidays');
+      const x = (pageWidth - textWidth) / 2;
+      const y = pageHeight / 2;
+    
+      // Add rotated watermark text
+      doc.text('DC Holidays', x, y, { angle: 45 });
+    
+      // Reset text color to black for actual content
+      doc.setTextColor(0);
+    
+      // Title
+      doc.setFontSize(14);
+      doc.text('Driver Details', 14, 10);
+    
+      // Define table columns with Serial Number
+      const columns = ['S.No', 'Name', 'Mobile Number', 'Driving License Number', 'Aadhar Number', 'District'];
+    
+      // Convert list data to an array format with serial numbers
+      const rows = this.dataSource.data.map((item, index) => [
+        index + 1, // Serial number starts from 1
+        item.name,
+        String(item.mobileNumber), // Convert number to string
+        String(item.drivingLicenseNumber), // Convert number to string
+        String(item.aadharNumber), // Convert number to string
+        item.district
+      ]);
+    
+      // Add table to the PDF
+      autoTable(doc, {
+        head: [columns],
+        body: rows,
+        startY: 20
+      });
+    
+      // Save the PDF
+      doc.save('Driver_Details.pdf');
+    }
+    
+    
+    
 } 

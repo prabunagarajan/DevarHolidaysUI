@@ -61,13 +61,13 @@ export class AddEditTripDetailsComponent implements OnInit {
       acNote: ['', Validators.required],
       visitingPlace: ['', Validators.required],
       advanceType: ['', Validators.required],
-      advanceAmount: ['', Validators.required],
-      dayRent: ['', Validators.required],
-      toll: ['', Validators.required],
+      advanceAmount: ['0', Validators.required],
+      dayRent: ['0', Validators.required],
+      toll: ['0', Validators.required],
       totalRent: ['', Validators.required],
       diesel: ['', Validators.required],
       driverPayment: ['', Validators.required],
-      permitAmount: ['', Validators.required],
+      permitAmount: ['0', Validators.required],
       paymentType: ['', Validators.required],
       receivedAmount: ['', Validators.required],
       pendingAmount: ['', Validators.required],
@@ -125,9 +125,9 @@ export class AddEditTripDetailsComponent implements OnInit {
   submit(tripFormDetails) {
     if (this.tripFormDetails.invalid) {
       this.formSubmitted = true;
-    } else if (tripFormDetails.value.startingKM >= tripFormDetails.value.closingKM) {
+    } else if (tripFormDetails.value.acOrNonAc == 'AC' && tripFormDetails.value.startingKM >= tripFormDetails.value.closingKM) {
       this.toastrMsg.warning('Please enter Starting KM greater than Closing KM');
-    } else if (tripFormDetails.value.acStartingKM >= tripFormDetails.value.acClosingKM) {
+    } else if (tripFormDetails.value.acOrNonAc == 'AC' && tripFormDetails.value.acStartingKM >= tripFormDetails.value.acClosingKM) {
       this.toastrMsg.warning('Please enter AC Starting KM greater than AC Closing KM');
     } else {
       this.submitPopUp.show();
@@ -256,7 +256,7 @@ export class AddEditTripDetailsComponent implements OnInit {
 
   numbersOnly(event: KeyboardEvent) {
     const charCode = event.which ? event.which : event.keyCode;
-
+  
     // Allow: Backspace (8), Delete (46), Arrow keys (37, 39), Tab (9), Enter (13)
     if (
       charCode === 8 ||  // Backspace
@@ -268,10 +268,13 @@ export class AddEditTripDetailsComponent implements OnInit {
     ) {
       return; // Allow these keys
     }
-
-    // Restrict non-numeric input (0-9: keyCode 48-57)
-    if (charCode < 48 || charCode > 57) {
-      event.preventDefault();
+  
+    // Allow only numeric keys (0-9 from both top row and numpad)
+    if (
+      (charCode < 48 || charCode > 57) &&  // Top row numbers (0-9)
+      (charCode < 96 || charCode > 105)    // Numpad numbers (0-9)
+    ) {
+      event.preventDefault(); // Restrict other keys
     }
   }
 
