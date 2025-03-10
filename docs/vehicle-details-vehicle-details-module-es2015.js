@@ -467,11 +467,12 @@ VehicleDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*!******************************************************************!*\
   !*** ./src/app/master/vehicle-details/vehicle-details.module.ts ***!
   \******************************************************************/
-/*! exports provided: VehicleDetailsModule */
+/*! exports provided: MY_CUSTOM_FORMATS, VehicleDetailsModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MY_CUSTOM_FORMATS", function() { return MY_CUSTOM_FORMATS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VehicleDetailsModule", function() { return VehicleDetailsModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
@@ -489,6 +490,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/core */ "./node_modules/@angular/material/esm2015/core.js");
 /* harmony import */ var _angular_material_radio__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/radio */ "./node_modules/@angular/material/esm2015/radio.js");
 /* harmony import */ var ng_pick_datetime__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ng-pick-datetime */ "./node_modules/ng-pick-datetime/picker.js");
+/* harmony import */ var ng_pick_datetime_date_time_adapter_moment_adapter_moment_date_time_adapter_class__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ng-pick-datetime/date-time/adapter/moment-adapter/moment-date-time-adapter.class */ "./node_modules/ng-pick-datetime/date-time/adapter/moment-adapter/moment-date-time-adapter.class.js");
 
 
 
@@ -505,6 +507,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+const MY_CUSTOM_FORMATS = {
+    fullPickerInput: 'DD/MM/YYYY HH:mm',
+    parseInput: 'DD/MM/YYYY HH:mm',
+    datePickerInput: 'DD/MM/YYYY',
+    timePickerInput: 'HH:mm',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+};
 let VehicleDetailsModule = class VehicleDetailsModule {
 };
 VehicleDetailsModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -528,7 +540,16 @@ VehicleDetailsModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _angular_material_radio__WEBPACK_IMPORTED_MODULE_14__["MatRadioModule"],
             ng_pick_datetime__WEBPACK_IMPORTED_MODULE_15__["OwlDateTimeModule"],
             ng_pick_datetime__WEBPACK_IMPORTED_MODULE_15__["OwlNativeDateTimeModule"]
-        ]
+        ],
+        providers: [
+            {
+                provide: ng_pick_datetime__WEBPACK_IMPORTED_MODULE_15__["DateTimeAdapter"],
+                useClass: ng_pick_datetime_date_time_adapter_moment_adapter_moment_date_time_adapter_class__WEBPACK_IMPORTED_MODULE_16__["MomentDateTimeAdapter"],
+                deps: [ng_pick_datetime__WEBPACK_IMPORTED_MODULE_15__["OWL_DATE_TIME_LOCALE"]],
+            },
+            { provide: ng_pick_datetime__WEBPACK_IMPORTED_MODULE_15__["OWL_DATE_TIME_FORMATS"], useValue: MY_CUSTOM_FORMATS },
+        ],
+        schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_1__["NO_ERRORS_SCHEMA"]]
     })
 ], VehicleDetailsModule);
 

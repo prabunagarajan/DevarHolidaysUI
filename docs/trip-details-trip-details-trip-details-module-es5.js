@@ -1,258 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["trip-details-trip-details-trip-details-module"],{
 
-/***/ "./node_modules/ng-pick-datetime/date-time/adapter/moment-adapter/moment-date-time-adapter.class.js":
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/ng-pick-datetime/date-time/adapter/moment-adapter/moment-date-time-adapter.class.js ***!
-  \**********************************************************************************************************/
-/*! exports provided: OWL_MOMENT_DATE_TIME_ADAPTER_OPTIONS, OWL_MOMENT_DATE_TIME_ADAPTER_OPTIONS_FACTORY, MomentDateTimeAdapter */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OWL_MOMENT_DATE_TIME_ADAPTER_OPTIONS", function() { return OWL_MOMENT_DATE_TIME_ADAPTER_OPTIONS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OWL_MOMENT_DATE_TIME_ADAPTER_OPTIONS_FACTORY", function() { return OWL_MOMENT_DATE_TIME_ADAPTER_OPTIONS_FACTORY; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MomentDateTimeAdapter", function() { return MomentDateTimeAdapter; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var moment_moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment/moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment_moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment_moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _date_time_adapter_class__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../date-time-adapter.class */ "./node_modules/ng-pick-datetime/date-time/adapter/date-time-adapter.class.js");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-
-
-
-var moment = moment_moment__WEBPACK_IMPORTED_MODULE_1___default.a ? moment_moment__WEBPACK_IMPORTED_MODULE_1___default.a : moment_moment__WEBPACK_IMPORTED_MODULE_1__;
-var OWL_MOMENT_DATE_TIME_ADAPTER_OPTIONS = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('OWL_MOMENT_DATE_TIME_ADAPTER_OPTIONS', {
-    providedIn: 'root',
-    factory: OWL_MOMENT_DATE_TIME_ADAPTER_OPTIONS_FACTORY
-});
-function OWL_MOMENT_DATE_TIME_ADAPTER_OPTIONS_FACTORY() {
-    return {
-        useUtc: false
-    };
-}
-function range(length, valueFunction) {
-    var valuesArray = Array(length);
-    for (var i = 0; i < length; i++) {
-        valuesArray[i] = valueFunction(i);
-    }
-    return valuesArray;
-}
-var MomentDateTimeAdapter = (function (_super) {
-    __extends(MomentDateTimeAdapter, _super);
-    function MomentDateTimeAdapter(owlDateTimeLocale, options) {
-        var _this = _super.call(this) || this;
-        _this.owlDateTimeLocale = owlDateTimeLocale;
-        _this.options = options;
-        _this.setLocale(owlDateTimeLocale || moment.locale());
-        return _this;
-    }
-    MomentDateTimeAdapter.prototype.setLocale = function (locale) {
-        var _this = this;
-        _super.prototype.setLocale.call(this, locale);
-        var momentLocaleData = moment.localeData(locale);
-        this._localeData = {
-            longMonths: momentLocaleData.months(),
-            shortMonths: momentLocaleData.monthsShort(),
-            longDaysOfWeek: momentLocaleData.weekdays(),
-            shortDaysOfWeek: momentLocaleData.weekdaysShort(),
-            narrowDaysOfWeek: momentLocaleData.weekdaysMin(),
-            dates: range(31, function (i) { return _this.createDate(2017, 0, i + 1).format('D'); }),
-        };
-    };
-    MomentDateTimeAdapter.prototype.getYear = function (date) {
-        return this.clone(date).year();
-    };
-    MomentDateTimeAdapter.prototype.getMonth = function (date) {
-        return this.clone(date).month();
-    };
-    MomentDateTimeAdapter.prototype.getDay = function (date) {
-        return this.clone(date).day();
-    };
-    MomentDateTimeAdapter.prototype.getDate = function (date) {
-        return this.clone(date).date();
-    };
-    MomentDateTimeAdapter.prototype.getHours = function (date) {
-        return this.clone(date).hours();
-    };
-    MomentDateTimeAdapter.prototype.getMinutes = function (date) {
-        return this.clone(date).minutes();
-    };
-    MomentDateTimeAdapter.prototype.getSeconds = function (date) {
-        return this.clone(date).seconds();
-    };
-    MomentDateTimeAdapter.prototype.getTime = function (date) {
-        return this.clone(date).valueOf();
-    };
-    MomentDateTimeAdapter.prototype.getNumDaysInMonth = function (date) {
-        return this.clone(date).daysInMonth();
-    };
-    MomentDateTimeAdapter.prototype.differenceInCalendarDays = function (dateLeft, dateRight) {
-        return this.clone(dateLeft).diff(dateRight, 'days');
-    };
-    MomentDateTimeAdapter.prototype.getYearName = function (date) {
-        return this.clone(date).format('YYYY');
-    };
-    MomentDateTimeAdapter.prototype.getMonthNames = function (style) {
-        return style === 'long' ? this._localeData.longMonths : this._localeData.shortMonths;
-    };
-    MomentDateTimeAdapter.prototype.getDayOfWeekNames = function (style) {
-        if (style === 'long') {
-            return this._localeData.longDaysOfWeek;
-        }
-        if (style === 'short') {
-            return this._localeData.shortDaysOfWeek;
-        }
-        return this._localeData.narrowDaysOfWeek;
-    };
-    MomentDateTimeAdapter.prototype.getDateNames = function () {
-        return this._localeData.dates;
-    };
-    MomentDateTimeAdapter.prototype.toIso8601 = function (date) {
-        return this.clone(date).format();
-    };
-    MomentDateTimeAdapter.prototype.isEqual = function (dateLeft, dateRight) {
-        if (dateLeft && dateRight) {
-            return this.clone(dateLeft).isSame(this.clone(dateRight));
-        }
-        return dateLeft === dateRight;
-    };
-    MomentDateTimeAdapter.prototype.isSameDay = function (dateLeft, dateRight) {
-        if (dateLeft && dateRight) {
-            return this.clone(dateLeft).isSame(this.clone(dateRight), 'day');
-        }
-        return dateLeft === dateRight;
-    };
-    MomentDateTimeAdapter.prototype.isValid = function (date) {
-        return this.clone(date).isValid();
-    };
-    MomentDateTimeAdapter.prototype.invalid = function () {
-        return moment.invalid();
-    };
-    MomentDateTimeAdapter.prototype.isDateInstance = function (obj) {
-        return moment.isMoment(obj);
-    };
-    MomentDateTimeAdapter.prototype.addCalendarYears = function (date, amount) {
-        return this.clone(date).add({ years: amount });
-    };
-    MomentDateTimeAdapter.prototype.addCalendarMonths = function (date, amount) {
-        return this.clone(date).add({ months: amount });
-    };
-    MomentDateTimeAdapter.prototype.addCalendarDays = function (date, amount) {
-        return this.clone(date).add({ days: amount });
-    };
-    MomentDateTimeAdapter.prototype.setHours = function (date, amount) {
-        return this.clone(date).hours(amount);
-    };
-    MomentDateTimeAdapter.prototype.setMinutes = function (date, amount) {
-        return this.clone(date).minutes(amount);
-    };
-    MomentDateTimeAdapter.prototype.setSeconds = function (date, amount) {
-        return this.clone(date).seconds(amount);
-    };
-    MomentDateTimeAdapter.prototype.createDate = function (year, month, date, hours, minutes, seconds) {
-        if (hours === void 0) { hours = 0; }
-        if (minutes === void 0) { minutes = 0; }
-        if (seconds === void 0) { seconds = 0; }
-        if (month < 0 || month > 11) {
-            throw Error("Invalid month index \"" + month + "\". Month index has to be between 0 and 11.");
-        }
-        if (date < 1) {
-            throw Error("Invalid date \"" + date + "\". Date has to be greater than 0.");
-        }
-        if (hours < 0 || hours > 23) {
-            throw Error("Invalid hours \"" + hours + "\". Hours has to be between 0 and 23.");
-        }
-        if (minutes < 0 || minutes > 59) {
-            throw Error("Invalid minutes \"" + minutes + "\". Minutes has to between 0 and 59.");
-        }
-        if (seconds < 0 || seconds > 59) {
-            throw Error("Invalid seconds \"" + seconds + "\". Seconds has to be between 0 and 59.");
-        }
-        var result = this.createMoment({ year: year, month: month, date: date, hours: hours, minutes: minutes, seconds: seconds }).locale(this.locale);
-        if (!result.isValid()) {
-            throw Error("Invalid date \"" + date + "\" for month with index \"" + month + "\".");
-        }
-        return result;
-    };
-    MomentDateTimeAdapter.prototype.clone = function (date) {
-        return this.createMoment(date).clone().locale(this.locale);
-    };
-    MomentDateTimeAdapter.prototype.now = function () {
-        return this.createMoment().locale(this.locale);
-    };
-    MomentDateTimeAdapter.prototype.format = function (date, displayFormat) {
-        date = this.clone(date);
-        if (!this.isValid(date)) {
-            throw Error('MomentDateTimeAdapter: Cannot format invalid date.');
-        }
-        return date.format(displayFormat);
-    };
-    MomentDateTimeAdapter.prototype.parse = function (value, parseFormat) {
-        if (value && typeof value === 'string') {
-            return this.createMoment(value, parseFormat, this.locale);
-        }
-        return value ? this.createMoment(value).locale(this.locale) : null;
-    };
-    MomentDateTimeAdapter.prototype.deserialize = function (value) {
-        var date;
-        if (value instanceof Date) {
-            date = this.createMoment(value);
-        }
-        if (typeof value === 'string') {
-            if (!value) {
-                return null;
-            }
-            date = this.createMoment(value, moment.ISO_8601).locale(this.locale);
-        }
-        if (date && this.isValid(date)) {
-            return date;
-        }
-        return _super.prototype.deserialize.call(this, value);
-    };
-    MomentDateTimeAdapter.prototype.createMoment = function () {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        return (this.options && this.options.useUtc) ? moment.utc.apply(moment, args) : moment.apply(void 0, args);
-    };
-    MomentDateTimeAdapter = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"])()), __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_date_time_adapter_class__WEBPACK_IMPORTED_MODULE_2__["OWL_DATE_TIME_LOCALE"])),
-        __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"])()), __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(OWL_MOMENT_DATE_TIME_ADAPTER_OPTIONS)),
-        __metadata("design:paramtypes", [String, Object])
-    ], MomentDateTimeAdapter);
-    return MomentDateTimeAdapter;
-}(_date_time_adapter_class__WEBPACK_IMPORTED_MODULE_2__["DateTimeAdapter"]));
-
-
-
-/***/ }),
-
 /***/ "./node_modules/raw-loader/index.js!./src/app/container/trip-details/trip-details/add-edit-trip-details/add-edit-trip-details.component.html":
 /*!******************************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/container/trip-details/trip-details/add-edit-trip-details/add-edit-trip-details.component.html ***!
@@ -271,7 +18,7 @@ module.exports = "<p>Add Trip Details</p>\n<ul class=\"breadcrumb\">\n    <li cl
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n    <div class=\"col-xl-12\">\n        <form [formGroup]=\"tripFormSearchDetails\" autocomplete=\"off\">\n            <!-- Search Panel -->\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\n                <h4>Search</h4>\n                <div class=\"row\">\n                    <!-- Driver Name -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverName\">Driver Name</label>\n                            <input type=\"text\" id=\"driverName\" formControlName=\"driverName\" class=\"form-control\"\n                                placeholder=\"Enter Driver Name\" />\n                        </div>\n                    </div>\n\n                    <!-- Driver Number -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverNumber\">Driver Number</label>\n                            <input type=\"text\" id=\"driverNumber\" formControlName=\"driverNumber\" class=\"form-control\"\n                                placeholder=\"Enter Driver Number\" />\n                        </div>\n                    </div>\n\n                    <!-- Vehicle Number -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"vehicleNumber\">Vehicle Number</label>\n                            <input type=\"text\" id=\"vehicleNumber\" formControlName=\"vehiclenumber\" class=\"form-control\"\n                                placeholder=\"Enter Vehicle Number\" />\n                        </div>\n                    </div>\n                </div>\n\n                <!-- Submit and Cancel buttons -->\n                <div class=\"row mt-3\">\n                    <div class=\"col-lg-12 text-end\">\n                        <div class=\"modal-footer\">\n                            <button type=\"submit\" class=\"btn btn-outline-info list-button-container\"\n                                (click)=\"search()\"><span class=\"list-text-alaign-center\">Submit</span></button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary list-button-container\"\n                                (click)=\"onclear()\"><span class=\"list-text-alaign-center\">Clear</span></button>\n\n                        </div>\n                    </div>\n                </div>\n            </app-card>\n        </form>\n    </div>\n</div>\n\n\n\n\n<div class=\"outer-container\">\n    <div class=\"button-container\">\n        <button class=\"btn btn-outline-success list-button-container\" [routerLink]=\"['/container/trip-detail/add']\">\n            <span class=\"list-text-alaign-center\">Add</span>\n        </button>\n        <button class=\"btn btn-outline-secondary list-button-container\" (click)=\"onEdit()\" [disabled]=\"!editEnable\">\n            <span class=\"list-text-alaign-center\">Edit</span>\n        </button>\n        <button class=\"btn btn-outline-warning list-button-container\" (click)=\"onView()\" [disabled]=\"!viewEnable\">\n            <span class=\"list-text-alaign-center\">View</span>\n        </button>\n        <!-- <button (click)=\"onclear()\">\n            <span>Clear</span>\n        </button> -->\n    </div>\n</div>\n\n<table mat-table [dataSource]=\"dataSource\" class=\"table-design\">\n    <!-- Serial No Column -->\n    <ng-container matColumnDef=\"serialNo\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> S.No </th>\n        <td mat-cell *matCellDef=\"let element; let i = index\" class=\"text-center\"> {{ i + 1 }} </td>\n    </ng-container>\n\n    <!-- Driver Name Column -->\n    <ng-container matColumnDef=\"createdDate\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> CreatedDate </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.createdDate | date: 'dd-MM-yyyy'}} </td>\n    </ng-container>\n\n    <!-- Driver Name Column -->\n    <ng-container matColumnDef=\"vehicleNumber\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VehicleNumber </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.vehicleNumber}} </td>\n    </ng-container>\n\n    <!-- Mobile Number Column -->\n    <ng-container matColumnDef=\"customerName\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\">CustomerName</th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.customerName}} </td>\n    </ng-container>\n\n    <!-- Driving License Number Column -->\n    <ng-container matColumnDef=\"visitingPlace\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VisitingPlace </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.visitingPlace}} </td>\n    </ng-container>\n\n    <!-- Aadhar Number Column -->\n    <ng-container matColumnDef=\"driverName\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Driver Name </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.driverName}} </td>\n    </ng-container>\n\n    <!-- District Column -->\n    <ng-container matColumnDef=\"totalRent\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\">TotalRent </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.totalRent}} </td>\n    </ng-container>\n\n    <!-- Status Column -->\n    <ng-container matColumnDef=\"status\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Status </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.status ? 'Active' : 'Inactive'}} </td>\n    </ng-container>\n\n    <!-- Action Column -->\n    <ng-container matColumnDef=\"action\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Action </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\n            <mat-radio-button (click)=\"onSelect(element)\"></mat-radio-button>\n        </td>\n    </ng-container>\n\n\n    <!-- Header and Row Definitions -->\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n</table>\n\n<mat-paginator [length]=\"totelCount\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"[10, 25, 50, 100]\"\n    (page)=\"pageEvent($event)\">\n</mat-paginator>"
+module.exports = "<div class=\"row\">\n    <div class=\"col-xl-12\">\n        <form [formGroup]=\"tripFormSearchDetails\" autocomplete=\"off\">\n            <!-- Search Panel -->\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\n                <h4>Search</h4>\n                <div class=\"row\">\n                    <!-- Driver Name -->\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverName\">Driver Name</label>\n                            <input type=\"text\" id=\"driverName\" formControlName=\"driverName\" class=\"form-control\"\n                                placeholder=\"Enter Driver Name\" />\n                        </div>\n                    </div> -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Driver Name<span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-control\" formControlName=\"driverName\"\n                                placeholder=\"Enter Driver Name\">\n                                <option value=\"\" selected disabled>Select Driver Name</option>\n                                <option *ngFor=\"let driverListElemnt of driverList\" value=\"{{driverListElemnt?.name}}\">\n                                    {{driverListElemnt?.name}}</option>\n                            </select>\n                        </div>\n                    </div>\n\n                    <!-- Driver Number -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverNumber\">Driver Number</label>\n                            <input type=\"text\" id=\"driverNumber\" formControlName=\"driverNumber\" class=\"form-control\"\n                                placeholder=\"Enter Driver Number\" />\n                        </div>\n                    </div>\n\n                    <!-- Vehicle Number -->\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"vehicleNumber\">Vehicle Number</label>\n                            <input type=\"text\" id=\"vehicleNumber\" formControlName=\"vehiclenumber\" class=\"form-control\"\n                                placeholder=\"Enter Vehicle Number\" />\n                        </div>\n                    </div> -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Vehicle Number <span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-control\" formControlName=\"vehiclenumber\"\n                                placeholder=\"Select Vehicle Number\">\n                                <option value=\"\" selected disabled>Select Vehicle Number</option>\n                                <option *ngFor=\"let vehicleListElement of vehicleList\"\n                                    value=\"{{vehicleListElement.vehicleNumber}}\">{{vehicleListElement.vehicleNumber}}\n                                </option>\n                            </select>\n                        </div>\n                    </div>\n\n                    <!-- Status -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"status\">Status</label>\n                            <select id=\"status\" formControlName=\"status\" class=\"form-control\">\n                                <option value=\"\" disabled selected>Select Status</option>\n                                <option value=\"APPROVED\">APPROVED</option>\n                                <option value=\"INPROGRESS\">IN PROGRESS</option>\n                                <option value=\"FORWARDED\">FORWARDED</option>\n                                <option value=\"REQUESTFORCLARIFICATION\">REQUEST FOR CLARIFICATION</option>\n                                <option value=\"REJECT\">REJECT</option>\n                                <option value=\"SUBMITTED\">SUBMITTED</option>\n                            </select>\n                        </div>\n                    </div>\n\n\n                </div>\n\n                <!-- Submit and Cancel buttons -->\n                <div class=\"row mt-3\">\n                    <div class=\"col-lg-12 text-end\">\n                        <div class=\"modal-footer\">\n                            <button type=\"submit\" class=\"btn btn-outline-info list-button-container\"\n                                (click)=\"search()\"><span class=\"list-text-alaign-center\">Submit</span></button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary list-button-container\"\n                                (click)=\"onclear()\"><span class=\"list-text-alaign-center\">Clear</span></button>\n\n                        </div>\n                    </div>\n                </div>\n            </app-card>\n        </form>\n    </div>\n</div>\n\n\n\n\n<div class=\"outer-container\">\n    <div class=\"button-container\">\n        <button class=\"btn btn-outline-success list-button-container\" [routerLink]=\"['/container/trip-detail/add']\">\n            <span class=\"list-text-alaign-center\">Add</span>\n        </button>\n        <button class=\"btn btn-outline-secondary list-button-container\" (click)=\"onEdit()\" [disabled]=\"!editEnable\">\n            <span class=\"list-text-alaign-center\">Edit</span>\n        </button>\n        <button class=\"btn btn-outline-warning list-button-container\" (click)=\"onView()\" [disabled]=\"!viewEnable\">\n            <span class=\"list-text-alaign-center\">View</span>\n        </button>\n        <!-- <button (click)=\"onclear()\">\n            <span>Clear</span>\n        </button> -->\n    </div>\n</div>\n\n<table mat-table [dataSource]=\"dataSource\" class=\"table-design\">\n    <!-- Serial No Column -->\n    <ng-container matColumnDef=\"serialNo\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> S.No </th>\n        <td mat-cell *matCellDef=\"let element; let i = index\" class=\"text-center\"> {{ i + 1 }} </td>\n    </ng-container>\n\n    <!-- Driver Name Column -->\n    <ng-container matColumnDef=\"createdDate\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> CreatedDate </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.createdDate | date: 'dd-MM-yyyy'}} </td>\n    </ng-container>\n\n    <!-- Driver Name Column -->\n    <ng-container matColumnDef=\"vehicleNumber\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VehicleNumber </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.vehicleNumber}} </td>\n    </ng-container>\n\n    <!-- Mobile Number Column -->\n    <ng-container matColumnDef=\"customerName\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\">CustomerName</th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.customerName}} </td>\n    </ng-container>\n\n    <!-- Driving License Number Column -->\n    <ng-container matColumnDef=\"visitingPlace\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VisitingPlace </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.visitingPlace}} </td>\n    </ng-container>\n\n    <!-- Aadhar Number Column -->\n    <ng-container matColumnDef=\"driverName\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Driver Name </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.driverName}} </td>\n    </ng-container>\n\n    <!-- District Column -->\n    <ng-container matColumnDef=\"totalRent\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\">TotalRent </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.totalRent}} </td>\n    </ng-container>\n\n    <!-- Status Column -->\n    <ng-container matColumnDef=\"status\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Status </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.status ? 'Active' : 'Inactive'}} </td>\n    </ng-container>\n\n    <!-- Action Column -->\n    <ng-container matColumnDef=\"action\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Action </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\n            <mat-radio-button (click)=\"onSelect(element)\"></mat-radio-button>\n        </td>\n    </ng-container>\n\n\n    <!-- Header and Row Definitions -->\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n</table>\n\n<mat-paginator [length]=\"totelCount\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"[10, 25, 50, 100]\"\n    (page)=\"pageEvent($event)\">\n</mat-paginator>"
 
 /***/ }),
 
@@ -959,12 +706,30 @@ var TripDetailsComponent = /** @class */ (function () {
         this.pageSize = 10;
     }
     TripDetailsComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.tripFormSearchDetails = this.formBuilder.group({
             driverName: [''],
             driverNumber: [''],
-            vehiclenumber: ['']
+            vehiclenumber: [''],
+            status: ['']
         });
         this.getAll();
+        this.commonService.activeVechicle().subscribe(function (vehicleResponse) {
+            if (vehicleResponse.status == 's') {
+                _this.vehicleList = vehicleResponse.data;
+            }
+            else {
+                _this.vehicleList = [];
+            }
+        });
+        this.commonService.activeDriver().subscribe(function (driverResponse) {
+            if (driverResponse.status == 's') {
+                _this.driverList = driverResponse.data;
+            }
+            else {
+                _this.driverList = [];
+            }
+        });
     };
     TripDetailsComponent.prototype.getAll = function (pageIndex, pageSize) {
         var _this = this;
@@ -977,7 +742,8 @@ var TripDetailsComponent = /** @class */ (function () {
                 customerName: '',
                 customerMobileNumber: '',
                 driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
-                visitingPlace: ""
+                visitingPlace: "",
+                status: ""
             },
             paginationSize: pageSize,
             sortField: "modifiedDate",
@@ -1003,7 +769,8 @@ var TripDetailsComponent = /** @class */ (function () {
                 customerName: '',
                 customerMobileNumber: '',
                 driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
-                visitingPlace: ""
+                visitingPlace: "",
+                status: tripFormSearchDetails.status ? tripFormSearchDetails.status : ''
             },
             paginationSize: 10,
             sortField: "modifiedDate",
@@ -1024,7 +791,8 @@ var TripDetailsComponent = /** @class */ (function () {
         this.tripFormSearchDetails.patchValue({
             driverName: '',
             driverNumber: '',
-            vehiclenumber: ''
+            vehiclenumber: '',
+            status: "",
         });
         /* const request = {
           "filters": {
