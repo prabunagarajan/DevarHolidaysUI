@@ -188,7 +188,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       receivedAmount: tripFormDetails.receivedAmount || '',
       startingKM: tripFormDetails.startingKM || '',
       startingTime: moment(tripFormDetails.startingTime).format('YYYY-MM-DD HH:mm:ss') || '',
-      status: tripFormDetails.status || 'SUBMITTED',
+      status: 'INPROGRESS',
       submittedBy: tripFormDetails.submittedBy || '',
       toll: tripFormDetails.toll || '',
       totalRent: tripFormDetails.totalRent || '',

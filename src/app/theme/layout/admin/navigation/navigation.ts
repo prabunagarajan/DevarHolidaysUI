@@ -62,6 +62,20 @@ const NavigationItems = [
         type: 'item',
         url: '/container/trip-detail/list',
         icon: 'feather icon-home'
+      },
+      {
+        id: 'tripdetails',
+        title: 'Trip Details Inprogress',
+        type: 'item',
+        url: '/container/trip-detail/inprogresslist',
+        icon: 'feather icon-home'
+      },
+      {
+        id: 'tripdetails',
+        title: 'Trip Details Forward',
+        type: 'item',
+        url: '/container/trip-detail/forwardlist',
+        icon: 'feather icon-home'
       }
     ]
   },
