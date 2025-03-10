@@ -22,6 +22,28 @@ module.exports = "<div class=\"row\">\n    <div class=\"col-xl-12\">\n        <f
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/container/trip-details/trip-details/tripdeatilsforward/tripdeatilsforward.component.html":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/container/trip-details/trip-details/tripdeatilsforward/tripdeatilsforward.component.html ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n    <div class=\"col-xl-12\">\n        <form [formGroup]=\"tripFormSearchDetails\" autocomplete=\"off\">\n            <!-- Search Panel -->\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\n                <h4>Search</h4>\n                <div class=\"row\">\n                    <!-- Driver Name -->\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverName\">Driver Name</label>\n                            <input type=\"text\" id=\"driverName\" formControlName=\"driverName\" class=\"form-control\"\n                                placeholder=\"Enter Driver Name\" />\n                        </div>\n                    </div> -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Driver Name<span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-control\" formControlName=\"driverName\"\n                                placeholder=\"Enter Driver Name\">\n                                <option value=\"\" selected disabled>Select Driver Name</option>\n                                <option *ngFor=\"let driverListElemnt of driverList\" value=\"{{driverListElemnt?.name}}\">\n                                    {{driverListElemnt?.name}}</option>\n                            </select>\n                        </div>\n                    </div>\n\n                    <!-- Driver Number -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverNumber\">Driver Number</label>\n                            <input type=\"text\" id=\"driverNumber\" formControlName=\"driverNumber\" class=\"form-control\"\n                                placeholder=\"Enter Driver Number\" />\n                        </div>\n                    </div>\n\n                    <!-- Vehicle Number -->\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"vehicleNumber\">Vehicle Number</label>\n                            <input type=\"text\" id=\"vehicleNumber\" formControlName=\"vehiclenumber\" class=\"form-control\"\n                                placeholder=\"Enter Vehicle Number\" />\n                        </div>\n                    </div> -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Vehicle Number <span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-control\" formControlName=\"vehiclenumber\"\n                                placeholder=\"Select Vehicle Number\">\n                                <option value=\"\" selected disabled>Select Vehicle Number</option>\n                                <option *ngFor=\"let vehicleListElement of vehicleList\"\n                                    value=\"{{vehicleListElement.vehicleNumber}}\">{{vehicleListElement.vehicleNumber}}\n                                </option>\n                            </select>\n                        </div>\n                    </div>\n\n                    <!-- Status -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"status\">Status</label>\n                            <select id=\"status\" formControlName=\"status\" class=\"form-control\">\n                                <option value=\"\" disabled selected>Select Status</option>\n                                <option value=\"APPROVED\">APPROVED</option>\n                                <option value=\"INPROGRESS\">IN PROGRESS</option>\n                                <option value=\"FORWARDED\">FORWARDED</option>\n                                <option value=\"REQUESTFORCLARIFICATION\">REQUEST FOR CLARIFICATION</option>\n                                <option value=\"REJECT\">REJECT</option>\n                                <option value=\"SUBMITTED\">SUBMITTED</option>\n                            </select>\n                        </div>\n                    </div>\n\n\n                </div>\n\n                <!-- Submit and Cancel buttons -->\n                <div class=\"row mt-3\">\n                    <div class=\"col-lg-12 text-end\">\n                        <div class=\"modal-footer\">\n                            <button type=\"submit\" class=\"btn btn-outline-info list-button-container\"\n                                (click)=\"search()\"><span class=\"list-text-alaign-center\">Submit</span></button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary list-button-container\"\n                                (click)=\"onclear()\"><span class=\"list-text-alaign-center\">Clear</span></button>\n\n                        </div>\n                    </div>\n                </div>\n            </app-card>\n        </form>\n    </div>\n</div>\n\n\n\n\n<div class=\"outer-container\">\n    <div class=\"button-container\">\n        <button class=\"btn btn-outline-success list-button-container\" [routerLink]=\"['/container/trip-detail/add']\">\n            <span class=\"list-text-alaign-center\">Add</span>\n        </button>\n        <button class=\"btn btn-outline-secondary list-button-container\" (click)=\"onEdit()\" [disabled]=\"!editEnable\">\n            <span class=\"list-text-alaign-center\">Edit</span>\n        </button>\n        <button class=\"btn btn-outline-warning list-button-container\" (click)=\"onView()\" [disabled]=\"!viewEnable\">\n            <span class=\"list-text-alaign-center\">View</span>\n        </button>\n        <!-- <button (click)=\"onclear()\">\n            <span>Clear</span>\n        </button> -->\n    </div>\n</div>\n\n<table mat-table [dataSource]=\"dataSource\" class=\"table-design\">\n    <!-- Serial No Column -->\n    <ng-container matColumnDef=\"serialNo\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> S.No </th>\n        <td mat-cell *matCellDef=\"let element; let i = index\" class=\"text-center\"> {{ i + 1 }} </td>\n    </ng-container>\n\n    <!-- Driver Name Column -->\n    <ng-container matColumnDef=\"createdDate\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> CreatedDate </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.createdDate | date: 'dd-MM-yyyy'}} </td>\n    </ng-container>\n\n    <!-- Driver Name Column -->\n    <ng-container matColumnDef=\"vehicleNumber\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VehicleNumber </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.vehicleNumber}} </td>\n    </ng-container>\n\n    <!-- Mobile Number Column -->\n    <ng-container matColumnDef=\"customerName\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\">CustomerName</th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.customerName}} </td>\n    </ng-container>\n\n    <!-- Driving License Number Column -->\n    <ng-container matColumnDef=\"visitingPlace\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VisitingPlace </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.visitingPlace}} </td>\n    </ng-container>\n\n    <!-- Aadhar Number Column -->\n    <ng-container matColumnDef=\"driverName\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Driver Name </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.driverName}} </td>\n    </ng-container>\n\n    <!-- District Column -->\n    <ng-container matColumnDef=\"totalRent\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\">TotalRent </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.totalRent}} </td>\n    </ng-container>\n\n    <!-- Status Column -->\n    <ng-container matColumnDef=\"status\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Status </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.status ? 'Active' : 'Inactive'}} </td>\n    </ng-container>\n\n    <!-- Action Column -->\n    <ng-container matColumnDef=\"action\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Action </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\n            <mat-radio-button (click)=\"onSelect(element)\"></mat-radio-button>\n        </td>\n    </ng-container>\n\n\n    <!-- Header and Row Definitions -->\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n</table>\n\n<mat-paginator [length]=\"totelCount\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"[10, 25, 50, 100]\"\n    (page)=\"pageEvent($event)\">\n</mat-paginator>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/container/trip-details/trip-details/tripdetailsinprogress/tripdetailsinprogress.component.html":
+/*!******************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/container/trip-details/trip-details/tripdetailsinprogress/tripdetailsinprogress.component.html ***!
+  \******************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n    <div class=\"col-xl-12\">\n        <form [formGroup]=\"tripFormSearchDetails\" autocomplete=\"off\">\n            <!-- Search Panel -->\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\n                <h4>Search</h4>\n                <div class=\"row\">\n                    <!-- Driver Name -->\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverName\">Driver Name</label>\n                            <input type=\"text\" id=\"driverName\" formControlName=\"driverName\" class=\"form-control\"\n                                placeholder=\"Enter Driver Name\" />\n                        </div>\n                    </div> -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Driver Name<span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-control\" formControlName=\"driverName\"\n                                placeholder=\"Enter Driver Name\">\n                                <option value=\"\" selected disabled>Select Driver Name</option>\n                                <option *ngFor=\"let driverListElemnt of driverList\" value=\"{{driverListElemnt?.name}}\">\n                                    {{driverListElemnt?.name}}</option>\n                            </select>\n                        </div>\n                    </div>\n\n                    <!-- Driver Number -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverNumber\">Driver Number</label>\n                            <input type=\"text\" id=\"driverNumber\" formControlName=\"driverNumber\" class=\"form-control\"\n                                placeholder=\"Enter Driver Number\" />\n                        </div>\n                    </div>\n\n                    <!-- Vehicle Number -->\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"vehicleNumber\">Vehicle Number</label>\n                            <input type=\"text\" id=\"vehicleNumber\" formControlName=\"vehiclenumber\" class=\"form-control\"\n                                placeholder=\"Enter Vehicle Number\" />\n                        </div>\n                    </div> -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Vehicle Number <span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-control\" formControlName=\"vehiclenumber\"\n                                placeholder=\"Select Vehicle Number\">\n                                <option value=\"\" selected disabled>Select Vehicle Number</option>\n                                <option *ngFor=\"let vehicleListElement of vehicleList\"\n                                    value=\"{{vehicleListElement.vehicleNumber}}\">{{vehicleListElement.vehicleNumber}}\n                                </option>\n                            </select>\n                        </div>\n                    </div>\n\n                    <!-- Status -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"status\">Status</label>\n                            <select id=\"status\" formControlName=\"status\" class=\"form-control\">\n                                <option value=\"\" disabled selected>Select Status</option>\n                                <option value=\"APPROVED\">APPROVED</option>\n                                <option value=\"INPROGRESS\">IN PROGRESS</option>\n                                <option value=\"FORWARDED\">FORWARDED</option>\n                                <option value=\"REQUESTFORCLARIFICATION\">REQUEST FOR CLARIFICATION</option>\n                                <option value=\"REJECT\">REJECT</option>\n                                <option value=\"SUBMITTED\">SUBMITTED</option>\n                            </select>\n                        </div>\n                    </div>\n\n\n                </div>\n\n                <!-- Submit and Cancel buttons -->\n                <div class=\"row mt-3\">\n                    <div class=\"col-lg-12 text-end\">\n                        <div class=\"modal-footer\">\n                            <button type=\"submit\" class=\"btn btn-outline-info list-button-container\"\n                                (click)=\"search()\"><span class=\"list-text-alaign-center\">Submit</span></button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary list-button-container\"\n                                (click)=\"onclear()\"><span class=\"list-text-alaign-center\">Clear</span></button>\n\n                        </div>\n                    </div>\n                </div>\n            </app-card>\n        </form>\n    </div>\n</div>\n\n\n\n\n<div class=\"outer-container\">\n    <div class=\"button-container\">\n        <button class=\"btn btn-outline-success list-button-container\" [routerLink]=\"['/container/trip-detail/add']\">\n            <span class=\"list-text-alaign-center\">Add</span>\n        </button>\n        <button class=\"btn btn-outline-secondary list-button-container\" (click)=\"onEdit()\" [disabled]=\"!editEnable\">\n            <span class=\"list-text-alaign-center\">Edit</span>\n        </button>\n        <button class=\"btn btn-outline-warning list-button-container\" (click)=\"onView()\" [disabled]=\"!viewEnable\">\n            <span class=\"list-text-alaign-center\">View</span>\n        </button>\n        <!-- <button (click)=\"onclear()\">\n            <span>Clear</span>\n        </button> -->\n    </div>\n</div>\n\n<table mat-table [dataSource]=\"dataSource\" class=\"table-design\">\n    <!-- Serial No Column -->\n    <ng-container matColumnDef=\"serialNo\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> S.No </th>\n        <td mat-cell *matCellDef=\"let element; let i = index\" class=\"text-center\"> {{ i + 1 }} </td>\n    </ng-container>\n\n    <!-- Driver Name Column -->\n    <ng-container matColumnDef=\"createdDate\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> CreatedDate </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.createdDate | date: 'dd-MM-yyyy'}} </td>\n    </ng-container>\n\n    <!-- Driver Name Column -->\n    <ng-container matColumnDef=\"vehicleNumber\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VehicleNumber </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.vehicleNumber}} </td>\n    </ng-container>\n\n    <!-- Mobile Number Column -->\n    <ng-container matColumnDef=\"customerName\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\">CustomerName</th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.customerName}} </td>\n    </ng-container>\n\n    <!-- Driving License Number Column -->\n    <ng-container matColumnDef=\"visitingPlace\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VisitingPlace </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.visitingPlace}} </td>\n    </ng-container>\n\n    <!-- Aadhar Number Column -->\n    <ng-container matColumnDef=\"driverName\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Driver Name </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.driverName}} </td>\n    </ng-container>\n\n    <!-- District Column -->\n    <ng-container matColumnDef=\"totalRent\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\">TotalRent </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.totalRent}} </td>\n    </ng-container>\n\n    <!-- Status Column -->\n    <ng-container matColumnDef=\"status\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Status </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.status ? 'Active' : 'Inactive'}} </td>\n    </ng-container>\n\n    <!-- Action Column -->\n    <ng-container matColumnDef=\"action\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Action </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\n            <mat-radio-button (click)=\"onSelect(element)\"></mat-radio-button>\n        </td>\n    </ng-container>\n\n\n    <!-- Header and Row Definitions -->\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n</table>\n\n<mat-paginator [length]=\"totelCount\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"[10, 25, 50, 100]\"\n    (page)=\"pageEvent($event)\">\n</mat-paginator>"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/container/trip-details/trip-details/view-trip-details/view-trip-details.component.html":
 /*!**********************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/container/trip-details/trip-details/view-trip-details/view-trip-details.component.html ***!
@@ -243,7 +265,7 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
             receivedAmount: tripFormDetails.receivedAmount || '',
             startingKM: tripFormDetails.startingKM || '',
             startingTime: moment__WEBPACK_IMPORTED_MODULE_4__(tripFormDetails.startingTime).format('YYYY-MM-DD HH:mm:ss') || '',
-            status: tripFormDetails.status || 'SUBMITTED',
+            status: 'INPROGRESS',
             submittedBy: tripFormDetails.submittedBy || '',
             toll: tripFormDetails.toll || '',
             totalRent: tripFormDetails.totalRent || '',
@@ -618,6 +640,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _add_edit_trip_details_add_edit_trip_details_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./add-edit-trip-details/add-edit-trip-details.component */ "./src/app/container/trip-details/trip-details/add-edit-trip-details/add-edit-trip-details.component.ts");
 /* harmony import */ var _trip_details_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./trip-details.component */ "./src/app/container/trip-details/trip-details/trip-details.component.ts");
 /* harmony import */ var _view_trip_details_view_trip_details_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./view-trip-details/view-trip-details.component */ "./src/app/container/trip-details/trip-details/view-trip-details/view-trip-details.component.ts");
+/* harmony import */ var _tripdetailsinprogress_tripdetailsinprogress_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tripdetailsinprogress/tripdetailsinprogress.component */ "./src/app/container/trip-details/trip-details/tripdetailsinprogress/tripdetailsinprogress.component.ts");
+/* harmony import */ var _tripdeatilsforward_tripdeatilsforward_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tripdeatilsforward/tripdeatilsforward.component */ "./src/app/container/trip-details/trip-details/tripdeatilsforward/tripdeatilsforward.component.ts");
+
+
 
 
 
@@ -641,6 +667,14 @@ var routes = [
         path: 'view/:id',
         component: _view_trip_details_view_trip_details_component__WEBPACK_IMPORTED_MODULE_5__["ViewTripDetailsComponent"]
     },
+    {
+        path: 'inprogresslist',
+        component: _tripdetailsinprogress_tripdetailsinprogress_component__WEBPACK_IMPORTED_MODULE_6__["TripdetailsinprogressComponent"]
+    },
+    {
+        path: 'forwardlist',
+        component: _tripdeatilsforward_tripdeatilsforward_component__WEBPACK_IMPORTED_MODULE_7__["TripdeatilsforwardComponent"]
+    }
 ];
 var TripDetailsRoutingModule = /** @class */ (function () {
     function TripDetailsRoutingModule() {
@@ -897,6 +931,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ngx-bootstrap/datepicker */ "./node_modules/ngx-bootstrap/datepicker/fesm5/ngx-bootstrap-datepicker.js");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
 /* harmony import */ var ng_pick_datetime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ng-pick-datetime */ "./node_modules/ng-pick-datetime/picker.js");
+/* harmony import */ var _tripdetailsinprogress_tripdetailsinprogress_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./tripdetailsinprogress/tripdetailsinprogress.component */ "./src/app/container/trip-details/trip-details/tripdetailsinprogress/tripdetailsinprogress.component.ts");
+/* harmony import */ var _tripdeatilsforward_tripdeatilsforward_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./tripdeatilsforward/tripdeatilsforward.component */ "./src/app/container/trip-details/trip-details/tripdeatilsforward/tripdeatilsforward.component.ts");
+
+
 
 
 
@@ -926,7 +964,10 @@ var TripDetailsModule = /** @class */ (function () {
             declarations: [
                 _trip_details_component__WEBPACK_IMPORTED_MODULE_7__["TripDetailsComponent"],
                 _add_edit_trip_details_add_edit_trip_details_component__WEBPACK_IMPORTED_MODULE_5__["AddEditTripDetailsComponent"],
-                _view_trip_details_view_trip_details_component__WEBPACK_IMPORTED_MODULE_6__["ViewTripDetailsComponent"]
+                _view_trip_details_view_trip_details_component__WEBPACK_IMPORTED_MODULE_6__["ViewTripDetailsComponent"],
+                _tripdetailsinprogress_tripdetailsinprogress_component__WEBPACK_IMPORTED_MODULE_12__["TripdetailsinprogressComponent"],
+                _tripdeatilsforward_tripdeatilsforward_component__WEBPACK_IMPORTED_MODULE_13__["TripdeatilsforwardComponent"],
+                _tripdeatilsforward_tripdeatilsforward_component__WEBPACK_IMPORTED_MODULE_13__["TripdeatilsforwardComponent"]
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
@@ -949,6 +990,438 @@ var TripDetailsModule = /** @class */ (function () {
         })
     ], TripDetailsModule);
     return TripDetailsModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/container/trip-details/trip-details/tripdeatilsforward/tripdeatilsforward.component.scss":
+/*!**********************************************************************************************************!*\
+  !*** ./src/app/container/trip-details/trip-details/tripdeatilsforward/tripdeatilsforward.component.scss ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbnRhaW5lci90cmlwLWRldGFpbHMvdHJpcC1kZXRhaWxzL3RyaXBkZWF0aWxzZm9yd2FyZC90cmlwZGVhdGlsc2ZvcndhcmQuY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/container/trip-details/trip-details/tripdeatilsforward/tripdeatilsforward.component.ts":
+/*!********************************************************************************************************!*\
+  !*** ./src/app/container/trip-details/trip-details/tripdeatilsforward/tripdeatilsforward.component.ts ***!
+  \********************************************************************************************************/
+/*! exports provided: TripdeatilsforwardComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TripdeatilsforwardComponent", function() { return TripdeatilsforwardComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_material_paginator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/paginator */ "./node_modules/@angular/material/esm5/paginator.es5.js");
+/* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm5/table.es5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_service_common_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/service/common.service */ "./src/app/service/common.service.ts");
+
+
+
+
+
+
+
+
+var TripdeatilsforwardComponent = /** @class */ (function () {
+    function TripdeatilsforwardComponent(formBuilder, commonService, router, toastrMsg) {
+        this.formBuilder = formBuilder;
+        this.commonService = commonService;
+        this.router = router;
+        this.toastrMsg = toastrMsg;
+        this.displayedColumns = ['serialNo', 'createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent', 'status', 'action'];
+        this.totelCount = 0;
+        this.pageSize = 10;
+    }
+    TripdeatilsforwardComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.tripFormSearchDetails = this.formBuilder.group({
+            driverName: [''],
+            driverNumber: [''],
+            vehiclenumber: [''],
+            status: ['']
+        });
+        this.getAll();
+        this.commonService.activeVechicle().subscribe(function (vehicleResponse) {
+            if (vehicleResponse.status == 's') {
+                _this.vehicleList = vehicleResponse.data;
+            }
+            else {
+                _this.vehicleList = [];
+            }
+        });
+        this.commonService.activeDriver().subscribe(function (driverResponse) {
+            if (driverResponse.status == 's') {
+                _this.driverList = driverResponse.data;
+            }
+            else {
+                _this.driverList = [];
+            }
+        });
+    };
+    TripdeatilsforwardComponent.prototype.getAll = function (pageIndex, pageSize) {
+        var _this = this;
+        if (pageIndex === void 0) { pageIndex = 0; }
+        if (pageSize === void 0) { pageSize = this.pageSize; }
+        var tripFormSearchDetails = this.tripFormSearchDetails.value;
+        var request = {
+            filters: {
+                vehicleNumber: tripFormSearchDetails.vehiclenumber ? tripFormSearchDetails.vehiclenumber : '',
+                customerName: '',
+                customerMobileNumber: '',
+                driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
+                visitingPlace: "",
+                status: "FORWARDED"
+            },
+            paginationSize: pageSize,
+            sortField: "modifiedDate",
+            pageNo: pageIndex,
+            sortOrder: "DESC"
+        };
+        this.commonService.tripDetailsSearchList(request).subscribe(function (response) {
+            if (response.status == 's' && response.data) {
+                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](response.data.contents);
+                _this.totelCount = response.data.totalElements;
+            }
+            else {
+                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"]();
+            }
+        });
+    };
+    TripdeatilsforwardComponent.prototype.search = function () {
+        var _this = this;
+        var tripFormSearchDetails = this.tripFormSearchDetails.value;
+        var request = {
+            filters: {
+                vehicleNumber: tripFormSearchDetails.vehiclenumber ? tripFormSearchDetails.vehiclenumber : '',
+                customerName: '',
+                customerMobileNumber: '',
+                driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
+                visitingPlace: "",
+                status: tripFormSearchDetails.status ? tripFormSearchDetails.status : ''
+            },
+            paginationSize: 10,
+            sortField: "modifiedDate",
+            pageNo: 0,
+            sortOrder: "DESC"
+        };
+        this.commonService.tripDetailsSearchList(request).subscribe(function (response) {
+            if (response.status === 's' && response.data) {
+                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](response.data.contents);
+                _this.totelCount = response.data.totalElements;
+            }
+            else {
+                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"]();
+            }
+        });
+    };
+    TripdeatilsforwardComponent.prototype.onclear = function () {
+        this.tripFormSearchDetails.patchValue({
+            driverName: '',
+            driverNumber: '',
+            vehiclenumber: '',
+            status: "",
+        });
+        /* const request = {
+          "filters": {
+            "vehicleNumber": "",
+            "customerName": "",
+            "customerMobileNumber": "",
+            "driverName": "",
+            "visitingPlace": ""
+          },
+          "pageNo": 0,
+          "paginationSize": 10,
+          "sortField": "modifiedDate",
+          "sortOrder": "DESC"
+        }
+        this.commonService.tripDetailsSearchList(request).subscribe(response => {
+          if (response.status === 's' && response.data) {
+            this.dataSource = new MatTableDataSource(response.data.contents);
+            this.totelCount = response.data.totalElements;
+          } else {
+            this.dataSource = new MatTableDataSource();
+          }
+        }); */
+        this.pageSize = 10;
+        this.search();
+    };
+    TripdeatilsforwardComponent.prototype.pageEvent = function (event) {
+        var pageIndex = event.pageIndex;
+        var pageSize = event.pageSize;
+        this.getAll(pageIndex, pageSize);
+    };
+    TripdeatilsforwardComponent.prototype.onSelect = function (obj) {
+        this.selectObj = obj ? obj : undefined;
+        if (obj) {
+            this.viewEnable = true;
+            this.editEnable = true;
+        }
+    };
+    TripdeatilsforwardComponent.prototype.onEdit = function () {
+        if (this.selectObj) {
+            this.router.navigate(['/container/trip-detail/modification', this.selectObj.id]);
+        }
+        else {
+            this.toastrMsg.error('View not able');
+        }
+    };
+    TripdeatilsforwardComponent.prototype.onView = function () {
+        if (this.selectObj) {
+            this.router.navigate(['/container/trip-detail/view', this.selectObj.id]);
+        }
+        else {
+            this.toastrMsg.error('View not able');
+        }
+    };
+    TripdeatilsforwardComponent.ctorParameters = function () { return [
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] },
+        { type: src_app_service_common_service__WEBPACK_IMPORTED_MODULE_7__["CommonService"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"] }
+    ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material_paginator__WEBPACK_IMPORTED_MODULE_3__["MatPaginator"], { static: false }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material_paginator__WEBPACK_IMPORTED_MODULE_3__["MatPaginator"])
+    ], TripdeatilsforwardComponent.prototype, "paginator", void 0);
+    TripdeatilsforwardComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-tripdeatilsforward',
+            template: __webpack_require__(/*! raw-loader!./tripdeatilsforward.component.html */ "./node_modules/raw-loader/index.js!./src/app/container/trip-details/trip-details/tripdeatilsforward/tripdeatilsforward.component.html"),
+            styles: [__webpack_require__(/*! ./tripdeatilsforward.component.scss */ "./src/app/container/trip-details/trip-details/tripdeatilsforward/tripdeatilsforward.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            src_app_service_common_service__WEBPACK_IMPORTED_MODULE_7__["CommonService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"]])
+    ], TripdeatilsforwardComponent);
+    return TripdeatilsforwardComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/container/trip-details/trip-details/tripdetailsinprogress/tripdetailsinprogress.component.scss":
+/*!****************************************************************************************************************!*\
+  !*** ./src/app/container/trip-details/trip-details/tripdetailsinprogress/tripdetailsinprogress.component.scss ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbnRhaW5lci90cmlwLWRldGFpbHMvdHJpcC1kZXRhaWxzL3RyaXBkZXRhaWxzaW5wcm9ncmVzcy90cmlwZGV0YWlsc2lucHJvZ3Jlc3MuY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/container/trip-details/trip-details/tripdetailsinprogress/tripdetailsinprogress.component.ts":
+/*!**************************************************************************************************************!*\
+  !*** ./src/app/container/trip-details/trip-details/tripdetailsinprogress/tripdetailsinprogress.component.ts ***!
+  \**************************************************************************************************************/
+/*! exports provided: TripdetailsinprogressComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TripdetailsinprogressComponent", function() { return TripdetailsinprogressComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_material_paginator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/paginator */ "./node_modules/@angular/material/esm5/paginator.es5.js");
+/* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm5/table.es5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var src_app_service_common_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/service/common.service */ "./src/app/service/common.service.ts");
+
+
+
+
+
+
+
+
+var TripdetailsinprogressComponent = /** @class */ (function () {
+    function TripdetailsinprogressComponent(formBuilder, commonService, router, toastrMsg) {
+        this.formBuilder = formBuilder;
+        this.commonService = commonService;
+        this.router = router;
+        this.toastrMsg = toastrMsg;
+        this.displayedColumns = ['serialNo', 'createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent', 'status', 'action'];
+        this.totelCount = 0;
+        this.pageSize = 10;
+    }
+    TripdetailsinprogressComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.tripFormSearchDetails = this.formBuilder.group({
+            driverName: [''],
+            driverNumber: [''],
+            vehiclenumber: [''],
+            status: ['']
+        });
+        this.getAll();
+        this.commonService.activeVechicle().subscribe(function (vehicleResponse) {
+            if (vehicleResponse.status == 's') {
+                _this.vehicleList = vehicleResponse.data;
+            }
+            else {
+                _this.vehicleList = [];
+            }
+        });
+        this.commonService.activeDriver().subscribe(function (driverResponse) {
+            if (driverResponse.status == 's') {
+                _this.driverList = driverResponse.data;
+            }
+            else {
+                _this.driverList = [];
+            }
+        });
+    };
+    TripdetailsinprogressComponent.prototype.getAll = function (pageIndex, pageSize) {
+        var _this = this;
+        if (pageIndex === void 0) { pageIndex = 0; }
+        if (pageSize === void 0) { pageSize = this.pageSize; }
+        var tripFormSearchDetails = this.tripFormSearchDetails.value;
+        var request = {
+            filters: {
+                vehicleNumber: tripFormSearchDetails.vehiclenumber ? tripFormSearchDetails.vehiclenumber : '',
+                customerName: '',
+                customerMobileNumber: '',
+                driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
+                visitingPlace: "",
+                status: "INPROGRESS"
+            },
+            paginationSize: pageSize,
+            sortField: "modifiedDate",
+            pageNo: pageIndex,
+            sortOrder: "DESC"
+        };
+        this.commonService.tripDetailsSearchList(request).subscribe(function (response) {
+            if (response.status == 's' && response.data) {
+                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](response.data.contents);
+                _this.totelCount = response.data.totalElements;
+            }
+            else {
+                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"]();
+            }
+        });
+    };
+    TripdetailsinprogressComponent.prototype.search = function () {
+        var _this = this;
+        var tripFormSearchDetails = this.tripFormSearchDetails.value;
+        var request = {
+            filters: {
+                vehicleNumber: tripFormSearchDetails.vehiclenumber ? tripFormSearchDetails.vehiclenumber : '',
+                customerName: '',
+                customerMobileNumber: '',
+                driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
+                visitingPlace: "",
+                status: tripFormSearchDetails.status ? tripFormSearchDetails.status : ''
+            },
+            paginationSize: 10,
+            sortField: "modifiedDate",
+            pageNo: 0,
+            sortOrder: "DESC"
+        };
+        this.commonService.tripDetailsSearchList(request).subscribe(function (response) {
+            if (response.status === 's' && response.data) {
+                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](response.data.contents);
+                _this.totelCount = response.data.totalElements;
+            }
+            else {
+                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"]();
+            }
+        });
+    };
+    TripdetailsinprogressComponent.prototype.onclear = function () {
+        this.tripFormSearchDetails.patchValue({
+            driverName: '',
+            driverNumber: '',
+            vehiclenumber: '',
+            status: "",
+        });
+        /* const request = {
+          "filters": {
+            "vehicleNumber": "",
+            "customerName": "",
+            "customerMobileNumber": "",
+            "driverName": "",
+            "visitingPlace": ""
+          },
+          "pageNo": 0,
+          "paginationSize": 10,
+          "sortField": "modifiedDate",
+          "sortOrder": "DESC"
+        }
+        this.commonService.tripDetailsSearchList(request).subscribe(response => {
+          if (response.status === 's' && response.data) {
+            this.dataSource = new MatTableDataSource(response.data.contents);
+            this.totelCount = response.data.totalElements;
+          } else {
+            this.dataSource = new MatTableDataSource();
+          }
+        }); */
+        this.pageSize = 10;
+        this.search();
+    };
+    TripdetailsinprogressComponent.prototype.pageEvent = function (event) {
+        var pageIndex = event.pageIndex;
+        var pageSize = event.pageSize;
+        this.getAll(pageIndex, pageSize);
+    };
+    TripdetailsinprogressComponent.prototype.onSelect = function (obj) {
+        this.selectObj = obj ? obj : undefined;
+        if (obj) {
+            this.viewEnable = true;
+            this.editEnable = true;
+        }
+    };
+    TripdetailsinprogressComponent.prototype.onEdit = function () {
+        if (this.selectObj) {
+            this.router.navigate(['/container/trip-detail/modification', this.selectObj.id]);
+        }
+        else {
+            this.toastrMsg.error('View not able');
+        }
+    };
+    TripdetailsinprogressComponent.prototype.onView = function () {
+        if (this.selectObj) {
+            this.router.navigate(['/container/trip-detail/view', this.selectObj.id]);
+        }
+        else {
+            this.toastrMsg.error('View not able');
+        }
+    };
+    TripdetailsinprogressComponent.ctorParameters = function () { return [
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] },
+        { type: src_app_service_common_service__WEBPACK_IMPORTED_MODULE_7__["CommonService"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"] }
+    ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material_paginator__WEBPACK_IMPORTED_MODULE_3__["MatPaginator"], { static: false }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_material_paginator__WEBPACK_IMPORTED_MODULE_3__["MatPaginator"])
+    ], TripdetailsinprogressComponent.prototype, "paginator", void 0);
+    TripdetailsinprogressComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-tripdetailsinprogress',
+            template: __webpack_require__(/*! raw-loader!./tripdetailsinprogress.component.html */ "./node_modules/raw-loader/index.js!./src/app/container/trip-details/trip-details/tripdetailsinprogress/tripdetailsinprogress.component.html"),
+            styles: [__webpack_require__(/*! ./tripdetailsinprogress.component.scss */ "./src/app/container/trip-details/trip-details/tripdetailsinprogress/tripdetailsinprogress.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            src_app_service_common_service__WEBPACK_IMPORTED_MODULE_7__["CommonService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"]])
+    ], TripdetailsinprogressComponent);
+    return TripdetailsinprogressComponent;
 }());
 
 
