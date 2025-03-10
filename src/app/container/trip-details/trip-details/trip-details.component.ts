@@ -21,6 +21,8 @@ export class TripDetailsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   public pageSize = 10;
   selectObj: any;
+  vehicleList: any;
+  driverList: any;
   constructor(
     private formBuilder: FormBuilder,
     private commonService: CommonService,
@@ -33,9 +35,24 @@ export class TripDetailsComponent implements OnInit {
     this.tripFormSearchDetails = this.formBuilder.group({
       driverName: [''],
       driverNumber: [''],
-      vehiclenumber: ['']
+      vehiclenumber: [''],
+      status:['']
     })
     this.getAll();
+    this.commonService.activeVechicle().subscribe(vehicleResponse => {
+      if (vehicleResponse.status == 's') {
+        this.vehicleList = vehicleResponse.data;
+      } else {
+        this.vehicleList = [];
+      }
+    });
+    this.commonService.activeDriver().subscribe(driverResponse => {
+      if (driverResponse.status == 's') {
+        this.driverList = driverResponse.data;
+      } else {
+        this.driverList = [];
+      }
+    });
   }
 
 
@@ -47,7 +64,8 @@ export class TripDetailsComponent implements OnInit {
         customerName: '',
         customerMobileNumber: '',
         driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
-        visitingPlace: ""
+        visitingPlace: "",
+        status:""
       },
       paginationSize: pageSize,
       sortField: "modifiedDate",
@@ -72,7 +90,8 @@ export class TripDetailsComponent implements OnInit {
         customerName: '',
         customerMobileNumber: '',
         driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
-        visitingPlace: ""
+        visitingPlace: "",
+        status: tripFormSearchDetails.status ? tripFormSearchDetails.status : ''
       },
       paginationSize: 10,
       sortField: "modifiedDate",
@@ -92,7 +111,8 @@ export class TripDetailsComponent implements OnInit {
     this.tripFormSearchDetails.patchValue({
       driverName: '',
       driverNumber: '',
-      vehiclenumber: ''
+      vehiclenumber: '',
+      status:"",
     });
     /* const request = {
       "filters": {
