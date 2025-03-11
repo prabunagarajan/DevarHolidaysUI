@@ -22,6 +22,9 @@ export class AddEditTripDetailsComponent implements OnInit {
   driverList: any;
   getTripDetails: any;
   tripId = '';
+  forwardApproveBtnShow: boolean;
+  approveBtnShow: boolean;
+  tripStatus: any;
   constructor(
     private formBuilder: FormBuilder,
     private toastrMsg: ToastrService,
@@ -32,7 +35,22 @@ export class AddEditTripDetailsComponent implements OnInit {
   ngOnInit() {
 
     this.activatedRoute.params.subscribe(tripIdResponse => {
-      if (tripIdResponse.id) {
+      if (tripIdResponse.id && tripIdResponse.status == 'forward') {
+        this.tripId = tripIdResponse.id;
+        console.log("FIRST METHOD");
+        this.tripStatus = tripIdResponse.status;
+        this.getTripDetailsForward(tripIdResponse.id);
+        this.forwardApproveBtnShow = true;
+      }
+      else if (tripIdResponse.id && tripIdResponse.status == 'approved') {
+        this.tripId = tripIdResponse.id;
+        this.tripStatus = tripIdResponse.status;
+        this.getTripDetailsApprove(tripIdResponse.id);
+        this.approveBtnShow = true;
+        console.log("Second METHOD");
+      }
+      else if (tripIdResponse.id) {
+        console.log("THIRD METHOD");
         this.tripId = tripIdResponse.id;
         this.getTripDetailsForm(tripIdResponse.id);
       }
@@ -71,12 +89,12 @@ export class AddEditTripDetailsComponent implements OnInit {
       paymentType: ['', Validators.required],
       receivedAmount: ['', Validators.required],
       pendingAmount: ['', Validators.required],
-      balanceAmount: ['', Validators.required],
+      // balanceAmount: ['', Validators.required],
       profitAmount: ['', Validators.required],
       submittedBy: ['', Validators.required],
       status: [''],
-      verifiedByManager: ['', Validators.required],
-      verifiedByProprietor: ['', Validators.required]
+      // verifiedByManager: ['', Validators.required],
+      // verifiedByProprietor: ['', Validators.required]
     });
     this.tripFormDetails.get('startingTime').valueChanges.subscribe(() => {
       this.calculateTotalHours();
@@ -99,6 +117,7 @@ export class AddEditTripDetailsComponent implements OnInit {
         this.driverList = [];
       }
     });
+
   }
 
   calculateTotalHours() {
@@ -123,6 +142,8 @@ export class AddEditTripDetailsComponent implements OnInit {
   }
 
   submit(tripFormDetails) {
+    console.log(tripFormDetails.value);
+
     if (this.tripFormDetails.invalid) {
       this.formSubmitted = true;
     } else if (tripFormDetails.value.acOrNonAc == 'AC' && tripFormDetails.value.startingKM >= tripFormDetails.value.closingKM) {
@@ -162,6 +183,52 @@ export class AddEditTripDetailsComponent implements OnInit {
     }
   }
 
+
+  forwardApprove() {
+    const req = {
+      "id": this.tripId,
+      "status": "FORWARDED"
+    }
+    this.commonService.getTripDetailsForward(req).subscribe(res => {
+      if (res.status = 's') {
+        this.toastrMsg.success("Forwared submitted successfully");
+      }
+      else {
+        this.toastrMsg.error(res.userDisplayMesg);
+      }
+    })
+  }
+
+  approved() {
+    const req = {
+      "id": this.tripId,
+      "status": "APPROVED"
+    }
+    this.commonService.getTripDetailsForward(req).subscribe(res => {
+      if (res.status = 's') {
+        this.toastrMsg.success("Forwared submitted successfully");
+      }
+      else {
+        this.toastrMsg.error(res.userDisplayMesg);
+      }
+    })
+  }
+
+  requestForClarification(){
+    const req = {
+      "id": this.tripId,
+      "status": "REQUESTFORCLARIFICATION"
+    }
+    this.commonService.getTripDetailsForward(req).subscribe(res => {
+      if (res.status = 's') {
+        this.toastrMsg.success("Forwared submitted successfully");
+      }
+      else {
+        this.toastrMsg.error(res.userDisplayMesg);
+      }
+    })
+  }
+
   addTripDetails() {
     const tripFormDetails = this.tripFormDetails.value;
     const addTripDetailsRequest = {
@@ -171,7 +238,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       acStartingKM: tripFormDetails.acStartingKM || '',
       advanceAmount: tripFormDetails.advanceAmount || '',
       advanceType: tripFormDetails.advanceType || '',
-      balanceAmount: tripFormDetails.balanceAmount || '',
+      balanceAmount: tripFormDetails.pendingAmount || '',
       closingKM: tripFormDetails.closingKM || '',
       closingTime: moment(tripFormDetails.closingTime).format('YYYY-MM-DD HH:mm:ss') || '',
       customerMobileNumber: tripFormDetails.customerMobileNumber || '',
@@ -256,7 +323,7 @@ export class AddEditTripDetailsComponent implements OnInit {
 
   numbersOnly(event: KeyboardEvent) {
     const charCode = event.which ? event.which : event.keyCode;
-  
+
     // Allow: Backspace (8), Delete (46), Arrow keys (37, 39), Tab (9), Enter (13)
     if (
       charCode === 8 ||  // Backspace
@@ -268,7 +335,7 @@ export class AddEditTripDetailsComponent implements OnInit {
     ) {
       return; // Allow these keys
     }
-  
+
     // Allow only numeric keys (0-9 from both top row and numpad)
     if (
       (charCode < 48 || charCode > 57) &&  // Top row numbers (0-9)
@@ -525,6 +592,134 @@ export class AddEditTripDetailsComponent implements OnInit {
     });
   }
 
+
+
+  getTripDetailsForward(tripId) {
+    this.commonService.getTripDetails(tripId).subscribe(getTripDetailsResponse => {
+      if (getTripDetailsResponse.status == 's') {
+        this.getTripDetails = getTripDetailsResponse.data;
+        this.tripFormDetails.disable();
+        this.tripFormDetails.patchValue({
+          acClosingKM: getTripDetailsResponse.data.acClosingKM,
+          acNote: getTripDetailsResponse.data.acNote,
+          acOrNonAc: getTripDetailsResponse.data.acOrNonAc,
+          acStartingKM: getTripDetailsResponse.data.acStartingKM,
+          advanceAmount: getTripDetailsResponse.data.advanceAmount,
+          advanceType: getTripDetailsResponse.data.advanceType,
+          balanceAmount: getTripDetailsResponse.data.balanceAmount,
+          closingKM: getTripDetailsResponse.data.closingKM,
+          /* closingTime: getTripDetailsResponse.data.closingTime
+            ? moment(getTripDetailsResponse.data.closingTime).format('YYYY-MM-DD HH:mm:ss')
+            : '', */
+          customerMobileNumber: getTripDetailsResponse.data.customerMobileNumber,
+          customerName: getTripDetailsResponse.data.customerName,
+          date: getTripDetailsResponse.data.date
+            ? moment(getTripDetailsResponse.data.date).format('YYYY-MM-DD')
+            : '',
+          dayRent: getTripDetailsResponse.data.dayRent,
+          diesel: getTripDetailsResponse.data.diesel,
+          driverName: getTripDetailsResponse.data.driverName,
+          driverPayment: getTripDetailsResponse.data.driverPayment,
+          paymentType: getTripDetailsResponse.data.paymentType,
+          pendingAmount: getTripDetailsResponse.data.pendingAmount,
+          permitAmount: getTripDetailsResponse.data.permitAmount,
+          profitAmount: getTripDetailsResponse.data.profitAmount,
+          receivedAmount: getTripDetailsResponse.data.receivedAmount,
+          startingKM: getTripDetailsResponse.data.startingKM,
+          /* startingTime: getTripDetailsResponse.data.startingTime
+            ? moment(getTripDetailsResponse.data.startingTime).format('YYYY-MM-DD HH:mm:ss')
+            : '', */
+          status: getTripDetailsResponse.data.status,
+          submittedBy: getTripDetailsResponse.data.submittedBy,
+          toll: getTripDetailsResponse.data.toll,
+          totalRent: getTripDetailsResponse.data.totalRent,
+          totalTime: getTripDetailsResponse.data.totalTime,
+          usedAcKM: getTripDetailsResponse.data.usedAcKM,
+          usedKM: getTripDetailsResponse.data.usedKM,
+          vehicleNumber: getTripDetailsResponse.data.vehicleNumber,
+          visitingPlace: getTripDetailsResponse.data.visitingPlace,
+          /* startingTime: getTripDetailsResponse.data.startingTime
+            ? moment(getTripDetailsResponse.data.startingTime).format('YYYY-MM-DD HH:mm')
+            : '', */
+          startingTime: getTripDetailsResponse.data.startingTime
+            ? moment(getTripDetailsResponse.data.startingTime).toDate()
+            : '',
+
+          closingTime: getTripDetailsResponse.data.closingTime
+            ? moment(getTripDetailsResponse.data.closingTime).toDate()
+            : ''
+        });
+
+        console.log("this.tripFormDetails.value ", this.tripFormDetails.value);
+        console.log('startingTime :', moment(getTripDetailsResponse.data.startingTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
+        console.log('closingTime :', moment(getTripDetailsResponse.data.closingTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
+      }
+    });
+  }
+
+
+  getTripDetailsApprove(tripId) {
+    this.commonService.getTripDetails(tripId).subscribe(getTripDetailsResponse => {
+      if (getTripDetailsResponse.status == 's') {
+        this.getTripDetails = getTripDetailsResponse.data;
+        this.tripFormDetails.disable();
+        this.tripFormDetails.patchValue({
+          acClosingKM: getTripDetailsResponse.data.acClosingKM,
+          acNote: getTripDetailsResponse.data.acNote,
+          acOrNonAc: getTripDetailsResponse.data.acOrNonAc,
+          acStartingKM: getTripDetailsResponse.data.acStartingKM,
+          advanceAmount: getTripDetailsResponse.data.advanceAmount,
+          advanceType: getTripDetailsResponse.data.advanceType,
+          balanceAmount: getTripDetailsResponse.data.balanceAmount,
+          closingKM: getTripDetailsResponse.data.closingKM,
+          /* closingTime: getTripDetailsResponse.data.closingTime
+            ? moment(getTripDetailsResponse.data.closingTime).format('YYYY-MM-DD HH:mm:ss')
+            : '', */
+          customerMobileNumber: getTripDetailsResponse.data.customerMobileNumber,
+          customerName: getTripDetailsResponse.data.customerName,
+          date: getTripDetailsResponse.data.date
+            ? moment(getTripDetailsResponse.data.date).format('YYYY-MM-DD')
+            : '',
+          dayRent: getTripDetailsResponse.data.dayRent,
+          diesel: getTripDetailsResponse.data.diesel,
+          driverName: getTripDetailsResponse.data.driverName,
+          driverPayment: getTripDetailsResponse.data.driverPayment,
+          paymentType: getTripDetailsResponse.data.paymentType,
+          pendingAmount: getTripDetailsResponse.data.pendingAmount,
+          permitAmount: getTripDetailsResponse.data.permitAmount,
+          profitAmount: getTripDetailsResponse.data.profitAmount,
+          receivedAmount: getTripDetailsResponse.data.receivedAmount,
+          startingKM: getTripDetailsResponse.data.startingKM,
+          /* startingTime: getTripDetailsResponse.data.startingTime
+            ? moment(getTripDetailsResponse.data.startingTime).format('YYYY-MM-DD HH:mm:ss')
+            : '', */
+          status: getTripDetailsResponse.data.status,
+          submittedBy: getTripDetailsResponse.data.submittedBy,
+          toll: getTripDetailsResponse.data.toll,
+          totalRent: getTripDetailsResponse.data.totalRent,
+          totalTime: getTripDetailsResponse.data.totalTime,
+          usedAcKM: getTripDetailsResponse.data.usedAcKM,
+          usedKM: getTripDetailsResponse.data.usedKM,
+          vehicleNumber: getTripDetailsResponse.data.vehicleNumber,
+          visitingPlace: getTripDetailsResponse.data.visitingPlace,
+          /* startingTime: getTripDetailsResponse.data.startingTime
+            ? moment(getTripDetailsResponse.data.startingTime).format('YYYY-MM-DD HH:mm')
+            : '', */
+          startingTime: getTripDetailsResponse.data.startingTime
+            ? moment(getTripDetailsResponse.data.startingTime).toDate()
+            : '',
+
+          closingTime: getTripDetailsResponse.data.closingTime
+            ? moment(getTripDetailsResponse.data.closingTime).toDate()
+            : ''
+        });
+
+        console.log("this.tripFormDetails.value ", this.tripFormDetails.value);
+        console.log('startingTime :', moment(getTripDetailsResponse.data.startingTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
+        console.log('closingTime :', moment(getTripDetailsResponse.data.closingTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
+      }
+    });
+  }
 }
 
 

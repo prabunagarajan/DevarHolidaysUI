@@ -39,4 +39,9 @@ export class CommonService {
     const url = this.baseUrl + 'tripDetails/getById/' + tripId;
     return this.httpClient.get(url);
   }
+
+  getTripDetailsForward(req:any): Observable<any> {
+    const url = this.baseUrl + 'tripDetails/approval';
+    return this.httpClient.put(url,req);
+  }
 }

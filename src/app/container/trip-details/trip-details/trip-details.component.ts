@@ -154,7 +154,7 @@ export class TripDetailsComponent implements OnInit {
   }
 
   onEdit() {
-    if (this.selectObj) {
+    if (this.selectObj && this.selectObj.status === 'REQUESTFORCLARIFICATION') {
       this.router.navigate(['/container/trip-detail/modification', this.selectObj.id]);
     } else {
       this.toastrMsg.error('View not able');

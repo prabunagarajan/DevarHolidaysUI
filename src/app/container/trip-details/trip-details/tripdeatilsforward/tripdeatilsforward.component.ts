@@ -156,7 +156,7 @@ export class TripdeatilsforwardComponent implements OnInit {
 
   onEdit() {
     if (this.selectObj) {
-      this.router.navigate(['/container/trip-detail/modification', this.selectObj.id]);
+      this.router.navigate(['/container/trip-detail/modification', this.selectObj.id,"forward"]);
     } else {
       this.toastrMsg.error('View not able');
     }

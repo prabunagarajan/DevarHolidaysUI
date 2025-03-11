@@ -1,0 +1,16 @@
+.top-bar {
+    display: flex;
+    justify-content: center;  /* Centers text horizontally */
+    align-items: center;      /* Centers text vertically */
+    height: 60px;             /* Adjust height of the top bar */
+    color: white;             /* Text color */
+    font-size: 24px;          /* Font size */
+    font-family: "Playfair Display", serif;
+    font-weight: bold;
+    position: fixed;          /* Sticks to the top */
+    top: 0;
+    left: 0;
+    width: 100%;              /* Full width */
+    z-index: 1000;            /* Ensures it stays above other elements */
+  }
+  

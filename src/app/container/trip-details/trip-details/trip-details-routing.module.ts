@@ -31,7 +31,11 @@ const routes: Routes = [
   {
     path: 'forwardlist',
     component: TripdeatilsforwardComponent
-  }
+  },
+  {
+    path: 'modification/:id/:status',
+    component: AddEditTripDetailsComponent
+  },
 ];
 
 @NgModule({

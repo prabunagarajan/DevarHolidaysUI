@@ -156,7 +156,7 @@ export class TripdetailsinprogressComponent implements OnInit {
 
   onEdit() {
     if (this.selectObj) {
-      this.router.navigate(['/container/trip-detail/modification', this.selectObj.id]);
+      this.router.navigate(['/container/trip-detail/modification', this.selectObj.id,"approved"]);
     } else {
       this.toastrMsg.error('View not able');
     }
