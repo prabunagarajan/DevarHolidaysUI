@@ -36,7 +36,7 @@ export class TripDetailsComponent implements OnInit {
       driverName: [''],
       driverNumber: [''],
       vehiclenumber: [''],
-      status:['']
+      status: ['']
     })
     this.getAll();
     this.commonService.activeVechicle().subscribe(vehicleResponse => {
@@ -65,7 +65,7 @@ export class TripDetailsComponent implements OnInit {
         customerMobileNumber: '',
         driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
         visitingPlace: "",
-        status:""
+        status: ""
       },
       paginationSize: pageSize,
       sortField: "modifiedDate",
@@ -112,7 +112,7 @@ export class TripDetailsComponent implements OnInit {
       driverName: '',
       driverNumber: '',
       vehiclenumber: '',
-      status:"",
+      status: "",
     });
     /* const request = {
       "filters": {
@@ -169,4 +169,29 @@ export class TripDetailsComponent implements OnInit {
     }
   }
 
+
+  getStatusStyle(status: string): { [key: string]: string } {
+    console.log(status);
+
+    switch (status) {
+      case 'APPROVED':
+        return { 'color': 'green' };
+      case 'INPROGRESS':
+        return { 'color': 'blue' };
+      case 'FORWARDED':
+        return { 'color': 'orange' };
+      case 'REQUESTFORCLARIFICATION':
+        return {
+          'color': 'red',
+        };
+      case 'REJECT':
+        return { 'color': 'red' };
+      default:
+        return { 'color': 'gray' };
+    }
+  }
+
+
 }
+
+
