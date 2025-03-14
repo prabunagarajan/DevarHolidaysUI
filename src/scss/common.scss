@@ -63,14 +63,40 @@ tr:nth-child(even) td {
   /* Removed border */
 }
 
+// .mat-header-cell {
+//   padding: 12px 20px;
+//   color: white;
+//   font-size: larger;
+// }
+
+
 .mat-header-cell {
-  padding: 12px 20px;
+  text-align: center;
   color: white;
-  font-size: larger;
+  border: 1px solid #e3eaef;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px;
+  .mat-sort-header-container {
+      display: initial;
+      text-align: center;
+      .mat-sort-header-button {
+          display: initial;
+      }
+      .mat-sort-header-arrow {
+          position: absolute;
+          right: 5px;
+          top: 0;
+          bottom: 0;
+          margin: auto !important;
+      }
+  }
 }
 
 .mat-cell {
   padding: 12px 20px;
+  border: 1px solid #e3eaef;
+  padding: 5px;
 }
 
 
