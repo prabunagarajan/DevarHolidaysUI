@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { VehicleDetailsRoutingModule } from './vehicle-details-routing.module';
@@ -14,8 +14,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS, DateTimeAdapter, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
+import { MomentDateTimeAdapter } from 'ng-pick-datetime/date-time/adapter/moment-adapter/moment-date-time-adapter.class';
 
+export const MY_CUSTOM_FORMATS = {
+  fullPickerInput: 'DD/MM/YYYY HH:mm',   
+  parseInput: 'DD/MM/YYYY HH:mm',       
+  datePickerInput: 'DD/MM/YYYY',         
+  timePickerInput: 'HH:mm',              
+  monthYearLabel: 'MMM YYYY',
+  dateA11yLabel: 'LL',
+  monthYearA11yLabel: 'MMMM YYYY',
+};
 
 @NgModule({
   declarations: [
@@ -37,6 +47,15 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     MatRadioModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule
-  ]
-})
+  ],
+  providers: [
+      {
+        provide: DateTimeAdapter,
+        useClass: MomentDateTimeAdapter,
+        deps: [OWL_DATE_TIME_LOCALE],
+      },
+      { provide: OWL_DATE_TIME_FORMATS, useValue: MY_CUSTOM_FORMATS },
+    ],
+    schemas: [NO_ERRORS_SCHEMA] 
+  })
 export class VehicleDetailsModule { }

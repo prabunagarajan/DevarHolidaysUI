@@ -9,6 +9,8 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS, DateTimeAdapter, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
+import { TripdetailsinprogressComponent } from './tripdetailsinprogress/tripdetailsinprogress.component';
+import { TripdeatilsforwardComponent } from './tripdeatilsforward/tripdeatilsforward.component';
 
 export const MY_CUSTOM_FORMATS = {
   fullPickerInput: 'DD/MM/YYYY HH:mm',   
@@ -23,7 +25,10 @@ export const MY_CUSTOM_FORMATS = {
   declarations: [
     TripDetailsComponent,
     AddEditTripDetailsComponent,
-    ViewTripDetailsComponent
+    ViewTripDetailsComponent,
+    TripdetailsinprogressComponent,
+    TripdeatilsforwardComponent,
+    TripdeatilsforwardComponent
   ],
   imports: [
     CommonModule,

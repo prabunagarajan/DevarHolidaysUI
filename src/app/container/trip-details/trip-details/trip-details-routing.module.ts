@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AddEditTripDetailsComponent } from './add-edit-trip-details/add-edit-trip-details.component';
 import { TripDetailsComponent } from './trip-details.component';
 import { ViewTripDetailsComponent } from './view-trip-details/view-trip-details.component';
+import { TripdetailsinprogressComponent } from './tripdetailsinprogress/tripdetailsinprogress.component';
+import { TripdeatilsforwardComponent } from './tripdeatilsforward/tripdeatilsforward.component';
 
 
 const routes: Routes = [
@@ -21,6 +23,18 @@ const routes: Routes = [
   {
     path: 'view/:id',
     component: ViewTripDetailsComponent
+  },
+  {
+    path: 'inprogresslist',
+    component: TripdetailsinprogressComponent
+  },
+  {
+    path: 'forwardlist',
+    component: TripdeatilsforwardComponent
+  },
+  {
+    path: 'modification/:id/:status',
+    component: AddEditTripDetailsComponent
   },
 ];
 

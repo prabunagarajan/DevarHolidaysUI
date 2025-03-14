@@ -1,4 +1,4 @@
-<p>Add Trip Details</p>
+<h3>Add Trip Details</h3>
 <ul class="breadcrumb">
     <li class="breadcrumb-item">
         <a [routerLink]="['/dashboard']">Home</a>
@@ -457,7 +457,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Balance<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="balanceAmount"
@@ -468,7 +468,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Wrote By<span class="text-danger">*</span></label>
@@ -490,7 +490,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Profit<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" formControlName="profitAmount"
+                            <input type="text" class="form-control" formControlName="profitAmount" disabled
                                 placeholder="Enter Profit" (keydown)="numbersOnly($event)"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.profitAmount.errors }" />
                             <div *ngIf="formSubmitted && tripForm.profitAmount.errors" class="invalid-feedback">
@@ -499,7 +499,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Verified By (Manager)<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="verifiedByManager"
@@ -524,14 +524,21 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="row mt-3">
                     <div class="col-lg-12 text-end">
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-outline-success"
-                                (click)="submit(tripFormDetails)">Submit</button>
+                            <button type="submit" *ngIf="!forwardApproveBtnShow && !approveBtnShow"
+                                class="btn btn-outline-success" (click)="submit(tripFormDetails)">Submit</button>
+                            <button type="submit" *ngIf="approveBtnShow ||forwardApproveBtnShow"
+                                class="btn btn-outline-warning"
+                                (click)="requestForClarification()">REQUESTFORCLARIFICATION</button>
+                            <button type="submit" *ngIf="forwardApproveBtnShow" class="btn btn-outline-success"
+                                (click)="approved()">Approved</button>
+                            <button type="submit" *ngIf="approveBtnShow" class="btn btn-outline-success"
+                                (click)="forwardApprove()">Forwarded</button>
                             <button type="button" class="btn btn-outline-secondary"
                                 [routerLink]="['/container/trip-detail/list']">Back</button>
 

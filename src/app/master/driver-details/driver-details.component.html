@@ -145,14 +145,17 @@
         </mat-paginator>
         <div class="row">
             <div class="col-xl-4 mt-2">
-                <div >
-                    <button class="btn btn-success" type="button">Download</button>
-                    <div >
-                        <a class="dropdown-item" href="javascript:" (click)="exportToExcel()">Excel</a>
-                        <a class="dropdown-item" href="javascript:" (click)="generatePdf()">PDF</a>
-                    </div>
+                <div class="dropdown">
+                    <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Download
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="javascript:void(0)" (click)="exportToExcel()">Excel</a></li>
+                        <li><a class="dropdown-item" href="javascript:void(0)" (click)="generatePDF()">PDF</a></li>
+                    </ul>
                 </div>
             </div>
+            
         </div>
     </div>
 </div>

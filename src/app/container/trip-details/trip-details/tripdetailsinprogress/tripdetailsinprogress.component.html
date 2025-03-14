@@ -1,0 +1,179 @@
+<div class="row">
+    <div class="col-xl-12">
+        <form [formGroup]="tripFormSearchDetails" autocomplete="off">
+            <!-- Search Panel -->
+            <app-card [hidHeader]="true" class="list-panel add-panel">
+                <h4>Search</h4>
+                <div class="row">
+                    <!-- Driver Name -->
+                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="driverName">Driver Name</label>
+                            <input type="text" id="driverName" formControlName="driverName" class="form-control"
+                                placeholder="Enter Driver Name" />
+                        </div>
+                    </div> -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Driver Name<span class="text-danger">*</span></label>
+                            <select type="text" class="form-control" formControlName="driverName"
+                                placeholder="Enter Driver Name">
+                                <option value="" selected disabled>Select Driver Name</option>
+                                <option *ngFor="let driverListElemnt of driverList" value="{{driverListElemnt?.name}}">
+                                    {{driverListElemnt?.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Driver Number -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="driverNumber">Driver Number</label>
+                            <input type="text" id="driverNumber" formControlName="driverNumber" class="form-control"
+                                placeholder="Enter Driver Number" />
+                        </div>
+                    </div>
+
+                    <!-- Vehicle Number -->
+                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="vehicleNumber">Vehicle Number</label>
+                            <input type="text" id="vehicleNumber" formControlName="vehiclenumber" class="form-control"
+                                placeholder="Enter Vehicle Number" />
+                        </div>
+                    </div> -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Vehicle Number <span class="text-danger">*</span></label>
+                            <select type="text" class="form-control" formControlName="vehiclenumber"
+                                placeholder="Select Vehicle Number">
+                                <option value="" selected disabled>Select Vehicle Number</option>
+                                <option *ngFor="let vehicleListElement of vehicleList"
+                                    value="{{vehicleListElement.vehicleNumber}}">{{vehicleListElement.vehicleNumber}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status" formControlName="status" class="form-control">
+                                <option value="" disabled selected>Select Status</option>
+                                <option value="APPROVED">APPROVED</option>
+                                <option value="INPROGRESS">IN PROGRESS</option>
+                                <option value="FORWARDED">FORWARDED</option>
+                                <option value="REQUESTFORCLARIFICATION">REQUEST FOR CLARIFICATION</option>
+                                <option value="REJECT">REJECT</option>
+                                <option value="SUBMITTED">SUBMITTED</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- Submit and Cancel buttons -->
+                <div class="row mt-3">
+                    <div class="col-lg-12 text-end">
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-outline-info list-button-container"
+                                (click)="search()"><span class="list-text-alaign-center">Submit</span></button>
+                            <button type="button" class="btn btn-outline-secondary list-button-container"
+                                (click)="onclear()"><span class="list-text-alaign-center">Clear</span></button>
+
+                        </div>
+                    </div>
+                </div>
+            </app-card>
+        </form>
+    </div>
+</div>
+
+
+
+
+<div class="outer-container">
+    <div class="button-container">
+        <!-- <button class="btn btn-outline-success list-button-container" [routerLink]="['/container/trip-detail/add']">
+            <span class="list-text-alaign-center">Add</span>
+        </button> -->
+        <button class="btn btn-outline-secondary list-button-container" (click)="onEdit()" [disabled]="!editEnable">
+            <span class="list-text-alaign-center">Edit</span>
+        </button>
+        <button class="btn btn-outline-warning list-button-container" (click)="onView()" [disabled]="!viewEnable">
+            <span class="list-text-alaign-center">View</span>
+        </button>
+        <!-- <button (click)="onclear()">
+            <span>Clear</span>
+        </button> -->
+    </div>
+</div>
+
+<table mat-table [dataSource]="dataSource" class="table-design">
+    <!-- Serial No Column -->
+    <ng-container matColumnDef="serialNo">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> S.No </th>
+        <td mat-cell *matCellDef="let element; let i = index" class="text-center"> {{ i + 1 }} </td>
+    </ng-container>
+
+    <!-- Driver Name Column -->
+    <ng-container matColumnDef="createdDate">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> CreatedDate </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.createdDate | date: 'dd-MM-yyyy'}} </td>
+    </ng-container>
+
+    <!-- Driver Name Column -->
+    <ng-container matColumnDef="vehicleNumber">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> VehicleNumber </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.vehicleNumber}} </td>
+    </ng-container>
+
+    <!-- Mobile Number Column -->
+    <ng-container matColumnDef="customerName">
+        <th mat-header-cell *matHeaderCellDef class="text-center">CustomerName</th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.customerName}} </td>
+    </ng-container>
+
+    <!-- Driving License Number Column -->
+    <ng-container matColumnDef="visitingPlace">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> VisitingPlace </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.visitingPlace}} </td>
+    </ng-container>
+
+    <!-- Aadhar Number Column -->
+    <ng-container matColumnDef="driverName">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Driver Name </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.driverName}} </td>
+    </ng-container>
+
+    <!-- District Column -->
+    <ng-container matColumnDef="totalRent">
+        <th mat-header-cell *matHeaderCellDef class="text-center">TotalRent </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.totalRent}} </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Status </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.status}} </td>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+        <td mat-cell *matCellDef="let element" class="text-center">
+            <mat-radio-button (click)="onSelect(element)"></mat-radio-button>
+        </td>
+    </ng-container>
+
+
+    <!-- Header and Row Definitions -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [length]="totelCount" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]"
+    (page)="pageEvent($event)">
+</mat-paginator>
