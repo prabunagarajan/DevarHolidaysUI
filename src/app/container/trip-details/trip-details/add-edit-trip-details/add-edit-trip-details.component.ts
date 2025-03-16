@@ -163,6 +163,8 @@ export class AddEditTripDetailsComponent implements OnInit {
       this.tripFormDetails.controls["acStartingKM"].updateValueAndValidity();
       this.tripFormDetails.controls['acClosingKM'].clearValidators();
       this.tripFormDetails.controls["acClosingKM"].updateValueAndValidity();
+      this.tripFormDetails.controls['acNote'].clearValidators();
+      this.tripFormDetails.controls["acNote"].updateValueAndValidity();
       this.acValidationFlag = true;
     } else {
       this.tripFormDetails.controls['usedAcKM'].setValidators([Validators.required]);
@@ -171,6 +173,8 @@ export class AddEditTripDetailsComponent implements OnInit {
       this.tripFormDetails.controls["acStartingKM"].updateValueAndValidity();
       this.tripFormDetails.controls['acClosingKM'].setValidators([Validators.required]);
       this.tripFormDetails.controls["acClosingKM"].updateValueAndValidity();
+      this.tripFormDetails.controls['acNote'].setValidators([Validators.required]);
+      this.tripFormDetails.controls["acNote"].updateValueAndValidity();
       this.acValidationFlag = false;
     }
   }
