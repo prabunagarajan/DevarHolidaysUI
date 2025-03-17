@@ -25,6 +25,7 @@ export class AddEditTripDetailsComponent implements OnInit {
   forwardApproveBtnShow: boolean;
   approveBtnShow: boolean;
   tripStatus: any;
+  leveStatus: String;
   constructor(
     private formBuilder: FormBuilder,
     private toastrMsg: ToastrService,
@@ -93,6 +94,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       profitAmount: ['', Validators.required],
       submittedBy: ['', Validators.required],
       status: [''],
+      remark: ['', Validators.required]
       // verifiedByManager: ['', Validators.required],
       // verifiedByProprietor: ['', Validators.required]
     });
@@ -141,18 +143,24 @@ export class AddEditTripDetailsComponent implements OnInit {
     return this.tripFormDetails.controls;
   }
 
-  submit(tripFormDetails) {
-    console.log(tripFormDetails.value);
+  submit(tripFormDetails, level) {
 
-    if (this.tripFormDetails.invalid) {
-      this.formSubmitted = true;
-    } else if (tripFormDetails.value.acOrNonAc == 'AC' && tripFormDetails.value.startingKM >= tripFormDetails.value.closingKM) {
-      this.toastrMsg.warning('Please enter Starting KM greater than Closing KM');
-    } else if (tripFormDetails.value.acOrNonAc == 'AC' && tripFormDetails.value.acStartingKM >= tripFormDetails.value.acClosingKM) {
-      this.toastrMsg.warning('Please enter AC Starting KM greater than AC Closing KM');
-    } else {
-      this.submitPopUp.show();
-    }
+    console.log(tripFormDetails.value);
+    console.log('level :', level);
+    this.leveStatus = level;
+    setTimeout(() => {
+      if (this.tripFormDetails.invalid) {
+        this.formSubmitted = true;
+      } else if (tripFormDetails.value.startingKM >= tripFormDetails.value.closingKM) {
+        this.toastrMsg.warning('Please enter Starting KM greater than Closing KM');
+      } else if (tripFormDetails.value.acOrNonAc == 'AC' && tripFormDetails.value.acStartingKM >= tripFormDetails.value.acClosingKM) {
+        this.toastrMsg.warning('Please enter AC Starting KM greater than AC Closing KM');
+      } else {
+        this.submitPopUp.show();
+      }
+    }, 100);
+
+
   }
 
   acDetect(event) {
@@ -180,20 +188,28 @@ export class AddEditTripDetailsComponent implements OnInit {
   }
 
   finalSubmit() {
-    if (this.tripId) {
+    if (this.tripId && this.leveStatus == 'Level 1') {
       this.updateTripDetails();
-    } else {
+    } else if (this.leveStatus == 'Level 2') {
+      this.forwardApprove()
+    } else if (this.leveStatus == 'Level 3') {
+      this.approved();
+    } else if (this.leveStatus == 'Level 1 REQ') {
+      this.requestForClarification()
+    } else if (this.leveStatus == 'Level 1') {
       this.addTripDetails();
+    } else {
+      this.toastrMsg.error('Somthing Went Wrong')
     }
   }
 
 
   forwardApprove() {
-    const req = {
-      "id": this.tripId,
-      "status": "FORWARDED"
-    }
-    this.commonService.getTripDetailsForward(req).subscribe(res => {
+    this.commonService.getTripDetailsForward({
+      id: this.tripId,
+      status: "FORWARDED",
+      remarks: this.tripFormDetails.value.remark || '',
+    }).subscribe(res => {
       if (res.status = 's') {
         this.toastrMsg.success("Forwared submitted successfully");
       }
@@ -204,11 +220,11 @@ export class AddEditTripDetailsComponent implements OnInit {
   }
 
   approved() {
-    const req = {
-      "id": this.tripId,
-      "status": "APPROVED"
-    }
-    this.commonService.getTripDetailsForward(req).subscribe(res => {
+    this.commonService.getTripDetailsForward({
+      id: this.tripId,
+      status: "APPROVED",
+      remarks: this.tripFormDetails.value.remark || '',
+    }).subscribe(res => {
       if (res.status = 's') {
         this.toastrMsg.success("Forwared submitted successfully");
       }
@@ -218,12 +234,12 @@ export class AddEditTripDetailsComponent implements OnInit {
     })
   }
 
-  requestForClarification(){
-    const req = {
-      "id": this.tripId,
-      "status": "REQUESTFORCLARIFICATION"
-    }
-    this.commonService.getTripDetailsForward(req).subscribe(res => {
+  requestForClarification() {
+    this.commonService.getTripDetailsForward({
+      id: this.tripId,
+      status: "REQUESTFORCLARIFICATION",
+      remarks: this.tripFormDetails.value.remark || '',
+    }).subscribe(res => {
       if (res.status = 's') {
         this.toastrMsg.success("Forwared submitted successfully");
       }
@@ -270,6 +286,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       visitingPlace: tripFormDetails.visitingPlace || '',
       verifiedByManager: tripFormDetails.verifiedByManager || '',
       verifiedByProprietor: tripFormDetails.verifiedByProprietor || '',
+      remarks: tripFormDetails.remark || '',
     }
 
     this.btnLoder = true;
@@ -516,7 +533,8 @@ export class AddEditTripDetailsComponent implements OnInit {
       visitingPlace: tripFormDetails.visitingPlace || '',
       verifiedByManager: tripFormDetails.verifiedByManager || '',
       verifiedByProprietor: tripFormDetails.verifiedByProprietor || '',
-      id: this.tripId
+      id: this.tripId,
+      remarks: tripFormDetails.remark || '',
     }
 
     this.btnLoder = true;
@@ -586,6 +604,9 @@ export class AddEditTripDetailsComponent implements OnInit {
 
           closingTime: getTripDetailsResponse.data.closingTime
             ? moment(getTripDetailsResponse.data.closingTime).toDate()
+            : '',
+          remark: getTripDetailsResponse.data.remark
+            ? getTripDetailsResponse.data.remark
             : ''
         });
 
@@ -651,6 +672,9 @@ export class AddEditTripDetailsComponent implements OnInit {
 
           closingTime: getTripDetailsResponse.data.closingTime
             ? moment(getTripDetailsResponse.data.closingTime).toDate()
+            : '',
+          remark: getTripDetailsResponse.data.remark
+            ? getTripDetailsResponse.data.remark
             : ''
         });
 
@@ -715,6 +739,9 @@ export class AddEditTripDetailsComponent implements OnInit {
 
           closingTime: getTripDetailsResponse.data.closingTime
             ? moment(getTripDetailsResponse.data.closingTime).toDate()
+            : '',
+          remark: getTripDetailsResponse.data.remark
+            ? getTripDetailsResponse.data.remark
             : ''
         });
 

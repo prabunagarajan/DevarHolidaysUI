@@ -9,7 +9,7 @@
         </li>
         <li class="breadcrumb-item"><a href="javascript:">{{screenName}}</a></li>
     </ng-container>
-</ul> 
+</ul>
 <div class="row">
     <div class="col-xl-12">
         <form [formGroup]="tripFormDetails" autocomplete="off">
@@ -169,7 +169,7 @@
 
                             <!-- Validation Message -->
                             <div *ngIf="formSubmitted && tripForm.startingTime.errors" class="invalid-feedback">
-                                <div *ngIf="tripForm.startingTime.errors.required">Closing Time is required
+                                <div *ngIf="tripForm.startingTime.errors.required">Starting Time is required
                                 </div>
                             </div>
                         </div>
@@ -178,28 +178,21 @@
                         <div class="form-group">
                             <label>Closing Time<span class="text-danger">*</span></label>
                             <div class="input-group">
-                                <!-- DateTime Input -->
                                 <input type="text" [owlDateTime]="dt3" class="form-control"
                                     placeholder="Select Closing Time" formControlName="closingTime"
-                                    [ngClass]="{ 'is-invalid': formSubmitted && tripForm.closingTime.errors }" readonly
+                                    [ngClass]="{ 'is-invalid': formSubmitted && tripForm.closingTime.errors }"
                                     [max]="maxDate" (keypress)="$event.preventDefault();"
-                                    (keydown)="$event.preventDefault()">
-
-                                <!-- Calendar Icon Inside Input -->
+                                    (keydown)="$event.preventDefault()" readonly>
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" [owlDateTimeTrigger]="dt3" type="button">
                                         📅
                                     </button>
                                 </div>
-
-                                <!-- Owl DateTime Picker -->
                                 <owl-date-time #dt3 [pickerType]="'both'" [format]="'DD/MM/YYYY HH:mm'"
                                     [minuteStep]="5"></owl-date-time>
                             </div>
-
-                            <!-- Validation Message -->
                             <div *ngIf="formSubmitted && tripForm.closingTime.errors" class="invalid-feedback">
-                                <div *ngIf="tripForm.closingTime.errors.required">Total HRS is required
+                                <div *ngIf="tripForm.closingTime.errors.required">Closing Time is required
                                 </div>
                             </div>
                         </div>
@@ -500,6 +493,17 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Remark<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" formControlName="remark" placeholder="Enter remark"
+                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.remark.errors }" />
+                            <div *ngIf="formSubmitted && tripForm.remark.errors" class="invalid-feedback">
+                                <div *ngIf="tripForm.remark.errors.required">remark is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Verified By (Manager)<span class="text-danger">*</span></label>
@@ -532,14 +536,19 @@
                     <div class="col-lg-12 text-end">
                         <div class="modal-footer">
                             <button type="submit" *ngIf="!forwardApproveBtnShow && !approveBtnShow"
-                                class="btn btn-outline-success" (click)="submit(tripFormDetails)">Submit</button>
+                                class="btn btn-outline-success"
+                                (click)="submit(tripFormDetails , 'Level 1')">Submit</button>
+
                             <button type="submit" *ngIf="approveBtnShow ||forwardApproveBtnShow"
                                 class="btn btn-outline-warning"
-                                (click)="requestForClarification()">REQUESTFORCLARIFICATION</button>
+                                (click)="submit(tripFormDetails , 'Level 1 REQ')">REQUEST FOR CLARIFICATION</button>
+
                             <button type="submit" *ngIf="forwardApproveBtnShow" class="btn btn-outline-success"
-                                (click)="approved()">Approved</button>
+                                (click)="submit(tripFormDetails , 'Level 3')">Approved</button>
+
                             <button type="submit" *ngIf="approveBtnShow" class="btn btn-outline-success"
-                                (click)="forwardApprove()">Forwarded</button>
+                                (click)="submit(tripFormDetails, 'Level 2')">Forwarded</button>
+
                             <button type="button" class="btn btn-outline-secondary"
                                 [routerLink]="['/container/trip-detail/list']">Back</button>
 

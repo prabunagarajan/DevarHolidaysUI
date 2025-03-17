@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 /* const domainURL = 'http://192.168.3.222:3333/DevarCabs/' */
 
-const domainURL = 'https://prabu-holidays.onrender.com/DevarCabs/'
+/* const domainURL = 'https://prabu-holidays.onrender.com/DevarCabs/' */
+const domainURL = 'https://devarholidays-c7av.onrender.com/DevarCabs/'
 
 export const environment = {
   production: false,

@@ -1,134 +1,179 @@
 <ul class="breadcrumb">
-    <li class="breadcrumb-item">
-      <a [routerLink]="['/dashboard']">Home</a>
-    </li>
-    <li class="breadcrumb-item">
-      <a [routerLink]="['/container/trip-detail/list']">Trip Details</a>
-    </li>
-    <li class="breadcrumb-item active" aria-current="page">View</li>
-  </ul>
-  
-  <app-card [hidHeader]="true" class="view-panel">
-    <h4>Trip Details</h4>
+  <li class="breadcrumb-item">
+    <a [routerLink]="['/dashboard']">Home</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a [routerLink]="['/container/trip-detail/list']">Trip Details</a>
+  </li>
+  <li class="breadcrumb-item active" aria-current="page">View</li>
+</ul>
+
+<app-card [hidHeader]="true" class="view-panel">
+  <h4>Trip Details</h4>
+  <hr>
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="view-label">Vehicle Number</label>
+        <p class="view-text">{{getTripDetails?.vehicleNumber}}</p>
+      </div>
+      <div class="col-md-6">
+        <label class="view-label">Customer Name</label>
+        <p class="view-text">{{getTripDetails?.customerName}}</p>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="view-label">Customer Mobile Number</label>
+        <p class="view-text">{{getTripDetails?.customerMobileNumber}}</p>
+      </div>
+      <div class="col-md-6">
+        <label class="view-label">Driver Name</label>
+        <p class="view-text">{{getTripDetails?.driverName}}</p>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="view-label">Starting KM</label>
+        <p class="view-text">{{getTripDetails?.startingKM}}</p>
+      </div>
+      <div class="col-md-6">
+        <label class="view-label">Closing KM</label>
+        <p class="view-text">{{getTripDetails?.closingKM}}</p>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="view-label">Used KM</label>
+        <p class="view-text">{{getTripDetails?.usedKM}}</p>
+      </div>
+      <div class="col-md-6">
+        <label class="view-label">AC or Non-AC</label>
+        <p class="view-text">{{getTripDetails?.acOrNonAc}}</p>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="view-label">Starting Time</label>
+        <p class="view-text">{{getTripDetails?.startingTime}}</p>
+      </div>
+      <div class="col-md-6">
+        <label class="view-label">Closing Time</label>
+        <p class="view-text">{{getTripDetails?.closingTime}}</p>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="view-label">Total Time</label>
+        <p class="view-text">{{getTripDetails?.totalTime}}</p>
+      </div>
+      <div class="col-md-6">
+        <label class="view-label">Visiting Place</label>
+        <p class="view-text">{{getTripDetails?.visitingPlace}}</p>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="view-label">Advance Amount</label>
+        <p class="view-text">{{getTripDetails?.advanceAmount}}</p>
+      </div>
+      <div class="col-md-6">
+        <label class="view-label">Total Rent</label>
+        <p class="view-text">{{getTripDetails?.totalRent}}</p>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="view-label">Diesel Amount</label>
+        <p class="view-text">{{getTripDetails?.diesel}}</p>
+      </div>
+      <div class="col-md-6">
+        <label class="view-label">Driver Payment</label>
+        <p class="view-text">{{getTripDetails?.driverPayment}}</p>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="view-label">Received Amount</label>
+        <p class="view-text">{{getTripDetails?.receivedAmount}}</p>
+      </div>
+      <div class="col-md-6">
+        <label class="view-label">Pending Amount</label>
+        <p class="view-text">{{getTripDetails?.pendingAmount}}</p>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="view-label">Submitted By</label>
+        <p class="view-text">{{getTripDetails?.submittedBy}}</p>
+      </div>
+      <div class="col-md-6">
+        <label class="view-label">Status</label>
+        <p class="view-text">{{getTripDetails?.status}}</p>
+      </div>
+    </div>
+
     <hr>
-    <div class="container">
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="view-label">Vehicle Number</label>
-          <p class="view-text">{{getTripDetails?.vehicleNumber}}</p>
-        </div>
-        <div class="col-md-6">
-          <label class="view-label">Customer Name</label>
-          <p class="view-text">{{getTripDetails?.customerName}}</p>
-        </div>
+    <div class="row" *ngIf="tripLogDetails?.length > 0">
+      <h4>Trip Log Details</h4>
+      <hr>
+
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Application No</th>
+              <th>User Name</th>
+              <th>Action</th>
+              <th>Comments</th>
+              <th>Remark</th>
+              <th>Created Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let element of tripLogDetails; let i = index">
+              <td>{{ index+1 }}</td>
+              <td>{{ element.applnNo }}</td>
+              <td>{{ element.userName }}</td>
+              <td class="text-center">
+                <span *ngIf="element?.action == 'SUBMITTED'" class="badge badge-primary">
+                  {{element?.action}}</span>
+                <span *ngIf="element?.action == 'REQUESTFORCLARIFICATION'" class="badge badge-secondary">
+                  {{element?.action}}</span>
+                <span *ngIf="element?.action == 'INPROGRESS	
+                  '" class="badge badge-success">
+                  {{element?.action}}</span>
+                <span *ngIf="element?.action == 'FORWARDED	
+                  '" class="badge badge-warning">
+                  {{element?.action}}</span>
+              </td>
+              <td>{{ element.comments }}</td>
+              <td>{{ element.remarks }}</td>
+              <td>{{ element.createdDate | date: 'dd-MM-yy HH:mm:ss' }}</td>
+
+            </tr>
+          </tbody>
+        </table>
       </div>
-  
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="view-label">Customer Mobile Number</label>
-          <p class="view-text">{{getTripDetails?.customerMobileNumber}}</p>
-        </div>
-        <div class="col-md-6">
-          <label class="view-label">Driver Name</label>
-          <p class="view-text">{{getTripDetails?.driverName}}</p>
-        </div>
-      </div>
-  
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="view-label">Starting KM</label>
-          <p class="view-text">{{getTripDetails?.startingKM}}</p>
-        </div>
-        <div class="col-md-6">
-          <label class="view-label">Closing KM</label>
-          <p class="view-text">{{getTripDetails?.closingKM}}</p>
-        </div>
-      </div>
-  
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="view-label">Used KM</label>
-          <p class="view-text">{{getTripDetails?.usedKM}}</p>
-        </div>
-        <div class="col-md-6">
-          <label class="view-label">AC or Non-AC</label>
-          <p class="view-text">{{getTripDetails?.acOrNonAc}}</p>
-        </div>
-      </div>
-  
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="view-label">Starting Time</label>
-          <p class="view-text">{{getTripDetails?.startingTime}}</p>
-        </div>
-        <div class="col-md-6">
-          <label class="view-label">Closing Time</label>
-          <p class="view-text">{{getTripDetails?.closingTime}}</p>
-        </div>
-      </div>
-  
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="view-label">Total Time</label>
-          <p class="view-text">{{getTripDetails?.totalTime}}</p>
-        </div>
-        <div class="col-md-6">
-          <label class="view-label">Visiting Place</label>
-          <p class="view-text">{{getTripDetails?.visitingPlace}}</p>
-        </div>
-      </div>
-  
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="view-label">Advance Amount</label>
-          <p class="view-text">{{getTripDetails?.advanceAmount}}</p>
-        </div>
-        <div class="col-md-6">
-          <label class="view-label">Total Rent</label>
-          <p class="view-text">{{getTripDetails?.totalRent}}</p>
-        </div>
-      </div>
-  
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="view-label">Diesel Amount</label>
-          <p class="view-text">{{getTripDetails?.diesel}}</p>
-        </div>
-        <div class="col-md-6">
-          <label class="view-label">Driver Payment</label>
-          <p class="view-text">{{getTripDetails?.driverPayment}}</p>
-        </div>
-      </div>
-  
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="view-label">Received Amount</label>
-          <p class="view-text">{{getTripDetails?.receivedAmount}}</p>
-        </div>
-        <div class="col-md-6">
-          <label class="view-label">Pending Amount</label>
-          <p class="view-text">{{getTripDetails?.pendingAmount}}</p>
-        </div>
-      </div>
-  
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="view-label">Submitted By</label>
-          <p class="view-text">{{getTripDetails?.submittedBy}}</p>
-        </div>
-        <div class="col-md-6">
-          <label class="view-label">Status</label>
-          <p class="view-text">{{getTripDetails?.status}}</p>
-        </div>
-      </div>
-  
-      <div class="row mt-3">
-        <div class="col-lg-12 text-end">
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" [routerLink]="['/container/trip-detail/list']">Back</button>
-          </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-lg-12 text-end">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary"
+            [routerLink]="['/container/trip-detail/list']">Back</button>
         </div>
       </div>
     </div>
-  </app-card>
-  
+  </div>
+</app-card>
