@@ -63,6 +63,10 @@ const routes: Routes = [
       {
         path: 'container',
         loadChildren: () => import('./container/container.module').then(module => module.ContainerModule)
+      },
+      {
+        path: 'ayyanar-transport',
+        loadChildren: () => import('./ayyanar-transport/ayyanar-transport.module').then(module => module.AyyanarTransportModule)
       }
     ]
   }
