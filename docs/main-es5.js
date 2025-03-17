@@ -365,7 +365,11 @@ var routes = [
             },
             {
                 path: 'container',
-                loadChildren: function () { return __webpack_require__.e(/*! import() | container-container-module */ "container-container-module").then(__webpack_require__.bind(null, /*! ./container/container.module */ "./src/app/container/container.module.ts")).then(function (module) { return module.ContainerModule; }); }
+                loadChildren: function () { return Promise.all(/*! import() | container-container-module */[__webpack_require__.e("default~ayyanar-transport-ayyanar-transport-module~container-container-module"), __webpack_require__.e("container-container-module")]).then(__webpack_require__.bind(null, /*! ./container/container.module */ "./src/app/container/container.module.ts")).then(function (module) { return module.ContainerModule; }); }
+            },
+            {
+                path: 'ayyanar-transport',
+                loadChildren: function () { return Promise.all(/*! import() | ayyanar-transport-ayyanar-transport-module */[__webpack_require__.e("default~ayyanar-transport-ayyanar-transport-module~container-container-module"), __webpack_require__.e("ayyanar-transport-ayyanar-transport-module")]).then(__webpack_require__.bind(null, /*! ./ayyanar-transport/ayyanar-transport.module */ "./src/app/ayyanar-transport/ayyanar-transport.module.ts")).then(function (module) { return module.AyyanarTransportModule; }); }
             }
         ]
     }
