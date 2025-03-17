@@ -37,7 +37,7 @@ export class TripdeatilsforwardComponent implements OnInit {
       driverName: [''],
       driverNumber: [''],
       vehiclenumber: [''],
-      status:['']
+      status: ['']
     })
     this.getAll();
     this.commonService.activeVechicle().subscribe(vehicleResponse => {
@@ -66,7 +66,7 @@ export class TripdeatilsforwardComponent implements OnInit {
         customerMobileNumber: '',
         driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
         visitingPlace: "",
-        status:"FORWARDED"
+        status: "FORWARDED"
       },
       paginationSize: pageSize,
       sortField: "modifiedDate",
@@ -92,7 +92,7 @@ export class TripdeatilsforwardComponent implements OnInit {
         customerMobileNumber: '',
         driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
         visitingPlace: "",
-        status: tripFormSearchDetails.status ? tripFormSearchDetails.status : ''
+        status: tripFormSearchDetails.status ? tripFormSearchDetails.status : 'FORWARDED'
       },
       paginationSize: 10,
       sortField: "modifiedDate",
@@ -113,31 +113,10 @@ export class TripdeatilsforwardComponent implements OnInit {
       driverName: '',
       driverNumber: '',
       vehiclenumber: '',
-      status:"",
+      status: '',
     });
-    /* const request = {
-      "filters": {
-        "vehicleNumber": "",
-        "customerName": "",
-        "customerMobileNumber": "",
-        "driverName": "",
-        "visitingPlace": ""
-      },
-      "pageNo": 0,
-      "paginationSize": 10,
-      "sortField": "modifiedDate",
-      "sortOrder": "DESC"
-    }
-    this.commonService.tripDetailsSearchList(request).subscribe(response => {
-      if (response.status === 's' && response.data) {
-        this.dataSource = new MatTableDataSource(response.data.contents);
-        this.totelCount = response.data.totalElements;
-      } else {
-        this.dataSource = new MatTableDataSource();
-      }
-    }); */
     this.pageSize = 10;
-    this.search();
+    this.getAll();
   }
 
   pageEvent(event) {
@@ -156,7 +135,7 @@ export class TripdeatilsforwardComponent implements OnInit {
 
   onEdit() {
     if (this.selectObj) {
-      this.router.navigate(['/container/trip-detail/modification', this.selectObj.id,"forward"]);
+      this.router.navigate(['/container/trip-detail/modification', this.selectObj.id, "forward"]);
     } else {
       this.toastrMsg.error('View not able');
     }

@@ -114,27 +114,6 @@ export class TripDetailsComponent implements OnInit {
       vehiclenumber: '',
       status: "",
     });
-    /* const request = {
-      "filters": {
-        "vehicleNumber": "",
-        "customerName": "",
-        "customerMobileNumber": "",
-        "driverName": "",
-        "visitingPlace": ""
-      },
-      "pageNo": 0,
-      "paginationSize": 10,
-      "sortField": "modifiedDate",
-      "sortOrder": "DESC"
-    }
-    this.commonService.tripDetailsSearchList(request).subscribe(response => {
-      if (response.status === 's' && response.data) {
-        this.dataSource = new MatTableDataSource(response.data.contents);
-        this.totelCount = response.data.totalElements;
-      } else {
-        this.dataSource = new MatTableDataSource();
-      }
-    }); */
     this.pageSize = 10;
     this.search();
   }
