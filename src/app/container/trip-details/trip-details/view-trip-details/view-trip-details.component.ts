@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/service/common.service';
 })
 export class ViewTripDetailsComponent implements OnInit {
   getTripDetails: any;
+  tripLogDetails: any[] = [];
   constructor(
     private commonService: CommonService,
     private activatedRoute: ActivatedRoute) { }
@@ -20,8 +21,16 @@ export class ViewTripDetailsComponent implements OnInit {
         this.commonService.getTripDetails(tripIdResponse.id).subscribe(getTripDetailsResponse => {
           if (getTripDetailsResponse.status == 's') {
             this.getTripDetails = getTripDetailsResponse.data;
+            this.commonService.getTripDetailLogs(getTripDetailsResponse.data.tripNumber).subscribe(gettripLogDetailsResponse => {
+              if (gettripLogDetailsResponse.status == 's') {
+                this.tripLogDetails = gettripLogDetailsResponse.data;
+              } else {
+                this.tripLogDetails
+              }
+            })
           }
         })
+
       }
     })
   }
