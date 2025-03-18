@@ -123,7 +123,7 @@
     </div>
 
     <hr>
-    <div class="row" *ngIf="tripLogDetails?.length > 0">
+    <div class="row modal-footer" *ngIf="tripLogDetails?.length > 0">
       <h4>Trip Log Details</h4>
       <hr>
 
@@ -142,19 +142,19 @@
           </thead>
           <tbody>
             <tr *ngFor="let element of tripLogDetails; let i = index">
-              <td>{{ index+1 }}</td>
+              <td>{{ i+1 }}</td>
               <td>{{ element.applnNo }}</td>
               <td>{{ element.userName }}</td>
               <td class="text-center">
-                <span *ngIf="element?.action == 'SUBMITTED'" class="badge badge-primary">
+                <span *ngIf="element?.action == 'SUBMITTED'" class="badge m-r-5 badge-light-primary">
                   {{element?.action}}</span>
-                <span *ngIf="element?.action == 'REQUESTFORCLARIFICATION'" class="badge badge-secondary">
+                <span *ngIf="element?.action == 'REQUESTFORCLARIFICATION'" class="badge m-r-5 badge-light-secondary">
                   {{element?.action}}</span>
                 <span *ngIf="element?.action == 'INPROGRESS	
-                  '" class="badge badge-success">
+                  '" class="badge m-r-5 badge-light-success">
                   {{element?.action}}</span>
                 <span *ngIf="element?.action == 'FORWARDED	
-                  '" class="badge badge-warning">
+                  '" class="badge m-r-5 badge-light-warning">
                   {{element?.action}}</span>
               </td>
               <td>{{ element.comments }}</td>
@@ -170,8 +170,7 @@
     <div class="row mt-3">
       <div class="col-lg-12 text-end">
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary"
-            [routerLink]="['/container/trip-detail/list']">Back</button>
+          <button type="button" class="btn btn-outline-secondary" (click)="back()">Back</button>
         </div>
       </div>
     </div>

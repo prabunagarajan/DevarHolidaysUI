@@ -5,6 +5,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MasterService } from 'src/app/service/master.service';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 @Component({
   selector: 'app-vehicle-details',
   templateUrl: './vehicle-details.component.html',
@@ -132,5 +134,57 @@ export class VehicleDetailsComponent implements OnInit {
           this.dataSource = new MatTableDataSource();
         }
       });
+  }
+  generatePDF() {
+    console.log('generatePDF :')
+    const doc = new jsPDF();
+
+    // Get page dimensions
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    // Add Watermark - "DC Holidays"
+    doc.setTextColor(200, 200, 200); // Light gray color
+    doc.setFontSize(40); // Large font size
+    doc.setFont('helvetica', 'bold'); // Bold font
+
+    // Calculate center position
+    const textWidth = doc.getTextWidth('DC Holidays');
+    const x = (pageWidth - textWidth) / 2;
+    const y = pageHeight / 2;
+
+    // Add rotated watermark text
+    doc.text('DC Holidays', x, y, { angle: 45 });
+
+    // Reset text color to black for actual content
+    doc.setTextColor(0);
+
+    // Title
+    doc.setFontSize(14);
+    doc.text('Vehicle Details', 14, 10);
+
+    // Define table columns with Serial Number
+    const columns = ['S.No', 'Vehicle No', 'Vehicle Name', 'Insurance Date', 'Tax Date', 'Fc Date', 'Polution Date'];
+
+    // Convert list data to an array format with serial numbers
+    const rows = this.dataSource.data.map((item, index) => [
+      index + 1, // Serial number starts from 1
+      item.vehicleNumber,
+      String(item.vehicleName), // Convert number to string
+      String(item.insuranceDate), // Convert number to string
+      String(item.taxDate), // Convert number to string
+      item.fcDate,
+      item.polutionDate,
+    ]);
+
+    // Add table to the PDF
+    autoTable(doc, {
+      head: [columns],
+      body: rows,
+      startY: 20
+    });
+
+    // Save the PDF
+    doc.save('Vehicle_Details.pdf');
   }
 }
