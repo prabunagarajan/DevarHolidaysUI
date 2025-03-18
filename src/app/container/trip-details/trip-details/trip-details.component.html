@@ -16,7 +16,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Driver Name<span class="text-danger">*</span></label>
-                            <select type="text" class="form-control" formControlName="driverName"
+                            <select type="text" class="form-select" formControlName="driverName"
                                 placeholder="Enter Driver Name">
                                 <option value="" selected disabled>Select Driver Name</option>
                                 <option *ngFor="let driverListElemnt of driverList" value="{{driverListElemnt?.name}}">
@@ -45,7 +45,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Vehicle Number <span class="text-danger">*</span></label>
-                            <select type="text" class="form-control" formControlName="vehiclenumber"
+                            <select type="text" class="form-select" formControlName="vehiclenumber"
                                 placeholder="Select Vehicle Number">
                                 <option value="" selected disabled>Select Vehicle Number</option>
                                 <option *ngFor="let vehicleListElement of vehicleList"
@@ -59,7 +59,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label for="status">Status</label>
-                            <select id="status" formControlName="status" class="form-control">
+                            <select id="status" formControlName="status" class="form-select">
                                 <option value="" disabled selected>Select Status</option>
                                 <option value="APPROVED">APPROVED</option>
                                 <option value="INPROGRESS">IN PROGRESS</option>
