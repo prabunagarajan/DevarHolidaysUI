@@ -20,7 +20,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Vehicle Number <span class="text-danger">*</span></label>
-                            <select type="text" class="form-control" formControlName="vehicleNumber"
+                            <select type="text" class="form-select" formControlName="vehicleNumber"
                                 placeholder="Select Vehicle Number" (change)="getStaringKM($event.target.value)"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.vehicleNumber.errors }">
                                 <option value="" selected disabled>Select Vehicle Number</option>
@@ -94,7 +94,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Driver Name<span class="text-danger">*</span></label>
-                            <select type="text" class="form-control" formControlName="driverName"
+                            <select type="text" class="form-select" formControlName="driverName"
                                 placeholder="Enter Driver Name"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.driverName.errors }">
                                 <option value="" selected disabled>Select Driver Name</option>
@@ -212,7 +212,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>AC Type<span class="text-danger">*</span></label>
-                            <select class="form-control" formControlName="acOrNonAc"
+                            <select class="form-select" formControlName="acOrNonAc"
                                 (click)="acDetect($event.target.value)"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.acOrNonAc.errors }">
                                 <option value="" disabled selected>Select AC or Non-AC</option>
@@ -392,7 +392,7 @@
                                 placeholder="Enter Advance Type"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.advanceType.errors }" /> -->
 
-                            <select type="text" class="form-control" formControlName="advanceType"
+                            <select type="text" class="form-select" formControlName="advanceType"
                                 placeholder="Enter Advance Type"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.advanceType.errors }">
                                 <option value="" hidden>Select Advance Type</option>
@@ -412,7 +412,7 @@
                             <!-- <input type="text" class="form-control" formControlName="paymentType"
                                 placeholder="Enter Payment Type"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.paymentType.errors }" /> -->
-                            <select type="text" class="form-control" formControlName="paymentType"
+                            <select type="text" class="form-select" formControlName="paymentType"
                                 placeholder="Enter Payment Type"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.paymentType.errors }">
                                 <option value="" hidden> Select Payment Type </option>
@@ -469,7 +469,7 @@
                             <!-- <input type="text" class="form-control" formControlName="submittedBy"
                                 placeholder="Enter Wrote By"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.submittedBy.errors }" /> -->
-                            <select type="text" class="form-control" formControlName="submittedBy"
+                            <select type="text" class="form-select" formControlName="submittedBy"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.submittedBy.errors }">
                                 <option value="" hidden>Select Wrote By</option>
                                 <option *ngFor="let driverListElemnt of driverList" value="{{driverListElemnt?.name}}">
@@ -531,7 +531,50 @@
                         </div>
                     </div> -->
                 </div>
-
+                <br>
+                <div class="row modal-footer" *ngIf="tripLogDetails?.length > 0">
+                  <h4>Trip Log Details</h4>
+                  <hr>
+            
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Application No</th>
+                          <th>User Name</th>
+                          <th>Action</th>
+                          <th>Comments</th>
+                          <th>Remark</th>
+                          <th>Created Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let element of tripLogDetails; let i = index">
+                          <td>{{ i+1 }}</td>
+                          <td>{{ element.applnNo }}</td>
+                          <td>{{ element.userName }}</td>
+                          <td class="text-center">
+                            <span *ngIf="element?.action == 'SUBMITTED'" class="badge m-r-5 badge-light-primary">
+                              {{element?.action}}</span>
+                            <span *ngIf="element?.action == 'REQUESTFORCLARIFICATION'" class="badge m-r-5 badge-light-secondary">
+                              {{element?.action}}</span>
+                            <span *ngIf="element?.action == 'INPROGRESS	
+                              '" class="badge m-r-5 badge-light-success">
+                              {{element?.action}}</span>
+                            <span *ngIf="element?.action == 'FORWARDED	
+                              '" class="badge m-r-5 badge-light-warning">
+                              {{element?.action}}</span>
+                          </td>
+                          <td>{{ element.comments }}</td>
+                          <td>{{ element.remarks }}</td>
+                          <td>{{ element.createdDate | date: 'dd-MM-yy HH:mm:ss' }}</td>
+            
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
                 <div class="row mt-3">
                     <div class="col-lg-12 text-end">
                         <div class="modal-footer">
@@ -555,11 +598,11 @@
                         </div>
                     </div>
                 </div>
-
             </app-card>
         </form>
     </div>
 </div>
+
 
 
 <app-ui-modal #submitPopUp [hideFooter]="true" [dialogClass]="'modal-lg'">

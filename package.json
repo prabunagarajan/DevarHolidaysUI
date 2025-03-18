@@ -36,6 +36,7 @@
     "ng-pick-datetime": "^7.0.0",
     "ng2-validation": "^4.2.0",
     "ngx-bootstrap": "^5.6.2",
+    "ngx-csv": "^0.3.2",
     "ngx-perfect-scrollbar": "^8.0.0",
     "ngx-toastr": "^11.2.1",
     "rxjs": "^6.5.2",

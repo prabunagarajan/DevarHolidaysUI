@@ -93,7 +93,7 @@
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
               <label>Is Permanent Driver <span class="text-danger">*</span></label>
-              <select formControlName="isPermanentDriver" class="form-control"
+              <select formControlName="isPermanentDriver" class="form-select"
                 [ngClass]="{ 'is-invalid': formSubmitted && driverForm.isPermanentDriver.errors }">
                 <option value="" disabled selected>Select an option</option>
                 <option value="Active">Active</option>
@@ -150,7 +150,7 @@
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
               <label>Status <span class="text-danger">*</span></label>
-              <select formControlName="status" class="form-control"
+              <select formControlName="status" class="form-select"
                 [ngClass]="{ 'is-invalid': formSubmitted && driverForm.status.errors }">
                 <option value="" disabled selected>Select Status</option>
                 <option value="Active">Active</option>
