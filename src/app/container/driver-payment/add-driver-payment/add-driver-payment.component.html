@@ -1,0 +1,69 @@
+<h3>Add Driver Payment</h3>
+<ul class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['/dashboard']">Home</a>
+    </li>
+    <ng-container>
+        <li class="breadcrumb-item" [routerLink]="['/container/driver-payment/list']"><a href="javascript:"> Trip
+                Details</a>
+        </li>
+        <li class="breadcrumb-item"><a href="javascript:">{{screenName}}</a></li>
+    </ng-container>
+</ul>
+
+<div class="row">
+    <div class="col-xl-12">
+        <form [formGroup]="driverPaymentFormDetails" autocomplete="off">
+            <app-card [hidHeader]="true" class="list-panel add-panel">
+                <h3>Customer & Vehicel Details</h3>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Driver Name<span class="text-danger">*</span></label>
+                            <select type="text" class="form-select">
+                                <option value="" selected disabled>Select Vehicle Number</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Daily Wages Or Advance<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Mobile Number<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Monthly Salary<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Payment Date<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Salary Type<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Remark<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </app-card>
+        </form>
+    </div>
+</div>

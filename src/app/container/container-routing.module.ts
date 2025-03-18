@@ -7,6 +7,10 @@ const routes: Routes = [
     path: 'trip-detail',
     loadChildren: () => import('./trip-details/trip-details/trip-details.module').then(module => module.TripDetailsModule)
   },
+  {
+    path: 'driver-payment',
+    loadChildren: () => import('./driver-payment/driver-payment.module').then(module => module.DriverPaymentModule)
+  }
 ];
 
 @NgModule({
