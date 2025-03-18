@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { MasterService } from 'src/app/service/master.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { ngxCsv } from 'ngx-csv';
+import * as moment from 'moment';
 @Component({
   selector: 'app-vehicle-details',
   templateUrl: './vehicle-details.component.html',
@@ -187,4 +189,24 @@ export class VehicleDetailsComponent implements OnInit {
     // Save the PDF
     doc.save('Vehicle_Details.pdf');
   }
+
+    exportToExcel() {
+      const rows = this.dataSource.data.map((item, index) => [
+        index + 1, // Serial number starts from 1
+        item.vehicleNumber,
+        String(item.vehicleName), // Convert number to string
+        String(item.insuranceDate), // Convert number to string
+        String(item.taxDate), // Convert number to string
+        item.fcDate,
+        item.polutionDate,
+      ]);
+  
+      const options = {
+        headers: [
+          'S.No', 'Vehicle No', 'Vehicle Name', 'Insurance Date', 'Tax Date', 'Fc Date', 'Polution Date'
+        ]
+      };
+      new ngxCsv(rows, 'Vehicle_Details', options);
+    }
+
 }

@@ -66,7 +66,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "dever_holidays_0.0.1:build"
+            "browserTarget": "dever_holidays_0.0.1:build",
+            "port": 2704
           },
           "configurations": {
             "production": {
