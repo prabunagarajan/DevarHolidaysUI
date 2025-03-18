@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/service/common.service';
 
 @Component({
@@ -10,14 +10,19 @@ import { CommonService } from 'src/app/service/common.service';
 export class ViewTripDetailsComponent implements OnInit {
   getTripDetails: any;
   tripLogDetails: any[] = [];
+  tripListStatus: string;
   constructor(
     private commonService: CommonService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
 
     this.activatedRoute.params.subscribe(tripIdResponse => {
       if (tripIdResponse.id) {
+        if (tripIdResponse.status) {
+          this.tripListStatus = tripIdResponse.status;
+        }
         this.commonService.getTripDetails(tripIdResponse.id).subscribe(getTripDetailsResponse => {
           if (getTripDetailsResponse.status == 's') {
             this.getTripDetails = getTripDetailsResponse.data;
@@ -25,13 +30,23 @@ export class ViewTripDetailsComponent implements OnInit {
               if (gettripLogDetailsResponse.status == 's') {
                 this.tripLogDetails = gettripLogDetailsResponse.data;
               } else {
-                this.tripLogDetails
+                this.tripLogDetails = [];
               }
-            })
+            });
           }
         })
 
       }
     })
+  }
+
+  back() {
+    if (this.tripListStatus == 'approved') {
+      this.router.navigate(['/container/trip-detail/inprogresslist']);
+    } else if (this.tripListStatus == 'forward') {
+      this.router.navigate(['/container/trip-detail/forwardlist']);
+    } else {
+      this.router.navigate(['/container/trip-detail/list']);
+    }
   }
 }

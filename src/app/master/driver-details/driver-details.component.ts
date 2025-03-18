@@ -164,30 +164,6 @@ export class DriverDetailsComponent implements OnInit, AfterViewInit {
     this.getAll(pageIndex, pageSize);
   }
 
-
-  /* generatePDF() {
-    const doc = new jsPDF();
-
-    // Title
-    doc.text('List of Users', 14, 10);
-
-    // Define table columns
-    const columns = ['S.No', 'Name', 'Mobile Number', 'Driving License Number', 'Aadhar Number', 'District'];
-
-    // Convert list data to an array format
-    const rows = this.dataSource.data.map((item, index) => [index + 1, item.name, item.mobileNumber, item.drivingLicenseNumber, item.aadharNumber, item.district]);
-
-    // Add table to the PDF
-    autoTable(doc, {
-      head: [columns],
-      body: rows,
-      startY: 20
-    });
-
-    // Save the PDF
-    doc.save('Driver Details.pdf');
-  } */
-
     generatePDF() {
       console.log('generatePDF :')
       const doc = new jsPDF();

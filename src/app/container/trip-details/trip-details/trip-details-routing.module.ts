@@ -25,6 +25,10 @@ const routes: Routes = [
     component: ViewTripDetailsComponent
   },
   {
+    path: 'view/:id/:status',
+    component: ViewTripDetailsComponent
+  },
+  {
     path: 'inprogresslist',
     component: TripdetailsinprogressComponent
   },
