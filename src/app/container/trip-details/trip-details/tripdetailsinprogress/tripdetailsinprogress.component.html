@@ -118,6 +118,13 @@
         <td mat-cell *matCellDef="let element; let i = index" class="text-center"> {{ i + 1 }} </td>
     </ng-container>
 
+
+    <!-- TripNo Column -->
+    <ng-container matColumnDef="tripNumber">
+        <th mat-header-cell *matHeaderCellDef class="text-center">Trip Number </th>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.tripNumber}} </td>
+    </ng-container>
+
     <!-- Driver Name Column -->
     <ng-container matColumnDef="createdDate">
         <th mat-header-cell *matHeaderCellDef class="text-center"> CreatedDate </th>
@@ -157,7 +164,19 @@
     <!-- Status Column -->
     <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef class="text-center"> Status </th>
-        <td mat-cell *matCellDef="let element" class="text-center"> {{element.status}} </td>
+        <td mat-cell *matCellDef="let element" class="text-center">
+            <!-- <span [ngStyle]="getStatusStyle(element?.status)" >
+                {{ element?.status }}
+            </span> -->
+            <span class="badge m-r-5 badge-light-success"
+                *ngIf="element?.status == 'APPROVED'">{{element?.status}}</span>
+            <span class="badge m-r-5 badge-light-info"
+                *ngIf="element?.status == 'INPROGRESS'">{{element?.status}}</span>
+            <span class="badge m-r-5 badge-light-secondary"
+                *ngIf="element?.status == 'FORWARDED'">{{element?.status}}</span>
+            <span class="badge m-r-5 badge-light-warning "
+                *ngIf="element?.status == 'REQUESTFORCLARIFICATION'">{{element?.status}}</span>
+        </td>
     </ng-container>
 
     <!-- Action Column -->
@@ -177,3 +196,17 @@
 <mat-paginator [length]="totelCount" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]"
     (page)="pageEvent($event)">
 </mat-paginator>
+<div class="row">
+    <div class="col-xl-4 mt-2">
+      <div class="dropdown">
+        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          Download
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="javascript:void(0)" (click)="exportToExcel()">Excel</a></li>
+          <li><a class="dropdown-item" href="javascript:void(0)" (click)="generatePDF()">PDF</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
