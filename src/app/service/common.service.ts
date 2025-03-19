@@ -40,12 +40,16 @@ export class CommonService {
     return this.httpClient.get(url);
   }
 
-  getTripDetailsForward(req:any): Observable<any> {
+  getTripDetailsForward(req: any): Observable<any> {
     const url = this.baseUrl + 'tripDetails/approval';
-    return this.httpClient.put(url,req);
+    return this.httpClient.put(url, req);
   }
   getTripDetailLogs(refNumber): Observable<any> {
     const url = this.baseUrl + 'tripDetails/getLogsByTripNo/' + refNumber;
     return this.httpClient.get(url);
+  }
+  driverPaymentSubmit(requestObj): Observable<any> {
+    const url = this.baseUrl + 'DriverSalary/add';
+    return this.httpClient.post(url, requestObj);
   }
 }
