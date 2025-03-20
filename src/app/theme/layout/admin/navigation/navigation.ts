@@ -57,28 +57,39 @@ const NavigationItems = [
     icon: 'feather icon-monitor',
     children: [
       {
-        id: 'tripdetails',
+        id: 'trip-details-main',
         title: 'Trip Details',
-        type: 'item',
-        url: '/container/trip-detail/list',
-        icon: 'feather icon-home'
-      },
-      {
-        id: 'tripdetails',
-        title: 'Trip Details Inprogress',
-        type: 'item',
-        url: '/container/trip-detail/inprogresslist',
-        icon: 'feather icon-home'
-      },
-      {
-        id: 'tripdetails',
-        title: 'Trip Details Forward',
-        type: 'item',
-        url: '/container/trip-detail/forwardlist',
-        icon: 'feather icon-home'
+        type: 'collapse',
+        icon: 'feather icon-home',
+        children: [
+          {
+            id: 'trip-details-list',
+            title: 'Trip Details',
+            type: 'item',
+            url: '/container/trip-detail/list',
+          },
+          {
+            id: 'trip-details-inprogress',
+            title: 'Trip Details Inprogress',
+            type: 'item',
+            url: '/container/trip-detail/inprogresslist',
+          },
+          {
+            id: 'trip-details-forward',
+            title: 'Trip Details Forward',
+            type: 'item',
+            url: '/container/trip-detail/forwardlist',
+          },
+          {
+            id: 'Pending Payments',
+            title: 'Pending Payments',
+            type: 'item',
+            url: '/container/trip-detail/payment-pending',
+          }
+        ]
       }
     ]
-  },
+  },  
   {
     id: 'payment-details',
     title: 'Payment Details',
