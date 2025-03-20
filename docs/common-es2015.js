@@ -63,9 +63,13 @@ let CommonService = class CommonService {
         const url = this.baseUrl + 'DriverSalary/add';
         return this.httpClient.post(url, requestObj);
     }
-    paymentPendingDetails(requestObj) {
+    payoutBalanceHistory(requestObj) {
         const url = this.baseUrl + 'balance/getBalanceHistoryDetails';
         return this.httpClient.post(url, requestObj);
+    }
+    payoutBalance() {
+        const url = this.baseUrl + 'balance/getAllBalanceDetails';
+        return this.httpClient.get(url);
     }
 };
 CommonService.ctorParameters = () => [

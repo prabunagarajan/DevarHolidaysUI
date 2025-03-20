@@ -1927,12 +1927,34 @@ const NavigationItems = [
                         type: 'item',
                         url: '/container/trip-detail/forwardlist',
                     },
+                ]
+            }
+        ]
+    },
+    {
+        id: 'payout',
+        title: 'Payout Details',
+        type: 'group',
+        icon: 'feather icon-monitor',
+        children: [
+            {
+                id: 'driver-payout-main',
+                title: 'Payout Details',
+                type: 'collapse',
+                icon: 'feather icon-home',
+                children: [
                     {
-                        id: 'Pending Payments',
-                        title: 'Pending Payments',
+                        id: 'driver-payout-list',
+                        title: 'Driver payout Balance',
                         type: 'item',
-                        url: '/container/trip-detail/payment-pending',
-                    }
+                        url: '/container/payout/payment-balance',
+                    },
+                    {
+                        id: 'driver-payout-list',
+                        title: 'Driver Payout History',
+                        type: 'item',
+                        url: '/container/payout/payment-history',
+                    },
                 ]
             }
         ]
