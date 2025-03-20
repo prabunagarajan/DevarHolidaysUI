@@ -19,8 +19,12 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [
     {
         path: 'trip-detail',
-        loadChildren: function () { return Promise.all(/*! import() | trip-details-trip-details-trip-details-module */[__webpack_require__.e("default~trip-details-at-trip-details-at-module~trip-details-trip-details-trip-details-module~vehicle~e5f14595"), __webpack_require__.e("default~driver-details-driver-details-module~trip-details-trip-details-trip-details-module~vehicle-d~b42d40ce"), __webpack_require__.e("trip-details-trip-details-trip-details-module")]).then(__webpack_require__.bind(null, /*! ./trip-details/trip-details/trip-details.module */ "./src/app/container/trip-details/trip-details/trip-details.module.ts")).then(function (module) { return module.TripDetailsModule; }); }
+        loadChildren: function () { return Promise.all(/*! import() | trip-details-trip-details-trip-details-module */[__webpack_require__.e("default~driver-payment-driver-payment-module~trip-details-at-trip-details-at-module~trip-details-tri~6808f05a"), __webpack_require__.e("default~driver-details-driver-details-module~trip-details-trip-details-trip-details-module~vehicle-d~b42d40ce"), __webpack_require__.e("common"), __webpack_require__.e("trip-details-trip-details-trip-details-module")]).then(__webpack_require__.bind(null, /*! ./trip-details/trip-details/trip-details.module */ "./src/app/container/trip-details/trip-details/trip-details.module.ts")).then(function (module) { return module.TripDetailsModule; }); }
     },
+    {
+        path: 'driver-payment',
+        loadChildren: function () { return Promise.all(/*! import() | driver-payment-driver-payment-module */[__webpack_require__.e("default~driver-payment-driver-payment-module~trip-details-at-trip-details-at-module~trip-details-tri~6808f05a"), __webpack_require__.e("common"), __webpack_require__.e("driver-payment-driver-payment-module")]).then(__webpack_require__.bind(null, /*! ./driver-payment/driver-payment.module */ "./src/app/container/driver-payment/driver-payment.module.ts")).then(function (module) { return module.DriverPaymentModule; }); }
+    }
 ];
 var ContainerRoutingModule = /** @class */ (function () {
     function ContainerRoutingModule() {

@@ -23,7 +23,7 @@ const routes = [
     },
     {
         path: 'vehicle-detail',
-        loadChildren: () => Promise.all(/*! import() | vehicle-details-vehicle-details-module */[__webpack_require__.e("default~trip-details-at-trip-details-at-module~trip-details-trip-details-trip-details-module~vehicle~e5f14595"), __webpack_require__.e("default~driver-details-driver-details-module~trip-details-trip-details-trip-details-module~vehicle-d~b42d40ce"), __webpack_require__.e("common"), __webpack_require__.e("vehicle-details-vehicle-details-module")]).then(__webpack_require__.bind(null, /*! ./vehicle-details/vehicle-details.module */ "./src/app/master/vehicle-details/vehicle-details.module.ts")).then(module => module.VehicleDetailsModule)
+        loadChildren: () => Promise.all(/*! import() | vehicle-details-vehicle-details-module */[__webpack_require__.e("default~driver-payment-driver-payment-module~trip-details-at-trip-details-at-module~trip-details-tri~6808f05a"), __webpack_require__.e("default~driver-details-driver-details-module~trip-details-trip-details-trip-details-module~vehicle-d~b42d40ce"), __webpack_require__.e("common"), __webpack_require__.e("vehicle-details-vehicle-details-module")]).then(__webpack_require__.bind(null, /*! ./vehicle-details/vehicle-details.module */ "./src/app/master/vehicle-details/vehicle-details.module.ts")).then(module => module.VehicleDetailsModule)
     }
 ];
 let MasterRoutingModule = class MasterRoutingModule {
