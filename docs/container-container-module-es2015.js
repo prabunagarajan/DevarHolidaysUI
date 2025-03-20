@@ -19,11 +19,15 @@ __webpack_require__.r(__webpack_exports__);
 const routes = [
     {
         path: 'trip-detail',
-        loadChildren: () => Promise.all(/*! import() | trip-details-trip-details-trip-details-module */[__webpack_require__.e("default~driver-payment-driver-payment-module~trip-details-at-trip-details-at-module~trip-details-tri~6808f05a"), __webpack_require__.e("default~driver-details-driver-details-module~trip-details-trip-details-trip-details-module~vehicle-d~b42d40ce"), __webpack_require__.e("common"), __webpack_require__.e("trip-details-trip-details-trip-details-module")]).then(__webpack_require__.bind(null, /*! ./trip-details/trip-details/trip-details.module */ "./src/app/container/trip-details/trip-details/trip-details.module.ts")).then(module => module.TripDetailsModule)
+        loadChildren: () => Promise.all(/*! import() | trip-details-trip-details-trip-details-module */[__webpack_require__.e("default~driver-payment-driver-payment-module~payout-payout-module~trip-details-at-trip-details-at-mo~862f2686"), __webpack_require__.e("default~driver-details-driver-details-module~payout-payout-module~trip-details-trip-details-trip-det~656da435"), __webpack_require__.e("default~driver-payment-driver-payment-module~trip-details-at-trip-details-at-module~trip-details-tri~6808f05a"), __webpack_require__.e("common"), __webpack_require__.e("trip-details-trip-details-trip-details-module")]).then(__webpack_require__.bind(null, /*! ./trip-details/trip-details/trip-details.module */ "./src/app/container/trip-details/trip-details/trip-details.module.ts")).then(module => module.TripDetailsModule)
     },
     {
         path: 'driver-payment',
-        loadChildren: () => Promise.all(/*! import() | driver-payment-driver-payment-module */[__webpack_require__.e("default~driver-payment-driver-payment-module~trip-details-at-trip-details-at-module~trip-details-tri~6808f05a"), __webpack_require__.e("common"), __webpack_require__.e("driver-payment-driver-payment-module")]).then(__webpack_require__.bind(null, /*! ./driver-payment/driver-payment.module */ "./src/app/container/driver-payment/driver-payment.module.ts")).then(module => module.DriverPaymentModule)
+        loadChildren: () => Promise.all(/*! import() | driver-payment-driver-payment-module */[__webpack_require__.e("default~driver-payment-driver-payment-module~payout-payout-module~trip-details-at-trip-details-at-mo~862f2686"), __webpack_require__.e("default~driver-payment-driver-payment-module~trip-details-at-trip-details-at-module~trip-details-tri~6808f05a"), __webpack_require__.e("common"), __webpack_require__.e("driver-payment-driver-payment-module")]).then(__webpack_require__.bind(null, /*! ./driver-payment/driver-payment.module */ "./src/app/container/driver-payment/driver-payment.module.ts")).then(module => module.DriverPaymentModule)
+    },
+    {
+        path: 'payout',
+        loadChildren: () => Promise.all(/*! import() | payout-payout-module */[__webpack_require__.e("default~driver-payment-driver-payment-module~payout-payout-module~trip-details-at-trip-details-at-mo~862f2686"), __webpack_require__.e("default~driver-details-driver-details-module~payout-payout-module~trip-details-trip-details-trip-det~656da435"), __webpack_require__.e("common"), __webpack_require__.e("payout-payout-module")]).then(__webpack_require__.bind(null, /*! ./payout/payout.module */ "./src/app/container/payout/payout.module.ts")).then(module => module.PayoutModule)
     }
 ];
 let ContainerRoutingModule = class ContainerRoutingModule {
