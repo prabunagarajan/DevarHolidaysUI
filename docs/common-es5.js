@@ -63,6 +63,10 @@ var CommonService = /** @class */ (function () {
         var url = this.baseUrl + 'DriverSalary/add';
         return this.httpClient.post(url, requestObj);
     };
+    CommonService.prototype.paymentPendingDetails = function (requestObj) {
+        var url = this.baseUrl + 'balance/getBalanceHistoryDetails';
+        return this.httpClient.post(url, requestObj);
+    };
     CommonService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
     ]; };

@@ -63,6 +63,10 @@ let CommonService = class CommonService {
         const url = this.baseUrl + 'DriverSalary/add';
         return this.httpClient.post(url, requestObj);
     }
+    paymentPendingDetails(requestObj) {
+        const url = this.baseUrl + 'balance/getBalanceHistoryDetails';
+        return this.httpClient.post(url, requestObj);
+    }
 };
 CommonService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }

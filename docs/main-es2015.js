@@ -195,7 +195,7 @@ module.exports = "<ng-container *ngIf=\"this.navigationList\">\n  <ng-container 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card\" [ngClass]=\"cardClass\" [@cardRemove]=\"cardRemove\" #toAnimate animates animatesInitMode=\"show\" [animatesOnInit]=\"{useVisibility: false, disabled: true}\">\n  <div class=\"card-header\" *ngIf=\"!hidHeader\" [ngClass]=\"headerClass\">\n    <h5 *ngIf=\"!customHeader\">{{ cardTitle }}</h5>\n    <p *ngIf=\"!customHeader && cardCaption\" [ngClass]=\"captionClass\">{{cardCaption}}</p>\n    <div class=\"card-header-right\" *ngIf=\"this.options && !customHeader\">\n      <div class=\"btn-group card-option dropdown\" ngbDropdown>\n        <button type=\"button\" class=\"btn dropdown-toggle btn-icon\" ngbDropdownToggle>\n          <i class=\"feather icon-more-horizontal\"></i>\n        </button>\n        <ul class=\"list-unstyled card-option dropdown-menu dropdown-menu-right\" ngbDropdownMenu>\n          <li class=\"dropdown-item full-card\" (click)=\"fullCardToggle(toAnimate, '', true)\"><a href=\"javascript:\"><span><i class=\"feather\" [ngClass]=\"fullIcon\"></i> {{this.cardClass === 'full-card' ? 'Restore' : 'Maximize'}}</span></a></li>\n          <li class=\"dropdown-item minimize-card\" (click)=\"collapsedCardToggle()\"><a href=\"javascript:\"><span><i class=\"feather\" [ngClass]=\"collapsedIcon\"></i> {{this.collapsedCard === 'collapsed' ? 'Expand' : 'Collapse'}} </span>\n            <span style=\"display:none\"><i class=\"feather icon-plus\"></i></span></a></li>\n          <li class=\"dropdown-item reload-card\" (click)=\"cardRefresh($event)\"><a href=\"javascript:\"><i class=\"feather icon-refresh-cw\"></i> Reload</a></li>\n          <li class=\"dropdown-item close-card\" (click)=\"cardRemoveAction()\"><a href=\"javascript:\"><i class=\"feather icon-trash\"></i> Remove</a></li>\n        </ul>\n      </div>\n    </div>\n    <ng-content *ngIf=\"customHeader\" select=\".app-card-header\"></ng-content>\n  </div>\n  <div [@collapsedCard]=\"collapsedCard\" *ngIf=\"this.options; else subMenuContent\">\n    <ng-container *ngTemplateOutlet=\"subMenuContent\"></ng-container>\n  </div>\n  <ng-template #subMenuContent>\n    <div class=\"card-body\" [ngClass]=\"blockClass\">\n      <ng-content></ng-content>\n    </div>\n  </ng-template>\n  <div *ngIf=\"isCardFooter\" class=\"card-footer\" [ngClass]=\"footerClass\">\n    <ng-content select=\".app-card-footer\"></ng-content>\n  </div>\n  <div class=\"card-loader\" *ngIf=\"loadCard\"><i class=\"pct-loader1 anim-rotate\"></i></div>\n</div>\n"
+module.exports = "<div class=\"card\" [ngClass]=\"cardClass\" [@cardRemove]=\"cardRemove\">\n  <div class=\"card-header\" *ngIf=\"!hidHeader\" [ngClass]=\"headerClass\">\n    <h5 *ngIf=\"!customHeader\">{{ cardTitle }}</h5>\n    <p *ngIf=\"!customHeader && cardCaption\" [ngClass]=\"captionClass\">{{ cardCaption }}</p>\n    \n    <div class=\"card-header-right\" *ngIf=\"options && !customHeader\">\n      <div class=\"btn-group card-option dropdown\" ngbDropdown>\n        <button type=\"button\" class=\"btn dropdown-toggle btn-icon\" ngbDropdownToggle>\n          <i class=\"feather icon-more-horizontal\"></i>\n        </button>\n        <ul class=\"list-unstyled card-option dropdown-menu dropdown-menu-right\" ngbDropdownMenu>\n          <li class=\"dropdown-item full-card\" (click)=\"fullCardToggle()\">\n            <a href=\"javascript:void(0)\">\n              <span><i class=\"feather\" [ngClass]=\"fullIcon\"></i> {{ cardClass === 'full-card' ? 'Restore' : 'Maximize' }}</span>\n            </a>\n          </li>\n          <li class=\"dropdown-item minimize-card\" (click)=\"collapsedCardToggle()\">\n            <a href=\"javascript:void(0)\">\n              <span><i class=\"feather\" [ngClass]=\"collapsedIcon\"></i> {{ collapsedCard === 'collapsed' ? 'Expand' : 'Collapse' }} </span>\n            </a>\n          </li>\n          <li class=\"dropdown-item reload-card\" (click)=\"cardRefresh()\">\n            <a href=\"javascript:void(0)\"><i class=\"feather icon-refresh-cw\"></i> Reload</a>\n          </li>\n          <li class=\"dropdown-item close-card\" (click)=\"cardRemoveAction()\">\n            <a href=\"javascript:void(0)\"><i class=\"feather icon-trash\"></i> Remove</a>\n          </li>\n        </ul>\n      </div>\n    </div>\n    \n    <ng-content *ngIf=\"customHeader\" select=\".app-card-header\"></ng-content>\n  </div>\n\n  <!-- Angular animations used here -->\n  <div [@collapsedCard]=\"collapsedCard\" *ngIf=\"options; else subMenuContent\">\n    <ng-container *ngTemplateOutlet=\"subMenuContent\"></ng-container>\n  </div>\n\n  <ng-template #subMenuContent>\n    <div class=\"card-body\" [ngClass]=\"blockClass\">\n      <ng-content></ng-content>\n    </div>\n  </ng-template>\n\n  <div *ngIf=\"isCardFooter\" class=\"card-footer\" [ngClass]=\"footerClass\">\n    <ng-content select=\".app-card-footer\"></ng-content>\n  </div>\n\n  <div class=\"card-loader\" *ngIf=\"loadCard\">\n    <i class=\"pct-loader1 anim-rotate\"></i>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1904,25 +1904,36 @@ const NavigationItems = [
         icon: 'feather icon-monitor',
         children: [
             {
-                id: 'tripdetails',
+                id: 'trip-details-main',
                 title: 'Trip Details',
-                type: 'item',
-                url: '/container/trip-detail/list',
-                icon: 'feather icon-home'
-            },
-            {
-                id: 'tripdetails',
-                title: 'Trip Details Inprogress',
-                type: 'item',
-                url: '/container/trip-detail/inprogresslist',
-                icon: 'feather icon-home'
-            },
-            {
-                id: 'tripdetails',
-                title: 'Trip Details Forward',
-                type: 'item',
-                url: '/container/trip-detail/forwardlist',
-                icon: 'feather icon-home'
+                type: 'collapse',
+                icon: 'feather icon-home',
+                children: [
+                    {
+                        id: 'trip-details-list',
+                        title: 'Trip Details',
+                        type: 'item',
+                        url: '/container/trip-detail/list',
+                    },
+                    {
+                        id: 'trip-details-inprogress',
+                        title: 'Trip Details Inprogress',
+                        type: 'item',
+                        url: '/container/trip-detail/inprogresslist',
+                    },
+                    {
+                        id: 'trip-details-forward',
+                        title: 'Trip Details Forward',
+                        type: 'item',
+                        url: '/container/trip-detail/forwardlist',
+                    },
+                    {
+                        id: 'Pending Payments',
+                        title: 'Pending Payments',
+                        type: 'item',
+                        url: '/container/trip-detail/payment-pending',
+                    }
+                ]
             }
         ]
     },
@@ -2609,70 +2620,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
-/* harmony import */ var css_animator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! css-animator */ "./node_modules/css-animator/index.js");
-/* harmony import */ var css_animator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(css_animator__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm2015/animations.js");
-
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm2015/animations.js");
 
 
 
 
 let CardComponent = class CardComponent {
-    constructor(animationService, config) {
-        config.placement = 'bottom-right';
-        this.customHeader = false;
+    constructor(config) {
+        this.cardTitle = '';
+        this.cardClass = '';
+        this.blockClass = '';
+        this.headerClass = '';
         this.options = true;
         this.hidHeader = false;
+        this.customHeader = false;
+        this.cardCaption = '';
+        this.captionClass = '';
         this.isCardFooter = false;
-        this.cardTitle = '';
-        this.animator = animationService.builder();
-        this.animators = animationService.builder();
-        this.animator.useVisibility = true;
+        this.footerClass = '';
         this.fullIcon = 'icon-maximize';
-        this.isAnimating = false;
         this.collapsedCard = 'expanded';
         this.collapsedIcon = 'icon-minus';
         this.loadCard = false;
         this.cardRemove = 'open';
+        this.cardState = 'normal';
+        config.placement = 'bottom-right';
     }
     ngOnInit() {
         if (this.hidHeader) {
             this.options = false;
         }
-        if (!this.options || this.hidHeader || this.customHeader) {
-            this.collapsedCard = 'false';
-        }
     }
-    fullCardToggle(element, animation, status) {
-        animation = this.cardClass === 'full-card' ? 'zoomOut' : 'zoomIn';
-        this.fullIcon = this.cardClass === 'full-card' ? 'icon-maximize' : 'icon-minimize';
-        // const duration = this.cardClass === 'full-card' ? 300 : 600;
-        this.cardClass = this.cardClass === 'full-card' ? this.cardClass : 'full-card';
-        if (status) {
-            this.animation = animation;
-        }
-        this.isAnimating = true;
-        this.animators
-            .setType(this.animation)
-            .setDuration(500)
-            .setDirection('alternate')
-            .setTimingFunction('cubic-bezier(0.1, -0.6, 0.2, 0)')
-            .animate(element)
-            .then(() => {
-            this.isAnimating = false;
-        })
-            .catch(() => {
-            this.isAnimating = false;
-        });
-        setTimeout(() => {
-            this.cardClass = animation === 'zoomOut' ? '' : this.cardClass;
-            if (this.cardClass === 'full-card') {
-                document.querySelector('body').style.overflow = 'hidden';
-            }
-            else {
-                document.querySelector('body').removeAttribute('style');
-            }
-        }, 500);
+    fullCardToggle() {
+        this.cardState = this.cardState === 'normal' ? 'full' : 'normal';
+        this.fullIcon = this.cardState === 'normal' ? 'icon-maximize' : 'icon-minimize';
+        this.cardClass = this.cardState === 'full' ? 'full-card' : '';
     }
     collapsedCardToggle() {
         this.collapsedCard = this.collapsedCard === 'collapsed' ? 'expanded' : 'collapsed';
@@ -2680,10 +2662,8 @@ let CardComponent = class CardComponent {
     }
     cardRefresh() {
         this.loadCard = true;
-        this.cardClass = 'card-load';
         setTimeout(() => {
             this.loadCard = false;
-            this.cardClass = 'expanded';
         }, 3000);
     }
     cardRemoveAction() {
@@ -2691,52 +2671,51 @@ let CardComponent = class CardComponent {
     }
 };
 CardComponent.ctorParameters = () => [
-    { type: css_animator__WEBPACK_IMPORTED_MODULE_3__["AnimationService"] },
     { type: _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbDropdownConfig"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
 ], CardComponent.prototype, "cardTitle", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
 ], CardComponent.prototype, "cardClass", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
 ], CardComponent.prototype, "blockClass", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
 ], CardComponent.prototype, "headerClass", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
 ], CardComponent.prototype, "options", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
 ], CardComponent.prototype, "hidHeader", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
 ], CardComponent.prototype, "customHeader", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
 ], CardComponent.prototype, "cardCaption", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
 ], CardComponent.prototype, "captionClass", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Boolean)
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
 ], CardComponent.prototype, "isCardFooter", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
 ], CardComponent.prototype, "footerClass", void 0);
 CardComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -2744,33 +2723,25 @@ CardComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./card.component.html */ "./node_modules/raw-loader/index.js!./src/app/theme/shared/components/card/card.component.html"),
         providers: [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbDropdownConfig"]],
         animations: [
-            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["trigger"])('collapsedCard', [
-                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["state"])('collapsed, void', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({
-                    overflow: 'hidden',
-                    height: '0px',
-                })),
-                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["state"])('expanded', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({
-                    overflow: 'hidden',
-                    height: _angular_animations__WEBPACK_IMPORTED_MODULE_4__["AUTO_STYLE"],
-                })),
-                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["transition"])('collapsed <=> expanded', [
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["animate"])('400ms ease-in-out')
-                ])
+            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["trigger"])('collapsedCard', [
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["state"])('collapsed', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({ height: '0px', overflow: 'hidden' })),
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["state"])('expanded', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({ height: '*', overflow: 'hidden' })),
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["transition"])('collapsed <=> expanded', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["animate"])('400ms ease-in-out'))
             ]),
-            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["trigger"])('cardRemove', [
-                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["state"])('open', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({
-                    opacity: 1
-                })),
-                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["state"])('closed', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["style"])({
-                    opacity: 0,
-                    display: 'none'
-                })),
-                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["transition"])('open <=> closed', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_4__["animate"])('400ms')),
+            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["trigger"])('cardRemove', [
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["state"])('open', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({ opacity: 1 })),
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["state"])('closed', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({ opacity: 0, display: 'none' })),
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["transition"])('open <=> closed', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["animate"])('400ms')),
+            ]),
+            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["trigger"])('zoomCard', [
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["state"])('normal', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({ transform: 'scale(1)' })),
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["state"])('full', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({ transform: 'scale(1.1)' })),
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["transition"])('normal <=> full', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["animate"])('400ms ease-in-out'))
             ])
         ],
         styles: [__webpack_require__(/*! ./card.component.scss */ "./src/app/theme/shared/components/card/card.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [css_animator__WEBPACK_IMPORTED_MODULE_3__["AnimationService"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbDropdownConfig"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbDropdownConfig"]])
 ], CardComponent);
 
 
@@ -3530,7 +3501,8 @@ SharedModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _angular_material_input__WEBPACK_IMPORTED_MODULE_15__["MatInputModule"],
             _angular_material_core__WEBPACK_IMPORTED_MODULE_16__["MatNativeDateModule"],
             _angular_material_radio__WEBPACK_IMPORTED_MODULE_17__["MatRadioModule"],
-            _components_loader_loader_component__WEBPACK_IMPORTED_MODULE_18__["LoaderComponent"]
+            _components_loader_loader_component__WEBPACK_IMPORTED_MODULE_18__["LoaderComponent"],
+            _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_19__["MatProgressSpinnerModule"]
         ],
         declarations: [
             _components_data_table_data_filter_pipe__WEBPACK_IMPORTED_MODULE_5__["DataFilterPipe"],
