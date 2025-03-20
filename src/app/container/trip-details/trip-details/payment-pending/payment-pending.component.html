@@ -1,0 +1,167 @@
+<div class="row">
+    <div class="col-xl-12">
+        <form [formGroup]="paymentPendingFormSearchDetails" autocomplete="off">
+            <!-- Search Panel -->
+            <app-card [hidHeader]="true" class="list-panel add-panel">
+                <h4>Search</h4>
+                <div class="row">
+                    <!-- Driver Name -->
+                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="driverName">Driver Name</label>
+                            <input type="text" id="driverName" formControlName="driverName" class="form-control"
+                                placeholder="Enter Driver Name" />
+                        </div>
+                    </div> -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Wallet Id <span class="text-danger">*</span></label>
+                            <select type="text" class="form-select" formControlName="walletId"
+                                placeholder="Select Wallet Id">
+                                <option value="" selected>Select Wallet Id</option>
+                                <option *ngFor="let wallet of transactionList" value="{{wallet.walletId}}">
+                                    {{wallet.walletId}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Application Number -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Application Number <span class="text-danger">*</span></label>
+                            <select type="text" class="form-select" formControlName="applicationNumber"
+                                placeholder="Select Application Number">
+                                <option value="" selected>Select Application Number</option>
+                                <option *ngFor="let application of transactionList"
+                                    value="{{application.applicationNumber}}">
+                                    {{application.applicationNumber}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Transaction Name -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="transactionName">Transaction Name</label>
+                            <select id="transactionName" formControlName="transactionName" class="form-select">
+                                <option value="" disabled selected>Select Transaction Name</option>
+                                <option value="CREDIT">CREDIT</option>
+                                <option value="DEBIT">DEBIT</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <!-- Submit and Cancel buttons -->
+                <div class="row mt-3">
+                    <div class="col-lg-12 text-end">
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-outline-info list-button-container"
+                                (click)="search()"><span class="list-text-alaign-center">Submit</span></button>
+                            <button type="button" class="btn btn-outline-secondary list-button-container"
+                                (click)="onclear()"><span class="list-text-alaign-center">Clear</span></button>
+
+                        </div>
+                    </div>
+                </div>
+            </app-card>
+        </form>
+    </div>
+</div>
+
+
+
+
+<div class="outer-container">
+    <div class="button-container">
+        <!-- <button class="btn btn-outline-success list-button-container" [routerLink]="['/container/trip-detail/add']">
+            <span class="list-text-alaign-center">Add</span>
+        </button> -->
+        <button class="btn btn-outline-secondary list-button-container" (click)="onEdit()" [disabled]="!editEnable">
+            <span class="list-text-alaign-center">Edit</span>
+        </button>
+        <button class="btn btn-outline-warning list-button-container" (click)="onView()" [disabled]="!viewEnable">
+            <span class="list-text-alaign-center">View</span>
+        </button>
+        <!-- <button (click)="onclear()">
+            <span>Clear</span>
+        </button> -->
+    </div>
+</div>
+<app-card [hidHeader]="true" blockClass="table-border-style" class="list-panel">
+    <div class="table-responsive text-center list-panel">
+        <div class="example-table-container">
+            <table mat-table [dataSource]="dataSource" class="table-design">
+                <!-- Serial No Column -->
+                <ng-container matColumnDef="serialNo">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> S.No </th>
+                    <td mat-cell *matCellDef="let element; let i = index" class="text-center"> {{ i + 1 }} </td>
+                </ng-container>
+
+
+                <!-- TripNo Column -->
+                <ng-container matColumnDef="walletId">
+                    <th mat-header-cell *matHeaderCellDef class="text-center">Wallet Id </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.walletId}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="createdDate">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Created Date </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.createdDate | date:
+                        'dd-MM-yyyy'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="applicationNumber">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Application Number </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.applicationNumber}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="transactionName">
+                    <th mat-header-cell *matHeaderCellDef class="text-center">Transaction Name</th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <span class="badge m-r-5 badge-light-success"
+                            *ngIf="element?.transactionName == 'CREDIT'">{{element?.transactionName}}</span>
+                        <span class="badge m-r-5 badge-light-info"
+                            *ngIf="element?.transactionName == 'DEBIT'">{{element?.transactionName}}</span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <mat-radio-button (click)="onSelect(element)"></mat-radio-button>
+                    </td>
+                </ng-container>
+
+
+                <!-- Header and Row Definitions -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <!-- Table Loader (Centered) -->
+            <div *ngIf="isLoading" class="table-loader">
+                <mat-spinner diameter="64"></mat-spinner>
+            </div>
+            <mat-paginator [length]="totelCount" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]"
+                (page)="pageEvent($event)">
+            </mat-paginator>
+        </div>
+    </div>
+</app-card>
+<div class="row">
+    <div class="col-xl-4 mt-2">
+        <div class="dropdown">
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Download
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="javascript:void(0)" (click)="exportToExcel()">Excel</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0)" (click)="generatePDF()">PDF</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

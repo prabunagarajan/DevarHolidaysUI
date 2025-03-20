@@ -52,4 +52,10 @@ export class CommonService {
     const url = this.baseUrl + 'DriverSalary/add';
     return this.httpClient.post(url, requestObj);
   }
+
+
+  paymentPendingDetails(requestObj): Observable<any> {
+    const url = this.baseUrl + 'balance/getBalanceHistoryDetails';
+    return this.httpClient.post(url, requestObj);
+  }
 }
