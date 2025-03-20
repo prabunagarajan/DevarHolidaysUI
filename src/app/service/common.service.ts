@@ -64,5 +64,13 @@ export class CommonService {
     return this.httpClient.get(url);
   }
 
+  driverPaymentList(obj): Observable<any> {
+    const url = this.baseUrl + 'DriverSalary/search';
+    return this.httpClient.post(url, obj);
+  }
+  driverPaymentview(viewId): Observable<any> {
+    const url = this.baseUrl + 'DriverSalary/getById/' + viewId;
+    return this.httpClient.get(url);
+  }
 
 }
