@@ -11,7 +11,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS, DateTimeAdapter, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 import { TripdetailsinprogressComponent } from './tripdetailsinprogress/tripdetailsinprogress.component';
 import { TripdeatilsforwardComponent } from './tripdeatilsforward/tripdeatilsforward.component';
-import {  PaymentPendingComponent } from './payment-pending/payment-pending.component';
 
 export const MY_CUSTOM_FORMATS = {
   fullPickerInput: 'DD/MM/YYYY HH:mm',   
@@ -29,8 +28,7 @@ export const MY_CUSTOM_FORMATS = {
     ViewTripDetailsComponent,
     TripdetailsinprogressComponent,
     TripdeatilsforwardComponent,
-    TripdeatilsforwardComponent,
-    PaymentPendingComponent
+    TripdeatilsforwardComponent
   ],
   imports: [
     CommonModule,

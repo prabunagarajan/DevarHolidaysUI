@@ -54,8 +54,15 @@ export class CommonService {
   }
 
 
-  paymentPendingDetails(requestObj): Observable<any> {
+  payoutBalanceHistory(requestObj): Observable<any> {
     const url = this.baseUrl + 'balance/getBalanceHistoryDetails';
     return this.httpClient.post(url, requestObj);
   }
+
+  payoutBalance(): Observable<any> {
+    const url = this.baseUrl + 'balance/getAllBalanceDetails';
+    return this.httpClient.get(url);
+  }
+
+
 }
