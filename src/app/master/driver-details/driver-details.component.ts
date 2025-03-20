@@ -24,6 +24,7 @@ export class DriverDetailsComponent implements OnInit, AfterViewInit {
   totelCount = 0;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   public pageSize = 10;
+  isLoading: boolean;
 
   constructor(
     private router: Router,
@@ -48,27 +49,34 @@ export class DriverDetailsComponent implements OnInit, AfterViewInit {
   }
 
   getAll(pageIndex = 0, pageSize = this.pageSize) {
+    this.isLoading = true;
+    this.dataSource = new MatTableDataSource(); // Clear previous data before loading
+
     const driverFormSearchDetails = this.driverFormSearchDetails.value;
     const request = {
       filters: {
-        aadharNumber: driverFormSearchDetails.aadharNumber ? driverFormSearchDetails.aadharNumber : '',
-        drivingLicenseNumber: driverFormSearchDetails.drivingLicenseNumber ? driverFormSearchDetails.drivingLicenseNumber : '',
-        mobileNumber: driverFormSearchDetails.mobileNumber ? driverFormSearchDetails.mobileNumber : '',
-        name: driverFormSearchDetails.name ? driverFormSearchDetails.name : '',
+        aadharNumber: driverFormSearchDetails.aadharNumber || '',
+        drivingLicenseNumber: driverFormSearchDetails.drivingLicenseNumber || '',
+        mobileNumber: driverFormSearchDetails.mobileNumber || '',
+        name: driverFormSearchDetails.name || '',
       },
       paginationSize: pageSize,
       sortField: "modifiedDate",
       pageNo: pageIndex,
       sortOrder: "DESC"
-    }
-    this.masterService.driverDetailsSearchList(request).subscribe(response => {
-      if (response.status == 's' && response.data) {
-        this.dataSource = new MatTableDataSource(response.data.contents);
-        this.totelCount = response.data.totalElements;
-      } else {
-        this.dataSource = new MatTableDataSource();
+    };
+
+    this.masterService.driverDetailsSearchList(request).subscribe(
+      response => {
+        this.isLoading = false;
+        if (response.status == 's' && response.data) {
+          this.dataSource = new MatTableDataSource(response.data.contents);
+          this.totelCount = response.data.totalElements;
+        } else {
+          this.dataSource = new MatTableDataSource();
+        }
       }
-    })
+    );
   }
 
   onclear() {

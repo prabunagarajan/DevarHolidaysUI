@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
-import { AnimationBuilder, AnimationService } from 'css-animator';
-import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-card',
@@ -10,123 +9,56 @@ import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular
   providers: [NgbDropdownConfig],
   animations: [
     trigger('collapsedCard', [
-      state('collapsed, void',
-        style({
-          overflow: 'hidden',
-          height: '0px',
-        })
-      ),
-      state('expanded',
-        style({
-          overflow: 'hidden',
-          height: AUTO_STYLE,
-        })
-      ),
-      transition('collapsed <=> expanded', [
-        animate('400ms ease-in-out')
-      ])
+      state('collapsed', style({ height: '0px', overflow: 'hidden' })),
+      state('expanded', style({ height: '*', overflow: 'hidden' })),
+      transition('collapsed <=> expanded', animate('400ms ease-in-out'))
     ]),
     trigger('cardRemove', [
-      state('open', style({
-        opacity: 1
-      })),
-      state('closed', style({
-        opacity: 0,
-        display: 'none'
-      })),
+      state('open', style({ opacity: 1 })),
+      state('closed', style({ opacity: 0, display: 'none' })),
       transition('open <=> closed', animate('400ms')),
+    ]),
+    trigger('zoomCard', [
+      state('normal', style({ transform: 'scale(1)' })),
+      state('full', style({ transform: 'scale(1.1)' })),
+      transition('normal <=> full', animate('400ms ease-in-out'))
     ])
   ]
 })
-
 export class CardComponent implements OnInit {
-  @Input() cardTitle: string;
-  @Input() cardClass: string;
-  @Input() blockClass: string;
-  @Input() headerClass: string;
-  @Input() options: boolean;
-  @Input() hidHeader: boolean;
-  @Input() customHeader: boolean;
-  @Input() cardCaption: string;
-  @Input() captionClass: string;
-  @Input() isCardFooter: boolean;
-  @Input() footerClass: string;
+  @Input() cardTitle = '';
+  @Input() cardClass = '';
+  @Input() blockClass = '';
+  @Input() headerClass = '';
+  @Input() options = true;
+  @Input() hidHeader = false;
+  @Input() customHeader = false;
+  @Input() cardCaption = '';
+  @Input() captionClass = '';
+  @Input() isCardFooter = false;
+  @Input() footerClass = '';
 
-  public animation: string;
-  public fullIcon: string;
-  public isAnimating: boolean;
-  public animator: AnimationBuilder;
-  public animators: AnimationBuilder;
+  public fullIcon = 'icon-maximize';
+  public collapsedCard = 'expanded';
+  public collapsedIcon = 'icon-minus';
+  public loadCard = false;
+  public cardRemove = 'open';
+  public cardState = 'normal';
 
-  public collapsedCard: string;
-  public collapsedIcon: string;
-
-  public loadCard: boolean;
-
-  public cardRemove: string;
-
-  constructor(animationService: AnimationService, config: NgbDropdownConfig) {
+  constructor(config: NgbDropdownConfig) {
     config.placement = 'bottom-right';
-    this.customHeader = false;
-    this.options = true;
-    this.hidHeader = false;
-    this.isCardFooter = false;
-    this.cardTitle = '';
-
-    this.animator = animationService.builder();
-    this.animators = animationService.builder();
-    this.animator.useVisibility = true;
-    this.fullIcon = 'icon-maximize';
-    this.isAnimating = false;
-
-    this.collapsedCard = 'expanded';
-    this.collapsedIcon = 'icon-minus';
-
-    this.loadCard = false;
-
-    this.cardRemove = 'open';
   }
 
   ngOnInit() {
     if (this.hidHeader) {
       this.options = false;
     }
-
-    if (!this.options || this.hidHeader || this.customHeader) {
-      this.collapsedCard = 'false';
-    }
   }
 
-  public fullCardToggle(element: HTMLElement, animation: string, status: boolean) {
-    animation = this.cardClass === 'full-card' ? 'zoomOut' : 'zoomIn';
-    this.fullIcon = this.cardClass === 'full-card' ? 'icon-maximize' : 'icon-minimize';
-    // const duration = this.cardClass === 'full-card' ? 300 : 600;
-    this.cardClass = this.cardClass === 'full-card' ? this.cardClass : 'full-card';
-    if (status) {
-      this.animation = animation;
-    }
-    this.isAnimating = true;
-
-    this.animators
-      .setType(this.animation)
-      .setDuration(500)
-      .setDirection('alternate')
-      .setTimingFunction('cubic-bezier(0.1, -0.6, 0.2, 0)')
-      .animate(element)
-      .then(() => {
-        this.isAnimating = false;
-      })
-      .catch(() => {
-        this.isAnimating = false;
-      });
-    setTimeout(() => {
-      this.cardClass = animation === 'zoomOut' ? '' : this.cardClass;
-      if (this.cardClass === 'full-card') {
-        document.querySelector('body').style.overflow = 'hidden';
-      } else {
-        document.querySelector('body').removeAttribute('style');
-      }
-    }, 500);
+  fullCardToggle() {
+    this.cardState = this.cardState === 'normal' ? 'full' : 'normal';
+    this.fullIcon = this.cardState === 'normal' ? 'icon-maximize' : 'icon-minimize';
+    this.cardClass = this.cardState === 'full' ? 'full-card' : '';
   }
 
   collapsedCardToggle() {
@@ -136,15 +68,12 @@ export class CardComponent implements OnInit {
 
   cardRefresh() {
     this.loadCard = true;
-    this.cardClass = 'card-load';
-    setTimeout( () => {
+    setTimeout(() => {
       this.loadCard = false;
-      this.cardClass = 'expanded';
     }, 3000);
   }
 
   cardRemoveAction() {
     this.cardRemove = this.cardRemove === 'closed' ? 'open' : 'closed';
   }
-
 }

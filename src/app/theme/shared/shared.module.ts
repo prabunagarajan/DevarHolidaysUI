@@ -64,7 +64,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatInputModule,
     MatNativeDateModule,
     MatRadioModule,
-    LoaderComponent 
+    LoaderComponent ,
+    MatProgressSpinnerModule
   ],
   declarations: [
     DataFilterPipe,
