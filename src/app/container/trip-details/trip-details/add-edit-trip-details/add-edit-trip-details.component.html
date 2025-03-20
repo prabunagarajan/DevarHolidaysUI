@@ -533,47 +533,55 @@
                 </div>
                 <br>
                 <div class="row modal-footer" *ngIf="tripLogDetails?.length > 0">
-                  <h4>Trip Log Details</h4>
-                  <hr>
-            
-                  <div class="table-responsive">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>S.No</th>
-                          <th>Application No</th>
-                          <th>User Name</th>
-                          <th>Action</th>
-                          <th>Comments</th>
-                          <th>Remark</th>
-                          <th>Created Date</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let element of tripLogDetails; let i = index">
-                          <td>{{ i+1 }}</td>
-                          <td>{{ element.applnNo }}</td>
-                          <td>{{ element.userName }}</td>
-                          <td class="text-center">
-                            <span *ngIf="element?.action == 'SUBMITTED'" class="badge m-r-5 badge-light-primary">
-                              {{element?.action}}</span>
-                            <span *ngIf="element?.action == 'REQUESTFORCLARIFICATION'" class="badge m-r-5 badge-light-secondary">
-                              {{element?.action}}</span>
-                            <span *ngIf="element?.action == 'INPROGRESS	
-                              '" class="badge m-r-5 badge-light-success">
-                              {{element?.action}}</span>
-                            <span *ngIf="element?.action == 'FORWARDED	
-                              '" class="badge m-r-5 badge-light-warning">
-                              {{element?.action}}</span>
-                          </td>
-                          <td>{{ element.comments }}</td>
-                          <td>{{ element.remarks }}</td>
-                          <td>{{ element.createdDate | date: 'dd-MM-yy HH:mm:ss' }}</td>
-            
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                    <h4>Trip Log Details</h4>
+                    <hr>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Application No</th>
+                                    <th>User Name</th>
+                                    <th>Action</th>
+                                    <th>Comments</th>
+                                    <th>Remark</th>
+                                    <th>Created Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let element of tripLogDetails; let i = index">
+                                    <td>{{ i+1 }}</td>
+                                    <td>{{ element.applnNo }}</td>
+                                    <td>{{ element.userName }}</td>
+                                    <td class="text-center">
+                                        <span *ngIf="element?.action == 'SUBMITTED'"
+                                            class="badge m-r-5 badge-light-primary">
+                                            {{element?.action}}</span>
+                                        <span *ngIf="element?.action == 'APPROVED'"
+                                            class="badge m-r-5 badge-light-success">
+                                            {{element?.action}}</span>
+                                        <span *ngIf="element?.action == 'REQUEESTFORCLARIFICATION'"
+                                            class="badge m-r-5 badge-light-secondary">
+                                            {{element?.action}}</span>
+                                        <span *ngIf="element?.action == 'INPROGRESS'"
+                                            class="badge m-r-5 badge-light-success">
+                                            {{element?.action}}</span>
+                                        <span *ngIf="element?.action == 'FORWARDED'"
+                                            class="badge m-r-5 badge-light-warning">
+                                            {{element?.action}}</span>
+                                        <span *ngIf="element?.action == 'UPDATED'"
+                                            class="badge m-r-5 badge-light-primary">
+                                            {{element?.action}}</span>
+                                    </td>
+                                    <td>{{ element.comments }}</td>
+                                    <td>{{ element.remarks }}</td>
+                                    <td>{{ element.createdDate | date: 'dd-MM-yy HH:mm:ss' }}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-12 text-end">
@@ -592,8 +600,8 @@
                             <button type="submit" *ngIf="approveBtnShow" class="btn btn-outline-success"
                                 (click)="submit(tripFormDetails, 'Level 2')">Forwarded</button>
 
-                            <button type="button" class="btn btn-outline-secondary"
-                                [routerLink]="['/container/trip-detail/list']">Back</button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="back()"
+                                >Back</button>
 
                         </div>
                     </div>
