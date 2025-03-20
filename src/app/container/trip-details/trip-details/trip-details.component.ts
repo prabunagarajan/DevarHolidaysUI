@@ -27,6 +27,7 @@ export class TripDetailsComponent implements OnInit {
   selectObj: any;
   vehicleList: any;
   driverList: any;
+  isLoading: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private commonService: CommonService,
@@ -61,6 +62,7 @@ export class TripDetailsComponent implements OnInit {
 
 
   getAll(pageIndex = 0, pageSize = this.pageSize) {
+    this.isLoading = true;
     const tripFormSearchDetails = this.tripFormSearchDetails.value;
     const request = {
       filters: {
@@ -77,6 +79,7 @@ export class TripDetailsComponent implements OnInit {
       sortOrder: "DESC"
     }
     this.commonService.tripDetailsSearchList(request).subscribe(response => {
+      this.isLoading = false;
       if (response.status == 's' && response.data) {
         this.dataSource = new MatTableDataSource(response.data.contents);
         this.totelCount = response.data.totalElements;

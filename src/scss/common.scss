@@ -15,125 +15,125 @@
 
 // 
 
+/* Table Designs Start */
 
+/* General Table Styling */
 .table-design {
   width: 100%;
   border-spacing: 0;
   border-collapse: collapse;
-  box-shadow: none;
-  /* Removed box-shadow */
-  border-radius: 0;
-  /* Removed border-radius */
-  overflow: hidden;
   background-color: #ffffff;
   margin-bottom: 20px;
 }
 
-
-
+/* Table Header Styling */
 th {
-  background: linear-gradient(gray, gray);
-  color: white;
-  font-weight: bold;
+  background: linear-gradient(#d3d3d2, #d3d3d2);
+  color: black;
+  /* Changed to black for better visibility */
+  font-weight: bold !important;
+  /* Ensure bold font */
   font-size: 16px;
   text-transform: uppercase;
   letter-spacing: 0.8px;
   position: sticky;
   top: 0;
-  z-index: 1;
-}
-
-
-tr:nth-child(even) td {
-  background-color: #f7f7f7;
-}
-
-
-.td {
-  color: orange;
-}
-
-.mat-header-row {
-  border-bottom: none;
-  /* Removed border */
-}
-
-.mat-row {
-  border-bottom: none;
-  /* Removed border */
-}
-
-// .mat-header-cell {
-//   padding: 12px 20px;
-//   color: white;
-//   font-size: larger;
-// }
-
-
-.mat-header-cell {
+  z-index: 2;
+  padding: 12px 20px;
   text-align: center;
-  color: white;
   border: 1px solid #e3eaef;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 10px;
-  .mat-sort-header-container {
-      display: initial;
-      text-align: center;
-      .mat-sort-header-button {
-          display: initial;
-      }
-      .mat-sort-header-arrow {
-          position: absolute;
-          right: 5px;
-          top: 0;
-          bottom: 0;
-          margin: auto !important;
-      }
+  white-space: nowrap;
+  font-family: Arial, sans-serif;
+  /* Ensure consistent font */
+}
+
+/* Table Cell Styling */
+td {
+  text-align: left;
+  border: 1px solid #e3eaef;
+  padding: 10px 20px !important;
+  /* Ensures space inside cells */
+  white-space: nowrap;
+  /* Prevents text from wrapping */
+  background-color: #ffffff !important;
+  /* Ensures all rows are white */
+}
+
+/* Select Line Hover Effect (Highlight Entire Row) */
+tr:hover td {
+  background-color: #d3e3fd !important;
+  /* Light blue row highlight */
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Angular Material Table Fix */
+.mat-header-cell,
+.mat-cell {
+  padding: 10px 20px !important;
+  /* Ensures spacing in Material Table */
+}
+
+/* Remove Right-Side Scrollbar */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Scrollable Table Container */
+.example-table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* Responsive Table for Small Screens */
+@media (max-width: 768px) {
+  .table-design {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 }
 
-.mat-cell {
-  padding: 12px 20px;
-  border: 1px solid #e3eaef;
-  padding: 5px;
+/* Button Styling Inside Table */
+.table-button {
+  background-color: #007bff;
+  color: white;
+  padding: 5px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
+.table-button:hover {
+  background-color: #0056b3;
+}
 
+/* Ensure Table Header Text is Bold */
+th strong {
+  font-weight: bold !important;
+}
 
-.mat-paginator {
-  margin-top: 20px;
+.table-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
-  justify-content: flex-end;
-  font-size: 14px;
-  font-weight: bold;
-  background-color: #ffffff;
-  border-radius: 0;
-  /* Removed border-radius */
-  box-shadow: none;
-  /* Removed box-shadow */
-  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+  z-index: 10;
 }
 
-.mat-paginator-range-actions {
-  display: none;
+.table-container {
+  position: relative; /* Ensure the table acts as a reference for absolute positioning */
+  min-height: 150px; /* Provide enough height for loader */
 }
 
-.mat-paginator-previous,
-.mat-paginator-next {
-  color: #1e88e5;
-  transition: color 0.3s ease;
-}
 
-.mat-paginator-previous:hover,
-.mat-paginator-next:hover {
-  color: #42a5f5;
-}
+/* Table Designs End */
 
-.mat-paginator-page-size {
-  font-size: 14px;
-  font-weight: normal;
-}
 
 
 

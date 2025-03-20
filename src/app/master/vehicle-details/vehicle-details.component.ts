@@ -24,6 +24,7 @@ export class VehicleDetailsComponent implements OnInit {
   editDisabled: boolean;
   public pageSize = 10;
   vehicleFormSearchDetails: FormGroup;
+  isLoading: boolean;
   constructor(private masterService: MasterService,
     private toaster: ToastrService,
     private router: Router,
@@ -50,9 +51,10 @@ export class VehicleDetailsComponent implements OnInit {
       sortField: 'modifiedDate',
       sortOrder: 'DESC',
     };
-
+    this.isLoading = true;
     this.masterService.vehicleDetailsGetAllList(request).subscribe(
       (res) => {
+        this.isLoading = false;
         if (res.status === 's') {
           this.dataSource.data = res.data.contents;
           this.totalCounts = res.data.totalElements;
@@ -190,23 +192,23 @@ export class VehicleDetailsComponent implements OnInit {
     doc.save('Vehicle_Details.pdf');
   }
 
-    exportToExcel() {
-      const rows = this.dataSource.data.map((item, index) => [
-        index + 1, // Serial number starts from 1
-        item.vehicleNumber,
-        String(item.vehicleName), // Convert number to string
-        String(item.insuranceDate), // Convert number to string
-        String(item.taxDate), // Convert number to string
-        item.fcDate,
-        item.polutionDate,
-      ]);
-  
-      const options = {
-        headers: [
-          'S.No', 'Vehicle No', 'Vehicle Name', 'Insurance Date', 'Tax Date', 'Fc Date', 'Polution Date'
-        ]
-      };
-      new ngxCsv(rows, 'Vehicle_Details', options);
-    }
+  exportToExcel() {
+    const rows = this.dataSource.data.map((item, index) => [
+      index + 1, // Serial number starts from 1
+      item.vehicleNumber,
+      String(item.vehicleName), // Convert number to string
+      String(item.insuranceDate), // Convert number to string
+      String(item.taxDate), // Convert number to string
+      item.fcDate,
+      item.polutionDate,
+    ]);
+
+    const options = {
+      headers: [
+        'S.No', 'Vehicle No', 'Vehicle Name', 'Insurance Date', 'Tax Date', 'Fc Date', 'Polution Date'
+      ]
+    };
+    new ngxCsv(rows, 'Vehicle_Details', options);
+  }
 
 }
