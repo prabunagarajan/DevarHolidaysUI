@@ -26,6 +26,7 @@ export class AddEditTripDetailsComponent implements OnInit {
   approveBtnShow: boolean;
   leveStatus: String;
   tripLogDetails: any;
+  routingStatus: String;
   constructor(
     private formBuilder: FormBuilder,
     private toastrMsg: ToastrService,
@@ -39,6 +40,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       if (tripIdResponse.id) {
         this.tripId = tripIdResponse.id;
         this.getTripDetailsForm(tripIdResponse.id, tripIdResponse.status);
+        this.routingStatus = tripIdResponse.status;
       }
     })
 
@@ -107,7 +109,7 @@ export class AddEditTripDetailsComponent implements OnInit {
 
   }
 
-  calculateTotalHours() {
+  /* calculateTotalHours() {
     const startTime = this.tripFormDetails.get('startingTime').value;
     const closingTime = this.tripFormDetails.get('closingTime').value;
     if (startTime && closingTime) {
@@ -122,16 +124,34 @@ export class AddEditTripDetailsComponent implements OnInit {
         this.toastrMsg.error("Please Select Correct Date");
       }
     }
+  } */
+
+  calculateTotalHours() {
+    const startTime = this.tripFormDetails.get('startingTime').value;
+    const closingTime = this.tripFormDetails.get('closingTime').value;
+
+    if (startTime && closingTime) {
+      const start = new Date(startTime);
+      const end = new Date(closingTime);
+
+      if (start < end) {
+        const diffInMinutes = (end.getTime() - start.getTime()) / (1000 * 60);
+        const totalHours = Math.floor(diffInMinutes / 60) + (diffInMinutes % 60) / 100;
+
+        this.tripFormDetails.patchValue({ totalTime: totalHours.toFixed(2) });
+      } else {
+        this.tripFormDetails.patchValue({ totalTime: 'Invalid Time' });
+        this.toastrMsg.error("Please Select Correct Date");
+      }
+    }
   }
+
 
   get tripForm() {
     return this.tripFormDetails.controls;
   }
 
   submit(tripFormDetails, level) {
-
-    console.log(tripFormDetails.value);
-    console.log('level :', level);
     this.leveStatus = level;
     setTimeout(() => {
       if (this.tripFormDetails.invalid) {
@@ -190,13 +210,17 @@ export class AddEditTripDetailsComponent implements OnInit {
 
 
   forwardApprove() {
+    this.btnLoder = true;
     this.commonService.getTripDetailsForward({
       id: this.tripId,
       status: "FORWARDED",
       remarks: this.tripFormDetails.value.remark || '',
     }).subscribe(res => {
+      this.btnLoder = false;
       if (res.status = 's') {
+        this.router.navigate(['/container/trip-detail/inprogresslist']);
         this.toastrMsg.success("Forwared submitted successfully");
+        this.submitPopUp.hide();
       }
       else {
         this.toastrMsg.error(res.userDisplayMesg);
@@ -205,13 +229,17 @@ export class AddEditTripDetailsComponent implements OnInit {
   }
 
   approved() {
+    this.btnLoder = true;
     this.commonService.getTripDetailsForward({
       id: this.tripId,
       status: "APPROVED",
       remarks: this.tripFormDetails.value.remark || '',
     }).subscribe(res => {
+      this.btnLoder = false;
       if (res.status = 's') {
         this.toastrMsg.success("Forwared submitted successfully");
+        this.router.navigate(['/container/trip-detail/forwardlist']);
+        this.submitPopUp.hide();
       }
       else {
         this.toastrMsg.error(res.userDisplayMesg);
@@ -220,13 +248,23 @@ export class AddEditTripDetailsComponent implements OnInit {
   }
 
   requestForClarification() {
+    this.btnLoder = true;
     this.commonService.getTripDetailsForward({
       id: this.tripId,
       status: "REQUESTFORCLARIFICATION",
       remarks: this.tripFormDetails.value.remark || '',
     }).subscribe(res => {
+      this.btnLoder = false;
       if (res.status = 's') {
         this.toastrMsg.success("Forwared submitted successfully");
+        if (this.routingStatus == 'forward') {
+          this.router.navigate(['/container/trip-detail/forwardlist']);
+        } else if (this.routingStatus == 'approved') {
+          this.router.navigate(['/container/trip-detail/inprogresslist']);
+        } else {
+          this.router.navigate(['/container/trip-detail/list']);
+        }
+        this.submitPopUp.hide();
       }
       else {
         this.toastrMsg.error(res.userDisplayMesg);
@@ -602,17 +640,17 @@ export class AddEditTripDetailsComponent implements OnInit {
             ? getTripDetailsResponse.data.remark
             : ''
         });
-
-        console.log("this.tripFormDetails.value ", this.tripFormDetails.value);
-        console.log('startingTime :', moment(getTripDetailsResponse.data.startingTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
-        console.log('closingTime :', moment(getTripDetailsResponse.data.closingTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
+        this.acDetect(getTripDetailsResponse.data.acOrNonAc);
       }
     });
   }
-
-
-
+  back() {
+    if (this.routingStatus == 'forward') {
+      this.router.navigate(['/container/trip-detail/forwardlist']);
+    } else if (this.routingStatus == 'approved') {
+      this.router.navigate(['/container/trip-detail/inprogresslist']);
+    } else {
+      this.router.navigate(['/container/trip-detail/list']);
+    }
+  }
 }
-
-
-// transfetStartDate: this.editdata.dissolveStartDate ? new Date(new Date(this.editdata.dissolveStartDate).getTime() - (this.myDate.getTimezoneOffset() * 60000)).toISOString().slice(0, 16) : '',
