@@ -56,14 +56,13 @@ export class AddEditVehicleDetailsComponent implements OnInit {
         const insuranceDate = this.formatDate(res.data.insuranceDate);
         const polutionDate = this.formatDate(res.data.polutionDate);
         const status = res.data.status ? 'Active' : 'Inactive';
-
         this.vehicleFormDetails.patchValue({
-          fcDate: fcDate,
-          insuranceDate: insuranceDate,
-          polutionDate: polutionDate,
+          fcDate: res.data.fcDate,
+          insuranceDate: res.data.insuranceDate,
+          polutionDate: res.data.polutionDate,
           remarks: res.data.remarks,
           status: status,
-          taxDate: taxDate,
+          taxDate: res.data.taxDate,
           vehicleColor: res.data.vehicleColor,
           vehicleName: res.data.vehicleName,
           vehicleNumber: res.data.vehicleNumber

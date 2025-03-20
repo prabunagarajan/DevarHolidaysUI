@@ -6,6 +6,7 @@ import { AddEditDriverDetailsComponent } from './add-edit-driver-details/add-edi
 import { ViewDriverDetailsComponent } from './view-driver-details/view-driver-details.component';
 import { DriverDetailsComponent } from './driver-details.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -16,7 +17,7 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
   imports: [
     CommonModule,
     DriverDetailsRoutingModule,
-    SharedModule
+    SharedModule  
   ]
 })
 export class DriverDetailsModule { }
