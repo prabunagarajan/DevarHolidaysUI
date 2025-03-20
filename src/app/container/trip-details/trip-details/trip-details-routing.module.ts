@@ -5,6 +5,7 @@ import { TripDetailsComponent } from './trip-details.component';
 import { ViewTripDetailsComponent } from './view-trip-details/view-trip-details.component';
 import { TripdetailsinprogressComponent } from './tripdetailsinprogress/tripdetailsinprogress.component';
 import { TripdeatilsforwardComponent } from './tripdeatilsforward/tripdeatilsforward.component';
+import { PaymentPendingComponent } from './payment-pending/payment-pending.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,11 @@ const routes: Routes = [
     path: 'modification/:id/:status',
     component: AddEditTripDetailsComponent
   },
+
+{
+  path: 'payment-pending',
+  component:PaymentPendingComponent
+}
 ];
 
 @NgModule({
