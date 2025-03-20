@@ -35,7 +35,7 @@ export class AddDriverPaymentComponent implements OnInit {
       wagesOrAdvance: ['', Validators.required],
       driverName: ['', Validators.required],
       mobileNumber: ['', Validators.required],
-      monthlySalary: ['', Validators.required],
+      monthlySalary: ['0', Validators.required],
       paymentDate: ['', Validators.required],
       salaryType: ['', Validators.required],
       remarks: ['', Validators.required]

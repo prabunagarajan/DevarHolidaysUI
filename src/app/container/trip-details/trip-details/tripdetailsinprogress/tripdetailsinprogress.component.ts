@@ -17,7 +17,7 @@ import { CommonService } from 'src/app/service/common.service';
 })
 export class TripdetailsinprogressComponent implements OnInit {
 
-  displayedColumns: string[] = ['serialNo', 'createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent', 'status', 'action'];
+  displayedColumns: string[] = ['serialNo', 'tripNumber', 'createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent', 'status', 'action'];
   dataSource: MatTableDataSource<any>;
   viewEnable: boolean;
   editEnable: boolean;
