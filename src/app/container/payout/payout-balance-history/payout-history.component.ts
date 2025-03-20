@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import jsPDF from 'jspdf';
 import { autoTable } from 'jspdf-autotable';
 import * as moment from 'moment';
@@ -10,13 +10,13 @@ import { ngxCsv } from 'ngx-csv';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/service/common.service';
 @Component({
-  selector: 'app-payment-pending',
-  templateUrl: './payment-pending.component.html',
-  styleUrls: ['./payment-pending.component.scss']
+  selector: 'app-payout-history',
+  templateUrl: './payout-history.component.html',
+  styleUrls: ['./payout-history.component.scss']
 })
-export class PaymentPendingComponent implements OnInit {
+export class payoutHistoryComponent implements OnInit {
 
-  displayedColumns: string[] = ['serialNo', 'walletId', 'createdDate', 'applicationNumber', 'transactionName', 'action'];
+  displayedColumns: string[] = ['serialNo', 'walletId', 'createdDate', 'applicationNumber', 'transactionName',];
   dataSource: MatTableDataSource<any>;
   viewEnable: boolean;
   editEnable: boolean;
@@ -28,32 +28,74 @@ export class PaymentPendingComponent implements OnInit {
   vehicleList: any;
   driverList: any;
   transactionList: any;
+  walletId: string;
   constructor(
     private formBuilder: FormBuilder,
     private commonService: CommonService,
     private router: Router,
-    private toastrMsg: ToastrService
+    private toastrMsg: ToastrService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.walletId = params.get('id');
+      console.log("Payment History ID:", this.walletId);
+    });
+
+    if (this.walletId) {
+      this.getBalanceHistoryParticularSearch();
+    }
+    else {
+      this.getAll();
+    }
 
     this.paymentPendingFormSearchDetails = this.formBuilder.group({
-      walletId: [''],
+      driverName: [''],
       createdDate: [''],
       applicationNumber: [''],
       transactionName: ['']
     })
-    this.getAll();
+    this.commonService.activeDriver().subscribe(driverResponse => {
+      if (driverResponse.status == 's') {
+        this.driverList = driverResponse.data;
+        console.log(this.driverList);
+
+      } else {
+        this.driverList = [];
+      }
+    });
   }
 
+
+
+  getBalanceHistoryParticularSearch() {
+    const request = {
+      filters: {
+        walletId: this.walletId,
+      },
+      paginationSize: 10,
+      sortField: "modifiedDate",
+      pageNo: 0,
+      sortOrder: "DESC"
+    }
+    this.commonService.payoutBalanceHistory(request).subscribe(response => {
+      if (response.status === 's' && response.data) {
+        this.dataSource = new MatTableDataSource(response.data.contents);
+        this.totelCount = response.data.totalElements;
+      } else {
+        this.dataSource = new MatTableDataSource();
+      }
+    });
+  }
 
   getAll(pageIndex = 0, pageSize = this.pageSize) {
     const paymentPendingFormSearchDetails = this.paymentPendingFormSearchDetails.value;
     console.log(paymentPendingFormSearchDetails);
-    
+
     const request = {
       filters: {
-        walletId: paymentPendingFormSearchDetails.walletId ? paymentPendingFormSearchDetails.walletId : '',
+        walletId: paymentPendingFormSearchDetails.driverName ? paymentPendingFormSearchDetails.driverName : '',
         applicationNumber: paymentPendingFormSearchDetails.applicationNumber ? paymentPendingFormSearchDetails.applicationNumber : '',
         transactionName: paymentPendingFormSearchDetails.transactionName ? paymentPendingFormSearchDetails.transactionName : '',
       },
@@ -62,10 +104,10 @@ export class PaymentPendingComponent implements OnInit {
       pageNo: pageIndex,
       sortOrder: "DESC"
     }
-    this.commonService.paymentPendingDetails(request).subscribe(response => {
+    this.commonService.payoutBalanceHistory(request).subscribe(response => {
       if (response.status == 's' && response.data) {
         this.dataSource = new MatTableDataSource(response.data.contents);
-        this.transactionList=response.data.contents;
+        this.transactionList = response.data.contents;
         this.totelCount = response.data.totalElements;
       } else {
         this.dataSource = new MatTableDataSource();
@@ -76,10 +118,10 @@ export class PaymentPendingComponent implements OnInit {
   search() {
     const paymentPendingFormSearchDetails = this.paymentPendingFormSearchDetails.value;
     console.log(paymentPendingFormSearchDetails);
-    
+
     const request = {
       filters: {
-        walletId: paymentPendingFormSearchDetails.walletId ? paymentPendingFormSearchDetails.walletId : '',
+        walletId: paymentPendingFormSearchDetails.driverName ? paymentPendingFormSearchDetails.driverName : '',
         applicationNumber: paymentPendingFormSearchDetails.applicationNumber ? paymentPendingFormSearchDetails.applicationNumber : '',
         transactionName: paymentPendingFormSearchDetails.transactionName ? paymentPendingFormSearchDetails.transactionName : '',
       },
@@ -88,7 +130,7 @@ export class PaymentPendingComponent implements OnInit {
       pageNo: 0,
       sortOrder: "DESC"
     }
-    this.commonService.paymentPendingDetails(request).subscribe(response => {
+    this.commonService.payoutBalanceHistory(request).subscribe(response => {
       if (response.status === 's' && response.data) {
         this.dataSource = new MatTableDataSource(response.data.contents);
         this.totelCount = response.data.totalElements;
@@ -99,7 +141,7 @@ export class PaymentPendingComponent implements OnInit {
   }
   onclear() {
     this.paymentPendingFormSearchDetails.patchValue({
-      walletId: '',
+      driverName: '',
       createdDate: '',
       applicationNumber: '',
       transactionName: '',
@@ -197,7 +239,7 @@ export class PaymentPendingComponent implements OnInit {
       moment(item.createdDate).format('DD-MM-YYYY'),
       String(item.applicationNumber), // Convert number to string
       String(item.transactionName), // Convert number to string
-      ]);
+    ]);
 
     // Add table to the PDF
     autoTable(doc, {

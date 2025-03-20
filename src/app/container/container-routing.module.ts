@@ -10,6 +10,10 @@ const routes: Routes = [
   {
     path: 'driver-payment',
     loadChildren: () => import('./driver-payment/driver-payment.module').then(module => module.DriverPaymentModule)
+  },
+  {
+    path: 'payout',
+    loadChildren: () => import('./payout/payout.module').then(module => module.PayoutModule)
   }
 ];
 

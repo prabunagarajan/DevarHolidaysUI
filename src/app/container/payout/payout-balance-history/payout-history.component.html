@@ -15,27 +15,23 @@
                     </div> -->
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Wallet Id <span class="text-danger">*</span></label>
-                            <select type="text" class="form-select" formControlName="walletId"
-                                placeholder="Select Wallet Id">
-                                <option value="" selected>Select Wallet Id</option>
-                                <option *ngFor="let wallet of transactionList" value="{{wallet.walletId}}">
-                                    {{wallet.walletId}}</option>
+                            <label>Driver Name<span class="text-danger">*</span></label>
+                            <select type="text" class="form-select" formControlName="driverName"
+                                placeholder="Enter Driver Name">
+                                <option value="" selected disabled>Select Driver Name</option>
+                                <option *ngFor="let driverListElemnt of driverList" value="{{driverListElemnt?.mobileNumber}}">
+                                    {{driverListElemnt?.name}}</option>
                             </select>
                         </div>
                     </div>
                     <!-- Application Number -->
+
+                    
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Application Number <span class="text-danger">*</span></label>
-                            <select type="text" class="form-select" formControlName="applicationNumber"
-                                placeholder="Select Application Number">
-                                <option value="" selected>Select Application Number</option>
-                                <option *ngFor="let application of transactionList"
-                                    value="{{application.applicationNumber}}">
-                                    {{application.applicationNumber}}
-                                </option>
-                            </select>
+                            <label for="applicationNumber">Application Number</label>
+                            <input type="text" id="applicationNumber" formControlName="applicationNumber" class="form-control"
+                                placeholder="Enter Application Number" />
                         </div>
                     </div>
 
@@ -80,12 +76,6 @@
         <!-- <button class="btn btn-outline-success list-button-container" [routerLink]="['/container/trip-detail/add']">
             <span class="list-text-alaign-center">Add</span>
         </button> -->
-        <button class="btn btn-outline-secondary list-button-container" (click)="onEdit()" [disabled]="!editEnable">
-            <span class="list-text-alaign-center">Edit</span>
-        </button>
-        <button class="btn btn-outline-warning list-button-container" (click)="onView()" [disabled]="!viewEnable">
-            <span class="list-text-alaign-center">View</span>
-        </button>
         <!-- <button (click)="onclear()">
             <span>Clear</span>
         </button> -->
@@ -129,12 +119,12 @@
                     </td>
                 </ng-container>
 
-                <ng-container matColumnDef="action">
+                <!-- <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
                     <td mat-cell *matCellDef="let element" class="text-center">
                         <mat-radio-button (click)="onSelect(element)"></mat-radio-button>
                     </td>
-                </ng-container>
+                </ng-container> -->
 
 
                 <!-- Header and Row Definitions -->
