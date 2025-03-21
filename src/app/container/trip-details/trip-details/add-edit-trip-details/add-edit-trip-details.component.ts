@@ -80,7 +80,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       // balanceAmount: ['', Validators.required],
       profitAmount: ['', Validators.required],
       submittedBy: ['', Validators.required],
-      discountAmount:[''],
+      discountAmount: ['0'],
       status: [''],
       remark: ['', Validators.required]
       // verifiedByManager: ['', Validators.required],
@@ -404,6 +404,8 @@ export class AddEditTripDetailsComponent implements OnInit {
   getReceivedAmount(receivedAmount) {
     const advanceAmount = this.tripFormDetails.controls.advanceAmount.value ? parseFloat(this.tripFormDetails.controls.advanceAmount.value) : 0;
     const totalRentAmount = this.tripFormDetails.controls.totalRent.value ? parseFloat(this.tripFormDetails.controls.totalRent.value) : 0;
+    const dayRent = this.tripFormDetails.controls.dayRent.value ? parseFloat(this.tripFormDetails.controls.dayRent.value) : 0;
+    const discount = this.tripFormDetails.controls.discountAmount.value ? parseFloat(this.tripFormDetails.controls.discountAmount.value) : 0;
     const finalAmount = advanceAmount + parseFloat(receivedAmount)
     if (totalRentAmount < finalAmount) {
       this.tripFormDetails.patchValue({
@@ -412,7 +414,8 @@ export class AddEditTripDetailsComponent implements OnInit {
     }
     if (receivedAmount) {
       this.tripFormDetails.patchValue({
-        pendingAmount: (totalRentAmount - (advanceAmount + parseFloat(receivedAmount))),
+        // pendingAmount: (totalRentAmount - (advanceAmount + parseFloat(receivedAmount))),
+        pendingAmount: ((totalRentAmount + dayRent) - (advanceAmount + receivedAmount + discount)),
         balanceAmount: (totalRentAmount - (advanceAmount + parseFloat(receivedAmount)))
       });
     } else if (this.tripFormDetails.controls.advanceAmount.value) {
@@ -429,11 +432,29 @@ export class AddEditTripDetailsComponent implements OnInit {
 
   }
   getTotalRentAmount(totalRentAmount) {
+    console.log(totalRentAmount);
+
     const advanceAmount = this.tripFormDetails.controls.advanceAmount.value ? parseFloat(this.tripFormDetails.controls.advanceAmount.value) : 0;
     const receivedAmount = this.tripFormDetails.controls.receivedAmount.value ? parseFloat(this.tripFormDetails.controls.receivedAmount.value) : 0;
+    const dayRent = this.tripFormDetails.controls.dayRent.value ? parseFloat(this.tripFormDetails.controls.dayRent.value) : 0;
+    const discount = this.tripFormDetails.controls.discountAmount.value ? parseFloat(this.tripFormDetails.controls.discountAmount.value) : 0;
+
+    console.log("total", totalRentAmount);
+    console.log("dayrent", dayRent);
+    console.log("receivedAmount", receivedAmount);
+    console.log("advanceAmount", advanceAmount);
+    console.log('discount', discount);
+
+
+
+
+
+
+
     if (this.tripFormDetails.controls.totalRent.value) {
       this.tripFormDetails.patchValue({
-        pendingAmount: (parseFloat(totalRentAmount) - (advanceAmount + receivedAmount)),
+        pendingAmount: ((totalRentAmount + dayRent) - (advanceAmount + receivedAmount + discount)),
+        // pendingAmount: (parseFloat(totalRentAmount) - (advanceAmount + receivedAmount)),
         balanceAmount: (parseFloat(totalRentAmount) - (advanceAmount + receivedAmount))
       });
     } else {
@@ -443,10 +464,45 @@ export class AddEditTripDetailsComponent implements OnInit {
       });
     }
   }
+
+
+  getDiscountAmount(discountAmount) {
+
+    console.log(discountAmount);
+
+    const advanceAmount = this.tripFormDetails.controls.advanceAmount.value ? parseFloat(this.tripFormDetails.controls.advanceAmount.value) : 0;
+    const receivedAmount = this.tripFormDetails.controls.receivedAmount.value ? parseFloat(this.tripFormDetails.controls.receivedAmount.value) : 0;
+    const dayRent = this.tripFormDetails.controls.dayRent.value ? parseFloat(this.tripFormDetails.controls.dayRent.value) : 0;
+    const discount = this.tripFormDetails.controls.discountAmount.value ? parseFloat(this.tripFormDetails.controls.discountAmount.value) : 0;
+    console.log("total", discountAmount);
+    console.log("dayrent", dayRent);
+    console.log("receivedAmount", receivedAmount);
+    console.log("advanceAmount", advanceAmount);
+    console.log('discount', discount);
+    if (this.tripFormDetails.controls.totalRent.value) {
+      this.tripFormDetails.patchValue({
+        pendingAmount: ((discountAmount + dayRent) - (advanceAmount + receivedAmount + discount)),
+        // pendingAmount: (parseFloat(totalRentAmount) - (advanceAmount + receivedAmount)),
+        balanceAmount: (parseFloat(discountAmount) - (advanceAmount + receivedAmount))
+      });
+    } else {
+      this.tripFormDetails.patchValue({
+        pendingAmount: 0,
+        balanceAmount: 0
+      });
+    }
+
+
+
+  }
+
+
   getAdvanceAmount(advanceAmount) {
     const totalRentAmount = this.tripFormDetails.controls.totalRent.value ? parseFloat(this.tripFormDetails.controls.totalRent.value) : 0;
     const receivedAmount = this.tripFormDetails.controls.receivedAmount.value ? parseFloat(this.tripFormDetails.controls.receivedAmount.value) : 0;
     const pendingAmount = this.tripFormDetails.controls.pendingAmount.value ? parseFloat(this.tripFormDetails.controls.pendingAmount.value) : 0;
+    const dayRent = this.tripFormDetails.controls.dayRent.value ? parseFloat(this.tripFormDetails.controls.dayRent.value) : 0;
+    const discount = this.tripFormDetails.controls.discountAmount.value ? parseFloat(this.tripFormDetails.controls.discountAmount.value) : 0;
 
     const finalAmount = parseFloat(advanceAmount) + receivedAmount
     if (totalRentAmount < finalAmount) {
@@ -457,7 +513,8 @@ export class AddEditTripDetailsComponent implements OnInit {
     if (this.tripFormDetails.controls.advanceAmount.value &&
       this.tripFormDetails.controls.totalRent.value) {
       this.tripFormDetails.patchValue({
-        pendingAmount: (totalRentAmount - (parseFloat(advanceAmount) + receivedAmount)),
+        // Pending Amount = ((totalRentAmount + Day Rent) - (parseFloat(advanceAmount) + receivedAmount + discount))
+        pendingAmount: ((totalRentAmount + dayRent) - (parseFloat(advanceAmount) + receivedAmount + discount)),
         balanceAmount: (totalRentAmount - (parseFloat(advanceAmount) + receivedAmount))
       });
     } else if (this.tripFormDetails.controls.receivedAmount.value) {
@@ -501,6 +558,27 @@ export class AddEditTripDetailsComponent implements OnInit {
     });
   }
 
+
+
+  dayRentCalculation(dayRentAmount) {
+    console.log("Day Rent:", dayRentAmount);
+
+    const totalRentAmount = this.tripFormDetails.controls.totalRent.value ? parseFloat(this.tripFormDetails.controls.totalRent.value) : 0;
+    const receivedAmount = this.tripFormDetails.controls.receivedAmount.value ? parseFloat(this.tripFormDetails.controls.receivedAmount.value) : 0;
+    const advanceAmount = this.tripFormDetails.controls.advanceAmount.value ? parseFloat(this.tripFormDetails.controls.advanceAmount.value) : 0;
+    const discount = this.tripFormDetails.controls.discountAmount.value ? parseFloat(this.tripFormDetails.controls.discountAmount.value) : 0;
+
+    const dayRent = dayRentAmount ? parseFloat(dayRentAmount) : 0;
+    const newPendingAmount = (totalRentAmount + dayRent) - (advanceAmount + receivedAmount + discount);
+    const newBalanceAmount = totalRentAmount + dayRent - (advanceAmount + receivedAmount);
+
+    this.tripFormDetails.patchValue({
+      pendingAmount: newPendingAmount,
+      balanceAmount: newBalanceAmount
+    });
+  }
+
+
   acStaringKmCalculation(startingKM) {
     // formula <==> ("u = c - s")
     if (startingKM && this.tripFormDetails.controls.acClosingKM.value) {
@@ -519,13 +597,15 @@ export class AddEditTripDetailsComponent implements OnInit {
   }
 
   profitAmoutCalculation(string) {
-    // Formula < == > ("Profit = Total Rent - (Toll + Fuel + Driver Payment + Permit)")
+    // Formula < == > ("Profit = Total Rent - (Toll + Fuel + Driver Payment + Permit+discount)+dayRent")
     const totalRentAmount = this.tripFormDetails.value.totalRent ? parseFloat(this.tripFormDetails.value.totalRent) : 0;
     const tollAmount = this.tripFormDetails.value.toll ? parseFloat(this.tripFormDetails.value.toll) : 0;
     const fuelAmount = this.tripFormDetails.value.diesel ? parseFloat(this.tripFormDetails.value.diesel) : 0;
     const driverPaymentAmount = this.tripFormDetails.value.driverPayment ? parseFloat(this.tripFormDetails.value.driverPayment) : 0;
     const permitAmount = this.tripFormDetails.value.permitAmount ? parseFloat(this.tripFormDetails.value.permitAmount) : 0;
-    const profitAmount = (totalRentAmount - (tollAmount + fuelAmount + driverPaymentAmount + permitAmount));
+    const discount = this.tripFormDetails.value.discountAmount ? parseFloat(this.tripFormDetails.value.discountAmount) : 0;
+    const dayRent = this.tripFormDetails.value.dayRent ? parseFloat(this.tripFormDetails.value.dayRent) : 0;
+    const profitAmount = (totalRentAmount - (tollAmount + fuelAmount + driverPaymentAmount + permitAmount + discount)) + dayRent;
     this.tripFormDetails.patchValue({
       profitAmount: profitAmount ? profitAmount : 0
     });

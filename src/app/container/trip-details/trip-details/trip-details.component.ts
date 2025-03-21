@@ -44,6 +44,7 @@ export class TripDetailsComponent implements OnInit {
       status: ['']
     })
     this.getAll();
+    this.getTripDetailsCount();
     this.commonService.activeVechicle().subscribe(vehicleResponse => {
       if (vehicleResponse.status == 's') {
         this.vehicleList = vehicleResponse.data;
@@ -60,6 +61,23 @@ export class TripDetailsComponent implements OnInit {
     });
   }
 
+
+
+  getTripDetailsCount() {
+    this.commonService.tripdetailsdashboardcount('2025-03-01', '2025-03-31').subscribe(
+      (tripdetailsdashboardcountResponse: any) => {
+        if (tripdetailsdashboardcountResponse.status === 's') {
+          console.log('Trip Details Count:', tripdetailsdashboardcountResponse.data);
+        } else {
+          console.warn('Failed to fetch trip details:', tripdetailsdashboardcountResponse.message);
+        }
+      },
+      (error) => {
+        console.error('API Error:', error);
+      }
+    );
+  }
+  
 
   getAll(pageIndex = 0, pageSize = this.pageSize) {
     this.isLoading = true;
