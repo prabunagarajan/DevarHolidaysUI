@@ -8,6 +8,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule, DateTimeAdapter, OWL_DATE_T
 import { MomentDateTimeAdapter } from 'ng-pick-datetime/date-time/adapter/moment-adapter/moment-date-time-adapter.class';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
+import { TripPendingPaymentEditComponent } from './trip-pending-payment-edit/trip-pending-payment-edit.component';
+import { TripPendingPaymentViewComponent } from './trip-pending-payment-view/trip-pending-payment-view.component';
 
 export const MY_CUSTOM_FORMATS = {
   fullPickerInput: 'DD-MM-YYYY HH:mm',
@@ -19,7 +21,7 @@ export const MY_CUSTOM_FORMATS = {
   monthYearA11yLabel: 'MMMM YYYY',
 };
 @NgModule({
-  declarations: [TripPendingPaymentComponent],
+  declarations: [TripPendingPaymentComponent, TripPendingPaymentEditComponent, TripPendingPaymentViewComponent],
   imports: [
     CommonModule,
     TripPendingPaymentRoutingModule,

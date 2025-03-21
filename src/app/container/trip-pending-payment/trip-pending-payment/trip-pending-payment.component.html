@@ -63,6 +63,12 @@
                     <td mat-cell *matCellDef="let element" class="text-center"> {{element.totalRent}} </td>
                 </ng-container>
 
+
+                <ng-container matColumnDef="pendingAmount">
+                    <th mat-header-cell *matHeaderCellDef class="text-center">Pending Amount</th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.pendingAmount}} </td>
+                </ng-container>
+
                 <!-- Status -->
                 <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef class="text-center"> Status </th>
