@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'payout',
     loadChildren: () => import('./payout/payout.module').then(module => module.PayoutModule)
+  },
+  {
+    path: 'trip-payment-pending',
+    loadChildren: () => import('./trip-pending-payment/trip-pending-payment/trip-pending-payment.module').then(module => module.TripPendingPaymentModule)
   }
 ];
 
