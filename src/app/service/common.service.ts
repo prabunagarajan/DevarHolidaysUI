@@ -73,4 +73,9 @@ export class CommonService {
     return this.httpClient.get(url);
   }
 
+  getTripPaymentPendingList(): Observable<any> {
+    const url = this.baseUrl + 'tripDetails/getPendingList';
+    return this.httpClient.get(url);
+  }
+
 }

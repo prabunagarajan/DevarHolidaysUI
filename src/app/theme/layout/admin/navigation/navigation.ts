@@ -80,6 +80,12 @@ const NavigationItems = [
             type: 'item',
             url: '/container/trip-detail/forwardlist',
           },
+          {
+            id: 'trip-payment-pending',
+            title: 'Trip Payment Pending',
+            type: 'item',
+            url: '/container/trip-payment-pending/list',
+          },
         ]
       }
     ]
