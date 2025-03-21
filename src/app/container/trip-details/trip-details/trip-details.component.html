@@ -2,61 +2,62 @@
     <div class="col-xl-12">
         <form [formGroup]="tripFormSearchDetails" autocomplete="off">
             <app-card cardTitle="Trip Request Status" blockClass="table-border-style" class="search-panel">
+                <div class="row"></div>
                 <div class="row">
-                </div>
-                <div class="row">
+                    <!-- Trip Details -->
                     <div class="col dashboard_bg1">
                         <app-card [hidHeader]="true" cardClass="comp-card">
                             <div class="row align-items-center">
                                 <div class="col">
                                     <span>Trip Details</span>
-                                    <h3 class="mt-2">{{totalealrequested?totalealrequested:'0'}} </h3>
-    
-                                    <i class="fas  fa-external-link-alt"></i>
-                                </div>
-                            </div>
-                        </app-card>
-                    </div>
-                    <div class="col dashboard_bg4">
-                        <app-card [hidHeader]="true" cardClass="comp-card">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <span>EAL Approved</span>
-                                    <h3 class="mt-2"> {{totalapproved?totalapproved:'0'}}</h3>
-    
-                                    <i class="fas fas fa-check"></i>
-                                </div>
-                            </div>
-                        </app-card>
-                    </div>
-                    <div class="col dashboard_bg2">
-                        <app-card [hidHeader]="true" cardClass="comp-card">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <span>EAL Pending/Request for Clarification</span>
-                                    <h3 class="mt-2"> {{totalinprocess?totalinprocess:'0'}}</h3>
-    
-                                    <i class="fas  fa-hourglass-half"></i>
-                                </div>
-                            </div>
-                        </app-card>
-                    </div>
-                    <div class="col dashboard_bg7">
-                        <app-card [hidHeader]="true" cardClass="comp-card">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <span>EAL Rejected</span>
-                                    <h3 class="mt-2">{{totalrejected?totalrejected:'0'}}</h3>
-    
+                                    <h3 class="mt-2">{{ tripDetailsCount.total || '0' }}</h3>
                                     <i class="fas fa-external-link-alt"></i>
                                 </div>
                             </div>
                         </app-card>
                     </div>
-    
+            
+                    <!-- EAL Approved -->
+                    <div class="col dashboard_bg4">
+                        <app-card [hidHeader]="true" cardClass="comp-card">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <span>Total Approved</span>
+                                    <h3 class="mt-2">{{ tripDetailsCount.totalApproved || '0' }}</h3>
+                                    <i class="fas fas fa-check"></i>
+                                </div>
+                            </div>
+                        </app-card>
+                    </div>
+            
+                    <!-- EAL Pending/Request for Clarification -->
+                    <div class="col dashboard_bg2">
+                        <app-card [hidHeader]="true" cardClass="comp-card">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <span>Total Request for Clarification</span>
+                                    <h3 class="mt-2">{{ tripDetailsCount.totalRequestforclarification || '0' }}</h3>
+                                    <i class="fas fa-hourglass-half"></i>
+                                </div>
+                            </div>
+                        </app-card>
+                    </div>
+            
+                    <!-- EAL Rejected -->
+                    <div class="col dashboard_bg7">
+                        <app-card [hidHeader]="true" cardClass="comp-card">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <span>Total Rejected</span>
+                                    <h3 class="mt-2">{{ tripDetailsCount.totalRejected || '0' }}</h3>
+                                    <i class="fas fa-external-link-alt"></i>
+                                </div>
+                            </div>
+                        </app-card>
+                    </div>
                 </div>
-    
             </app-card>
+            
             <!-- Search Panel -->
             <app-card [hidHeader]="true" class="list-panel add-panel">
                 <h4>Search</h4>

@@ -28,6 +28,7 @@ export class TripDetailsComponent implements OnInit {
   vehicleList: any;
   driverList: any;
   isLoading: boolean;
+  tripDetailsCount: any = {}; 
   constructor(
     private formBuilder: FormBuilder,
     private commonService: CommonService,
@@ -64,9 +65,18 @@ export class TripDetailsComponent implements OnInit {
 
 
   getTripDetailsCount() {
-    this.commonService.tripdetailsdashboardcount('2025-03-01', '2025-03-31').subscribe(
+    const today = new Date();
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+    const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+    const fromDate = firstDay.toISOString().split('T')[0]; 
+    const toDate = lastDay.toISOString().split('T')[0];
+    console.log(fromDate,toDate);
+    
+    this.commonService.tripdetailsdashboardcount(fromDate, toDate).subscribe(
       (tripdetailsdashboardcountResponse: any) => {
         if (tripdetailsdashboardcountResponse.status === 's') {
+          this.tripDetailsCount = tripdetailsdashboardcountResponse.data[0] || {}; // Assign first object from data array
           console.log('Trip Details Count:', tripdetailsdashboardcountResponse.data);
         } else {
           console.warn('Failed to fetch trip details:', tripdetailsdashboardcountResponse.message);
