@@ -6,11 +6,12 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/service/common.service';
 
 @Component({
-  selector: 'app-add-edit-trip-details',
-  templateUrl: './add-edit-trip-details.component.html',
-  styleUrls: ['./add-edit-trip-details.component.scss']
+  selector: 'app-trip-pending-payment-edit',
+  templateUrl: './trip-pending-payment-edit.component.html',
+  styleUrls: ['./trip-pending-payment-edit.component.scss']
 })
-export class AddEditTripDetailsComponent implements OnInit {
+export class TripPendingPaymentEditComponent implements OnInit {
+
   screenName = 'Add';
   tripFormDetails: FormGroup;
   formSubmitted: boolean;
@@ -39,7 +40,7 @@ export class AddEditTripDetailsComponent implements OnInit {
     this.activatedRoute.params.subscribe(tripIdResponse => {
       if (tripIdResponse.id) {
         this.tripId = tripIdResponse.id;
-        this.getTripDetailsForm(tripIdResponse.id, tripIdResponse.status);
+        this.getTripDetailsForm(tripIdResponse.id);
         this.routingStatus = tripIdResponse.status;
       }
     })
@@ -80,7 +81,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       // balanceAmount: ['', Validators.required],
       profitAmount: ['', Validators.required],
       submittedBy: ['', Validators.required],
-      discountAmount:[''],
+      discountAmount: ['0'],
       status: [''],
       remark: ['', Validators.required]
       // verifiedByManager: ['', Validators.required],
@@ -116,7 +117,7 @@ export class AddEditTripDetailsComponent implements OnInit {
     if (startTime && closingTime) {
       const start = new Date(startTime);
       const end = new Date(closingTime);
-
+ 
       if (start < end) {
         const diff = (end.getTime() - start.getTime()) / (1000 * 60 * 60);
         this.tripFormDetails.patchValue({ totalTime: diff.toFixed(2) });
@@ -206,14 +207,6 @@ export class AddEditTripDetailsComponent implements OnInit {
   finalSubmit() {
     if (this.tripId && this.leveStatus == 'Level 1') {
       this.updateTripDetails();
-    } else if (this.leveStatus == 'Level 2') {
-      this.forwardApprove()
-    } else if (this.leveStatus == 'Level 3') {
-      this.approved();
-    } else if (this.leveStatus == 'Level 1 REQ') {
-      this.requestForClarification()
-    } else if (this.leveStatus == 'Level 1') {
-      this.addTripDetails();
     } else {
       this.toastrMsg.error('Somthing Went Wrong')
     }
@@ -533,6 +526,8 @@ export class AddEditTripDetailsComponent implements OnInit {
 
   updateTripDetails() {
     const tripFormDetails = this.tripFormDetails.value;
+    console.log(tripFormDetails);
+    
     const updateTripDetailsRequest = {
       acClosingKM: tripFormDetails.acClosingKM || '',
       acNote: tripFormDetails.acNote || '',
@@ -577,8 +572,8 @@ export class AddEditTripDetailsComponent implements OnInit {
       this.btnLoder = false;
       if (updateTripDetailsResponse.status = 's') {
         this.submitPopUp.hide();
-        this.toastrMsg.success("Vehicle details modified successfully");
-        this.router.navigate(['/container/trip-detail/list'])
+        this.toastrMsg.success("Pending Payment details modified successfully");
+        this.router.navigate(['/container/trip-payment-pending/list'])
       } else {
         this.toastrMsg.error(updateTripDetailsResponse.userDisplayMesg);
       }
@@ -587,10 +582,11 @@ export class AddEditTripDetailsComponent implements OnInit {
 
   }
 
-  getTripDetailsForm(tripId, status) {
+  getTripDetailsForm(tripId) {
     this.commonService.getTripDetails(tripId).subscribe(getTripDetailsResponse => {
       if (getTripDetailsResponse.status == 's') {
         this.getTripDetails = getTripDetailsResponse.data;
+        console.log(this.getTripDetails);
         this.commonService.getTripDetailLogs(getTripDetailsResponse.data.tripNumber).subscribe(gettripLogDetailsResponse => {
           if (gettripLogDetailsResponse.status == 's') {
             this.tripLogDetails = gettripLogDetailsResponse.data;
@@ -598,16 +594,11 @@ export class AddEditTripDetailsComponent implements OnInit {
             this.tripLogDetails = [];
           }
         });
-        if (status == 'forward') {
-          this.tripFormDetails.disable();
-          this.tripFormDetails.get('remark').enable();
-          this.forwardApproveBtnShow = true;
-        }
-        else if (status == 'approved') {
-          this.tripFormDetails.disable();
-          this.tripFormDetails.get('remark').enable();
-          this.approveBtnShow = true;
-        }
+        // if(this.getTripDetails ){
+        //   this.tripFormDetails.disable();
+        //   this.tripFormDetails.get('receivedAmount').enable();
+        //   this.tripFormDetails.get('discountAmount').enable();
+        // }
         this.tripFormDetails.patchValue({
           acClosingKM: getTripDetailsResponse.data.acClosingKM,
           acNote: getTripDetailsResponse.data.acNote,
@@ -657,12 +648,6 @@ export class AddEditTripDetailsComponent implements OnInit {
     });
   }
   back() {
-    if (this.routingStatus == 'forward') {
-      this.router.navigate(['/container/trip-detail/forwardlist']);
-    } else if (this.routingStatus == 'approved') {
-      this.router.navigate(['/container/trip-detail/inprogresslist']);
-    } else {
-      this.router.navigate(['/container/trip-detail/list']);
-    }
+    this.router.navigate(['/container/trip-payment-pending/list']);
   }
 }

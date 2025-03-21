@@ -16,7 +16,7 @@ import { CommonService } from 'src/app/service/common.service';
 })
 export class PayoutBalanceComponent implements OnInit {
 
-  displayedColumns: string[] = ['serialNo','date','walletId','amount','action'];
+  displayedColumns: string[] = ['serialNo','date','name','walletId','amount','action'];
   dataSource: MatTableDataSource<any>;
   viewEnable: boolean;
   editEnable: boolean;
@@ -194,15 +194,15 @@ export class PayoutBalanceComponent implements OnInit {
     doc.text('Pending Details', 14, 10);
 
     // Define table columns with Serial Number
-    const columns = ['S.No', 'WalletId', 'Created Date', 'Application Number', 'Transaction Name'];
+    const columns = ['S.No','date','name','walletId','amount'];
 
     // Convert list data to an array format with serial numbers
     const rows = this.dataSource.data.map((item, index) => [
       index + 1, // Serial number starts from 1
-      item.walletId,
       moment(item.createdDate).format('DD-MM-YYYY'),
-      String(item.applicationNumber), // Convert number to string
-      String(item.transactionName), // Convert number to string
+      item.walletId,
+      item.name,
+      String(item.amount), // Convert number to string
       ]);
 
     // Add table to the PDF
@@ -218,15 +218,15 @@ export class PayoutBalanceComponent implements OnInit {
   exportToExcel() {
     const rows = this.dataSource.data.map((item, index) => [
       index + 1, // Serial number starts from 1
-      item.walletId,
       moment(item.createdDate).format('DD-MM-YYYY'),
-      String(item.applicationNumber), // Convert number to string
-      String(item.transactionName), // Convert number to string
-    ]);
+      item.walletId,
+      item.name,
+      String(item.amount), // Convert number to string
+      ]);
 
     const options = {
       headers: [
-        'S.No', 'Wallet Id', 'Created Date', 'Application Number', 'Transaction Name'
+        'S.No','date','name','walletId','amount'
       ]
     };
     new ngxCsv(rows, 'Payment_Details', options);
