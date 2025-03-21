@@ -1166,9 +1166,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MY_CUSTOM_FORMATS = {
-    fullPickerInput: 'DD/MM/YYYY HH:mm',
-    parseInput: 'DD/MM/YYYY HH:mm',
-    datePickerInput: 'DD/MM/YYYY',
+    fullPickerInput: 'DD-MM-YYYY HH:mm',
+    parseInput: 'DD-MM-YYYY HH:mm',
+    datePickerInput: 'DD-MM-YYYY',
     timePickerInput: 'HH:mm',
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'LL',

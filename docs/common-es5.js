@@ -71,6 +71,18 @@ var CommonService = /** @class */ (function () {
         var url = this.baseUrl + 'balance/getAllBalanceDetails';
         return this.httpClient.get(url);
     };
+    CommonService.prototype.driverPaymentList = function (obj) {
+        var url = this.baseUrl + 'DriverSalary/search';
+        return this.httpClient.post(url, obj);
+    };
+    CommonService.prototype.driverPaymentview = function (viewId) {
+        var url = this.baseUrl + 'DriverSalary/getById/' + viewId;
+        return this.httpClient.get(url);
+    };
+    CommonService.prototype.getTripPaymentPendingList = function () {
+        var url = this.baseUrl + 'tripDetails/getPendingList';
+        return this.httpClient.get(url);
+    };
     CommonService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
     ]; };
