@@ -365,7 +365,7 @@ const routes = [
             },
             {
                 path: 'ayyanar-transport',
-                loadChildren: () => Promise.all(/*! import() | ayyanar-transport-ayyanar-transport-module */[__webpack_require__.e("default~ayyanar-transport-ayyanar-transport-module~container-container-module"), __webpack_require__.e("ayyanar-transport-ayyanar-transport-module")]).then(__webpack_require__.bind(null, /*! ./ayyanar-transport/ayyanar-transport.module */ "./src/app/ayyanar-transport/ayyanar-transport.module.ts")).then(module => module.AyyanarTransportModule)
+                loadChildren: () => Promise.all(/*! import() | ayyanar-transport-ayyanar-transport-module */[__webpack_require__.e("default~ayyanar-transport-ayyanar-transport-module~trip-pending-payment-trip-pending-payment-trip-pe~dddf3ebf"), __webpack_require__.e("default~ayyanar-transport-ayyanar-transport-module~container-container-module"), __webpack_require__.e("ayyanar-transport-ayyanar-transport-module")]).then(__webpack_require__.bind(null, /*! ./ayyanar-transport/ayyanar-transport.module */ "./src/app/ayyanar-transport/ayyanar-transport.module.ts")).then(module => module.AyyanarTransportModule)
             }
         ]
     }
@@ -1926,6 +1926,12 @@ const NavigationItems = [
                         title: 'Trip Details Forward',
                         type: 'item',
                         url: '/container/trip-detail/forwardlist',
+                    },
+                    {
+                        id: 'trip-payment-pending',
+                        title: 'Trip Payment Pending',
+                        type: 'item',
+                        url: '/container/trip-payment-pending/list',
                     },
                 ]
             }
