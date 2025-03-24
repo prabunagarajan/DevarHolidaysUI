@@ -97,7 +97,7 @@
                             <select type="text" class="form-select" formControlName="driverName"
                                 placeholder="Enter Driver Name"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.driverName.errors }">
-                                <option value="" selected disabled>Select Driver Name</option>
+                                <option value="" disabled selected>Select Driver Name</option>
                                 <option *ngFor="let driverListElemnt of driverList" value="{{driverListElemnt?.name}}">
                                     {{driverListElemnt?.name}}</option>
                             </select>
