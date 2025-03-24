@@ -1,1 +1,11 @@
-<p>trip-details-at works!</p>
+<app-mat-table-configuration *ngIf="columns?.length > 0"
+    [columns]="columns"
+    [actionKeys]="actionKeys"
+    [dataSource]="dataSource"
+    [actionBtnBasedOnCond]="actionBtnBasedOnCond"
+    [totalCount]="totalCount"
+    [pageSize]="pageSize"
+    (paginationEvent)="handlePagination($event)"
+    (checkboxAction)="onChecked($event)">
+  </app-mat-table-configuration>
+  
