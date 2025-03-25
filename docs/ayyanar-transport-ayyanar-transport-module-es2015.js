@@ -19,7 +19,7 @@ __webpack_require__.r(__webpack_exports__);
 const routes = [
     {
         path: 'trip-detail-at',
-        loadChildren: () => Promise.all(/*! import() | trip-details-at-trip-details-at-module */[__webpack_require__.e("default~driver-payment-driver-payment-module~payout-payout-module~trip-details-at-trip-details-at-mo~7b4323c2"), __webpack_require__.e("default~driver-payment-driver-payment-module~trip-details-at-trip-details-at-module~trip-details-tri~5eb5727e"), __webpack_require__.e("trip-details-at-trip-details-at-module")]).then(__webpack_require__.bind(null, /*! ./trip-details-at/trip-details-at.module */ "./src/app/ayyanar-transport/trip-details-at/trip-details-at.module.ts")).then(module => module.TripDetailsAtModule)
+        loadChildren: () => Promise.all(/*! import() | trip-details-at-trip-details-at-module */[__webpack_require__.e("default~driver-details-driver-details-module~driver-payment-driver-payment-module~payout-payout-modu~4f5b7abd"), __webpack_require__.e("default~driver-payment-driver-payment-module~payout-payout-module~trip-details-at-trip-details-at-mo~7b4323c2"), __webpack_require__.e("default~driver-payment-driver-payment-module~trip-details-at-trip-details-at-module~trip-details-tri~5eb5727e"), __webpack_require__.e("common"), __webpack_require__.e("trip-details-at-trip-details-at-module")]).then(__webpack_require__.bind(null, /*! ./trip-details-at/trip-details-at.module */ "./src/app/ayyanar-transport/trip-details-at/trip-details-at.module.ts")).then(module => module.TripDetailsAtModule)
     },
 ];
 let AyyanarTransportRoutingModule = class AyyanarTransportRoutingModule {
