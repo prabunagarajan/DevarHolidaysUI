@@ -35,6 +35,7 @@ export class TripdeatilsforwardComponent implements OnInit {
   vehicleList: any;
   driverList: any;
   isLoading: boolean;
+  tripDetailsCount: any;
   constructor(
     private formBuilder: FormBuilder,
     private commonService: CommonService,
@@ -48,9 +49,13 @@ export class TripdeatilsforwardComponent implements OnInit {
       driverName: [''],
       driverNumber: [''],
       vehiclenumber: [''],
-      status: ['']
+      status: [''],
+      tripNo:[''],
+      fromDate:[''],
+      toDate:[''],
     })
     this.getAll();
+    this.getTripDetailsCount();
     this.commonService.activeVechicle().subscribe(vehicleResponse => {
       if (vehicleResponse.status == 's') {
         this.vehicleList = vehicleResponse.data;
@@ -78,7 +83,13 @@ export class TripdeatilsforwardComponent implements OnInit {
         customerMobileNumber: '',
         driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
         visitingPlace: "",
-        status: "FORWARDED"
+        status: "FORWARDED",
+         fromDate: tripFormSearchDetails.fromDate
+                  ? moment(tripFormSearchDetails.fromDate).format('YYYY-MM-DD')
+                  : '',
+                toDate: tripFormSearchDetails.toDate
+                  ? moment(tripFormSearchDetails.toDate).format('YYYY-MM-DD') : '',
+                tripNo: tripFormSearchDetails.tripNo ? tripFormSearchDetails.tripNo : '',
       },
       paginationSize: pageSize,
       sortField: "modifiedDate",
@@ -104,12 +115,40 @@ export class TripdeatilsforwardComponent implements OnInit {
   search() {
     this.getAll();
   }
+
+
+  getTripDetailsCount() {
+    const today = new Date();
+    const fromDateObj = new Date();
+    fromDateObj.setDate(today.getDate() - 30); // 30 days before today
+    
+    const fromDate = fromDateObj.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+    const toDate = today.toISOString().split('T')[0]; // Today's date in YYYY-MM-DD format
+    
+    console.log(fromDate, toDate);
+    this.commonService.tripdetailsdashboardcount(fromDate, toDate).subscribe(
+      (tripdetailsdashboardcountResponse: any) => {
+        if (tripdetailsdashboardcountResponse.status === 's') {
+          this.tripDetailsCount = tripdetailsdashboardcountResponse.data[0] || {}; // Assign first object from data array
+        } else {
+          console.warn('Failed to fetch trip details:', tripdetailsdashboardcountResponse.message);
+        }
+      },
+      (error) => {
+        console.error('API Error:', error);
+      }
+    );
+  }
+  
   onclear() {
     this.tripFormSearchDetails.patchValue({
       driverName: '',
       driverNumber: '',
       vehiclenumber: '',
       status: '',
+      tripNo: '',
+      fromDate: '',
+      toDate: '',
     });
     this.pageSize = 10;
     this.getAll();

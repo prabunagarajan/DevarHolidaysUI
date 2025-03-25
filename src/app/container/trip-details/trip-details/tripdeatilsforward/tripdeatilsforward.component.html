@@ -2,6 +2,64 @@
     <div class="col-xl-12">
         <form [formGroup]="tripFormSearchDetails" autocomplete="off">
             <!-- Search Panel -->
+
+            <app-card cardTitle="Trip Request Status" blockClass="table-border-style" class="search-panel">
+                <div class="row"></div>
+                <div class="row">
+                    <!-- Trip Details -->
+                    <div class="col dashboard_bg1">
+                        <app-card [hidHeader]="true" cardClass="comp-card">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <span>Trip Details</span>
+                                    <h3 class="mt-2">{{ tripDetailsCount.total || '0' }}</h3>
+                                    <i class="fas fa-external-link-alt"></i>
+                                </div>
+                            </div>
+                        </app-card>
+                    </div>
+
+                    <!-- EAL Approved -->
+                    <div class="col dashboard_bg4">
+                        <app-card [hidHeader]="true" cardClass="comp-card">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <span>Total Approved</span>
+                                    <h3 class="mt-2">{{ tripDetailsCount.totalApproved || '0' }}</h3>
+                                    <i class="fas fas fa-check"></i>
+                                </div>
+                            </div>
+                        </app-card>
+                    </div>
+
+                    <!-- EAL Pending/Request for Clarification -->
+                    <div class="col dashboard_bg2">
+                        <app-card [hidHeader]="true" cardClass="comp-card">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <span>Total Request for Clarification</span>
+                                    <h3 class="mt-2">{{ tripDetailsCount.totalRequestforclarification || '0' }}</h3>
+                                    <i class="fas fa-hourglass-half"></i>
+                                </div>
+                            </div>
+                        </app-card>
+                    </div>
+
+                    <!-- EAL Rejected -->
+                    <div class="col dashboard_bg7">
+                        <app-card [hidHeader]="true" cardClass="comp-card">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <span>Total Rejected</span>
+                                    <h3 class="mt-2">{{ tripDetailsCount.totalRejected || '0' }}</h3>
+                                    <i class="fas fa-external-link-alt"></i>
+                                </div>
+                            </div>
+                        </app-card>
+                    </div>
+                </div>
+            </app-card>
+
             <app-card [hidHeader]="true" class="list-panel add-panel">
                 <h4>Search</h4>
                 <div class="row">
@@ -33,6 +91,39 @@
                                 placeholder="Enter Driver Number" />
                         </div>
                     </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Trip No<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" formControlName="tripNo"
+                                placeholder="Enter Trip Number">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label>From Date<span class="text-danger">*</span></label>
+                          <!-- <input type="text" formControlName="taxDate" class="form-control" bsDatepicker
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
+                            [ngClass]="{ 'is-invalid': formSubmitted && f.taxDate.errors }" /> -->
+                          <input type="text" [owlDateTime]="dt3" class="form-control" [owlDateTimeTrigger]="dt3"
+                            placeholder="Select From Date" formControlName="fromDate">
+                          <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+                        </div>
+                      </div>
+
+
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label>To Date<span class="text-danger">*</span></label>
+                          <!-- <input type="text" formControlName="taxDate" class="form-control" bsDatepicker
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
+                            [ngClass]="{ 'is-invalid': formSubmitted && f.taxDate.errors }" /> -->
+                          <input type="text" [owlDateTime]="dt4" class="form-control" [owlDateTimeTrigger]="dt4"
+                            placeholder="Select From Date" formControlName="toDate">
+                          <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                        </div>
+                      </div>
 
                     <!-- Vehicle Number -->
                     <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-12">

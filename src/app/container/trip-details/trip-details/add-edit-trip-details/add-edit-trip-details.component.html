@@ -22,7 +22,7 @@
                             <label>Vehicle Number <span class="text-danger">*</span></label>
                             <select type="text" class="form-select" formControlName="vehicleNumber"
                                 placeholder="Select Vehicle Number" (change)="getStaringKM($event.target.value)"
-                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.vehicleNumber.errors }">
+                                [attr.disabled]="isDisableds ? true : null"  [ngClass]="{ 'is-invalid': formSubmitted && tripForm.vehicleNumber.errors }">
                                 <option value="" selected disabled>Select Vehicle Number</option>
                                 <option *ngFor="let vehicleListElement of vehicleList"
                                     value="{{vehicleListElement.vehicleNumber}}">{{vehicleListElement.vehicleNumber}}
@@ -42,7 +42,7 @@
                                 <!-- DateTime Input -->
                                 <input type="text" [owlDateTime]="dt1" class="form-control" formControlName="date"
                                     placeholder="Select Date & Time"
-                                    [ngClass]="{ 'is-invalid': formSubmitted && tripForm.date.errors }" readonly
+                                    [attr.disabled]="isDisableds ? true : null"   [ngClass]="{ 'is-invalid': formSubmitted && tripForm.date.errors }" readonly
                                     [max]="maxDate" (keypress)="$event.preventDefault();"
                                     (keydown)="$event.preventDefault()">
 
@@ -69,7 +69,7 @@
                         <div class="form-group">
                             <label>Customer Name<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="customerName"
-                                placeholder="Enter Customer Name"
+                            [attr.disabled]="isDisableds ? true : null"   placeholder="Enter Customer Name"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.customerName.errors }" />
                             <div *ngIf="formSubmitted && tripForm.customerName.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.customerName.errors.required">Customer Name is required
@@ -81,7 +81,7 @@
                         <div class="form-group">
                             <label>Customer Mobile Number<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="customerMobileNumber"
-                                placeholder="Enter Customer Mobile Number" (keydown)="numbersOnly($event)"
+                            [attr.disabled]="isDisableds ? true : null"     placeholder="Enter Customer Mobile Number" (keydown)="numbersOnly($event)"
                                 maxlength="10"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.customerMobileNumber.errors }" />
                             <div *ngIf="formSubmitted && tripForm.customerMobileNumber.errors" class="invalid-feedback">
@@ -95,7 +95,7 @@
                         <div class="form-group">
                             <label>Driver Name<span class="text-danger">*</span></label>
                             <select type="text" class="form-select" formControlName="driverName"
-                                placeholder="Enter Driver Name"
+                            [attr.disabled]="isDisableds ? true : null"    placeholder="Enter Driver Name"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.driverName.errors }">
                                 <option value="" disabled selected>Select Driver Name</option>
                                 <option *ngFor="let driverListElemnt of driverList" value="{{driverListElemnt?.name}}">
@@ -111,7 +111,7 @@
                         <div class="form-group">
                             <label>Starting KM<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="startingKM"
-                                placeholder="Enter Starting KM" (keydown)="numbersOnly($event)"
+                            [attr.disabled]="isDisableds ? true : null"      placeholder="Enter Starting KM" (keydown)="numbersOnly($event)"
                                 (keyup)="startingKM($event.target.value);"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.startingKM.errors }" />
                             <div *ngIf="formSubmitted && tripForm.startingKM.errors" class="invalid-feedback">
@@ -124,7 +124,7 @@
                         <div class="form-group">
                             <label>Closing KM<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="closingKM"
-                                placeholder="Enter Closing KM" (keydown)="numbersOnly($event)"
+                            [attr.disabled]="isDisableds ? true : null"   placeholder="Enter Closing KM" (keydown)="numbersOnly($event)"
                                 (keyup)="closeingKM($event.target.value)"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.closingKM.errors }" />
                             <div *ngIf="formSubmitted && tripForm.closingKM.errors" class="invalid-feedback">
@@ -137,7 +137,7 @@
                         <div class="form-group">
                             <label>Used KM<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="usedKM" placeholder="Enter Used KM"
-                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.usedKM.errors }" disabled />
+                            [attr.disabled]="isDisableds ? true : null"  [ngClass]="{ 'is-invalid': formSubmitted && tripForm.usedKM.errors }" disabled />
                             <div *ngIf="formSubmitted && tripForm.usedKM.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.usedKM.errors.required">Used KM is required
                                 </div>
@@ -150,7 +150,7 @@
                             <div class="input-group">
                                 <!-- DateTime Input -->
                                 <input type="text" [owlDateTime]="dt2" class="form-control"
-                                    placeholder="Select Staring Time" formControlName="startingTime"
+                                [attr.disabled]="isDisableds ? true : null"     placeholder="Select Staring Time" formControlName="startingTime"
                                     [ngClass]="{ 'is-invalid': formSubmitted && tripForm.startingTime.errors }"
                                     [max]="maxDate" (keypress)="$event.preventDefault();"
                                     (keydown)="$event.preventDefault()" readonly />
@@ -179,7 +179,7 @@
                             <label>Closing Time<span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <input type="text" [owlDateTime]="dt3" class="form-control"
-                                    placeholder="Select Closing Time" formControlName="closingTime"
+                                [attr.disabled]="isDisableds ? true : null"      placeholder="Select Closing Time" formControlName="closingTime"
                                     [ngClass]="{ 'is-invalid': formSubmitted && tripForm.closingTime.errors }"
                                     [max]="maxDate" (keypress)="$event.preventDefault();"
                                     (keydown)="$event.preventDefault()" readonly>
@@ -201,7 +201,7 @@
                         <div class="form-group">
                             <label>Total Hrs<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="totalTime"
-                                placeholder="Enter Total HRS"
+                            [attr.disabled]="isDisableds ? true : null"    placeholder="Enter Total HRS"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.totalTime.errors }" readonly />
                             <div *ngIf="formSubmitted && tripForm.totalTime.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.totalTime.errors.required">Total HRS is required
@@ -213,7 +213,7 @@
                         <div class="form-group">
                             <label>AC Type<span class="text-danger">*</span></label>
                             <select class="form-select" formControlName="acOrNonAc"
-                                (click)="acDetect($event.target.value)"
+                            [attr.disabled]="isDisableds ? true : null"   (click)="acDetect($event.target.value)"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.acOrNonAc.errors }">
                                 <option value="" disabled selected>Select AC or Non-AC</option>
                                 <option value="AC">AC</option>
@@ -230,7 +230,7 @@
                         <div class="form-group">
                             <label>AC Starting KM<span *ngIf="!acValidationFlag" class="text-danger">*</span></label>
                             <input [attr.disabled]="acValidationFlag ? true : null" type="text" class="form-control"
-                                (keydown)="numbersOnly($event)" (keyup)="acStaringKmCalculation($event.target.value);"
+                            [attr.disabled]="isDisableds ? true : null"    (keydown)="numbersOnly($event)" (keyup)="acStaringKmCalculation($event.target.value);"
                                 formControlName="acStartingKM" placeholder="Enter AC Starting KM"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.acStartingKM.errors }" />
                             <div *ngIf="formSubmitted && tripForm.acStartingKM.errors" class="invalid-feedback">
@@ -243,7 +243,7 @@
                         <div class="form-group">
                             <label>AC Closed KM<span *ngIf="!acValidationFlag" class="text-danger">*</span></label>
                             <input [attr.disabled]="acValidationFlag ? true : null" type="text" class="form-control"
-                                (keydown)="numbersOnly($event)" (keyup)="acClosingKmCalculation($event.target.value);"
+                            [attr.disabled]="isDisableds ? true : null"   (keydown)="numbersOnly($event)" (keyup)="acClosingKmCalculation($event.target.value);"
                                 formControlName="acClosingKM" placeholder="Enter AC Closed KM"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.acClosingKM.errors }" />
                             <div *ngIf="formSubmitted && tripForm.acClosingKM.errors" class="invalid-feedback">
@@ -257,7 +257,7 @@
                             <label>AC Used KM<span *ngIf="!acValidationFlag" class="text-danger">*</span></label>
                             <input [attr.disabled]="acValidationFlag ? true : null" type="text" class="form-control"
                                 (keydown)="numbersOnly($event)" formControlName="usedAcKM"
-                                placeholder="Enter AC Used KM"
+                                [attr.disabled]="isDisableds ? true : null"    placeholder="Enter AC Used KM"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.usedAcKM.errors }" />
                             <div *ngIf="formSubmitted && tripForm.usedAcKM.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.usedAcKM.errors.required">AC Used KM is required
@@ -269,7 +269,7 @@
                         <div class="form-group">
                             <label>AC Note<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="acNote" placeholder="Enter AC Note"
-                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.acNote.errors }" />
+                            [attr.disabled]="isDisableds ? true : null"         [ngClass]="{ 'is-invalid': formSubmitted && tripForm.acNote.errors }" />
                             <div *ngIf="formSubmitted && tripForm.acNote.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.acNote.errors.required">AC Note is required
                                 </div>
@@ -288,7 +288,8 @@
                             <label>Visiting Places <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="visitingPlace"
                                 placeholder="Enter Visiting Place"
-                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.visitingPlace.errors }" />
+                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.visitingPlace.errors }"
+                                [attr.disabled]="isDisabled ? true : null" />
                             <div *ngIf="formSubmitted && tripForm.visitingPlace.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.visitingPlace.errors.required">Visiting Place is required
                                 </div>
@@ -301,7 +302,7 @@
                             <label>Day Rent<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="dayRent"
                                 placeholder="Enter Day Rent" (keydown)="numbersOnly($event)"
-                                (keyup)="dayRentCalculation($event.target.value)"
+                                (keyup)="dayRentCalculation($event.target.value)"  [attr.disabled]="isDisabled ? true : null"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.dayRent.errors }" />
                             <div *ngIf="formSubmitted && tripForm.dayRent.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.dayRent.errors.required">Day Rent is required
@@ -313,7 +314,7 @@
                         <div class="form-group">
                             <label>Toll<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="toll" placeholder="Enter Toll"
-                                (keyup)="profitAmoutCalculation('Toll');" (keydown)="numbersOnly($event)"
+                            [attr.disabled]="isDisabled ? true : null"  (keyup)="profitAmoutCalculation('Toll');" (keydown)="numbersOnly($event)"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.toll.errors }" />
                             <div *ngIf="formSubmitted && tripForm.toll.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.toll.errors.required">Toll is required
@@ -327,7 +328,7 @@
                             <input type="text" class="form-control" formControlName="totalRent"
                                 placeholder="Enter Total Rent"
                                 (keyup)="getTotalRentAmount($event.target.value); profitAmoutCalculation('Total Rent')"
-                                (keydown)="numbersOnly($event)"
+                                (keydown)="numbersOnly($event)"  [attr.disabled]="isDisabled ? true : null"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.totalRent.errors }" />
                             <div *ngIf="formSubmitted && tripForm.totalRent.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.totalRent.errors.required">Total Rent is required
@@ -339,7 +340,7 @@
                         <div class="form-group">
                             <label>Fuel<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="diesel" placeholder="Enter Fuel"
-                                (keyup)="profitAmoutCalculation('Fuel')" (keydown)="numbersOnly($event)"
+                                (keyup)="profitAmoutCalculation('Fuel')" (keydown)="numbersOnly($event)" [attr.disabled]="isDisabled ? true : null"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.diesel.errors }" />
                             <div *ngIf="formSubmitted && tripForm.diesel.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.diesel.errors.required">Fuel is required
@@ -352,7 +353,7 @@
                             <label>Driver Payment<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="driverPayment"
                                 placeholder="Enter Driver Payment" (keydown)="numbersOnly($event)"
-                                (keyup)="profitAmoutCalculation('Driver Payment')"
+                                (keyup)="profitAmoutCalculation('Driver Payment')" [attr.disabled]="isDisabled ? true : null"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.driverPayment.errors }" />
                             <div *ngIf="formSubmitted && tripForm.driverPayment.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.driverPayment.errors.required">Driver Payment is required
@@ -365,7 +366,7 @@
                             <label>Permit<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="permitAmount"
                                 placeholder="Enter Permit" (keydown)="numbersOnly($event)"
-                                (keyup)="profitAmoutCalculation('Permit');"
+                                (keyup)="profitAmoutCalculation('Permit');" [attr.disabled]="isDisabled ? true : null"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.permitAmount.errors }" />
                             <div *ngIf="formSubmitted && tripForm.permitAmount.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.permitAmount.errors.required">Permit is required
@@ -378,7 +379,7 @@
                             <label>Advance<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="advanceAmount"
                                 placeholder="Enter Advance" (keyup)="getAdvanceAmount($event.target.value);"
-                                (keydown)="numbersOnly($event)"
+                                (keydown)="numbersOnly($event)" [attr.disabled]="isDisabled ? true : null"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.advanceAmount.errors }" />
                             <div *ngIf="formSubmitted && tripForm.advanceAmount.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.advanceAmount.errors.required">Advance is required
@@ -394,7 +395,7 @@
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.advanceType.errors }" /> -->
 
                             <select type="text" class="form-select" formControlName="advanceType"
-                                placeholder="Enter Advance Type"
+                                placeholder="Enter Advance Type" [attr.disabled]="isDisabled ? true : null"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.advanceType.errors }">
                                 <option value="" hidden>Select Advance Type</option>
                                 <option value="No Advance">No Advance</option>
@@ -414,7 +415,7 @@
                                 placeholder="Enter Payment Type"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.paymentType.errors }" /> -->
                             <select type="text" class="form-select" formControlName="paymentType"
-                                placeholder="Enter Payment Type"
+                                placeholder="Enter Payment Type" [attr.disabled]="isDisabled ? true : null"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.paymentType.errors }">
                                 <option value="" hidden> Select Payment Type </option>
                                 <option value="UPI"> UPI - GPay / PhonePay </option>
@@ -431,7 +432,7 @@
                             <label>Recevied Amount<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="receivedAmount"
                                 placeholder="Enter Recevied Amount" (keyup)="getReceivedAmount($event.target.value);"
-                                (keydown)="numbersOnly($event)"
+                                (keydown)="numbersOnly($event)" [attr.disabled]="isDisabled ? true : null"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.receivedAmount.errors }" />
                             <div *ngIf="formSubmitted && tripForm.receivedAmount.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.receivedAmount.errors.required">Recevied Amount is required
@@ -444,7 +445,7 @@
                             <label>Discount<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="discountAmount"
                                 placeholder="Enter Discount Amount" (keyup)="getDiscountAmount($event.target.value)"
-                                (keydown)="numbersOnly($event)"
+                                (keydown)="numbersOnly($event)" [attr.disabled]="isDisabled ? true : null"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.discountAmount.errors }" />
                             <div *ngIf="formSubmitted && tripForm.discountAmount.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.discountAmount.errors.required">Recevied Amount is required
@@ -457,7 +458,7 @@
                             <label>Pending Amount<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="pendingAmount" disabled
                                 placeholder="Enter Pending Amount" (keyup)="getPendingAmount($event.target.value);"
-                                (keydown)="numbersOnly($event)"
+                                (keydown)="numbersOnly($event)" [attr.disabled]="isDisabled ? true : null"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.pendingAmount.errors }" />
                             <div *ngIf="formSubmitted && tripForm.pendingAmount.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.pendingAmount.errors.required">Pending Amount is required
@@ -483,7 +484,7 @@
                             <!-- <input type="text" class="form-control" formControlName="submittedBy"
                                 placeholder="Enter Wrote By"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.submittedBy.errors }" /> -->
-                            <select type="text" class="form-select" formControlName="submittedBy"
+                            <select type="text" class="form-select" formControlName="submittedBy" [attr.disabled]="isDisabled ? true : null"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.submittedBy.errors }">
                                 <option value="" hidden>Select Wrote By</option>
                                 <option *ngFor="let driverListElemnt of driverList" value="{{driverListElemnt?.name}}">
@@ -499,7 +500,7 @@
                         <div class="form-group">
                             <label>Profit<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="profitAmount" disabled
-                                placeholder="Enter Profit" (keydown)="numbersOnly($event)"
+                                placeholder="Enter Profit" (keydown)="numbersOnly($event)" [attr.disabled]="isDisabled ? true : null"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.profitAmount.errors }" />
                             <div *ngIf="formSubmitted && tripForm.profitAmount.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.profitAmount.errors.required">Profit is required
@@ -511,7 +512,7 @@
                         <div class="form-group">
                             <label>Remark<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="remark" placeholder="Enter remark"
-                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.remark.errors }" />
+                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.remark.errors }" [attr.disabled]="isDisabled ? true : null" />
                             <div *ngIf="formSubmitted && tripForm.remark.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.remark.errors.required">remark is required
                                 </div>

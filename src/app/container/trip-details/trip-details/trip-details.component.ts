@@ -49,7 +49,10 @@ export class TripDetailsComponent implements OnInit {
       driverName: [''],
       driverNumber: [''],
       vehiclenumber: [''],
-      status: ['']
+      status: [''],
+      tripNo:[''],
+      fromDate:[''],
+      toDate:[''],
     })
     this.getAll();
     this.getTripDetailsCount();
@@ -126,7 +129,7 @@ export class TripDetailsComponent implements OnInit {
           ...v,
           sNo: startIndex + i + 1 // Adjust serial number
         }));
-    
+
         console.log("dataSource", dataSource);
         this.dataSource = new MatTableDataSource(dataSource);
         setTimeout(() => {
@@ -153,7 +156,13 @@ export class TripDetailsComponent implements OnInit {
         customerMobileNumber: '',
         driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
         visitingPlace: "",
-        status: tripFormSearchDetails.status ? tripFormSearchDetails.status : ''
+        status: tripFormSearchDetails.status ? tripFormSearchDetails.status : '',
+        fromDate: tripFormSearchDetails.fromDate 
+        ? moment(tripFormSearchDetails.fromDate).format('YYYY-MM-DD') 
+        : '',
+        toDate: tripFormSearchDetails.toDate 
+        ? moment(tripFormSearchDetails.toDate).format('YYYY-MM-DD') : '',
+        tripNo:tripFormSearchDetails.tripNo ? tripFormSearchDetails.tripNo : '',
       },
       paginationSize: 10,
       sortField: "modifiedDate",
@@ -186,23 +195,34 @@ export class TripDetailsComponent implements OnInit {
     this.getAll(pageIndex, pageSize);
   }
 
-  onSelect(obj) {
-    this.selectObj = obj ? obj : undefined;
-    if (obj) {
+  // onSelect(obj) {
+  //   this.selectObj = obj ? obj : undefined;
+  //   if (obj) {
+  //     this.viewEnable = true;
+  //     this.editEnable = true;
+  //   }
+  // }
+
+
+
+
+
+  onChecked(element) {
+    const selectObj = this.dataSource.data.find((item: any) => item.id === element.id);
+    if (selectObj) {
+      this.selectObj = selectObj;
       this.viewEnable = true;
       this.editEnable = true;
     }
+
   }
 
 
-
-  onEdit(event: any) {
-    console.log(this.selectObj);
-
+  onEdit() {
     if (this.selectObj && this.selectObj.status === 'REQUESTFORCLARIFICATION') {
       this.router.navigate(['/container/trip-detail/modification', this.selectObj.id]);
     } else {
-      this.toastrMsg.error('View not able');
+      this.toastrMsg.error('Edit not able');
     }
   }
 
@@ -212,17 +232,6 @@ export class TripDetailsComponent implements OnInit {
     } else {
       this.toastrMsg.error('View not able');
     }
-  }
-
-
-  onChecked(element){
-    const selectObj=this.dataSource.data.find((item:any) => item.id === element.id);
-    if (selectObj) {
-      this.selectObj = selectObj;
-      this.viewEnable = true;
-      this.editEnable = true;
-    }
-    
   }
 
   getStatusStyle(status: string): { [key: string]: string } {

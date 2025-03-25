@@ -59,91 +59,112 @@
             </app-card>
 
             <!-- Search Panel -->
-            <app-card [hidHeader]="true" class="list-panel add-panel">
-                <h4>Search</h4>
-                <div class="row">
-                    <!-- Driver Name -->
-                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label for="driverName">Driver Name</label>
-                            <input type="text" id="driverName" formControlName="driverName" class="form-control"
-                                placeholder="Enter Driver Name" />
-                        </div>
-                    </div> -->
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
+            <ngb-accordion #acc="ngbAccordion" activeIds="">
+                <ngb-panel id="searchPanel">
+                  <ng-template ngbPanelTitle>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span>Search</span>
+                      <i class="bi bi-chevron-down"></i>
+                    </div>
+                  </ng-template>
+                  <ng-template ngbPanelContent>
+                    <app-card [hidHeader]="true" class="list-panel add-panel">
+                      <div class="row">
+                        <!-- Driver Name -->
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                          <div class="form-group">
                             <label>Driver Name<span class="text-danger">*</span></label>
-                            <select type="text" class="form-select" formControlName="driverName"
-                                placeholder="Enter Driver Name">
-                                <option value="" selected disabled>Select Driver Name</option>
-                                <option *ngFor="let driverListElemnt of driverList" value="{{driverListElemnt?.name}}">
-                                    {{driverListElemnt?.name}}</option>
+                            <select class="form-select" formControlName="driverName">
+                              <option value="" selected disabled>Select Driver Name</option>
+                              <option *ngFor="let driver of driverList" [value]="driver?.name">{{ driver?.name }}</option>
                             </select>
+                          </div>
                         </div>
-                    </div>
-
-                    <!-- Driver Number -->
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label for="driverNumber">Driver Number</label>
-                            <input type="text" id="driverNumber" formControlName="driverNumber" class="form-control"
-                                placeholder="Enter Driver Number" />
+              
+                        <!-- Trip No -->
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                          <div class="form-group">
+                            <label>Trip No<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" formControlName="tripNo" placeholder="Enter Trip Number">
+                          </div>
                         </div>
-                    </div>
-
-                    <!-- Vehicle Number -->
-                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label for="vehicleNumber">Vehicle Number</label>
-                            <input type="text" id="vehicleNumber" formControlName="vehiclenumber" class="form-control"
-                                placeholder="Enter Vehicle Number" />
+              
+                        <!-- From Date -->
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                          <div class="form-group">
+                            <label>From Date<span class="text-danger">*</span></label>
+                            <input type="text" [owlDateTime]="dt3" class="form-control" [owlDateTimeTrigger]="dt3"
+                              placeholder="Select From Date" formControlName="fromDate">
+                            <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                          </div>
                         </div>
-                    </div> -->
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
+              
+                        <!-- To Date -->
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                          <div class="form-group">
+                            <label>To Date<span class="text-danger">*</span></label>
+                            <input type="text" [owlDateTime]="dt4" class="form-control" [owlDateTimeTrigger]="dt4"
+                              placeholder="Select To Date" formControlName="toDate">
+                            <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+                          </div>
+                        </div>
+              
+                        <!-- Driver Number -->
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                          <div class="form-group">
+                            <label>Driver Number</label>
+                            <input type="text" formControlName="driverNumber" class="form-control" placeholder="Enter Driver Number">
+                          </div>
+                        </div>
+              
+                        <!-- Vehicle Number -->
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                          <div class="form-group">
                             <label>Vehicle Number <span class="text-danger">*</span></label>
-                            <select type="text" class="form-select" formControlName="vehiclenumber"
-                                placeholder="Select Vehicle Number">
-                                <option value="" selected disabled>Select Vehicle Number</option>
-                                <option *ngFor="let vehicleListElement of vehicleList"
-                                    value="{{vehicleListElement.vehicleNumber}}">{{vehicleListElement.vehicleNumber}}
-                                </option>
+                            <select class="form-select" formControlName="vehiclenumber">
+                              <option value="" selected disabled>Select Vehicle Number</option>
+                              <option *ngFor="let vehicle of vehicleList" [value]="vehicle.vehicleNumber">
+                                {{ vehicle.vehicleNumber }}
+                              </option>
                             </select>
+                          </div>
                         </div>
-                    </div>
-
-                    <!-- Status -->
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label for="status">Status</label>
-                            <select id="status" formControlName="status" class="form-select">
-                                <option value="" disabled selected>Select Status</option>
-                                <option value="APPROVED">APPROVED</option>
-                                <option value="INPROGRESS">IN PROGRESS</option>
-                                <option value="FORWARDED">FORWARDED</option>
-                                <option value="REQUESTFORCLARIFICATION">REQUEST FOR CLARIFICATION</option>
-                                <option value="REJECT">REJECT</option>
-                                <option value="SUBMITTED">SUBMITTED</option>
+              
+                        <!-- Status -->
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                          <div class="form-group">
+                            <label>Status</label>
+                            <select formControlName="status" class="form-select">
+                              <option value="" disabled selected>Select Status</option>
+                              <option value="APPROVED">APPROVED</option>
+                              <option value="INPROGRESS">IN PROGRESS</option>
+                              <option value="FORWARDED">FORWARDED</option>
+                              <option value="REQUESTFORCLARIFICATION">REQUEST FOR CLARIFICATION</option>
+                              <option value="REJECT">REJECT</option>
+                              <option value="SUBMITTED">SUBMITTED</option>
                             </select>
+                          </div>
                         </div>
-                    </div>
-
-
-                </div>
-
-                <!-- Submit and Cancel buttons -->
-                <div class="row mt-3">
-                    <div class="col-lg-12 text-end">
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-outline-info list-button-container"
-                                (click)="search()"><span class="list-text-alaign-center">Submit</span></button>
-                            <button type="button" class="btn btn-outline-secondary list-button-container"
-                                (click)="onclear()"><span class="list-text-alaign-center">Clear</span></button>
-
+                      </div>
+              
+                      <!-- Buttons -->
+                      <div class="row mt-3">
+                        <div class="col-lg-12 text-end">
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-outline-info" (click)="search()">
+                              <span>Submit</span>
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" (click)="onclear()">
+                              <span>Clear</span>
+                            </button>
+                          </div>
                         </div>
-                    </div>
-                </div>
-            </app-card>
+                      </div>
+                    </app-card>
+                  </ng-template>
+                </ngb-panel>
+              </ngb-accordion>
+              
         </form>
     </div>
 </div>

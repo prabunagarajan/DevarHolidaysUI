@@ -27,6 +27,8 @@ export class AddEditTripDetailsComponent implements OnInit {
   leveStatus: String;
   tripLogDetails: any;
   routingStatus: String;
+  isDisabled: boolean;
+  isDisableds: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private toastrMsg: ToastrService,
@@ -41,6 +43,7 @@ export class AddEditTripDetailsComponent implements OnInit {
         this.tripId = tripIdResponse.id;
         this.getTripDetailsForm(tripIdResponse.id, tripIdResponse.status);
         this.routingStatus = tripIdResponse.status;
+
       }
     })
 
@@ -205,13 +208,15 @@ export class AddEditTripDetailsComponent implements OnInit {
 
   finalSubmit() {
     if (this.tripId && this.leveStatus == 'Level 1') {
-      this.updateTripDetails();
+      this.updateTripDetails('INPROGRESS');
     } else if (this.leveStatus == 'Level 2') {
       this.forwardApprove()
     } else if (this.leveStatus == 'Level 3') {
-      this.approved();
+      console.log('Approved');
+      // this.approved();
+      this.updateTripDetails('APPROVED');
     } else if (this.leveStatus == 'Level 1 REQ') {
-      this.requestForClarification()
+       this.requestForClarification()
     } else if (this.leveStatus == 'Level 1') {
       this.addTripDetails();
     } else {
@@ -611,7 +616,7 @@ export class AddEditTripDetailsComponent implements OnInit {
     });
   }
 
-  updateTripDetails() {
+  updateTripDetails(status) {
     const tripFormDetails = this.tripFormDetails.value;
     const updateTripDetailsRequest = {
       acClosingKM: tripFormDetails.acClosingKM || '',
@@ -637,7 +642,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       receivedAmount: tripFormDetails.receivedAmount || '',
       startingKM: tripFormDetails.startingKM || '',
       startingTime: moment(tripFormDetails.startingTime).format('YYYY-MM-DD HH:mm:ss') || '',
-      status: tripFormDetails.status || 'SUBMITTED',
+      status: status,
       submittedBy: tripFormDetails.submittedBy || '',
       toll: tripFormDetails.toll || '',
       totalRent: tripFormDetails.totalRent || '',
@@ -679,8 +684,9 @@ export class AddEditTripDetailsComponent implements OnInit {
           }
         });
         if (status == 'forward') {
-          this.tripFormDetails.disable();
-          this.tripFormDetails.get('remark').enable();
+          // this.tripFormDetails.disable();
+          this.isDisabled = (status.status != 'forward') ? false : true;
+          this.isDisableds = (status.status != 'forward') ? true : false;
           this.forwardApproveBtnShow = true;
         }
         else if (status == 'approved') {
