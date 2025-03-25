@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { MasterListColumns } from 'src/app/config/master-list-columns';
 import { CommonService } from 'src/app/service/common.service';
 
 @Component({
@@ -12,11 +13,15 @@ import { CommonService } from 'src/app/service/common.service';
 })
 export class TripPendingPaymentComponent implements OnInit {
 
+  public columns = MasterListColumns.tripListPendingPaymentColumns;
+  actionKeys: string[] = ['checkbox']; // ['edit', 'delete'] for buttons
+  dataSource = new MatTableDataSource(); // Example data source
+  totalCount: number = 10;
+  pageSize: number = 10;
+
   tripPaymentPendingFormSearchDetails: FormGroup;
-  displayedColumns: string[] = ['serialNo', 'tripNumber', 'createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent','pendingAmount', 'status', 'action'];
-  dataSource: MatTableDataSource<any>;
+  displayedColumns: string[] = ['serialNo', 'tripNumber', 'createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent', 'pendingAmount', 'status', 'action'];
   totelCount = 0;
-  pageSize = 10;
   isLoading: boolean;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   editEnable: boolean;
@@ -37,29 +42,33 @@ export class TripPendingPaymentComponent implements OnInit {
     this.commonService.getTripPaymentPendingList().subscribe(response => {
       this.isLoading = false;
       if (response.status == 's' && response.data) {
-        this.dataSource = new MatTableDataSource(response.data);
-        this.totelCount = response.data.totalElements;
+        const serialNumber = pageIndex * pageSize; // Calculate start index dynamically
+        const dataSource = response.data.map((v, i) => ({
+          ...v,
+          sNo: serialNumber + i + 1 // Adjust serial number
+        }));
+        this.dataSource = new MatTableDataSource(dataSource);
+        this.totelCount = response.data.length;
       } else {
         this.dataSource = new MatTableDataSource();
       }
     })
   }
 
-  onSelect(viewObj) {
-    this.selectObj = viewObj ? viewObj : undefined;
-
-    console.log('viewObj :', viewObj);
-    this.editEnable = true;
-    this.viewEnable = true;
+  onChecked(element) {
+    const selectObj = this.dataSource.data.find((findElement: any) => findElement.id == element.id);
+    if (selectObj) {
+      this.selectObj = selectObj;
+      this.editEnable = true;
+      this.viewEnable = true;
+    }
   }
 
   onEdit() {
-    console.log( this.selectObj.id);
-    
     if (this.selectObj) {
       this.router.navigate(['/container/trip-payment-pending/modification', this.selectObj.id]);
     } else {
-      this.toastrMsg.error('View not able');
+      this.toastrMsg.warning('Edit not able');
     }
   }
 
@@ -67,7 +76,7 @@ export class TripPendingPaymentComponent implements OnInit {
     if (this.selectObj) {
       this.router.navigate(['/container/trip-payment-pending/view', this.selectObj.id]);
     } else {
-      this.toastrMsg.error('View not able');
+      this.toastrMsg.warning('View not able');
     }
   }
 
