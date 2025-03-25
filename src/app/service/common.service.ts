@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -40,12 +40,53 @@ export class CommonService {
     return this.httpClient.get(url);
   }
 
-  getTripDetailsForward(req:any): Observable<any> {
+  getTripDetailsForward(req: any): Observable<any> {
     const url = this.baseUrl + 'tripDetails/approval';
-    return this.httpClient.put(url,req);
+    return this.httpClient.put(url, req);
   }
   getTripDetailLogs(refNumber): Observable<any> {
     const url = this.baseUrl + 'tripDetails/getLogsByTripNo/' + refNumber;
     return this.httpClient.get(url);
   }
+  driverPaymentSubmit(requestObj): Observable<any> {
+    const url = this.baseUrl + 'DriverSalary/add';
+    return this.httpClient.post(url, requestObj);
+  }
+
+
+  payoutBalanceHistory(requestObj): Observable<any> {
+    const url = this.baseUrl + 'balance/getBalanceHistoryDetails';
+    return this.httpClient.post(url, requestObj);
+  }
+
+  payoutBalance(): Observable<any> {
+    const url = this.baseUrl + 'balance/getAllBalanceDetails';
+    return this.httpClient.get(url);
+  }
+
+  driverPaymentList(obj): Observable<any> {
+    const url = this.baseUrl + 'DriverSalary/search';
+    return this.httpClient.post(url, obj);
+  }
+  driverPaymentview(viewId): Observable<any> {
+    const url = this.baseUrl + 'DriverSalary/getById/' + viewId;
+    return this.httpClient.get(url);
+  }
+
+  getTripPaymentPendingList(): Observable<any> {
+    const url = this.baseUrl + 'tripDetails/getPendingList';
+    return this.httpClient.get(url);
+  }
+  tripdetailsdashboardcount(fromDate: string, toDate: string): Observable<any> {
+    const url = this.baseUrl + 'tripDetails/dashboard';
+    const params = new HttpParams()
+      .set('fromDate', fromDate)
+      .set('toDate', toDate);
+
+    return this.httpClient.post<any>(url, {}, { params });
+  }
+  
+
+
+
 }

@@ -79,83 +79,109 @@
     </div>
 </div>
 
-<div class="container-fluid">
+<!-- <app-card [hidHeader]="true" blockClass="table-border-style" class="list-panel">
+    <div class="table-responsive text-center">
+        <div class="example-table-container">
+            <table mat-table [dataSource]="dataSource" class="table-design">
+                <ng-container matColumnDef="serialNo">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> S.No </th>
+                    <td mat-cell *matCellDef="let element; let i = index" class="text-center">
+                        {{ i + 1 }}
+                    </td>
+                </ng-container>
 
-    <table mat-table [dataSource]="dataSource" class="table-design">
-        <!-- Serial No Column -->
-        <ng-container matColumnDef="serialNo">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> S.No </th>
-            <td mat-cell *matCellDef="let element; let i = index" class="text-center"> {{ i + 1 }} </td>
-        </ng-container>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Driver Name </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        {{ element.name }}
+                    </td>
+                </ng-container>
 
-        <!-- Driver Name Column -->
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> Driver Name </th>
-            <td mat-cell *matCellDef="let element" class="text-center"> {{element.name}} </td>
-        </ng-container>
+                <ng-container matColumnDef="mobileNumber">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Mobile Number </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        {{ element.mobileNumber }}
+                    </td>
+                </ng-container>
 
-        <!-- Mobile Number Column -->
-        <ng-container matColumnDef="mobileNumber">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> Mobile Number </th>
-            <td mat-cell *matCellDef="let element" class="text-center"> {{element.mobileNumber}} </td>
-        </ng-container>
+                <ng-container matColumnDef="drivingLicenseNumber">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Driving License No </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        {{ element.drivingLicenseNumber }}
+                    </td>
+                </ng-container>
 
-        <!-- Driving License Number Column -->
-        <ng-container matColumnDef="drivingLicenseNumber">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> Driving License No </th>
-            <td mat-cell *matCellDef="let element" class="text-center"> {{element.drivingLicenseNumber}} </td>
-        </ng-container>
+                <ng-container matColumnDef="aadharNumber">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Aadhar No </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        {{ element.aadharNumber }}
+                    </td>
+                </ng-container>
 
-        <!-- Aadhar Number Column -->
-        <ng-container matColumnDef="aadharNumber">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> Aadhar No </th>
-            <td mat-cell *matCellDef="let element" class="text-center"> {{element.aadharNumber}} </td>
-        </ng-container>
+                <ng-container matColumnDef="district">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> District </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        {{ element.district }}
+                    </td>
+                </ng-container>
 
-        <!-- District Column -->
-        <ng-container matColumnDef="district">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> District </th>
-            <td mat-cell *matCellDef="let element" class="text-center"> {{element.district}} </td>
-        </ng-container>
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Status </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        {{ element.status ? 'Active' : 'Inactive' }}
+                    </td>
+                </ng-container>
 
-        <!-- Status Column -->
-        <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> Status </th>
-            <td mat-cell *matCellDef="let element" class="text-center"> {{element.status ? 'Active' : 'Inactive'}} </td>
-        </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <mat-radio-button (click)="onSelect(element)"></mat-radio-button>
+                    </td>
+                </ng-container>
 
-        <!-- Action Column -->
-        <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
-            <td mat-cell *matCellDef="let element" class="text-center">
-                <mat-radio-button (click)="onSelect(element)"></mat-radio-button>
-            </td>
-        </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
 
-
-        <!-- Header and Row Definitions -->
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-
-    <div>
-        <mat-paginator [length]="totelCount" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]"
-            (page)="pageEvent($event)">
-        </mat-paginator>
-        <div class="row">
-            <div class="col-xl-4 mt-2">
-                <div class="dropdown">
-                    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Download
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="javascript:void(0)" (click)="exportToExcel()">Excel</a></li>
-                        <li><a class="dropdown-item" href="javascript:void(0)" (click)="generatePDF()">PDF</a></li>
-                    </ul>
-                </div>
+            <div *ngIf="isLoading" class="table-loader">
+                <mat-spinner diameter="64"></mat-spinner>
             </div>
-            
+
+            <mat-paginator [length]="totelCount" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]"
+                (page)="pageEvent($event)">
+            </mat-paginator>
         </div>
+    </div>
+</app-card> -->
+
+
+<!-- Loader Template -->
+<!-- <ng-template #loadingTemplate>
+    <mat-spinner diameter="20"></mat-spinner>
+</ng-template> -->
+
+<app-mat-table-configuration [columns]="columns" [actionKeys]="actionKeys" [dataSource]="dataSource"
+    [totalCount]="totelCount" [pageSize]="pageSize" (paginationEvent)="handlePagination($event)"
+    (checkboxAction)="onChecked($event)">
+</app-mat-table-configuration>
+
+
+
+<div>
+
+    <div class="row">
+        <div class="col-xl-4 mt-2">
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Download
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="javascript:void(0)" (click)="exportToExcel()">Excel</a></li>
+                    <li><a class="dropdown-item" href="javascript:void(0)" (click)="generatePDF()">PDF</a></li>
+                </ul>
+            </div>
+        </div>
+
     </div>
 </div>

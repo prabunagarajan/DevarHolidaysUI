@@ -8,6 +8,7 @@ import { autoTable } from 'jspdf-autotable';
 import * as moment from 'moment';
 import { ngxCsv } from 'ngx-csv';
 import { ToastrService } from 'ngx-toastr';
+import { MasterListColumns } from 'src/app/config/master-list-columns';
 import { CommonService } from 'src/app/service/common.service';
 
 @Component({
@@ -17,17 +18,22 @@ import { CommonService } from 'src/app/service/common.service';
 })
 export class TripdetailsinprogressComponent implements OnInit {
 
-  displayedColumns: string[] = ['serialNo', 'createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent', 'status', 'action'];
-  dataSource: MatTableDataSource<any>;
+  public columns = MasterListColumns.tripListInprogressColumns;
+  actionKeys: string[] = ['checkbox']; // ['edit', 'delete'] for buttons
+  dataSource = new MatTableDataSource(); // Example data source
+  totalCount: number = 10;
+  pageSize: number = 10;
+
+  displayedColumns: string[] = ['serialNo', 'tripNumber', 'createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent', 'status', 'action'];
   viewEnable: boolean;
   editEnable: boolean;
   tripFormSearchDetails: FormGroup;
   totelCount = 0;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  public pageSize = 10;
   selectObj: any;
   vehicleList: any;
   driverList: any;
+  isLoading: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private commonService: CommonService,
@@ -60,8 +66,8 @@ export class TripdetailsinprogressComponent implements OnInit {
     });
   }
 
-
   getAll(pageIndex = 0, pageSize = this.pageSize) {
+    this.isLoading = true;
     const tripFormSearchDetails = this.tripFormSearchDetails.value;
     const request = {
       filters: {
@@ -78,40 +84,24 @@ export class TripdetailsinprogressComponent implements OnInit {
       sortOrder: "DESC"
     }
     this.commonService.tripDetailsSearchList(request).subscribe(response => {
+      this.isLoading = false;
       if (response.status == 's' && response.data) {
-        this.dataSource = new MatTableDataSource(response.data.contents);
-        this.totelCount = response.data.totalElements;
-      } else {
-        this.dataSource = new MatTableDataSource();
-      }
-    })
-  }
-
-  search() {
-    const tripFormSearchDetails = this.tripFormSearchDetails.value;
-    const request = {
-      filters: {
-        vehicleNumber: tripFormSearchDetails.vehiclenumber ? tripFormSearchDetails.vehiclenumber : '',
-        customerName: '',
-        customerMobileNumber: '',
-        driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
-        visitingPlace: "",
-        status: tripFormSearchDetails.status ? tripFormSearchDetails.status : ''
-      },
-      paginationSize: 10,
-      sortField: "modifiedDate",
-      pageNo: 0,
-      sortOrder: "DESC"
-    }
-    this.commonService.tripDetailsSearchList(request).subscribe(response => {
-      if (response.status === 's' && response.data) {
-        this.dataSource = new MatTableDataSource(response.data.contents);
+        const serialNumber = pageIndex * pageSize; // Calculate start index dynamically
+        const dataSource = response.data.contents.map((v, i) => ({
+          ...v,
+          sNo: serialNumber + i + 1 // Adjust serial number
+        }));
+        this.dataSource = new MatTableDataSource(dataSource);
         this.totelCount = response.data.totalElements;
       } else {
         this.dataSource = new MatTableDataSource();
       }
     });
   }
+  search() {
+    this.getAll();
+  }
+
   onclear() {
     this.tripFormSearchDetails.patchValue({
       driverName: '',
@@ -123,18 +113,20 @@ export class TripdetailsinprogressComponent implements OnInit {
     this.getAll();
   }
 
-  pageEvent(event) {
-    const pageIndex = event.pageIndex;
+  handlePagination(event) {
+    const pageIndex = event.currentPage;
     const pageSize = event.pageSize
     this.getAll(pageIndex, pageSize);
   }
 
-  onSelect(obj) {
-    this.selectObj = obj ? obj : undefined;
-    if (obj) {
+  onChecked(element) {
+    const selectObj = this.dataSource.data.find((findElement: any) => findElement.id == element.id);
+    if (selectObj) {
+      this.selectObj = selectObj;
       this.viewEnable = true;
       this.editEnable = true;
     }
+
   }
 
   onEdit() {
@@ -174,80 +166,80 @@ export class TripdetailsinprogressComponent implements OnInit {
     }
   }
 
-  generatePDF() {
-    console.log('generatePDF :')
-    const doc = new jsPDF();
-
-    // Get page dimensions
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
-
-    // Add Watermark - "DC Holidays"
-    doc.setTextColor(200, 200, 200); // Light gray color
-    doc.setFontSize(40); // Large font size
-    doc.setFont('helvetica', 'bold'); // Bold font
-
-    // Calculate center position
-    const textWidth = doc.getTextWidth('DC Holidays');
-    const x = (pageWidth - textWidth) / 2;
-    const y = pageHeight / 2;
-
-    // Add rotated watermark text
-    doc.text('DC Holidays', x, y, { angle: 45 });
-
-    // Reset text color to black for actual content
-    doc.setTextColor(0);
-
-    // Title
-    doc.setFontSize(14);
-    doc.text('Trip Details L2', 14, 10);
-
-    // Define table columns with Serial Number
-    const columns = ['S.No', 'Trip No', 'Created Date', 'Vehicle Number', 'Customer Name', 'Visiting Place', 'Driver Name', 'Total Rent', 'Status'];
-
-    // Convert list data to an array format with serial numbers
-    const rows = this.dataSource.data.map((item, index) => [
-      index + 1, // Serial number starts from 1
-      item.tripNumber,
-      moment(item.createdDate).format('DD-MM-YYYY'),
-      String(item.vehicleNumber), // Convert number to string
-      String(item.customerName), // Convert number to string
-      String(item.visitingPlace), // Convert number to string
-      item.driverName,
-      item.totalRent,
-      item.status
-    ]);
-
-    // Add table to the PDF
-    autoTable(doc, {
-      head: [columns],
-      body: rows,
-      startY: 20
-    });
-
-    // Save the PDF
-    doc.save('Trip_Details_L2.pdf');
-  }
-  exportToExcel() {
-    const rows = this.dataSource.data.map((item, index) => [
-      index + 1, // Serial number starts from 1
-      item.tripNumber,
-      moment(item.createdDate).format('DD-MM-YYYY'), // Format date
-      String(item.vehicleNumber),
-      String(item.customerName),
-      String(item.visitingPlace),
-      item.driverName,
-      item.totalRent,
-      item.status
-    ]);
-
-    const options = {
-      headers: [
-        'S.No', 'Trip No', 'Created Date', 'Vehicle Number', 'Customer Name', 'Visiting Place', 'Driver Name', 'Total Rent', 'Status'
-      ]
-    };
-    new ngxCsv(rows, 'Trip_Details_L2', options);
-  }
+  /*  generatePDF() {
+     console.log('generatePDF :')
+     const doc = new jsPDF();
+ 
+     // Get page dimensions
+     const pageWidth = doc.internal.pageSize.getWidth();
+     const pageHeight = doc.internal.pageSize.getHeight();
+ 
+     // Add Watermark - "DC Holidays"
+     doc.setTextColor(200, 200, 200); // Light gray color
+     doc.setFontSize(40); // Large font size
+     doc.setFont('helvetica', 'bold'); // Bold font
+ 
+     // Calculate center position
+     const textWidth = doc.getTextWidth('DC Holidays');
+     const x = (pageWidth - textWidth) / 2;
+     const y = pageHeight / 2;
+ 
+     // Add rotated watermark text
+     doc.text('DC Holidays', x, y, { angle: 45 });
+ 
+     // Reset text color to black for actual content
+     doc.setTextColor(0);
+ 
+     // Title
+     doc.setFontSize(14);
+     doc.text('Trip Details L2', 14, 10);
+ 
+     // Define table columns with Serial Number
+     const columns = ['S.No', 'Trip No', 'Created Date', 'Vehicle Number', 'Customer Name', 'Visiting Place', 'Driver Name', 'Total Rent', 'Status'];
+ 
+     // Convert list data to an array format with serial numbers
+     const rows = this.dataSource.data.map((item, index) => [
+       index + 1, // Serial number starts from 1
+       item.tripNumber,
+       moment(item.createdDate).format('DD-MM-YYYY'),
+       String(item.vehicleNumber), // Convert number to string
+       String(item.customerName), // Convert number to string
+       String(item.visitingPlace), // Convert number to string
+       item.driverName,
+       item.totalRent,
+       item.status
+     ]);
+ 
+     // Add table to the PDF
+     autoTable(doc, {
+       head: [columns],
+       body: rows,
+       startY: 20
+     });
+ 
+     // Save the PDF
+     doc.save('Trip_Details_L2.pdf');
+   }
+   exportToExcel() {
+     const rows = this.dataSource.data.map((item, index) => [
+       index + 1, // Serial number starts from 1
+       item.tripNumber,
+       moment(item.createdDate).format('DD-MM-YYYY'), // Format date
+       String(item.vehicleNumber),
+       String(item.customerName),
+       String(item.visitingPlace),
+       item.driverName,
+       item.totalRent,
+       item.status
+     ]);
+ 
+     const options = {
+       headers: [
+         'S.No', 'Trip No', 'Created Date', 'Vehicle Number', 'Customer Name', 'Visiting Place', 'Driver Name', 'Total Rent', 'Status'
+       ]
+     };
+     new ngxCsv(rows, 'Trip_Details_L2', options);
+   } */
 
 }
 

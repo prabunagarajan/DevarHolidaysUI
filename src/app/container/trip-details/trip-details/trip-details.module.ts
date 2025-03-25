@@ -13,9 +13,9 @@ import { TripdetailsinprogressComponent } from './tripdetailsinprogress/tripdeta
 import { TripdeatilsforwardComponent } from './tripdeatilsforward/tripdeatilsforward.component';
 
 export const MY_CUSTOM_FORMATS = {
-  fullPickerInput: 'DD/MM/YYYY HH:mm',   
-  parseInput: 'DD/MM/YYYY HH:mm',       
-  datePickerInput: 'DD/MM/YYYY',         
+  fullPickerInput: 'DD-MM-YYYY HH:mm',   
+  parseInput: 'DD-MM-YYYY HH:mm',       
+  datePickerInput: 'DD-MM-YYYY',         
   timePickerInput: 'HH:mm',              
   monthYearLabel: 'MMM YYYY',
   dateA11yLabel: 'LL',

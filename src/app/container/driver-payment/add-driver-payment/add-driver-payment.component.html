@@ -1,0 +1,184 @@
+<h3>Add Payment Payment</h3>
+<ul class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a [routerLink]="['/dashboard']">Home</a>
+    </li>
+    <ng-container>
+        <li class="breadcrumb-item" [routerLink]="['/container/driver-payment/list']"><a href="javascript:"> Payment
+                Payment</a></li>
+        <li class="breadcrumb-item"><a href="javascript:">Add</a></li>
+    </ng-container>
+</ul>
+
+<div class="row">
+    <div class="col-xl-12">
+        <form [formGroup]="driverPaymentFormDetails" autocomplete="off">
+            <app-card [hidHeader]="true" class="list-panel add-panel">
+                <h3>Payment Details</h3>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Driver Name<span class="text-danger">*</span></label>
+                            <select type="text" class="form-select" formControlName="driverName"
+                                (change)="getMobileNumber($event.target.value)"
+                                [ngClass]="{ 'is-invalid': driverPaymentFormErrorFlag && driverPaymentForm.driverName.errors }">
+                                <option value="" disabled>Select Driver Name</option>
+                                <option *ngFor="let driverListElemnt of driverList" value="{{driverListElemnt?.name}}">
+                                    {{driverListElemnt?.name}}</option>
+                            </select>
+                            <div *ngIf="driverPaymentFormErrorFlag && driverPaymentForm.driverName.errors"
+                                class="invalid-feedback">
+                                <div *ngIf="driverPaymentForm.driverName.errors.required">Customer Driver Name is
+                                    required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>(Wages Or Advance) Amount<span class="text-danger">*</span></label>
+                            <input type="text" placeholder="Enter (Wages Or Advance) Amount"
+                                formControlName="wagesOrAdvance" (keydown)="numbersOnly($event)" maxlength="6"
+                                class="form-control"
+                                [ngClass]="{ 'is-invalid': driverPaymentFormErrorFlag && driverPaymentForm.wagesOrAdvance.errors }">
+                            <div *ngIf="driverPaymentFormErrorFlag && driverPaymentForm.wagesOrAdvance.errors"
+                                class="invalid-feedback">
+                                <div *ngIf="driverPaymentForm.wagesOrAdvance.errors.required">Customer (Wages Or
+                                    Advance) Amount is
+                                    required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Mobile Number<span class="text-danger">*</span></label>
+                            <input type="text" disabled placeholder="Mobile Number" formControlName="mobileNumber"
+                                class="form-control"
+                                [ngClass]="{ 'is-invalid': driverPaymentFormErrorFlag && driverPaymentForm.mobileNumber.errors }">
+                            <div *ngIf="driverPaymentFormErrorFlag && driverPaymentForm.mobileNumber.errors"
+                                class="invalid-feedback">
+                                <div *ngIf="driverPaymentForm.mobileNumber.errors.required">Mobile Number is
+                                    required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Monthly Salary<span class="text-danger">*</span></label>
+                            <input type="text" placeholder="Enter Monthly Salary" (keydown)="numbersOnly($event)"
+                                maxlength="6" formControlName="monthlySalary" class="form-control"
+                                [ngClass]="{ 'is-invalid': driverPaymentFormErrorFlag && driverPaymentForm.monthlySalary.errors }">
+                            <div *ngIf="driverPaymentFormErrorFlag && driverPaymentForm.monthlySalary.errors"
+                                class="invalid-feedback">
+                                <div *ngIf="driverPaymentForm.monthlySalary.errors.required">Monthly Salary is
+                                    required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label> Payment Date<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <!-- DateTime Input -->
+                                <input type="text" [owlDateTime]="dt1" class="form-control"
+                                    placeholder="Select Payment Date" formControlName="paymentDate"
+                                    [ngClass]="{ 'is-invalid': driverPaymentFormErrorFlag && driverPaymentForm.paymentDate.errors }"
+                                    readonly [max]="maxDate" (keypress)="$event.preventDefault();"
+                                    (keydown)="$event.preventDefault()">
+
+                                <!-- Calendar Icon Inside Input -->
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" [owlDateTimeTrigger]="dt1" type="button">
+                                        📅
+                                    </button>
+                                </div>
+
+                                <!-- Owl DateTime Picker -->
+                                <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                            </div>
+
+                            <!-- Validation Message -->
+                            <div *ngIf="driverPaymentFormErrorFlag && driverPaymentForm.paymentDate.errors"
+                                class="invalid-feedback">
+                                <div *ngIf="driverPaymentForm.paymentDate.errors.required">Customer Name is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Salary Type<span class="text-danger">*</span></label>
+                            <select type="text" formControlName="salaryType" class="form-select"
+                                [ngClass]="{ 'is-invalid': driverPaymentFormErrorFlag && driverPaymentForm.salaryType.errors }">
+                                <option value="" disabled>Select Salary Type</option>
+                                <option value="WAGES">Wages</option>
+                                <option value="ADVANCE">Advance</option>
+                            </select>
+                            <div *ngIf="driverPaymentFormErrorFlag && driverPaymentForm.salaryType.errors"
+                                class="invalid-feedback">
+                                <div *ngIf="driverPaymentForm.salaryType.errors.required">Salary Type is
+                                    required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Remark<span class="text-danger">*</span></label>
+                            <input type="text" placeholder="Enter Remarks" formControlName="remarks"
+                                class="form-control"
+                                [ngClass]="{ 'is-invalid': driverPaymentFormErrorFlag && driverPaymentForm.remarks.errors }">
+                            <div *ngIf="driverPaymentFormErrorFlag && driverPaymentForm.remarks.errors"
+                                class="invalid-feedback">
+                                <div *ngIf="driverPaymentForm.remarks.errors.required">Salary Type is
+                                    required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-12 text-end">
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-outline-success"
+                                (click)="submit(driverPaymentFormDetails)">Submit</button>
+
+                            <button type="button" class="btn btn-outline-secondary"
+                                [routerLink]="['/container/driver-payment/list']">Back</button>
+
+                        </div>
+                    </div>
+                </div>
+            </app-card>
+
+        </form>
+    </div>
+</div>
+
+
+
+
+<app-ui-modal #submitPopUp [hideFooter]="true" [dialogClass]="'modal-lg'">
+    <div class="app-modal-header">
+        <h5 class="modal-title">Confirm</h5>
+        <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+            (click)="submitPopUp.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+
+    <div class="app-modal-body">
+        <p>Are you sure whant submit?</p>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary" [disabled]="btnLoder" (click)="finalSubmit()">
+                <i class="fa" [ngClass]="{'fa-spin fa-asterisk': btnLoder, 'fa-check': !btnLoder}"></i>Yes
+            </button>
+            <button type="button" class="btn btn-outline-danger" (click)="submitPopUp.hide()">
+                <i class="feather icon-slash"></i> No
+            </button>
+        </div>
+    </div>
+</app-ui-modal>

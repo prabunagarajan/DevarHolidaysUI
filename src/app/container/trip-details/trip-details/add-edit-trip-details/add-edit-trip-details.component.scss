@@ -1,4 +1,22 @@
 // .ngb-dp-container {
 //     z-index: 1050 !important;
 //   }
-  
+/* Default style for the select (light color when no option is selected) */
+.form-select {
+    color: rgba(0, 0, 0, 0.5); /* Light color for placeholder */
+}
+
+/* When an option is selected, change text color to black */
+.form-select:valid {
+    color: black;
+}
+
+/* Ensure the placeholder option appears light inside the dropdown */
+.form-select option:disabled {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/* Ensure the dropdown options are always black */
+.form-select option {
+    color: black;
+}

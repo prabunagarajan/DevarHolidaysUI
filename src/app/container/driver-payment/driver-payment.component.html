@@ -1,0 +1,134 @@
+<div class="row">
+    <div class="col-xl-12">
+        <form [formGroup]="driverPaymentFormSearchDetails" autocomplete="off">
+            <app-card [hidHeader]="true" class="view-panel">
+                <h4>Search</h4>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Driver Name<span class="text-danger">*</span></label>
+                            <select type="text" class="form-select" formControlName="driverNames"
+                                placeholder="Enter Driver Name">
+                                <option value="" selected disabled>Select Driver Name</option>
+                                <option *ngFor="let driverListElemnt of driverList" value="{{driverListElemnt?.name}}">
+                                    {{driverListElemnt?.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="driverNumber">Driver Number</label>
+                            <select type="text" class="form-select" formControlName="driverNumber"
+                                placeholder="Enter Driver Name">
+                                <option value="" selected disabled>Select Driver Name</option>
+                                <option *ngFor="let driverListElemnt of driverList"
+                                    value="{{driverListElemnt?.mobileNumber}}">
+                                    {{driverListElemnt?.mobileNumber}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-lg-12 text-end">
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-outline-info list-button-container"
+                                (click)="search()"><span class="list-text-alaign-center">Submit</span></button>
+                            <button type="button" class="btn btn-outline-secondary list-button-container"
+                                (click)="onclear()"><span class="list-text-alaign-center">Clear</span></button>
+
+                        </div>
+                    </div>
+                </div>
+            </app-card>
+        </form>
+    </div>
+</div>
+
+<div class="outer-container">
+    <div class="button-container">
+        <button class="btn btn-outline-success list-button-container" [routerLink]="['/container/driver-payment/add']">
+            <span class="list-text-alaign-center">Add</span>
+        </button>
+        <!-- <button class="btn btn-outline-secondary list-button-container" (click)="onEdit()" [disabled]="!editEnable">
+            <span class="list-text-alaign-center">Edit</span>
+        </button> -->
+        <button class="btn btn-outline-warning list-button-container" (click)="onView()" [disabled]="!viewEnable">
+            <span class="list-text-alaign-center">View</span>
+        </button>
+    </div>
+</div>
+
+
+<!-- <app-card [hidHeader]="true" blockClass="table-border-style" class="list-panel">
+    <div class="table-responsive text-center">
+        <div class="example-table-container">
+            <table mat-table [dataSource]="dataSource" class="table-design">
+                <ng-container matColumnDef="serialNo">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> S.No </th>
+                    <td mat-cell *matCellDef="let element; let i = index" class="text-center"> {{ i + 1 }} </td>
+                </ng-container>
+                <ng-container matColumnDef="paymentDate">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Payment Date </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element?.paymentDate | date:
+                        'dd-MM-yyyy hh-mm'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="driverName">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Driver Name </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        {{element?.driverName}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="paymentNo">
+                    <th mat-header-cell *matHeaderCellDef class="text-center">Payment No </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element?.paymentNo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="salaryType">
+                    <th mat-header-cell *matHeaderCellDef class="text-center">Salary Type</th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <span class="badge badge-light-danger"
+                            *ngIf="element?.salaryType == 'ADVANCE'">{{element?.salaryType}}</span>
+                        <span class="badge badge-light-primary"
+                            *ngIf="element?.salaryType == 'WAGES'">{{element?.salaryType}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="monthlySalary">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Monthly Salary </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element?.monthlySalary}} </td>
+                </ng-container>
+                <ng-container matColumnDef="driverNamess">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Driver Name </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element?.driverName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="dailyWagesOrAdvance">
+                    <th mat-header-cell *matHeaderCellDef class="text-center">Wages Or Advance</th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element?.dailyWagesOrAdvance}} </td>
+                </ng-container>
+                <ng-container matColumnDef="remarks">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Remark </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element?.remarks}} </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <mat-radio-button (click)="onSelect(element)"></mat-radio-button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <div *ngIf="isLoading" class="table-loader">
+                <mat-spinner diameter="64"></mat-spinner>
+            </div>
+            <mat-paginator [length]="totelCount" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]"
+                (page)="pageEvent($event)">
+            </mat-paginator>
+        </div>
+    </div>
+</app-card> -->
+
+<app-mat-table-configuration [columns]="columns" [actionKeys]="actionKeys" [dataSource]="dataSource"
+    [totalCount]="totelCount" [pageSize]="pageSize" (paginationEvent)="handlePagination($event)"
+    (checkboxAction)="onChecked($event)">
+</app-mat-table-configuration>

@@ -1,0 +1,173 @@
+/* ==========================
+   Table Design & Layout
+   ========================== */
+
+/* General Table Styling */
+.table-design {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+}
+
+/* Table Header Styling */
+th {
+    background: linear-gradient(#d3d3d2, #d3d3d2);
+    color: black;
+    font-weight: bold !important;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: 12px 20px;
+    text-align: center;
+    border: 1px solid #e3eaef;
+    white-space: nowrap;
+    font-family: Arial, sans-serif;
+}
+
+/* Table Cell Styling */
+td {
+    text-align: left;
+    border: 1px solid #e3eaef;
+    padding: 10px 20px !important;
+    white-space: nowrap;
+    background-color: #ffffff !important;
+}
+
+/* Hover Effect for Rows */
+tr:hover td {
+    background-color: #e5c29182 !important;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Fix for Angular Material Table Padding */
+.mat-header-cell,
+.mat-cell {
+    padding: 10px 20px !important;
+}
+
+/* ==========================
+   Scrollable Table Container
+   ========================== */
+.example-table-container {
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+/* ==========================
+   Fix Paginator Alignment
+   ========================== */
+// .paginator-container {
+//     display: flex;
+//     justify-content: center;  /* Keeps paginator centered */
+//     align-items: center;
+//     width: 100%;
+//     margin-top: 10px;
+// }
+.paginator-container {
+    display: flex;
+    justify-content: flex-end;
+    /* Aligns paginator to the right */
+    padding: 10px;
+}
+
+
+/* Prevent Paginator from Shifting */
+mat-paginator {
+    width: auto !important;
+    max-width: 100%;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* ==========================
+   Responsive Table for Small Screens
+   ========================== */
+@media (max-width: 768px) {
+    .table-design {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+/* ==========================
+   Remove Right-Side Scrollbar
+   ========================== */
+html,
+body {
+    overflow-x: hidden;
+}
+
+/* ==========================
+   Button Styling Inside Table
+   ========================== */
+.table-button {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.table-button:hover {
+    background-color: #0056b3;
+}
+
+/* ==========================
+   Remove Shadow Effect Below Table
+   ========================== */
+.mat-elevation-z8 {
+    box-shadow: none !important;
+}
+
+/* ==========================
+   Loader Inside Table
+   ========================== */
+.table-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
+    z-index: 10;
+}
+
+.table-container {
+    position: relative;
+    min-height: 150px;
+}
+
+
+
+
+
+
+/* Different colors for actions */
+button[mat-button] .icon-edit {
+  color: #ff9800; /* Orange for edit */
+}
+
+button[mat-button] .icon-eye {
+  color: #2196f3; /* Blue for view */
+}
+
+button[mat-button] .icon-trash {
+  color: #f44336; /* Red for delete */
+}
+
+button[mat-button] .icon-download {
+  color: #4caf50; /* Green for download */
+}
+

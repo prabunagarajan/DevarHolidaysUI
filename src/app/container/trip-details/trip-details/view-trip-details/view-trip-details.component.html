@@ -148,13 +148,15 @@
               <td class="text-center">
                 <span *ngIf="element?.action == 'SUBMITTED'" class="badge m-r-5 badge-light-primary">
                   {{element?.action}}</span>
+                <span *ngIf="element?.action == 'APPROVED'" class="badge m-r-5 badge-light-success">
+                  {{element?.action}}</span>
                 <span *ngIf="element?.action == 'REQUESTFORCLARIFICATION'" class="badge m-r-5 badge-light-secondary">
                   {{element?.action}}</span>
-                <span *ngIf="element?.action == 'INPROGRESS	
-                  '" class="badge m-r-5 badge-light-success">
+                <span *ngIf="element?.action == 'INPROGRESS'" class="badge m-r-5 badge-light-success">
                   {{element?.action}}</span>
-                <span *ngIf="element?.action == 'FORWARDED	
-                  '" class="badge m-r-5 badge-light-warning">
+                <span *ngIf="element?.action == 'FORWARDED'" class="badge m-r-5 badge-light-warning">
+                  {{element?.action}}</span>
+                <span *ngIf="element?.action == 'UPDATED'" class="badge m-r-5 badge-light-primary">
                   {{element?.action}}</span>
               </td>
               <td>{{ element.comments }}</td>

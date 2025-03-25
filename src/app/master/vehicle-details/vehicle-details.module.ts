@@ -18,9 +18,9 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS, Date
 import { MomentDateTimeAdapter } from 'ng-pick-datetime/date-time/adapter/moment-adapter/moment-date-time-adapter.class';
 
 export const MY_CUSTOM_FORMATS = {
-  fullPickerInput: 'DD/MM/YYYY HH:mm',   
-  parseInput: 'DD/MM/YYYY HH:mm',       
-  datePickerInput: 'DD/MM/YYYY',         
+  fullPickerInput: 'DD-MM-YYYY HH:mm',   
+  parseInput: 'DD-MM-YYYY HH:mm',       
+  datePickerInput: 'DD-MM-YYYY',         
   timePickerInput: 'HH:mm',              
   monthYearLabel: 'MMM YYYY',
   dateA11yLabel: 'LL',
