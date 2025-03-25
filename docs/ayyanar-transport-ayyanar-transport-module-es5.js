@@ -19,7 +19,7 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [
     {
         path: 'trip-detail-at',
-        loadChildren: function () { return Promise.all(/*! import() | trip-details-at-trip-details-at-module */[__webpack_require__.e("default~driver-payment-driver-payment-module~payout-payout-module~trip-details-at-trip-details-at-mo~7b4323c2"), __webpack_require__.e("default~driver-payment-driver-payment-module~trip-details-at-trip-details-at-module~trip-details-tri~5eb5727e"), __webpack_require__.e("trip-details-at-trip-details-at-module")]).then(__webpack_require__.bind(null, /*! ./trip-details-at/trip-details-at.module */ "./src/app/ayyanar-transport/trip-details-at/trip-details-at.module.ts")).then(function (module) { return module.TripDetailsAtModule; }); }
+        loadChildren: function () { return Promise.all(/*! import() | trip-details-at-trip-details-at-module */[__webpack_require__.e("default~driver-details-driver-details-module~driver-payment-driver-payment-module~payout-payout-modu~4f5b7abd"), __webpack_require__.e("default~driver-payment-driver-payment-module~payout-payout-module~trip-details-at-trip-details-at-mo~7b4323c2"), __webpack_require__.e("default~driver-payment-driver-payment-module~trip-details-at-trip-details-at-module~trip-details-tri~5eb5727e"), __webpack_require__.e("common"), __webpack_require__.e("trip-details-at-trip-details-at-module")]).then(__webpack_require__.bind(null, /*! ./trip-details-at/trip-details-at.module */ "./src/app/ayyanar-transport/trip-details-at/trip-details-at.module.ts")).then(function (module) { return module.TripDetailsAtModule; }); }
     },
 ];
 var AyyanarTransportRoutingModule = /** @class */ (function () {

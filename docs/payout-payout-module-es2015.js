@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n    <div class=\"col-xl-12\">\n        <form [formGroup]=\"paymentPendingFormSearchDetails\" autocomplete=\"off\">\n            <!-- Search Panel -->\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\n                <h4>Search</h4>\n                <div class=\"row\">\n                    <!-- Driver Name -->\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverName\">Driver Name</label>\n                            <input type=\"text\" id=\"driverName\" formControlName=\"driverName\" class=\"form-control\"\n                                placeholder=\"Enter Driver Name\" />\n                        </div>\n                    </div> -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Driver Name<span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-select\" formControlName=\"driverName\"\n                                placeholder=\"Enter Driver Name\">\n                                <option value=\"\" selected disabled>Select Driver Name</option>\n                                <option *ngFor=\"let driverListElemnt of driverList\" value=\"{{driverListElemnt?.mobileNumber}}\">\n                                    {{driverListElemnt?.name}}</option>\n                            </select>\n                        </div>\n                    </div>\n                    <!-- Application Number -->\n\n                    \n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"applicationNumber\">Application Number</label>\n                            <input type=\"text\" id=\"applicationNumber\" formControlName=\"applicationNumber\" class=\"form-control\"\n                                placeholder=\"Enter Application Number\" />\n                        </div>\n                    </div>\n\n                    <!-- Transaction Name -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"transactionName\">Transaction Name</label>\n                            <select id=\"transactionName\" formControlName=\"transactionName\" class=\"form-select\">\n                                <option value=\"\" disabled selected>Select Transaction Name</option>\n                                <option value=\"CREDIT\">CREDIT</option>\n                                <option value=\"DEBIT\">DEBIT</option>\n                            </select>\n                        </div>\n                    </div>\n\n\n\n                </div>\n\n                <!-- Submit and Cancel buttons -->\n                <div class=\"row mt-3\">\n                    <div class=\"col-lg-12 text-end\">\n                        <div class=\"modal-footer\">\n                            <button type=\"submit\" class=\"btn btn-outline-info list-button-container\"\n                                (click)=\"search()\"><span class=\"list-text-alaign-center\">Submit</span></button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary list-button-container\"\n                                (click)=\"onclear()\"><span class=\"list-text-alaign-center\">Clear</span></button>\n\n                        </div>\n                    </div>\n                </div>\n            </app-card>\n        </form>\n    </div>\n</div>\n\n\n\n\n<div class=\"outer-container\">\n    <div class=\"button-container\">\n        <!-- <button class=\"btn btn-outline-success list-button-container\" [routerLink]=\"['/container/trip-detail/add']\">\n            <span class=\"list-text-alaign-center\">Add</span>\n        </button> -->\n        <!-- <button (click)=\"onclear()\">\n            <span>Clear</span>\n        </button> -->\n    </div>\n</div>\n<app-card [hidHeader]=\"true\" blockClass=\"table-border-style\" class=\"list-panel\">\n    <div class=\"table-responsive text-center list-panel\">\n        <div class=\"example-table-container\">\n            <table mat-table [dataSource]=\"dataSource\" class=\"table-design\">\n                <!-- Serial No Column -->\n                <ng-container matColumnDef=\"serialNo\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> S.No </th>\n                    <td mat-cell *matCellDef=\"let element; let i = index\" class=\"text-center\"> {{ i + 1 }} </td>\n                </ng-container>\n\n\n                <!-- TripNo Column -->\n                <ng-container matColumnDef=\"walletId\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">Wallet Id </th>\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.walletId}} </td>\n                </ng-container>\n\n                <ng-container matColumnDef=\"createdDate\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Created Date </th>\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.createdDate | date:\n                        'dd-MM-yyyy'}} </td>\n                </ng-container>\n\n                <ng-container matColumnDef=\"applicationNumber\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Application Number </th>\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.applicationNumber}} </td>\n                </ng-container>\n\n                <ng-container matColumnDef=\"transactionName\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">Transaction Name</th>\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\n                        <span class=\"badge m-r-5 badge-light-success\"\n                            *ngIf=\"element?.transactionName == 'CREDIT'\">{{element?.transactionName}}</span>\n                        <span class=\"badge m-r-5 badge-light-info\"\n                            *ngIf=\"element?.transactionName == 'DEBIT'\">{{element?.transactionName}}</span>\n                    </td>\n                </ng-container>\n\n                <!-- <ng-container matColumnDef=\"action\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Action </th>\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\n                        <mat-radio-button (click)=\"onSelect(element)\"></mat-radio-button>\n                    </td>\n                </ng-container> -->\n\n\n                <!-- Header and Row Definitions -->\n                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n            </table>\n            <!-- Table Loader (Centered) -->\n            <div *ngIf=\"isLoading\" class=\"table-loader\">\n                <mat-spinner diameter=\"64\"></mat-spinner>\n            </div>\n            <mat-paginator [length]=\"totelCount\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"[10, 25, 50, 100]\"\n                (page)=\"pageEvent($event)\">\n            </mat-paginator>\n        </div>\n    </div>\n</app-card>\n<div class=\"row\">\n    <div class=\"col-xl-4 mt-2\">\n        <div class=\"dropdown\">\n            <button class=\"btn btn-outline-primary dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\"\n                aria-expanded=\"false\">\n                Download\n            </button>\n            <ul class=\"dropdown-menu\">\n                <li><a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"exportToExcel()\">Excel</a></li>\n                <li><a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"generatePDF()\">PDF</a></li>\n            </ul>\n        </div>\n    </div>\n</div>"
+module.exports = "<div class=\"row\">\r\n    <div class=\"col-xl-12\">\r\n        <form [formGroup]=\"paymentPendingFormSearchDetails\" autocomplete=\"off\">\r\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\r\n                <h4>Search</h4>\r\n                <div class=\"row\">\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Driver Name<span class=\"text-danger\">*</span></label>\r\n                            <select type=\"text\" class=\"form-select\" formControlName=\"driverName\"\r\n                                placeholder=\"Enter Driver Name\">\r\n                                <option value=\"\" selected disabled>Select Driver Name</option>\r\n                                <option *ngFor=\"let driverListElemnt of driverList\"\r\n                                    value=\"{{driverListElemnt?.mobileNumber}}\">\r\n                                    {{driverListElemnt?.name}}</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"applicationNumber\">Application Number</label>\r\n                            <input type=\"text\" id=\"applicationNumber\" formControlName=\"applicationNumber\"\r\n                                class=\"form-control\" placeholder=\"Enter Application Number\" />\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"transactionName\">Transaction Name</label>\r\n                            <select id=\"transactionName\" formControlName=\"transactionName\" class=\"form-select\">\r\n                                <option value=\"\" disabled selected>Select Transaction Name</option>\r\n                                <option value=\"CREDIT\">CREDIT</option>\r\n                                <option value=\"DEBIT\">DEBIT</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n\r\n\r\n\r\n                </div>\r\n                <div class=\"row mt-3\">\r\n                    <div class=\"col-lg-12 text-end\">\r\n                        <div class=\"modal-footer\">\r\n                            <button type=\"submit\" class=\"btn btn-outline-info list-button-container\"\r\n                                (click)=\"search()\"><span class=\"list-text-alaign-center\">Submit</span></button>\r\n                            <button type=\"button\" class=\"btn btn-outline-secondary list-button-container\"\r\n                                (click)=\"onclear()\"><span class=\"list-text-alaign-center\">Clear</span></button>\r\n\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </app-card>\r\n        </form>\r\n    </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n<div class=\"outer-container\">\r\n    <div class=\"button-container\">\r\n    </div>\r\n</div>\r\n<!-- <app-card [hidHeader]=\"true\" blockClass=\"table-border-style\" class=\"list-panel\">\r\n    <div class=\"table-responsive text-center list-panel\">\r\n        <div class=\"example-table-container\">\r\n            <table mat-table [dataSource]=\"dataSource\" class=\"table-design\">\r\n                <ng-container matColumnDef=\"serialNo\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> S.No </th>\r\n                    <td mat-cell *matCellDef=\"let element; let i = index\" class=\"text-center\"> {{ i + 1 }} </td>\r\n                </ng-container>\r\n\r\n\r\n                <ng-container matColumnDef=\"walletId\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">Wallet Id </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.walletId}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"createdDate\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Created Date </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.createdDate | date:\r\n                        'dd-MM-yyyy'}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"applicationNumber\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Application Number </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.applicationNumber}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"amount\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">Amount</th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\">{{element?.amount}}</td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"transactionName\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">Transaction Name</th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\r\n                        <span class=\"badge m-r-5 badge-light-success\"\r\n                            *ngIf=\"element?.transactionName == 'CREDIT'\">{{element?.transactionName}}</span>\r\n                        <span class=\"badge m-r-5 badge-light-info\"\r\n                            *ngIf=\"element?.transactionName == 'DEBIT'\">{{element?.transactionName}}</span>\r\n                    </td>\r\n                </ng-container>\r\n\r\n                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n            </table>\r\n            <div *ngIf=\"isLoading\" class=\"table-loader\">\r\n                <mat-spinner diameter=\"64\"></mat-spinner>\r\n            </div>\r\n            <mat-paginator [length]=\"totelCount\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"[10, 25, 50, 100]\"\r\n                (page)=\"pageEvent($event)\">\r\n            </mat-paginator>\r\n        </div>\r\n    </div>\r\n</app-card> -->\r\n\r\n<app-mat-table-configuration [columns]=\"columns\" [actionKeys]=\"actionKeys\" [dataSource]=\"dataSource\"\r\n    [totalCount]=\"totelCount\" [pageSize]=\"pageSize\" (paginationEvent)=\"handlePagination($event)\"\r\n    (checkboxAction)=\"onChecked($event)\">\r\n</app-mat-table-configuration>\r\n\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-xl-4 mt-2\">\r\n        <div class=\"dropdown\">\r\n            <button class=\"btn btn-outline-primary dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\"\r\n                aria-expanded=\"false\">\r\n                Download\r\n            </button>\r\n            <ul class=\"dropdown-menu\">\r\n                <li><a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"exportToExcel()\">Excel</a></li>\r\n                <li><a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"generatePDF()\">PDF</a></li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -18,7 +18,7 @@ module.exports = "<div class=\"row\">\n    <div class=\"col-xl-12\">\n        <f
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n    <div class=\"col-xl-12\">\n        <form [formGroup]=\"payoutBalanceFormSearchDetails\" autocomplete=\"off\">\n            <!-- Search Panel -->\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\n                <h4>Search</h4>\n                <div class=\"row\">\n                    <!-- Driver Name -->\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverName\">Driver Name</label>\n                            <input type=\"text\" id=\"driverName\" formControlName=\"driverName\" class=\"form-control\"\n                                placeholder=\"Enter Driver Name\" />\n                        </div>\n                    </div> -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Driver Name<span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-select\" formControlName=\"driverName\"\n                                placeholder=\"Enter Driver Name\">\n                                <option value=\"\" selected disabled>Select Driver Name</option>\n                                <option *ngFor=\"let driverListElemnt of driverList\" value=\"{{driverListElemnt?.mobileNumber}}\">\n                                    {{driverListElemnt?.name}}</option>\n                            </select>\n                        </div>\n                    </div>\n            \n                </div>\n\n                <!-- Submit and Cancel buttons -->\n                <div class=\"row mt-3\">\n                    <div class=\"col-lg-12 text-end\">\n                        <div class=\"modal-footer\">\n                            <button type=\"submit\" class=\"btn btn-outline-info list-button-container\"\n                                (click)=\"search()\"><span class=\"list-text-alaign-center\">Submit</span></button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary list-button-container\"\n                                (click)=\"onclear()\"><span class=\"list-text-alaign-center\">Clear</span></button>\n\n                        </div>\n                    </div>\n                </div>\n            </app-card>\n        </form>\n    </div>\n</div>\n\n\n\n\n<div class=\"outer-container\">\n    <div class=\"button-container\">\n        <!-- <button class=\"btn btn-outline-success list-button-container\" [routerLink]=\"['/container/trip-detail/add']\">\n            <span class=\"list-text-alaign-center\">Add</span>\n        </button> -->\n        <button class=\"btn btn-outline-secondary list-button-container\" (click)=\"onEdit()\" [disabled]=\"!editEnable\">\n            <span class=\"list-text-alaign-center\">Edit</span>\n        </button>\n        <button class=\"btn btn-outline-warning list-button-container\" (click)=\"onView()\" [disabled]=\"!viewEnable\">\n            <span class=\"list-text-alaign-center\">View</span>\n        </button>\n        <!-- <button (click)=\"onclear()\">\n            <span>Clear</span>\n        </button> -->\n    </div>\n</div>\n<app-card [hidHeader]=\"true\" blockClass=\"table-border-style\" class=\"list-panel\">\n    <div class=\"table-responsive text-center list-panel\">\n        <div class=\"example-table-container\">\n            <table mat-table [dataSource]=\"dataSource\" class=\"table-design\">\n                <!-- Serial No Column -->\n                <ng-container matColumnDef=\"serialNo\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> S.No </th>\n                    <td mat-cell *matCellDef=\"let element; let i = index\" class=\"text-center\"> {{ i + 1 }} </td>\n                </ng-container>\n\n                <ng-container matColumnDef=\"date\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">Date </th>\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.modifiedDate | date:\n                        'dd-MM-yyyy'}} </td>\n                </ng-container>\n\n                <!-- TripNo Column -->\n                <ng-container matColumnDef=\"walletId\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">Wallet Id </th>\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.walletId}} </td>\n                </ng-container>\n\n               \n\n                <ng-container matColumnDef=\"amount\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Amount </th>\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.amount}} </td>\n                </ng-container>\n\n                <ng-container matColumnDef=\"action\">\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Action </th>\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\n                        <mat-radio-button (click)=\"onSelect(element)\"></mat-radio-button>\n                    </td>\n                </ng-container>\n\n\n                <!-- Header and Row Definitions -->\n                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n            </table>\n            <!-- Table Loader (Centered) -->\n            <div *ngIf=\"isLoading\" class=\"table-loader\">\n                <mat-spinner diameter=\"64\"></mat-spinner>\n            </div>\n            <mat-paginator [length]=\"totelCount\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"[10, 25, 50, 100]\"\n                (page)=\"pageEvent($event)\">\n            </mat-paginator>\n        </div>\n    </div>\n</app-card>\n<div class=\"row\">\n    <div class=\"col-xl-4 mt-2\">\n        <div class=\"dropdown\">\n            <button class=\"btn btn-outline-primary dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\"\n                aria-expanded=\"false\">\n                Download\n            </button>\n            <ul class=\"dropdown-menu\">\n                <li><a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"exportToExcel()\">Excel</a></li>\n                <li><a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"generatePDF()\">PDF</a></li>\n            </ul>\n        </div>\n    </div>\n</div>"
+module.exports = "<div class=\"row\">\r\n    <div class=\"col-xl-12\">\r\n        <form [formGroup]=\"payoutBalanceFormSearchDetails\" autocomplete=\"off\">\r\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\r\n                <h4>Search</h4>\r\n                <div class=\"row\">\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Driver Name<span class=\"text-danger\">*</span></label>\r\n                            <select type=\"text\" class=\"form-select\" formControlName=\"driverName\"\r\n                                placeholder=\"Enter Driver Name\">\r\n                                <option value=\"\" selected disabled>Select Driver Name</option>\r\n                                <option *ngFor=\"let driverListElemnt of driverList\"\r\n                                    value=\"{{driverListElemnt?.mobileNumber}}\">\r\n                                    {{driverListElemnt?.name}}</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n\r\n                </div>\r\n\r\n                <div class=\"row mt-3\">\r\n                    <div class=\"col-lg-12 text-end\">\r\n                        <div class=\"modal-footer\">\r\n                            <button type=\"submit\" class=\"btn btn-outline-info list-button-container\"\r\n                                (click)=\"search()\"><span class=\"list-text-alaign-center\">Submit</span></button>\r\n                            <button type=\"button\" class=\"btn btn-outline-secondary list-button-container\"\r\n                                (click)=\"onclear()\"><span class=\"list-text-alaign-center\">Clear</span></button>\r\n\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </app-card>\r\n        </form>\r\n    </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n<div class=\"outer-container\">\r\n    <div class=\"button-container\">\r\n        <button class=\"btn btn-outline-secondary list-button-container\" (click)=\"onEdit()\" [disabled]=\"!editEnable\">\r\n            <span class=\"list-text-alaign-center\">Edit</span>\r\n        </button>\r\n        <button class=\"btn btn-outline-warning list-button-container\" (click)=\"onView()\" [disabled]=\"!viewEnable\">\r\n            <span class=\"list-text-alaign-center\">View</span>\r\n        </button>\r\n    </div>\r\n</div>\r\n<!-- <app-card [hidHeader]=\"true\" blockClass=\"table-border-style\" class=\"list-panel\">\r\n    <div class=\"table-responsive text-center list-panel\">\r\n        <div class=\"example-table-container\">\r\n            <table mat-table [dataSource]=\"dataSource\" class=\"table-design\">\r\n                <ng-container matColumnDef=\"serialNo\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> S.No </th>\r\n                    <td mat-cell *matCellDef=\"let element; let i = index\" class=\"text-center\"> {{ i + 1 }} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"date\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">Date </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.modifiedDate | date:\r\n                        'dd-MM-yyyy'}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"name\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">Name </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element?.name}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"walletId\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">Wallet Id </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.walletId}} </td>\r\n                </ng-container>\r\n\r\n\r\n\r\n                <ng-container matColumnDef=\"amount\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Amount </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.amount}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"action\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Action </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\r\n                        <mat-radio-button (click)=\"onSelect(element)\"></mat-radio-button>\r\n                    </td>\r\n                </ng-container>\r\n\r\n\r\n                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n            </table>\r\n            <div *ngIf=\"isLoading\" class=\"table-loader\">\r\n                <mat-spinner diameter=\"64\"></mat-spinner>\r\n            </div>\r\n            <mat-paginator [length]=\"totelCount\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"[10, 25, 50, 100]\"\r\n                (page)=\"pageEvent($event)\">\r\n            </mat-paginator>\r\n        </div>\r\n    </div>\r\n</app-card> -->\r\n\r\n<app-mat-table-configuration [columns]=\"columns\" [actionKeys]=\"actionKeys\" [dataSource]=\"dataSource\"\r\n    [totalCount]=\"totelCount\" [pageSize]=\"pageSize\" (paginationEvent)=\"handlePagination($event)\"\r\n    (checkboxAction)=\"onChecked($event)\">\r\n</app-mat-table-configuration>\r\n\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-xl-4 mt-2\">\r\n        <div class=\"dropdown\">\r\n            <button class=\"btn btn-outline-primary dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\"\r\n                aria-expanded=\"false\">\r\n                Download\r\n            </button>\r\n            <ul class=\"dropdown-menu\">\r\n                <li><a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"exportToExcel()\">Excel</a></li>\r\n                <li><a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"generatePDF()\">PDF</a></li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -49,18 +49,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_paginator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/paginator */ "./node_modules/@angular/material/esm2015/paginator.js");
 /* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm2015/table.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! jspdf */ "./node_modules/jspdf/dist/jspdf.es.min.js");
-/* harmony import */ var jspdf_autotable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! jspdf-autotable */ "./node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js");
-/* harmony import */ var jspdf_autotable__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(jspdf_autotable__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var ngx_csv__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ngx-csv */ "./node_modules/ngx-csv/ngx-csv.js");
-/* harmony import */ var ngx_csv__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(ngx_csv__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
-/* harmony import */ var src_app_service_common_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/service/common.service */ "./src/app/service/common.service.ts");
-
-
-
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+/* harmony import */ var src_app_config_master_list_columns__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/config/master-list-columns */ "./src/app/config/master-list-columns.ts");
+/* harmony import */ var src_app_service_common_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/service/common.service */ "./src/app/service/common.service.ts");
 
 
 
@@ -77,14 +68,24 @@ let payoutHistoryComponent = class payoutHistoryComponent {
         this.router = router;
         this.toastrMsg = toastrMsg;
         this.route = route;
-        this.displayedColumns = ['serialNo', 'walletId', 'createdDate', 'applicationNumber', 'transactionName',];
-        this.totelCount = 0;
+        this.columns = src_app_config_master_list_columns__WEBPACK_IMPORTED_MODULE_7__["MasterListColumns"].payOutBalanceHistryListColumns;
+        this.actionKeys = ['checkbox']; // ['edit', 'delete'] for buttons
+        this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](); // Example data source
+        this.totalCount = 10;
         this.pageSize = 10;
+        this.displayedColumns = ['serialNo', 'walletId', 'createdDate', 'applicationNumber', 'amount', 'transactionName',];
+        this.totelCount = 0;
     }
     ngOnInit() {
         this.route.paramMap.subscribe(params => {
             this.walletId = params.get('id');
             console.log("Payment History ID:", this.walletId);
+        });
+        this.paymentPendingFormSearchDetails = this.formBuilder.group({
+            driverName: [''],
+            createdDate: [''],
+            applicationNumber: [''],
+            transactionName: ['']
         });
         if (this.walletId) {
             this.getBalanceHistoryParticularSearch();
@@ -92,12 +93,6 @@ let payoutHistoryComponent = class payoutHistoryComponent {
         else {
             this.getAll();
         }
-        this.paymentPendingFormSearchDetails = this.formBuilder.group({
-            driverName: [''],
-            createdDate: [''],
-            applicationNumber: [''],
-            transactionName: ['']
-        });
         this.commonService.activeDriver().subscribe(driverResponse => {
             if (driverResponse.status == 's') {
                 this.driverList = driverResponse.data;
@@ -130,7 +125,6 @@ let payoutHistoryComponent = class payoutHistoryComponent {
     }
     getAll(pageIndex = 0, pageSize = this.pageSize) {
         const paymentPendingFormSearchDetails = this.paymentPendingFormSearchDetails.value;
-        console.log(paymentPendingFormSearchDetails);
         const request = {
             filters: {
                 walletId: paymentPendingFormSearchDetails.driverName ? paymentPendingFormSearchDetails.driverName : '',
@@ -144,7 +138,10 @@ let payoutHistoryComponent = class payoutHistoryComponent {
         };
         this.commonService.payoutBalanceHistory(request).subscribe(response => {
             if (response.status == 's' && response.data) {
-                this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](response.data.contents);
+                const serialNumber = pageIndex * pageSize; // Calculate start index dynamically
+                const dataSource = response.data.contents.map((v, i) => (Object.assign({}, v, { sNo: serialNumber + i + 1 // Adjust serial number
+                 })));
+                this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](dataSource);
                 this.transactionList = response.data.contents;
                 this.totelCount = response.data.totalElements;
             }
@@ -187,14 +184,15 @@ let payoutHistoryComponent = class payoutHistoryComponent {
         this.pageSize = 10;
         this.getAll();
     }
-    pageEvent(event) {
-        const pageIndex = event.pageIndex;
+    handlePagination(event) {
+        const pageIndex = event.currentPage;
         const pageSize = event.pageSize;
         this.getAll(pageIndex, pageSize);
     }
-    onSelect(obj) {
-        this.selectObj = obj ? obj : undefined;
-        if (obj) {
+    onChecked(element) {
+        const selectObj = this.dataSource.data.find((findElement) => findElement.id == element.id);
+        if (selectObj) {
+            this.selectObj = selectObj;
             this.viewEnable = true;
             this.editEnable = true;
         }
@@ -234,67 +232,12 @@ let payoutHistoryComponent = class payoutHistoryComponent {
                 return { 'color': 'gray' };
         }
     }
-    generatePDF() {
-        console.log('generatePDF :');
-        const doc = new jspdf__WEBPACK_IMPORTED_MODULE_6__["default"]();
-        // Get page dimensions
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const pageHeight = doc.internal.pageSize.getHeight();
-        // Add Watermark - "DC Holidays"
-        doc.setTextColor(200, 200, 200); // Light gray color
-        doc.setFontSize(40); // Large font size
-        doc.setFont('helvetica', 'bold'); // Bold font
-        // Calculate center position
-        const textWidth = doc.getTextWidth('DC Holidays');
-        const x = (pageWidth - textWidth) / 2;
-        const y = pageHeight / 2;
-        // Add rotated watermark text
-        doc.text('DC Holidays', x, y, { angle: 45 });
-        // Reset text color to black for actual content
-        doc.setTextColor(0);
-        // Title
-        doc.setFontSize(14);
-        doc.text('Pending Details', 14, 10);
-        // Define table columns with Serial Number
-        const columns = ['S.No', 'WalletId', 'Created Date', 'Application Number', 'Transaction Name'];
-        // Convert list data to an array format with serial numbers
-        const rows = this.dataSource.data.map((item, index) => [
-            index + 1,
-            item.walletId,
-            moment__WEBPACK_IMPORTED_MODULE_8__(item.createdDate).format('DD-MM-YYYY'),
-            String(item.applicationNumber),
-            String(item.transactionName),
-        ]);
-        // Add table to the PDF
-        Object(jspdf_autotable__WEBPACK_IMPORTED_MODULE_7__["autoTable"])(doc, {
-            head: [columns],
-            body: rows,
-            startY: 20
-        });
-        // Save the PDF
-        doc.save('PaymentDetails.pdf');
-    }
-    exportToExcel() {
-        const rows = this.dataSource.data.map((item, index) => [
-            index + 1,
-            item.walletId,
-            moment__WEBPACK_IMPORTED_MODULE_8__(item.createdDate).format('DD-MM-YYYY'),
-            String(item.applicationNumber),
-            String(item.transactionName),
-        ]);
-        const options = {
-            headers: [
-                'S.No', 'Wallet Id', 'Created Date', 'Application Number', 'Transaction Name'
-            ]
-        };
-        new ngx_csv__WEBPACK_IMPORTED_MODULE_9__["ngxCsv"](rows, 'Payment_Details', options);
-    }
 };
 payoutHistoryComponent.ctorParameters = () => [
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] },
-    { type: src_app_service_common_service__WEBPACK_IMPORTED_MODULE_11__["CommonService"] },
+    { type: src_app_service_common_service__WEBPACK_IMPORTED_MODULE_8__["CommonService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
-    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_10__["ToastrService"] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -308,9 +251,9 @@ payoutHistoryComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [__webpack_require__(/*! ./payout-history.component.scss */ "./src/app/container/payout/payout-balance-history/payout-history.component.scss")]
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
-        src_app_service_common_service__WEBPACK_IMPORTED_MODULE_11__["CommonService"],
+        src_app_service_common_service__WEBPACK_IMPORTED_MODULE_8__["CommonService"],
         _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
-        ngx_toastr__WEBPACK_IMPORTED_MODULE_10__["ToastrService"],
+        ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"],
         _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"]])
 ], payoutHistoryComponent);
 
@@ -345,18 +288,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_paginator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/paginator */ "./node_modules/@angular/material/esm2015/paginator.js");
 /* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm2015/table.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! jspdf */ "./node_modules/jspdf/dist/jspdf.es.min.js");
-/* harmony import */ var jspdf_autotable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! jspdf-autotable */ "./node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js");
-/* harmony import */ var jspdf_autotable__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(jspdf_autotable__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var ngx_csv__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ngx-csv */ "./node_modules/ngx-csv/ngx-csv.js");
-/* harmony import */ var ngx_csv__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(ngx_csv__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
-/* harmony import */ var src_app_service_common_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/service/common.service */ "./src/app/service/common.service.ts");
-
-
-
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+/* harmony import */ var src_app_config_master_list_columns__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/config/master-list-columns */ "./src/app/config/master-list-columns.ts");
+/* harmony import */ var src_app_service_common_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/service/common.service */ "./src/app/service/common.service.ts");
 
 
 
@@ -372,9 +306,13 @@ let PayoutBalanceComponent = class PayoutBalanceComponent {
         this.commonService = commonService;
         this.router = router;
         this.toastrMsg = toastrMsg;
-        this.displayedColumns = ['serialNo', 'date', 'walletId', 'amount', 'action'];
-        this.totelCount = 0;
+        this.columns = src_app_config_master_list_columns__WEBPACK_IMPORTED_MODULE_7__["MasterListColumns"].payOutBalanceListColumns;
+        this.actionKeys = ['checkbox']; // ['edit', 'delete'] for buttons
+        this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](); // Example data source
+        this.totalCount = 10;
         this.pageSize = 10;
+        this.displayedColumns = ['serialNo', 'date', 'name', 'walletId', 'amount', 'action'];
+        this.totelCount = 0;
     }
     ngOnInit() {
         this.payoutBalanceFormSearchDetails = this.formBuilder.group({
@@ -407,9 +345,12 @@ let PayoutBalanceComponent = class PayoutBalanceComponent {
         };
         this.commonService.payoutBalance().subscribe(response => {
             if (response.status == 's' && response.data) {
-                this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](response.data);
+                const serialNumber = pageIndex * pageSize; // Calculate start index dynamically
+                const dataSource = response.data.map((v, i) => (Object.assign({}, v, { sNo: serialNumber + i + 1 // Adjust serial number
+                 })));
+                this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](dataSource);
                 this.transactionList = response.data.contents;
-                this.totelCount = response.data.totalElements;
+                this.totelCount = response.data.length;
             }
             else {
                 this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"]();
@@ -417,28 +358,7 @@ let PayoutBalanceComponent = class PayoutBalanceComponent {
         });
     }
     search() {
-        const paymentPendingFormSearchDetails = this.payoutBalanceFormSearchDetails.value;
-        console.log(paymentPendingFormSearchDetails);
-        const request = {
-            filters: {
-                walletId: paymentPendingFormSearchDetails.driverName ? paymentPendingFormSearchDetails.driverName : '',
-                applicationNumber: paymentPendingFormSearchDetails.applicationNumber ? paymentPendingFormSearchDetails.applicationNumber : '',
-                transactionName: paymentPendingFormSearchDetails.transactionName ? paymentPendingFormSearchDetails.transactionName : '',
-            },
-            paginationSize: 10,
-            sortField: "modifiedDate",
-            pageNo: 0,
-            sortOrder: "DESC"
-        };
-        this.commonService.payoutBalance().subscribe(response => {
-            if (response.status === 's' && response.data) {
-                this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](response.data);
-                this.totelCount = response.data.totalElements;
-            }
-            else {
-                this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"]();
-            }
-        });
+        this.getAll();
     }
     onclear() {
         this.payoutBalanceFormSearchDetails.patchValue({
@@ -450,14 +370,16 @@ let PayoutBalanceComponent = class PayoutBalanceComponent {
         this.pageSize = 10;
         this.getAll();
     }
-    pageEvent(event) {
-        const pageIndex = event.pageIndex;
+    handlePagination(event) {
+        const pageIndex = event.currentPage;
         const pageSize = event.pageSize;
         this.getAll(pageIndex, pageSize);
     }
-    onSelect(obj) {
-        this.selectObj = obj ? obj : undefined;
-        if (obj) {
+    onChecked(element) {
+        const selectObj = this.dataSource.data.find((findElement) => findElement.id == element.id);
+        if (selectObj) {
+            console.log(selectObj);
+            this.selectObj = selectObj;
             this.viewEnable = true;
             this.editEnable = true;
         }
@@ -497,67 +419,12 @@ let PayoutBalanceComponent = class PayoutBalanceComponent {
                 return { 'color': 'gray' };
         }
     }
-    generatePDF() {
-        console.log('generatePDF :');
-        const doc = new jspdf__WEBPACK_IMPORTED_MODULE_6__["default"]();
-        // Get page dimensions
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const pageHeight = doc.internal.pageSize.getHeight();
-        // Add Watermark - "DC Holidays"
-        doc.setTextColor(200, 200, 200); // Light gray color
-        doc.setFontSize(40); // Large font size
-        doc.setFont('helvetica', 'bold'); // Bold font
-        // Calculate center position
-        const textWidth = doc.getTextWidth('DC Holidays');
-        const x = (pageWidth - textWidth) / 2;
-        const y = pageHeight / 2;
-        // Add rotated watermark text
-        doc.text('DC Holidays', x, y, { angle: 45 });
-        // Reset text color to black for actual content
-        doc.setTextColor(0);
-        // Title
-        doc.setFontSize(14);
-        doc.text('Pending Details', 14, 10);
-        // Define table columns with Serial Number
-        const columns = ['S.No', 'WalletId', 'Created Date', 'Application Number', 'Transaction Name'];
-        // Convert list data to an array format with serial numbers
-        const rows = this.dataSource.data.map((item, index) => [
-            index + 1,
-            item.walletId,
-            moment__WEBPACK_IMPORTED_MODULE_8__(item.createdDate).format('DD-MM-YYYY'),
-            String(item.applicationNumber),
-            String(item.transactionName),
-        ]);
-        // Add table to the PDF
-        Object(jspdf_autotable__WEBPACK_IMPORTED_MODULE_7__["autoTable"])(doc, {
-            head: [columns],
-            body: rows,
-            startY: 20
-        });
-        // Save the PDF
-        doc.save('PaymentDetails.pdf');
-    }
-    exportToExcel() {
-        const rows = this.dataSource.data.map((item, index) => [
-            index + 1,
-            item.walletId,
-            moment__WEBPACK_IMPORTED_MODULE_8__(item.createdDate).format('DD-MM-YYYY'),
-            String(item.applicationNumber),
-            String(item.transactionName),
-        ]);
-        const options = {
-            headers: [
-                'S.No', 'Wallet Id', 'Created Date', 'Application Number', 'Transaction Name'
-            ]
-        };
-        new ngx_csv__WEBPACK_IMPORTED_MODULE_9__["ngxCsv"](rows, 'Payment_Details', options);
-    }
 };
 PayoutBalanceComponent.ctorParameters = () => [
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] },
-    { type: src_app_service_common_service__WEBPACK_IMPORTED_MODULE_11__["CommonService"] },
+    { type: src_app_service_common_service__WEBPACK_IMPORTED_MODULE_8__["CommonService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
-    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_10__["ToastrService"] }
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_angular_material_paginator__WEBPACK_IMPORTED_MODULE_3__["MatPaginator"], { static: false }),
@@ -570,9 +437,9 @@ PayoutBalanceComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [__webpack_require__(/*! ./payout-balance.component.scss */ "./src/app/container/payout/payout-balance/payout-balance.component.scss")]
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
-        src_app_service_common_service__WEBPACK_IMPORTED_MODULE_11__["CommonService"],
+        src_app_service_common_service__WEBPACK_IMPORTED_MODULE_8__["CommonService"],
         _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
-        ngx_toastr__WEBPACK_IMPORTED_MODULE_10__["ToastrService"]])
+        ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"]])
 ], PayoutBalanceComponent);
 
 
