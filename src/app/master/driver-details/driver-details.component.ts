@@ -8,22 +8,25 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { ngxCsv } from 'ngx-csv';
+import { MasterListColumns } from 'src/app/config/master-list-columns';
 @Component({
   selector: 'app-driver-details',
   templateUrl: './driver-details.component.html',
   styleUrls: ['./driver-details.component.scss']
 })
 export class DriverDetailsComponent implements OnInit, AfterViewInit {
-
+  public columns = MasterListColumns.driverDetailListColumns;
+  actionKeys: string[] = ['checkbox']; // ['edit', 'delete'] for buttons
+  dataSource = new MatTableDataSource(); // Example data source
+  totalCount: number = 10;
+  pageSize: number = 10;
   displayedColumns: string[] = ['serialNo', 'name', 'mobileNumber', 'drivingLicenseNumber', 'aadharNumber', 'district', 'status', 'action'];
-  dataSource: MatTableDataSource<any>;
   viewEnable: boolean;
   editEnable: boolean;
   selectObj: any;
   driverFormSearchDetails: FormGroup;
   totelCount = 0;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  public pageSize = 10;
   isLoading: boolean;
 
   constructor(
@@ -70,7 +73,12 @@ export class DriverDetailsComponent implements OnInit, AfterViewInit {
       response => {
         this.isLoading = false;
         if (response.status == 's' && response.data) {
-          this.dataSource = new MatTableDataSource(response.data.contents);
+          const serialNumber = pageIndex * pageSize; // Calculate start index dynamically
+          const dataSource = response.data.contents.map((v, i) => ({
+            ...v,
+            sNo: serialNumber + i + 1 // Adjust serial number
+          }));
+          this.dataSource = new MatTableDataSource(dataSource);
           this.totelCount = response.data.totalElements;
         } else {
           this.dataSource = new MatTableDataSource();
@@ -135,9 +143,9 @@ export class DriverDetailsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onSelect(obj) {
-    this.selectObj = obj ? obj : undefined;
-    if (obj) {
+  onChecked(viewObj) {
+    const selectObj = this.dataSource.data.find((findElement: any) => findElement.id == viewObj.id);
+    if (selectObj) {
       this.viewEnable = true;
       this.editEnable = true;
     }
@@ -167,13 +175,13 @@ export class DriverDetailsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  pageEvent(event) {
-    const pageIndex = event.pageIndex;
+  handlePagination(event) {
+    const pageIndex = event.currentPage;
     const pageSize = event.pageSize
     this.getAll(pageIndex, pageSize);
   }
 
-  generatePDF() {
+  /* generatePDF() {
     console.log('generatePDF :')
     const doc = new jsPDF();
 
@@ -243,5 +251,5 @@ export class DriverDetailsComponent implements OnInit, AfterViewInit {
       ]
     };
     new ngxCsv(rows, 'Driver_Details', options);
-  }
+  } */
 } 

@@ -9,23 +9,20 @@
     </div>
 </div>
 
-<app-card [hidHeader]="true" blockClass="table-border-style" class="list-panel">
+<!-- <app-card [hidHeader]="true" blockClass="table-border-style" class="list-panel">
     <div class="table-responsive text-center">
         <div class="example-table-container">
             <table mat-table [dataSource]="dataSource" class="table-design">
-                <!-- Serial No Column -->
                 <ng-container matColumnDef="serialNo">
                     <th mat-header-cell *matHeaderCellDef class="text-center"> S.No </th>
                     <td mat-cell *matCellDef="let element; let i = index" class="text-center"> {{ i + 1 }} </td>
                 </ng-container>
 
-                <!-- Trip Number -->
                 <ng-container matColumnDef="tripNumber">
                     <th mat-header-cell *matHeaderCellDef class="text-center">Trip Number</th>
                     <td mat-cell *matCellDef="let element" class="text-center"> {{element.tripNumber}} </td>
                 </ng-container>
 
-                <!-- Date Column -->
                 <ng-container matColumnDef="createdDate">
                     <th mat-header-cell *matHeaderCellDef class="text-center"> Date </th>
                     <td mat-cell *matCellDef="let element" class="text-center">
@@ -33,37 +30,37 @@
                     </td>
                 </ng-container>
 
-                <!-- Vehicle Number -->
                 <ng-container matColumnDef="vehicleNumber">
                     <th mat-header-cell *matHeaderCellDef class="text-center"> Vehicle Number </th>
                     <td mat-cell *matCellDef="let element" class="text-center"> {{element.vehicleNumber}} </td>
                 </ng-container>
 
-                <!-- Customer Name -->
                 <ng-container matColumnDef="customerName">
                     <th mat-header-cell *matHeaderCellDef class="text-center">Customer Name</th>
                     <td mat-cell *matCellDef="let element" class="text-center"> {{element.customerName}} </td>
                 </ng-container>
 
-                <!-- Visiting Place -->
                 <ng-container matColumnDef="visitingPlace">
                     <th mat-header-cell *matHeaderCellDef class="text-center"> Visiting Place </th>
                     <td mat-cell *matCellDef="let element" class="text-center"> {{element.visitingPlace}} </td>
                 </ng-container>
 
-                <!-- Driver Name -->
                 <ng-container matColumnDef="driverName">
                     <th mat-header-cell *matHeaderCellDef class="text-center"> Driver Name </th>
                     <td mat-cell *matCellDef="let element" class="text-center"> {{element.driverName}} </td>
                 </ng-container>
 
-                <!-- Total Rent -->
                 <ng-container matColumnDef="totalRent">
                     <th mat-header-cell *matHeaderCellDef class="text-center">Total Rent</th>
                     <td mat-cell *matCellDef="let element" class="text-center"> {{element.totalRent}} </td>
                 </ng-container>
 
-                <!-- Status -->
+
+                <ng-container matColumnDef="pendingAmount">
+                    <th mat-header-cell *matHeaderCellDef class="text-center">Pending Amount</th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.pendingAmount}} </td>
+                </ng-container>
+
                 <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef class="text-center"> Status </th>
                     <td mat-cell *matCellDef="let element" class="text-center">
@@ -78,7 +75,6 @@
                     </td>
                 </ng-container>
 
-                <!-- Action -->
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
                     <td mat-cell *matCellDef="let element" class="text-center">
@@ -86,11 +82,9 @@
                     </td>
                 </ng-container>
 
-                <!-- Header and Row Definitions -->
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-            <!-- Table Loader (Centered) -->
             <div *ngIf="isLoading" class="table-loader">
                 <mat-spinner diameter="64"></mat-spinner>
             </div>
@@ -99,4 +93,10 @@
             </mat-paginator>
         </div>
     </div>
-</app-card>
+</app-card> -->
+
+
+<app-mat-table-configuration [columns]="columns" [actionKeys]="actionKeys" [dataSource]="dataSource"
+    [totalCount]="totelCount" [pageSize]="pageSize" (paginationEvent)="handlePagination($event)"
+    (checkboxAction)="onChecked($event)">
+</app-mat-table-configuration>

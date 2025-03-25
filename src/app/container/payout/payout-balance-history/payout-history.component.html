@@ -1,41 +1,28 @@
 <div class="row">
     <div class="col-xl-12">
         <form [formGroup]="paymentPendingFormSearchDetails" autocomplete="off">
-            <!-- Search Panel -->
             <app-card [hidHeader]="true" class="list-panel add-panel">
                 <h4>Search</h4>
                 <div class="row">
-                    <!-- Driver Name -->
-                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label for="driverName">Driver Name</label>
-                            <input type="text" id="driverName" formControlName="driverName" class="form-control"
-                                placeholder="Enter Driver Name" />
-                        </div>
-                    </div> -->
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Driver Name<span class="text-danger">*</span></label>
                             <select type="text" class="form-select" formControlName="driverName"
                                 placeholder="Enter Driver Name">
                                 <option value="" selected disabled>Select Driver Name</option>
-                                <option *ngFor="let driverListElemnt of driverList" value="{{driverListElemnt?.mobileNumber}}">
+                                <option *ngFor="let driverListElemnt of driverList"
+                                    value="{{driverListElemnt?.mobileNumber}}">
                                     {{driverListElemnt?.name}}</option>
                             </select>
                         </div>
                     </div>
-                    <!-- Application Number -->
-
-                    
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label for="applicationNumber">Application Number</label>
-                            <input type="text" id="applicationNumber" formControlName="applicationNumber" class="form-control"
-                                placeholder="Enter Application Number" />
+                            <input type="text" id="applicationNumber" formControlName="applicationNumber"
+                                class="form-control" placeholder="Enter Application Number" />
                         </div>
                     </div>
-
-                    <!-- Transaction Name -->
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label for="transactionName">Transaction Name</label>
@@ -50,8 +37,6 @@
 
 
                 </div>
-
-                <!-- Submit and Cancel buttons -->
                 <div class="row mt-3">
                     <div class="col-lg-12 text-end">
                         <div class="modal-footer">
@@ -73,26 +58,18 @@
 
 <div class="outer-container">
     <div class="button-container">
-        <!-- <button class="btn btn-outline-success list-button-container" [routerLink]="['/container/trip-detail/add']">
-            <span class="list-text-alaign-center">Add</span>
-        </button> -->
-        <!-- <button (click)="onclear()">
-            <span>Clear</span>
-        </button> -->
     </div>
 </div>
-<app-card [hidHeader]="true" blockClass="table-border-style" class="list-panel">
+<!-- <app-card [hidHeader]="true" blockClass="table-border-style" class="list-panel">
     <div class="table-responsive text-center list-panel">
         <div class="example-table-container">
             <table mat-table [dataSource]="dataSource" class="table-design">
-                <!-- Serial No Column -->
                 <ng-container matColumnDef="serialNo">
                     <th mat-header-cell *matHeaderCellDef class="text-center"> S.No </th>
                     <td mat-cell *matCellDef="let element; let i = index" class="text-center"> {{ i + 1 }} </td>
                 </ng-container>
 
 
-                <!-- TripNo Column -->
                 <ng-container matColumnDef="walletId">
                     <th mat-header-cell *matHeaderCellDef class="text-center">Wallet Id </th>
                     <td mat-cell *matCellDef="let element" class="text-center"> {{element.walletId}} </td>
@@ -109,6 +86,11 @@
                     <td mat-cell *matCellDef="let element" class="text-center"> {{element.applicationNumber}} </td>
                 </ng-container>
 
+                <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef class="text-center">Amount</th>
+                    <td mat-cell *matCellDef="let element" class="text-center">{{element?.amount}}</td>
+                </ng-container>
+
                 <ng-container matColumnDef="transactionName">
                     <th mat-header-cell *matHeaderCellDef class="text-center">Transaction Name</th>
                     <td mat-cell *matCellDef="let element" class="text-center">
@@ -119,19 +101,9 @@
                     </td>
                 </ng-container>
 
-                <!-- <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef class="text-center"> Action </th>
-                    <td mat-cell *matCellDef="let element" class="text-center">
-                        <mat-radio-button (click)="onSelect(element)"></mat-radio-button>
-                    </td>
-                </ng-container> -->
-
-
-                <!-- Header and Row Definitions -->
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-            <!-- Table Loader (Centered) -->
             <div *ngIf="isLoading" class="table-loader">
                 <mat-spinner diameter="64"></mat-spinner>
             </div>
@@ -140,7 +112,14 @@
             </mat-paginator>
         </div>
     </div>
-</app-card>
+</app-card> -->
+
+<app-mat-table-configuration [columns]="columns" [actionKeys]="actionKeys" [dataSource]="dataSource"
+    [totalCount]="totelCount" [pageSize]="pageSize" (paginationEvent)="handlePagination($event)"
+    (checkboxAction)="onChecked($event)">
+</app-mat-table-configuration>
+
+
 <div class="row">
     <div class="col-xl-4 mt-2">
         <div class="dropdown">

@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/service/common.service';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
+import { MasterListColumns } from 'src/app/config/master-list-columns';
 
 
 @Component({
@@ -18,15 +19,18 @@ import { ngxCsv } from 'ngx-csv/ngx-csv';
 })
 export class TripdeatilsforwardComponent implements OnInit {
 
+  public columns = MasterListColumns.tripListForwardColumns;
+  actionKeys: string[] = ['checkbox']; // ['edit', 'delete'] for buttons
+  dataSource = new MatTableDataSource(); // Example data source
+  totalCount: number = 10;
+  pageSize: number = 10;
 
   displayedColumns: string[] = ['serialNo', 'tripNumber', 'createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent', 'status', 'action'];
-  dataSource: MatTableDataSource<any>;
   viewEnable: boolean;
   editEnable: boolean;
   tripFormSearchDetails: FormGroup;
   totelCount = 0;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  public pageSize = 10;
   selectObj: any;
   vehicleList: any;
   driverList: any;
@@ -84,7 +88,12 @@ export class TripdeatilsforwardComponent implements OnInit {
     this.commonService.tripDetailsSearchList(request).subscribe(response => {
       this.isLoading = false;
       if (response.status == 's' && response.data) {
-        this.dataSource = new MatTableDataSource(response.data.contents);
+        const serialNumber = pageIndex * pageSize; // Calculate start index dynamically
+        const dataSource = response.data.contents.map((v, i) => ({
+          ...v,
+          sNo: serialNumber + i + 1 // Adjust serial number
+        }));
+        this.dataSource = new MatTableDataSource(dataSource);
         this.totelCount = response.data.totalElements;
       } else {
         this.dataSource = new MatTableDataSource();
@@ -93,29 +102,7 @@ export class TripdeatilsforwardComponent implements OnInit {
   }
 
   search() {
-    const tripFormSearchDetails = this.tripFormSearchDetails.value;
-    const request = {
-      filters: {
-        vehicleNumber: tripFormSearchDetails.vehiclenumber ? tripFormSearchDetails.vehiclenumber : '',
-        customerName: '',
-        customerMobileNumber: '',
-        driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
-        visitingPlace: "",
-        status: tripFormSearchDetails.status ? tripFormSearchDetails.status : 'FORWARDED'
-      },
-      paginationSize: 10,
-      sortField: "modifiedDate",
-      pageNo: 0,
-      sortOrder: "DESC"
-    }
-    this.commonService.tripDetailsSearchList(request).subscribe(response => {
-      if (response.status === 's' && response.data) {
-        this.dataSource = new MatTableDataSource(response.data.contents);
-        this.totelCount = response.data.totalElements;
-      } else {
-        this.dataSource = new MatTableDataSource();
-      }
-    });
+    this.getAll();
   }
   onclear() {
     this.tripFormSearchDetails.patchValue({
@@ -128,15 +115,16 @@ export class TripdeatilsforwardComponent implements OnInit {
     this.getAll();
   }
 
-  pageEvent(event) {
-    const pageIndex = event.pageIndex;
+  handlePagination(event) {
+    const pageIndex = event.currentPage;
     const pageSize = event.pageSize
     this.getAll(pageIndex, pageSize);
   }
 
-  onSelect(obj) {
-    this.selectObj = obj ? obj : undefined;
-    if (obj) {
+  onChecked(element) {
+    const selectObj = this.dataSource.data.find((findElement: any) => findElement.id == element.id);
+    if (selectObj) {
+      this.selectObj = selectObj;
       this.viewEnable = true;
       this.editEnable = true;
     }
@@ -178,7 +166,7 @@ export class TripdeatilsforwardComponent implements OnInit {
     }
   }
 
-  generatePDF() {
+  /* generatePDF() {
     console.log('generatePDF :')
     const doc = new jsPDF();
 
@@ -237,7 +225,7 @@ export class TripdeatilsforwardComponent implements OnInit {
       index + 1, // Serial number starts from 1
       item.tripNumber,
       moment(item.createdDate).format('DD-MM-YYYY'), // Format date
-      String(item.vehicleNumber), 
+      String(item.vehicleNumber),
       String(item.customerName),
       String(item.visitingPlace),
       item.driverName,
@@ -259,6 +247,6 @@ export class TripdeatilsforwardComponent implements OnInit {
       ]
     };
     new ngxCsv(rows, 'Trip_Details_L3', options);
-  }
+  } */
 }
 

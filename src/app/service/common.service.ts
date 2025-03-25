@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -77,5 +77,16 @@ export class CommonService {
     const url = this.baseUrl + 'tripDetails/getPendingList';
     return this.httpClient.get(url);
   }
+  tripdetailsdashboardcount(fromDate: string, toDate: string): Observable<any> {
+    const url = this.baseUrl + 'tripDetails/dashboard';
+    const params = new HttpParams()
+      .set('fromDate', fromDate)
+      .set('toDate', toDate);
+
+    return this.httpClient.post<any>(url, {}, { params });
+  }
+  
+
+
 
 }

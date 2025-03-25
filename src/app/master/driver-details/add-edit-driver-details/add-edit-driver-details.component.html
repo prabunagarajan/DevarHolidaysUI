@@ -153,8 +153,8 @@
               <select formControlName="status" class="form-select"
                 [ngClass]="{ 'is-invalid': formSubmitted && driverForm.status.errors }">
                 <option value="" disabled selected>Select Status</option>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
+                <option value="Active">Yes</option>
+                <option value="Inactive">No</option>
               </select>
               <div *ngIf="formSubmitted && driverForm.status.errors" class="invalid-feedback">
                 <div *ngIf="driverForm.status.errors.required">Status is required</div>

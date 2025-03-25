@@ -79,7 +79,7 @@
     </div>
 </div>
 
-<app-card [hidHeader]="true" blockClass="table-border-style" class="list-panel">
+<!-- <app-card [hidHeader]="true" blockClass="table-border-style" class="list-panel">
     <div class="table-responsive text-center">
         <div class="example-table-container">
             <table mat-table [dataSource]="dataSource" class="table-design">
@@ -143,7 +143,6 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
 
-            <!-- Table Loader (Centered) -->
             <div *ngIf="isLoading" class="table-loader">
                 <mat-spinner diameter="64"></mat-spinner>
             </div>
@@ -153,13 +152,18 @@
             </mat-paginator>
         </div>
     </div>
-</app-card>
+</app-card> -->
 
 
 <!-- Loader Template -->
-<ng-template #loadingTemplate>
+<!-- <ng-template #loadingTemplate>
     <mat-spinner diameter="20"></mat-spinner>
-</ng-template>
+</ng-template> -->
+
+<app-mat-table-configuration [columns]="columns" [actionKeys]="actionKeys" [dataSource]="dataSource"
+    [totalCount]="totelCount" [pageSize]="pageSize" (paginationEvent)="handlePagination($event)"
+    (checkboxAction)="onChecked($event)">
+</app-mat-table-configuration>
 
 
 
