@@ -4,17 +4,22 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/service/common.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { MasterListColumns } from 'src/app/config/master-list-columns';
 @Component({
   selector: 'app-driver-payment',
   templateUrl: './driver-payment.component.html',
   styleUrls: ['./driver-payment.component.scss']
 })
 export class DriverPaymentComponent implements OnInit {
+  public columns = MasterListColumns.driverPaymentColumns;
+  actionKeys: string[] = ['checkbox']; // ['edit', 'delete'] for buttons
+  dataSource = new MatTableDataSource(); // Example data source
+  totalCount: number = 10;
+  pageSize: number = 10;
+
   driverPaymentFormSearchDetails: FormGroup;
   driverList: any[] = [];
   isLoading: boolean;
-  public pageSize = 10;
-  dataSource: MatTableDataSource<any>;
   totelCount = 0;
   displayedColumns: string[] = ['serialNo', 'paymentDate', 'driverNamess', 'paymentNo', 'salaryType', 'monthlySalary', 'dailyWagesOrAdvance', 'remarks', 'action'];
   selectObj: any;
@@ -58,7 +63,12 @@ export class DriverPaymentComponent implements OnInit {
     this.commonService.driverPaymentList(request).subscribe(response => {
       this.isLoading = false;
       if (response.status == 's' && response.data) {
-        this.dataSource = new MatTableDataSource(response.data.contents);
+        const serialNumber = pageIndex * pageSize; // Calculate start index dynamically
+        const dataSource = response.data.contents.map((v, i) => ({
+          ...v,
+          sNo: serialNumber + i + 1 // Adjust serial number
+        }));
+        this.dataSource = new MatTableDataSource(dataSource);
         this.totelCount = response.data.totalElements;
       } else {
         this.dataSource = new MatTableDataSource();
@@ -83,14 +93,15 @@ export class DriverPaymentComponent implements OnInit {
       this.router.navigate(['/container/driver-payment/view', this.selectObj.id]);
     }
   }
-  onSelect(viewObj) {
-    if (viewObj) {
+  onChecked(viewObj) {
+    const selectObj = this.dataSource.data.find((findElement: any) => findElement.id == viewObj.id);
+    if (selectObj) {
       this.selectObj = viewObj;
       this.viewEnable = true;
     }
   }
-  pageEvent(event) {
-    const pageIndex = event.pageIndex;
+  handlePagination(event) {
+    const pageIndex = event.currentPage;
     const pageSize = event.pageSize
     this.getSaleryDetails(pageIndex, pageSize);
   }
