@@ -47,7 +47,10 @@ export class TripdetailsinprogressComponent implements OnInit {
       driverName: [''],
       driverNumber: [''],
       vehiclenumber: [''],
-      status: ['']
+      status: [''],
+      tripNo: [''],
+      fromDate: [''],
+      toDate: [''],
     })
     this.getAll();
     this.commonService.activeVechicle().subscribe(vehicleResponse => {
@@ -76,7 +79,13 @@ export class TripdetailsinprogressComponent implements OnInit {
         customerMobileNumber: '',
         driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
         visitingPlace: "",
-        status: tripFormSearchDetails.status ? tripFormSearchDetails.status : "INPROGRESS"
+        status: tripFormSearchDetails.status ? tripFormSearchDetails.status : "INPROGRESS",
+        fromDate: tripFormSearchDetails.fromDate
+          ? moment(tripFormSearchDetails.fromDate).format('YYYY-MM-DD')
+          : '',
+        toDate: tripFormSearchDetails.toDate
+          ? moment(tripFormSearchDetails.toDate).format('YYYY-MM-DD') : '',
+        tripNo: tripFormSearchDetails.tripNo ? tripFormSearchDetails.tripNo : '',
       },
       paginationSize: pageSize,
       sortField: "modifiedDate",
@@ -108,6 +117,9 @@ export class TripdetailsinprogressComponent implements OnInit {
       driverNumber: '',
       vehiclenumber: '',
       status: '',
+      tripNo: '',
+      fromDate: '',
+      toDate: '',
     });
     this.pageSize = 10;
     this.getAll();

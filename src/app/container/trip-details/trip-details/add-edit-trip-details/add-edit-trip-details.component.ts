@@ -27,6 +27,8 @@ export class AddEditTripDetailsComponent implements OnInit {
   leveStatus: String;
   tripLogDetails: any;
   routingStatus: String;
+  isDisabled: boolean;
+  isDisableds: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private toastrMsg: ToastrService,
@@ -41,6 +43,7 @@ export class AddEditTripDetailsComponent implements OnInit {
         this.tripId = tripIdResponse.id;
         this.getTripDetailsForm(tripIdResponse.id, tripIdResponse.status);
         this.routingStatus = tripIdResponse.status;
+
       }
     })
 
@@ -54,6 +57,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       customerName: ['', Validators.required],
       customerMobileNumber: ['', Validators.required],
       driverName: ['', Validators.required],
+      driverNumber: ['', Validators.required],
       startingKM: ['', Validators.required],
       closingKM: ['', Validators.required],
       usedKM: ['', Validators.required],
@@ -70,15 +74,15 @@ export class AddEditTripDetailsComponent implements OnInit {
       advanceAmount: ['0', Validators.required],
       dayRent: ['0', Validators.required],
       toll: ['0', Validators.required],
-      totalRent: ['', Validators.required],
-      diesel: ['', Validators.required],
-      driverPayment: ['', Validators.required],
+      totalRent: ['0', Validators.required],
+      diesel: ['0', Validators.required],
+      driverPayment: ['0', Validators.required],
       permitAmount: ['0', Validators.required],
       paymentType: ['', Validators.required],
-      receivedAmount: ['', Validators.required],
-      pendingAmount: ['', Validators.required],
+      receivedAmount: ['0', Validators.required],
+      pendingAmount: ['0', Validators.required],
       // balanceAmount: ['', Validators.required],
-      profitAmount: ['', Validators.required],
+      profitAmount: ['0', Validators.required],
       submittedBy: ['', Validators.required],
       discountAmount: ['0'],
       status: [''],
@@ -205,11 +209,13 @@ export class AddEditTripDetailsComponent implements OnInit {
 
   finalSubmit() {
     if (this.tripId && this.leveStatus == 'Level 1') {
-      this.updateTripDetails();
+      this.updateTripDetails('INPROGRESS');
     } else if (this.leveStatus == 'Level 2') {
       this.forwardApprove()
     } else if (this.leveStatus == 'Level 3') {
-      this.approved();
+      console.log('Approved');
+      // this.approved();
+      this.updateTripDetails('APPROVED');
     } else if (this.leveStatus == 'Level 1 REQ') {
       this.requestForClarification()
     } else if (this.leveStatus == 'Level 1') {
@@ -296,6 +302,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       closingKM: tripFormDetails.closingKM || '',
       closingTime: moment(tripFormDetails.closingTime).format('YYYY-MM-DD HH:mm:ss') || '',
       customerMobileNumber: tripFormDetails.customerMobileNumber || '',
+      driverMobileNumber: tripFormDetails.driverNumber || '',
       customerName: tripFormDetails.customerName || '',
       date: moment(tripFormDetails.date).format('YYYY-MM-DD') || '',
       dayRent: tripFormDetails.dayRent || '',
@@ -611,7 +618,7 @@ export class AddEditTripDetailsComponent implements OnInit {
     });
   }
 
-  updateTripDetails() {
+  updateTripDetails(status) {
     const tripFormDetails = this.tripFormDetails.value;
     const updateTripDetailsRequest = {
       acClosingKM: tripFormDetails.acClosingKM || '',
@@ -629,6 +636,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       dayRent: tripFormDetails.dayRent || '',
       diesel: tripFormDetails.diesel || '',
       driverName: tripFormDetails.driverName || '',
+      driverMobileNumber: tripFormDetails.driverNumber || '',
       driverPayment: tripFormDetails.driverPayment || '',
       paymentType: tripFormDetails.paymentType || '',
       pendingAmount: tripFormDetails.pendingAmount || '',
@@ -637,7 +645,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       receivedAmount: tripFormDetails.receivedAmount || '',
       startingKM: tripFormDetails.startingKM || '',
       startingTime: moment(tripFormDetails.startingTime).format('YYYY-MM-DD HH:mm:ss') || '',
-      status: tripFormDetails.status || 'SUBMITTED',
+      status: status,
       submittedBy: tripFormDetails.submittedBy || '',
       toll: tripFormDetails.toll || '',
       totalRent: tripFormDetails.totalRent || '',
@@ -667,6 +675,20 @@ export class AddEditTripDetailsComponent implements OnInit {
 
   }
 
+
+  onDriverNameChange(event: Event) {
+    const selectedDriverName = (event.target as HTMLInputElement).value;
+    const selectedDriver = this.driverList.find(driver => driver.name === selectedDriverName);
+    if (selectedDriver) {
+      this.tripFormDetails.patchValue({
+        driverNumber: selectedDriver.mobileNumber
+      })
+    } 
+  }
+
+
+
+
   getTripDetailsForm(tripId, status) {
     this.commonService.getTripDetails(tripId).subscribe(getTripDetailsResponse => {
       if (getTripDetailsResponse.status == 's') {
@@ -679,8 +701,9 @@ export class AddEditTripDetailsComponent implements OnInit {
           }
         });
         if (status == 'forward') {
-          this.tripFormDetails.disable();
-          this.tripFormDetails.get('remark').enable();
+          // this.tripFormDetails.disable();
+          this.isDisabled = (status.status != 'forward') ? false : true;
+          this.isDisableds = (status.status != 'forward') ? true : false;
           this.forwardApproveBtnShow = true;
         }
         else if (status == 'approved') {
@@ -714,6 +737,7 @@ export class AddEditTripDetailsComponent implements OnInit {
           startingKM: getTripDetailsResponse.data.startingKM,
           status: getTripDetailsResponse.data.status,
           submittedBy: getTripDetailsResponse.data.submittedBy,
+          driverNumber:getTripDetailsResponse.data.driverMobileNumber,
           toll: getTripDetailsResponse.data.toll,
           totalRent: getTripDetailsResponse.data.totalRent,
           totalTime: getTripDetailsResponse.data.totalTime,
