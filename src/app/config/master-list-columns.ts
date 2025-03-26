@@ -313,7 +313,7 @@ export class MasterListColumns {
       displayFcn: (item: any) => moment(item.createdDate).format("DD-MM-YYYY HH-MM")
     },
     {
-      name: 'driverName',
+      name: 'name',
       displayName: 'Name',
       type: 'string'
     },
@@ -322,7 +322,14 @@ export class MasterListColumns {
       displayName: 'Wallet Id',
       type: 'string',
       align: 'center'
-    }
+    },
+    {
+      name: 'amount',
+      displayName: 'Amount',
+      type: 'string',
+      align: 'center'
+    },
+
   ];
 
 

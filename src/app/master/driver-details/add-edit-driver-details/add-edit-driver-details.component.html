@@ -96,8 +96,8 @@
               <select formControlName="isPermanentDriver" class="form-select"
                 [ngClass]="{ 'is-invalid': formSubmitted && driverForm.isPermanentDriver.errors }">
                 <option value="" disabled selected>Select an option</option>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
+                <option value="Active">Yes</option>
+                <option value="Inactive">No</option>
               </select>
               <div *ngIf="formSubmitted && driverForm.isPermanentDriver.errors?.required" class="invalid-feedback">
                 Is Permanent Driver is required
@@ -153,8 +153,8 @@
               <select formControlName="status" class="form-select"
                 [ngClass]="{ 'is-invalid': formSubmitted && driverForm.status.errors }">
                 <option value="" disabled selected>Select Status</option>
-                <option value="Active">Yes</option>
-                <option value="Inactive">No</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">InActive</option>
               </select>
               <div *ngIf="formSubmitted && driverForm.status.errors" class="invalid-feedback">
                 <div *ngIf="driverForm.status.errors.required">Status is required</div>
