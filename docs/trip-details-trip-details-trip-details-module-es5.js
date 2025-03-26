@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h3>Add Trip Details</h3>\n<ul class=\"breadcrumb\">\n    <li class=\"breadcrumb-item\">\n        <a [routerLink]=\"['/dashboard']\">Home</a>\n    </li>\n    <ng-container>\n        <li class=\"breadcrumb-item\" [routerLink]=\"['/master/trip-detail/list']\"><a href=\"javascript:\"> Trip\n                Details</a>\n        </li>\n        <li class=\"breadcrumb-item\"><a href=\"javascript:\">{{screenName}}</a></li>\n    </ng-container>\n</ul>\n<div class=\"row\">\n    <div class=\"col-xl-12\">\n        <form [formGroup]=\"tripFormDetails\" autocomplete=\"off\">\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\n                <h3>Customer & Vehicel Details</h3>\n                <hr>\n                <div class=\"row\">\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Vehicle Number <span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-control\" formControlName=\"vehicleNumber\"\n                                placeholder=\"Select Vehicle Number\" (change)=\"getStaringKM($event.target.value)\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.vehicleNumber.errors }\">\n                                <option value=\"\" selected disabled>Select Vehicle Number</option>\n                                <option *ngFor=\"let vehicleListElement of vehicleList\"\n                                    value=\"{{vehicleListElement.vehicleNumber}}\">{{vehicleListElement.vehicleNumber}}\n                                </option>\n                            </select>\n\n                            <div *ngIf=\"formSubmitted && tripForm.vehicleNumber.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.vehicleNumber.errors.required\">Vehicle Number is required</div>\n                            </div>\n                        </div>\n                    </div>\n\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Date<span class=\"text-danger\">*</span></label>\n                            <div class=\"input-group\">\n                                <!-- DateTime Input -->\n                                <input type=\"text\" [owlDateTime]=\"dt1\" class=\"form-control\" formControlName=\"date\"\n                                    placeholder=\"Select Date & Time\"\n                                    [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.date.errors }\" readonly\n                                    [max]=\"maxDate\" (keypress)=\"$event.preventDefault();\"\n                                    (keydown)=\"$event.preventDefault()\">\n\n                                <!-- Calendar Icon Inside Input -->\n                                <div class=\"input-group-append\">\n                                    <button class=\"btn btn-outline-secondary\" [owlDateTimeTrigger]=\"dt1\" type=\"button\">\n                                        📅\n                                    </button>\n                                </div>\n\n                                <!-- Owl DateTime Picker -->\n                                <owl-date-time [pickerType]=\"'calendar'\" #dt1></owl-date-time>\n                            </div>\n\n                            <!-- Validation Message -->\n                            <div *ngIf=\"formSubmitted && tripForm.date.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.date.errors.required\">Customer Name is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Customer Name<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"customerName\"\n                                placeholder=\"Enter Customer Name\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.customerName.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.customerName.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.customerName.errors.required\">Customer Name is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Customer Mobile Number<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"customerMobileNumber\"\n                                placeholder=\"Enter Customer Mobile Number\" (keydown)=\"numbersOnly($event)\"\n                                maxlength=\"10\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.customerMobileNumber.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.customerMobileNumber.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.customerMobileNumber.errors.required\">Customer Mobile Number is\n                                    required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Driver Name<span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-control\" formControlName=\"driverName\"\n                                placeholder=\"Enter Driver Name\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.driverName.errors }\">\n                                <option value=\"\" selected disabled>Select Driver Name</option>\n                                <option *ngFor=\"let driverListElemnt of driverList\" value=\"{{driverListElemnt?.name}}\">\n                                    {{driverListElemnt?.name}}</option>\n                            </select>\n                            <div *ngIf=\"formSubmitted && tripForm.driverName.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.driverName.errors.required\">Driver Name is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Starting KM<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"startingKM\"\n                                placeholder=\"Enter Starting KM\" (keydown)=\"numbersOnly($event)\"\n                                (keyup)=\"startingKM($event.target.value);\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.startingKM.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.startingKM.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.startingKM.errors.required\">Starting KM is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Closing KM<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"closingKM\"\n                                placeholder=\"Enter Closing KM\" (keydown)=\"numbersOnly($event)\"\n                                (keyup)=\"closeingKM($event.target.value)\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.closingKM.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.closingKM.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.closingKM.errors.required\">Closing KM is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Used KM<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"usedKM\" placeholder=\"Enter Used KM\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.usedKM.errors }\" disabled />\n                            <div *ngIf=\"formSubmitted && tripForm.usedKM.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.usedKM.errors.required\">Used KM is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Starting Time<span class=\"text-danger\">*</span></label>\n                            <div class=\"input-group\">\n                                <!-- DateTime Input -->\n                                <input type=\"text\" [owlDateTime]=\"dt2\" class=\"form-control\"\n                                    placeholder=\"Select Staring Time\" formControlName=\"startingTime\"\n                                    [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.startingTime.errors }\"\n                                    [max]=\"maxDate\" (keypress)=\"$event.preventDefault();\"\n                                    (keydown)=\"$event.preventDefault()\" readonly />\n\n                                <!-- Calendar Icon Inside Input -->\n                                <div class=\"input-group-append\">\n                                    <button class=\"btn btn-outline-secondary\" [owlDateTimeTrigger]=\"dt2\" type=\"button\">\n                                        📅\n                                    </button>\n                                </div>\n\n                                <!-- Owl DateTime Picker -->\n                                <owl-date-time #dt2 [pickerType]=\"'both'\" [format]=\"'DD/MM/YYYY HH:mm'\"\n                                    [minuteStep]=\"5\"></owl-date-time>\n                            </div>\n\n                            <!-- Validation Message -->\n                            <div *ngIf=\"formSubmitted && tripForm.startingTime.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.startingTime.errors.required\">Closing Time is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Closing Time<span class=\"text-danger\">*</span></label>\n                            <div class=\"input-group\">\n                                <!-- DateTime Input -->\n                                <input type=\"text\" [owlDateTime]=\"dt3\" class=\"form-control\"\n                                    placeholder=\"Select Closing Time\" formControlName=\"closingTime\"\n                                    [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.closingTime.errors }\" readonly\n                                    [max]=\"maxDate\" (keypress)=\"$event.preventDefault();\"\n                                    (keydown)=\"$event.preventDefault()\">\n\n                                <!-- Calendar Icon Inside Input -->\n                                <div class=\"input-group-append\">\n                                    <button class=\"btn btn-outline-secondary\" [owlDateTimeTrigger]=\"dt3\" type=\"button\">\n                                        📅\n                                    </button>\n                                </div>\n\n                                <!-- Owl DateTime Picker -->\n                                <owl-date-time #dt3 [pickerType]=\"'both'\" [format]=\"'DD/MM/YYYY HH:mm'\"\n                                    [minuteStep]=\"5\"></owl-date-time>\n                            </div>\n\n                            <!-- Validation Message -->\n                            <div *ngIf=\"formSubmitted && tripForm.closingTime.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.closingTime.errors.required\">Total HRS is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Total Hrs<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"totalTime\"\n                                placeholder=\"Enter Total HRS\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.totalTime.errors }\" readonly />\n                            <div *ngIf=\"formSubmitted && tripForm.totalTime.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.totalTime.errors.required\">Total HRS is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>AC Type<span class=\"text-danger\">*</span></label>\n                            <select class=\"form-control\" formControlName=\"acOrNonAc\"\n                                (click)=\"acDetect($event.target.value)\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.acOrNonAc.errors }\">\n                                <option value=\"\" disabled selected>Select AC or Non-AC</option>\n                                <option value=\"AC\">AC</option>\n                                <option value=\"Non-AC\">Non-AC</option>\n                            </select>\n                            <div *ngIf=\"formSubmitted && tripForm.acOrNonAc.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.acOrNonAc.errors.required\">AC Type is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>AC Starting KM<span *ngIf=\"!acValidationFlag\" class=\"text-danger\">*</span></label>\n                            <input [attr.disabled]=\"acValidationFlag ? true : null\" type=\"text\" class=\"form-control\"\n                                (keydown)=\"numbersOnly($event)\" (keyup)=\"acStaringKmCalculation($event.target.value);\"\n                                formControlName=\"acStartingKM\" placeholder=\"Enter AC Starting KM\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.acStartingKM.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.acStartingKM.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.acStartingKM.errors.required\">AC Starting KM is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>AC Closed KM<span *ngIf=\"!acValidationFlag\" class=\"text-danger\">*</span></label>\n                            <input [attr.disabled]=\"acValidationFlag ? true : null\" type=\"text\" class=\"form-control\"\n                                (keydown)=\"numbersOnly($event)\" (keyup)=\"acClosingKmCalculation($event.target.value);\"\n                                formControlName=\"acClosingKM\" placeholder=\"Enter AC Closed KM\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.acClosingKM.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.acClosingKM.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.acClosingKM.errors.required\">AC Closed KM is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>AC Used KM<span *ngIf=\"!acValidationFlag\" class=\"text-danger\">*</span></label>\n                            <input [attr.disabled]=\"acValidationFlag ? true : null\" type=\"text\" class=\"form-control\"\n                                (keydown)=\"numbersOnly($event)\" formControlName=\"usedAcKM\"\n                                placeholder=\"Enter AC Used KM\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.usedAcKM.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.usedAcKM.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.usedAcKM.errors.required\">AC Used KM is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>AC Note<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"acNote\" placeholder=\"Enter AC Note\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.acNote.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.acNote.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.acNote.errors.required\">AC Note is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </app-card>\n\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\n                <h3>Visiting Place Details</h3>\n                <hr>\n                <div class=\"row\">\n                    <div class=\"col-lg-12 col-md-12 col-sm-12 col-12\">\n                        <div class=\"form-group\">\n                            <label>Visiting Places <span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"visitingPlace\"\n                                placeholder=\"Enter Visiting Place\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.visitingPlace.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.visitingPlace.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.visitingPlace.errors.required\">Visiting Place is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Day Rent<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"dayRent\"\n                                placeholder=\"Enter Day Rent\" (keydown)=\"numbersOnly($event)\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.dayRent.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.dayRent.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.dayRent.errors.required\">Day Rent is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Toll<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"toll\" placeholder=\"Enter Toll\"\n                                (keyup)=\"profitAmoutCalculation('Toll');\" (keydown)=\"numbersOnly($event)\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.toll.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.toll.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.toll.errors.required\">Toll is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Total Rent<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"totalRent\"\n                                placeholder=\"Enter Total Rent\"\n                                (keyup)=\"getTotalRentAmount($event.target.value); profitAmoutCalculation('Total Rent')\"\n                                (keydown)=\"numbersOnly($event)\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.totalRent.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.totalRent.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.totalRent.errors.required\">Total Rent is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Fuel<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"diesel\" placeholder=\"Enter Fuel\"\n                                (keyup)=\"profitAmoutCalculation('Fuel')\" (keydown)=\"numbersOnly($event)\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.diesel.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.diesel.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.diesel.errors.required\">Fuel is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Driver Payment<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"driverPayment\"\n                                placeholder=\"Enter Driver Payment\" (keydown)=\"numbersOnly($event)\"\n                                (keyup)=\"profitAmoutCalculation('Driver Payment')\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.driverPayment.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.driverPayment.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.driverPayment.errors.required\">Driver Payment is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Permit<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"permitAmount\"\n                                placeholder=\"Enter Permit\" (keydown)=\"numbersOnly($event)\"\n                                (keyup)=\"profitAmoutCalculation('Permit');\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.permitAmount.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.permitAmount.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.permitAmount.errors.required\">Permit is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Advance<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"advanceAmount\"\n                                placeholder=\"Enter Advance\" (keyup)=\"getAdvanceAmount($event.target.value);\"\n                                (keydown)=\"numbersOnly($event)\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.advanceAmount.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.advanceAmount.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.advanceAmount.errors.required\">Advance is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Advance Type<span class=\"text-danger\">*</span></label>\n                            <!-- <input type=\"text\" class=\"form-control\" formControlName=\"advanceType\"\n                                placeholder=\"Enter Advance Type\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.advanceType.errors }\" /> -->\n\n                            <select type=\"text\" class=\"form-control\" formControlName=\"advanceType\"\n                                placeholder=\"Enter Advance Type\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.advanceType.errors }\">\n                                <option value=\"\" hidden>Select Advance Type</option>\n                                <option value=\"Fuel\">Fuel</option>\n                                <option value=\"Hand\">Hand</option>\n                            </select>\n                            <div *ngIf=\"formSubmitted && tripForm.advanceType.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.advanceType.errors.required\">Advance Type is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Payment Type<span class=\"text-danger\">*</span></label>\n                            <!-- <input type=\"text\" class=\"form-control\" formControlName=\"paymentType\"\n                                placeholder=\"Enter Payment Type\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.paymentType.errors }\" /> -->\n                            <select type=\"text\" class=\"form-control\" formControlName=\"paymentType\"\n                                placeholder=\"Enter Payment Type\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.paymentType.errors }\">\n                                <option value=\"\" hidden> Select Payment Type </option>\n                                <option value=\"UPI\"> UPI - GPay / PhonePay </option>\n                                <option value=\"HAND\"> Hand </option>\n                            </select>\n                            <div *ngIf=\"formSubmitted && tripForm.paymentType.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.paymentType.errors.required\">Payment Type is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Recevied Amount<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"receivedAmount\"\n                                placeholder=\"Enter Recevied Amount\" (keyup)=\"getReceivedAmount($event.target.value);\"\n                                (keydown)=\"numbersOnly($event)\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.receivedAmount.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.receivedAmount.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.receivedAmount.errors.required\">Recevied Amount is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Pending Amount<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"pendingAmount\" disabled\n                                placeholder=\"Enter Pending Amount\" (keyup)=\"getPendingAmount($event.target.value);\"\n                                (keydown)=\"numbersOnly($event)\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.pendingAmount.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.pendingAmount.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.pendingAmount.errors.required\">Pending Amount is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Balance<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"balanceAmount\"\n                                placeholder=\"Enter Balance\" disabled (keydown)=\"numbersOnly($event)\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.balanceAmount.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.balanceAmount.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.balanceAmount.errors.required\">Balance is required\n                                </div>\n                            </div>\n                        </div>\n                    </div> -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Wrote By<span class=\"text-danger\">*</span></label>\n                            <!-- <input type=\"text\" class=\"form-control\" formControlName=\"submittedBy\"\n                                placeholder=\"Enter Wrote By\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.submittedBy.errors }\" /> -->\n                            <select type=\"text\" class=\"form-control\" formControlName=\"submittedBy\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.submittedBy.errors }\">\n                                <option value=\"\" hidden>Select Wrote By</option>\n                                <option *ngFor=\"let driverListElemnt of driverList\" value=\"{{driverListElemnt?.name}}\">\n                                    {{driverListElemnt?.name}}</option>\n                            </select>\n                            <div *ngIf=\"formSubmitted && tripForm.submittedBy.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.submittedBy.errors.required\">Wrote By is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Profit<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"profitAmount\" disabled\n                                placeholder=\"Enter Profit\" (keydown)=\"numbersOnly($event)\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.profitAmount.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.profitAmount.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.profitAmount.errors.required\">Profit is required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Verified By (Manager)<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"verifiedByManager\"\n                                placeholder=\"Enter Verified By (Manager)\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.verifiedByManager.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.verifiedByManager.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.verifiedByManager.errors.required\">Verified By (Manager) is\n                                    required\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Verified By (Proprietor)<span class=\"text-danger\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" formControlName=\"verifiedByProprietor\"\n                                placeholder=\"Enter Verified By (Proprietor)\"\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.verifiedByProprietor.errors }\" />\n                            <div *ngIf=\"formSubmitted && tripForm.verifiedByProprietor.errors\" class=\"invalid-feedback\">\n                                <div *ngIf=\"tripForm.verifiedByProprietor.errors.required\">Verified By (Proprietor) is\n                                    required\n                                </div>\n                            </div>\n                        </div>\n                    </div> -->\n                </div>\n\n                <div class=\"row mt-3\">\n                    <div class=\"col-lg-12 text-end\">\n                        <div class=\"modal-footer\">\n                            <button type=\"submit\" *ngIf=\"!forwardApproveBtnShow && !approveBtnShow\"\n                                class=\"btn btn-outline-success\" (click)=\"submit(tripFormDetails)\">Submit</button>\n                            <button type=\"submit\" *ngIf=\"approveBtnShow ||forwardApproveBtnShow\"\n                                class=\"btn btn-outline-warning\"\n                                (click)=\"requestForClarification()\">REQUESTFORCLARIFICATION</button>\n                            <button type=\"submit\" *ngIf=\"forwardApproveBtnShow\" class=\"btn btn-outline-success\"\n                                (click)=\"approved()\">Approved</button>\n                            <button type=\"submit\" *ngIf=\"approveBtnShow\" class=\"btn btn-outline-success\"\n                                (click)=\"forwardApprove()\">Forwarded</button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary\"\n                                [routerLink]=\"['/container/trip-detail/list']\">Back</button>\n\n                        </div>\n                    </div>\n                </div>\n\n            </app-card>\n        </form>\n    </div>\n</div>\n\n\n<app-ui-modal #submitPopUp [hideFooter]=\"true\" [dialogClass]=\"'modal-lg'\">\n    <div class=\"app-modal-header\">\n        <h5 class=\"modal-title\">Confirm</h5>\n        <button type=\"button\" class=\"close basic-close\" data-dismiss=\"modal\" aria-label=\"Close\"\n            (click)=\"submitPopUp.hide()\"><span aria-hidden=\"true\">&times;</span></button>\n    </div>\n\n    <div class=\"app-modal-body\">\n        <p>Are you sure whant submit?</p>\n        <div class=\"modal-footer\">\n            <button type=\"button\" class=\"btn btn-outline-primary\" [disabled]=\"btnLoder\" (click)=\"finalSubmit()\">\n                <i class=\"fa\" [ngClass]=\"{'fa-spin fa-asterisk': btnLoder, 'fa-check': !btnLoder}\"></i>Yes\n            </button>\n            <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"submitPopUp.hide()\">\n                <i class=\"feather icon-slash\"></i> No\n            </button>\n        </div>\n    </div>\n</app-ui-modal>"
+module.exports = "<h3>Add Trip Details</h3>\r\n<ul class=\"breadcrumb\">\r\n    <li class=\"breadcrumb-item\">\r\n        <a [routerLink]=\"['/dashboard']\">Home</a>\r\n    </li>\r\n    <ng-container>\r\n        <li class=\"breadcrumb-item\" [routerLink]=\"['/container/trip-detail/list']\"><a href=\"javascript:\"> Trip\r\n                Details</a>\r\n        </li>\r\n        <li class=\"breadcrumb-item\"><a href=\"javascript:\">{{screenName}}</a></li>\r\n    </ng-container>\r\n</ul>\r\n<div class=\"row\">\r\n    <div class=\"col-xl-12\">\r\n        <form [formGroup]=\"tripFormDetails\" autocomplete=\"off\">\r\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\r\n                <h3>Customer & Vehicel Details</h3>\r\n                <hr>\r\n                <div class=\"row\">\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Vehicle Number <span class=\"text-danger\">*</span></label>\r\n                            <select type=\"text\" class=\"form-select\" formControlName=\"vehicleNumber\"\r\n                                placeholder=\"Select Vehicle Number\" (change)=\"getStaringKM($event.target.value)\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.vehicleNumber.errors }\">\r\n                                <option value=\"\" selected disabled>Select Vehicle Number</option>\r\n                                <option *ngFor=\"let vehicleListElement of vehicleList\"\r\n                                    value=\"{{vehicleListElement.vehicleNumber}}\">{{vehicleListElement.vehicleNumber}}\r\n                                </option>\r\n                            </select>\r\n\r\n                            <div *ngIf=\"formSubmitted && tripForm.vehicleNumber.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.vehicleNumber.errors.required\">Vehicle Number is required</div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Date<span class=\"text-danger\">*</span></label>\r\n                            <div class=\"input-group\">\r\n                                <!-- DateTime Input -->\r\n                                <input type=\"text\" [owlDateTime]=\"dt1\" class=\"form-control\" formControlName=\"date\"\r\n                                    placeholder=\"Select Date & Time\"\r\n                                    [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.date.errors }\" readonly\r\n                                    [max]=\"maxDate\" (keypress)=\"$event.preventDefault();\"\r\n                                    (keydown)=\"$event.preventDefault()\">\r\n\r\n                                <!-- Calendar Icon Inside Input -->\r\n                                <div class=\"input-group-append\">\r\n                                    <button class=\"btn btn-outline-secondary\" [owlDateTimeTrigger]=\"dt1\" type=\"button\">\r\n                                        📅\r\n                                    </button>\r\n                                </div>\r\n\r\n                                <!-- Owl DateTime Picker -->\r\n                                <owl-date-time [pickerType]=\"'calendar'\" #dt1></owl-date-time>\r\n                            </div>\r\n\r\n                            <!-- Validation Message -->\r\n                            <div *ngIf=\"formSubmitted && tripForm.date.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.date.errors.required\">Customer Name is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Customer Name<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"customerName\"\r\n                                placeholder=\"Enter Customer Name\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.customerName.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.customerName.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.customerName.errors.required\">Customer Name is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Customer Mobile Number<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"customerMobileNumber\"\r\n                                placeholder=\"Enter Customer Mobile Number\" (keydown)=\"numbersOnly($event)\"\r\n                                maxlength=\"10\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.customerMobileNumber.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.customerMobileNumber.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.customerMobileNumber.errors.required\">Customer Mobile Number is\r\n                                    required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Driver Name<span class=\"text-danger\">*</span></label>\r\n                            <select type=\"text\" class=\"form-select\" formControlName=\"driverName\"\r\n                                placeholder=\"Enter Driver Name\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.driverName.errors }\">\r\n                                <option value=\"\" disabled selected>Select Driver Name</option>\r\n                                <option *ngFor=\"let driverListElemnt of driverList\" value=\"{{driverListElemnt?.name}}\">\r\n                                    {{driverListElemnt?.name}}</option>\r\n                            </select>\r\n                            <div *ngIf=\"formSubmitted && tripForm.driverName.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.driverName.errors.required\">Driver Name is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Starting KM<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"startingKM\"\r\n                                placeholder=\"Enter Starting KM\" (keydown)=\"numbersOnly($event)\"\r\n                                (keyup)=\"startingKM($event.target.value);\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.startingKM.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.startingKM.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.startingKM.errors.required\">Starting KM is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Closing KM<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"closingKM\"\r\n                                placeholder=\"Enter Closing KM\" (keydown)=\"numbersOnly($event)\"\r\n                                (keyup)=\"closeingKM($event.target.value)\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.closingKM.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.closingKM.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.closingKM.errors.required\">Closing KM is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Used KM<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"usedKM\" placeholder=\"Enter Used KM\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.usedKM.errors }\" disabled />\r\n                            <div *ngIf=\"formSubmitted && tripForm.usedKM.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.usedKM.errors.required\">Used KM is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Starting Time<span class=\"text-danger\">*</span></label>\r\n                            <div class=\"input-group\">\r\n                                <!-- DateTime Input -->\r\n                                <input type=\"text\" [owlDateTime]=\"dt2\" class=\"form-control\"\r\n                                    placeholder=\"Select Staring Time\" formControlName=\"startingTime\"\r\n                                    [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.startingTime.errors }\"\r\n                                    [max]=\"maxDate\" (keypress)=\"$event.preventDefault();\"\r\n                                    (keydown)=\"$event.preventDefault()\" readonly />\r\n\r\n                                <!-- Calendar Icon Inside Input -->\r\n                                <div class=\"input-group-append\">\r\n                                    <button class=\"btn btn-outline-secondary\" [owlDateTimeTrigger]=\"dt2\" type=\"button\">\r\n                                        📅\r\n                                    </button>\r\n                                </div>\r\n\r\n                                <!-- Owl DateTime Picker -->\r\n                                <owl-date-time #dt2 [pickerType]=\"'both'\" [format]=\"'DD/MM/YYYY HH:mm'\"\r\n                                    [minuteStep]=\"5\"></owl-date-time>\r\n                            </div>\r\n\r\n                            <!-- Validation Message -->\r\n                            <div *ngIf=\"formSubmitted && tripForm.startingTime.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.startingTime.errors.required\">Starting Time is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Closing Time<span class=\"text-danger\">*</span></label>\r\n                            <div class=\"input-group\">\r\n                                <input type=\"text\" [owlDateTime]=\"dt3\" class=\"form-control\"\r\n                                    placeholder=\"Select Closing Time\" formControlName=\"closingTime\"\r\n                                    [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.closingTime.errors }\"\r\n                                    [max]=\"maxDate\" (keypress)=\"$event.preventDefault();\"\r\n                                    (keydown)=\"$event.preventDefault()\" readonly>\r\n                                <div class=\"input-group-append\">\r\n                                    <button class=\"btn btn-outline-secondary\" [owlDateTimeTrigger]=\"dt3\" type=\"button\">\r\n                                        📅\r\n                                    </button>\r\n                                </div>\r\n                                <owl-date-time #dt3 [pickerType]=\"'both'\" [format]=\"'DD/MM/YYYY HH:mm'\"\r\n                                    [minuteStep]=\"5\"></owl-date-time>\r\n                            </div>\r\n                            <div *ngIf=\"formSubmitted && tripForm.closingTime.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.closingTime.errors.required\">Closing Time is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Total Hrs<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"totalTime\"\r\n                                placeholder=\"Enter Total HRS\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.totalTime.errors }\" readonly />\r\n                            <div *ngIf=\"formSubmitted && tripForm.totalTime.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.totalTime.errors.required\">Total HRS is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>AC Type<span class=\"text-danger\">*</span></label>\r\n                            <select class=\"form-select\" formControlName=\"acOrNonAc\"\r\n                                (click)=\"acDetect($event.target.value)\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.acOrNonAc.errors }\">\r\n                                <option value=\"\" disabled selected>Select AC or Non-AC</option>\r\n                                <option value=\"AC\">AC</option>\r\n                                <option value=\"Non-AC\">Non-AC</option>\r\n                            </select>\r\n                            <div *ngIf=\"formSubmitted && tripForm.acOrNonAc.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.acOrNonAc.errors.required\">AC Type is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>AC Starting KM<span *ngIf=\"!acValidationFlag\" class=\"text-danger\">*</span></label>\r\n                            <input [attr.disabled]=\"acValidationFlag ? true : null\" type=\"text\" class=\"form-control\"\r\n                                (keydown)=\"numbersOnly($event)\" (keyup)=\"acStaringKmCalculation($event.target.value);\"\r\n                                formControlName=\"acStartingKM\" placeholder=\"Enter AC Starting KM\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.acStartingKM.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.acStartingKM.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.acStartingKM.errors.required\">AC Starting KM is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>AC Closed KM<span *ngIf=\"!acValidationFlag\" class=\"text-danger\">*</span></label>\r\n                            <input [attr.disabled]=\"acValidationFlag ? true : null\" type=\"text\" class=\"form-control\"\r\n                                (keydown)=\"numbersOnly($event)\" (keyup)=\"acClosingKmCalculation($event.target.value);\"\r\n                                formControlName=\"acClosingKM\" placeholder=\"Enter AC Closed KM\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.acClosingKM.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.acClosingKM.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.acClosingKM.errors.required\">AC Closed KM is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>AC Used KM<span *ngIf=\"!acValidationFlag\" class=\"text-danger\">*</span></label>\r\n                            <input [attr.disabled]=\"acValidationFlag ? true : null\" type=\"text\" class=\"form-control\"\r\n                                (keydown)=\"numbersOnly($event)\" formControlName=\"usedAcKM\"\r\n                                placeholder=\"Enter AC Used KM\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.usedAcKM.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.usedAcKM.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.usedAcKM.errors.required\">AC Used KM is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>AC Note<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"acNote\" placeholder=\"Enter AC Note\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.acNote.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.acNote.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.acNote.errors.required\">AC Note is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </app-card>\r\n\r\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\r\n                <h3>Visiting Place Details</h3>\r\n                <hr>\r\n                <div class=\"row\">\r\n                    <div class=\"col-lg-12 col-md-12 col-sm-12 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Visiting Places <span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"visitingPlace\"\r\n                                placeholder=\"Enter Visiting Place\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.visitingPlace.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.visitingPlace.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.visitingPlace.errors.required\">Visiting Place is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Day Rent<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"dayRent\"\r\n                                placeholder=\"Enter Day Rent\" (keydown)=\"numbersOnly($event)\"\r\n                                (keyup)=\"dayRentCalculation($event.target.value)\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.dayRent.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.dayRent.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.dayRent.errors.required\">Day Rent is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Toll<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"toll\" placeholder=\"Enter Toll\"\r\n                                (keyup)=\"profitAmoutCalculation('Toll');\" (keydown)=\"numbersOnly($event)\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.toll.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.toll.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.toll.errors.required\">Toll is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Total Rent<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"totalRent\"\r\n                                placeholder=\"Enter Total Rent\"\r\n                                (keyup)=\"getTotalRentAmount($event.target.value); profitAmoutCalculation('Total Rent')\"\r\n                                (keydown)=\"numbersOnly($event)\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.totalRent.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.totalRent.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.totalRent.errors.required\">Total Rent is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Fuel<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"diesel\" placeholder=\"Enter Fuel\"\r\n                                (keyup)=\"profitAmoutCalculation('Fuel')\" (keydown)=\"numbersOnly($event)\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.diesel.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.diesel.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.diesel.errors.required\">Fuel is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Driver Payment<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"driverPayment\"\r\n                                placeholder=\"Enter Driver Payment\" (keydown)=\"numbersOnly($event)\"\r\n                                (keyup)=\"profitAmoutCalculation('Driver Payment')\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.driverPayment.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.driverPayment.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.driverPayment.errors.required\">Driver Payment is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Permit<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"permitAmount\"\r\n                                placeholder=\"Enter Permit\" (keydown)=\"numbersOnly($event)\"\r\n                                (keyup)=\"profitAmoutCalculation('Permit');\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.permitAmount.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.permitAmount.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.permitAmount.errors.required\">Permit is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Advance<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"advanceAmount\"\r\n                                placeholder=\"Enter Advance\" (keyup)=\"getAdvanceAmount($event.target.value);\"\r\n                                (keydown)=\"numbersOnly($event)\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.advanceAmount.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.advanceAmount.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.advanceAmount.errors.required\">Advance is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Advance Type<span class=\"text-danger\">*</span></label>\r\n                            <!-- <input type=\"text\" class=\"form-control\" formControlName=\"advanceType\"\r\n                                placeholder=\"Enter Advance Type\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.advanceType.errors }\" /> -->\r\n\r\n                            <select type=\"text\" class=\"form-select\" formControlName=\"advanceType\"\r\n                                placeholder=\"Enter Advance Type\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.advanceType.errors }\">\r\n                                <option value=\"\" hidden>Select Advance Type</option>\r\n                                <option value=\"No Advance\">No Advance</option>\r\n                                <option value=\"Fuel\">Fuel</option>\r\n                                <option value=\"Hand\">Hand</option>\r\n                            </select>\r\n                            <div *ngIf=\"formSubmitted && tripForm.advanceType.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.advanceType.errors.required\">Advance Type is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Payment Type<span class=\"text-danger\">*</span></label>\r\n                            <!-- <input type=\"text\" class=\"form-control\" formControlName=\"paymentType\"\r\n                                placeholder=\"Enter Payment Type\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.paymentType.errors }\" /> -->\r\n                            <select type=\"text\" class=\"form-select\" formControlName=\"paymentType\"\r\n                                placeholder=\"Enter Payment Type\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.paymentType.errors }\">\r\n                                <option value=\"\" hidden> Select Payment Type </option>\r\n                                <option value=\"UPI\"> UPI - GPay / PhonePay </option>\r\n                                <option value=\"HAND\"> Hand </option>\r\n                            </select>\r\n                            <div *ngIf=\"formSubmitted && tripForm.paymentType.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.paymentType.errors.required\">Payment Type is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Recevied Amount<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"receivedAmount\"\r\n                                placeholder=\"Enter Recevied Amount\" (keyup)=\"getReceivedAmount($event.target.value);\"\r\n                                (keydown)=\"numbersOnly($event)\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.receivedAmount.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.receivedAmount.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.receivedAmount.errors.required\">Recevied Amount is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Discount<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"discountAmount\"\r\n                                placeholder=\"Enter Discount Amount\" (keyup)=\"getDiscountAmount($event.target.value)\"\r\n                                (keydown)=\"numbersOnly($event)\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.discountAmount.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.discountAmount.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.discountAmount.errors.required\">Recevied Amount is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Pending Amount<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"pendingAmount\" disabled\r\n                                placeholder=\"Enter Pending Amount\" (keyup)=\"getPendingAmount($event.target.value);\"\r\n                                (keydown)=\"numbersOnly($event)\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.pendingAmount.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.pendingAmount.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.pendingAmount.errors.required\">Pending Amount is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Balance<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"balanceAmount\"\r\n                                placeholder=\"Enter Balance\" disabled (keydown)=\"numbersOnly($event)\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.balanceAmount.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.balanceAmount.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.balanceAmount.errors.required\">Balance is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div> -->\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Wrote By<span class=\"text-danger\">*</span></label>\r\n                            <!-- <input type=\"text\" class=\"form-control\" formControlName=\"submittedBy\"\r\n                                placeholder=\"Enter Wrote By\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.submittedBy.errors }\" /> -->\r\n                            <select type=\"text\" class=\"form-select\" formControlName=\"submittedBy\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.submittedBy.errors }\">\r\n                                <option value=\"\" hidden>Select Wrote By</option>\r\n                                <option *ngFor=\"let driverListElemnt of driverList\" value=\"{{driverListElemnt?.name}}\">\r\n                                    {{driverListElemnt?.name}}</option>\r\n                            </select>\r\n                            <div *ngIf=\"formSubmitted && tripForm.submittedBy.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.submittedBy.errors.required\">Wrote By is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Profit<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"profitAmount\" disabled\r\n                                placeholder=\"Enter Profit\" (keydown)=\"numbersOnly($event)\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.profitAmount.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.profitAmount.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.profitAmount.errors.required\">Profit is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Remark<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"remark\" placeholder=\"Enter remark\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.remark.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.remark.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.remark.errors.required\">remark is required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Verified By (Manager)<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"verifiedByManager\"\r\n                                placeholder=\"Enter Verified By (Manager)\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.verifiedByManager.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.verifiedByManager.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.verifiedByManager.errors.required\">Verified By (Manager) is\r\n                                    required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Verified By (Proprietor)<span class=\"text-danger\">*</span></label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"verifiedByProprietor\"\r\n                                placeholder=\"Enter Verified By (Proprietor)\"\r\n                                [ngClass]=\"{ 'is-invalid': formSubmitted && tripForm.verifiedByProprietor.errors }\" />\r\n                            <div *ngIf=\"formSubmitted && tripForm.verifiedByProprietor.errors\" class=\"invalid-feedback\">\r\n                                <div *ngIf=\"tripForm.verifiedByProprietor.errors.required\">Verified By (Proprietor) is\r\n                                    required\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div> -->\r\n                </div>\r\n                <br>\r\n                <div class=\"row modal-footer\" *ngIf=\"tripLogDetails?.length > 0\">\r\n                    <h4>Trip Log Details</h4>\r\n                    <hr>\r\n\r\n                    <div class=\"table-responsive\">\r\n                        <table class=\"table table-bordered\">\r\n                            <thead>\r\n                                <tr>\r\n                                    <th>S.No</th>\r\n                                    <th>Application No</th>\r\n                                    <th>User Name</th>\r\n                                    <th>Action</th>\r\n                                    <th>Comments</th>\r\n                                    <th>Remark</th>\r\n                                    <th>Created Date</th>\r\n                                </tr>\r\n                            </thead>\r\n                            <tbody>\r\n                                <tr *ngFor=\"let element of tripLogDetails; let i = index\">\r\n                                    <td>{{ i+1 }}</td>\r\n                                    <td>{{ element.applnNo }}</td>\r\n                                    <td>{{ element.userName }}</td>\r\n                                    <td class=\"text-center\">\r\n                                        <span *ngIf=\"element?.action == 'SUBMITTED'\"\r\n                                            class=\"badge m-r-5 badge-light-primary\">\r\n                                            {{element?.action}}</span>\r\n                                        <span *ngIf=\"element?.action == 'APPROVED'\"\r\n                                            class=\"badge m-r-5 badge-light-success\">\r\n                                            {{element?.action}}</span>\r\n                                        <span *ngIf=\"element?.action == 'REQUESTFORCLARIFICATION'\"\r\n                                            class=\"badge m-r-5 badge-light-secondary\">\r\n                                            {{element?.action}}</span>\r\n                                        <span *ngIf=\"element?.action == 'INPROGRESS'\"\r\n                                            class=\"badge m-r-5 badge-light-success\">\r\n                                            {{element?.action}}</span>\r\n                                        <span *ngIf=\"element?.action == 'FORWARDED'\"\r\n                                            class=\"badge m-r-5 badge-light-warning\">\r\n                                            {{element?.action}}</span>\r\n                                        <span *ngIf=\"element?.action == 'UPDATED'\"\r\n                                            class=\"badge m-r-5 badge-light-primary\">\r\n                                            {{element?.action}}</span>\r\n                                    </td>\r\n                                    <td>{{ element.comments }}</td>\r\n                                    <td>{{ element.remarks }}</td>\r\n                                    <td>{{ element.createdDate | date: 'dd-MM-yy HH:mm:ss' }}</td>\r\n\r\n                                </tr>\r\n                            </tbody>\r\n                        </table>\r\n                    </div>\r\n                </div>\r\n                <div class=\"row mt-3\">\r\n                    <div class=\"col-lg-12 text-end\">\r\n                        <div class=\"modal-footer\">\r\n                            <button type=\"submit\" *ngIf=\"!forwardApproveBtnShow && !approveBtnShow\"\r\n                                class=\"btn btn-outline-success\"\r\n                                (click)=\"submit(tripFormDetails , 'Level 1')\">Submit</button>\r\n\r\n                            <button type=\"submit\" *ngIf=\"approveBtnShow ||forwardApproveBtnShow\"\r\n                                class=\"btn btn-outline-warning\"\r\n                                (click)=\"submit(tripFormDetails , 'Level 1 REQ')\">REQUEST FOR CLARIFICATION</button>\r\n\r\n                            <button type=\"submit\" *ngIf=\"forwardApproveBtnShow\" class=\"btn btn-outline-success\"\r\n                                (click)=\"submit(tripFormDetails , 'Level 3')\">Approved</button>\r\n\r\n                            <button type=\"submit\" *ngIf=\"approveBtnShow\" class=\"btn btn-outline-success\"\r\n                                (click)=\"submit(tripFormDetails, 'Level 2')\">Forwarded</button>\r\n\r\n                            <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"back()\"\r\n                                >Back</button>\r\n\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </app-card>\r\n        </form>\r\n    </div>\r\n</div>\r\n\r\n\r\n\r\n<app-ui-modal #submitPopUp [hideFooter]=\"true\" [dialogClass]=\"'modal-lg'\">\r\n    <div class=\"app-modal-header\">\r\n        <h5 class=\"modal-title\">Confirm</h5>\r\n        <button type=\"button\" class=\"close basic-close\" data-dismiss=\"modal\" aria-label=\"Close\"\r\n            (click)=\"submitPopUp.hide()\"><span aria-hidden=\"true\">&times;</span></button>\r\n    </div>\r\n\r\n    <div class=\"app-modal-body\">\r\n        <p>Are you sure whant submit?</p>\r\n        <div class=\"modal-footer\">\r\n            <button type=\"button\" class=\"btn btn-outline-primary\" [disabled]=\"btnLoder\" (click)=\"finalSubmit()\">\r\n                <i class=\"fa\" [ngClass]=\"{'fa-spin fa-asterisk': btnLoder, 'fa-check': !btnLoder}\"></i>Yes\r\n            </button>\r\n            <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"submitPopUp.hide()\">\r\n                <i class=\"feather icon-slash\"></i> No\r\n            </button>\r\n        </div>\r\n    </div>\r\n</app-ui-modal>"
 
 /***/ }),
 
@@ -18,7 +18,7 @@ module.exports = "<h3>Add Trip Details</h3>\n<ul class=\"breadcrumb\">\n    <li 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n    <div class=\"col-xl-12\">\n        <form [formGroup]=\"tripFormSearchDetails\" autocomplete=\"off\">\n            <!-- Search Panel -->\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\n                <h4>Search</h4>\n                <div class=\"row\">\n                    <!-- Driver Name -->\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverName\">Driver Name</label>\n                            <input type=\"text\" id=\"driverName\" formControlName=\"driverName\" class=\"form-control\"\n                                placeholder=\"Enter Driver Name\" />\n                        </div>\n                    </div> -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Driver Name<span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-control\" formControlName=\"driverName\"\n                                placeholder=\"Enter Driver Name\">\n                                <option value=\"\" selected disabled>Select Driver Name</option>\n                                <option *ngFor=\"let driverListElemnt of driverList\" value=\"{{driverListElemnt?.name}}\">\n                                    {{driverListElemnt?.name}}</option>\n                            </select>\n                        </div>\n                    </div>\n\n                    <!-- Driver Number -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverNumber\">Driver Number</label>\n                            <input type=\"text\" id=\"driverNumber\" formControlName=\"driverNumber\" class=\"form-control\"\n                                placeholder=\"Enter Driver Number\" />\n                        </div>\n                    </div>\n\n                    <!-- Vehicle Number -->\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"vehicleNumber\">Vehicle Number</label>\n                            <input type=\"text\" id=\"vehicleNumber\" formControlName=\"vehiclenumber\" class=\"form-control\"\n                                placeholder=\"Enter Vehicle Number\" />\n                        </div>\n                    </div> -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Vehicle Number <span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-control\" formControlName=\"vehiclenumber\"\n                                placeholder=\"Select Vehicle Number\">\n                                <option value=\"\" selected disabled>Select Vehicle Number</option>\n                                <option *ngFor=\"let vehicleListElement of vehicleList\"\n                                    value=\"{{vehicleListElement.vehicleNumber}}\">{{vehicleListElement.vehicleNumber}}\n                                </option>\n                            </select>\n                        </div>\n                    </div>\n\n                    <!-- Status -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"status\">Status</label>\n                            <select id=\"status\" formControlName=\"status\" class=\"form-control\">\n                                <option value=\"\" disabled selected>Select Status</option>\n                                <option value=\"APPROVED\">APPROVED</option>\n                                <option value=\"INPROGRESS\">IN PROGRESS</option>\n                                <option value=\"FORWARDED\">FORWARDED</option>\n                                <option value=\"REQUESTFORCLARIFICATION\">REQUEST FOR CLARIFICATION</option>\n                                <option value=\"REJECT\">REJECT</option>\n                                <option value=\"SUBMITTED\">SUBMITTED</option>\n                            </select>\n                        </div>\n                    </div>\n\n\n                </div>\n\n                <!-- Submit and Cancel buttons -->\n                <div class=\"row mt-3\">\n                    <div class=\"col-lg-12 text-end\">\n                        <div class=\"modal-footer\">\n                            <button type=\"submit\" class=\"btn btn-outline-info list-button-container\"\n                                (click)=\"search()\"><span class=\"list-text-alaign-center\">Submit</span></button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary list-button-container\"\n                                (click)=\"onclear()\"><span class=\"list-text-alaign-center\">Clear</span></button>\n\n                        </div>\n                    </div>\n                </div>\n            </app-card>\n        </form>\n    </div>\n</div>\n\n\n\n\n<div class=\"outer-container\">\n    <div class=\"button-container\">\n        <button class=\"btn btn-outline-success list-button-container\" [routerLink]=\"['/container/trip-detail/add']\">\n            <span class=\"list-text-alaign-center\">Add</span>\n        </button>\n        <button class=\"btn btn-outline-secondary list-button-container\" (click)=\"onEdit()\" [disabled]=\"!editEnable\">\n            <span class=\"list-text-alaign-center\">Edit</span>\n        </button>\n        <button class=\"btn btn-outline-warning list-button-container\" (click)=\"onView()\" [disabled]=\"!viewEnable\">\n            <span class=\"list-text-alaign-center\">View</span>\n        </button>\n        <!-- <button (click)=\"onclear()\">\n            <span>Clear</span>\n        </button> -->\n    </div>\n</div>\n\n<table mat-table [dataSource]=\"dataSource\" class=\"table-design\">\n    <!-- Serial No Column -->\n    <ng-container matColumnDef=\"serialNo\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> S.No </th>\n        <td mat-cell *matCellDef=\"let element; let i = index\" class=\"text-center\"> {{ i + 1 }} </td>\n    </ng-container>\n\n    <!-- Driver Name Column -->\n    <ng-container matColumnDef=\"createdDate\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> CreatedDate </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.createdDate | date: 'dd-MM-yyyy'}} </td>\n    </ng-container>\n\n    <!-- Driver Name Column -->\n    <ng-container matColumnDef=\"vehicleNumber\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VehicleNumber </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.vehicleNumber}} </td>\n    </ng-container>\n\n    <!-- Mobile Number Column -->\n    <ng-container matColumnDef=\"customerName\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\">CustomerName</th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.customerName}} </td>\n    </ng-container>\n\n    <!-- Driving License Number Column -->\n    <ng-container matColumnDef=\"visitingPlace\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VisitingPlace </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.visitingPlace}} </td>\n    </ng-container>\n\n    <!-- Aadhar Number Column -->\n    <ng-container matColumnDef=\"driverName\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Driver Name </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.driverName}} </td>\n    </ng-container>\n\n    <!-- District Column -->\n    <ng-container matColumnDef=\"totalRent\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\">TotalRent </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.totalRent}} </td>\n    </ng-container>\n\n    <!-- Status Column -->\n    <ng-container matColumnDef=\"status\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Status </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.status}} </td>\n    </ng-container>\n\n    <!-- Action Column -->\n    <ng-container matColumnDef=\"action\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Action </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\n            <mat-radio-button (click)=\"onSelect(element)\"></mat-radio-button>\n        </td>\n    </ng-container>\n\n\n    <!-- Header and Row Definitions -->\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n</table>\n\n<mat-paginator [length]=\"totelCount\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"[10, 25, 50, 100]\"\n    (page)=\"pageEvent($event)\">\n</mat-paginator>"
+module.exports = "<div class=\"row\">\r\n    <div class=\"col-xl-12\">\r\n        <form [formGroup]=\"tripFormSearchDetails\" autocomplete=\"off\">\r\n            <app-card cardTitle=\"Trip Request Status\" blockClass=\"table-border-style\" class=\"search-panel\">\r\n                <div class=\"row\"></div>\r\n                <div class=\"row\">\r\n                    <!-- Trip Details -->\r\n                    <div class=\"col dashboard_bg1\">\r\n                        <app-card [hidHeader]=\"true\" cardClass=\"comp-card\">\r\n                            <div class=\"row align-items-center\">\r\n                                <div class=\"col\">\r\n                                    <span>Trip Details</span>\r\n                                    <h3 class=\"mt-2\">{{ tripDetailsCount.total || '0' }}</h3>\r\n                                    <i class=\"fas fa-external-link-alt\"></i>\r\n                                </div>\r\n                            </div>\r\n                        </app-card>\r\n                    </div>\r\n\r\n                    <!-- EAL Approved -->\r\n                    <div class=\"col dashboard_bg4\">\r\n                        <app-card [hidHeader]=\"true\" cardClass=\"comp-card\">\r\n                            <div class=\"row align-items-center\">\r\n                                <div class=\"col\">\r\n                                    <span>Total Approved</span>\r\n                                    <h3 class=\"mt-2\">{{ tripDetailsCount.totalApproved || '0' }}</h3>\r\n                                    <i class=\"fas fas fa-check\"></i>\r\n                                </div>\r\n                            </div>\r\n                        </app-card>\r\n                    </div>\r\n\r\n                    <!-- EAL Pending/Request for Clarification -->\r\n                    <div class=\"col dashboard_bg2\">\r\n                        <app-card [hidHeader]=\"true\" cardClass=\"comp-card\">\r\n                            <div class=\"row align-items-center\">\r\n                                <div class=\"col\">\r\n                                    <span>Total Request for Clarification</span>\r\n                                    <h3 class=\"mt-2\">{{ tripDetailsCount.totalRequestforclarification || '0' }}</h3>\r\n                                    <i class=\"fas fa-hourglass-half\"></i>\r\n                                </div>\r\n                            </div>\r\n                        </app-card>\r\n                    </div>\r\n\r\n                    <!-- EAL Rejected -->\r\n                    <div class=\"col dashboard_bg7\">\r\n                        <app-card [hidHeader]=\"true\" cardClass=\"comp-card\">\r\n                            <div class=\"row align-items-center\">\r\n                                <div class=\"col\">\r\n                                    <span>Total Rejected</span>\r\n                                    <h3 class=\"mt-2\">{{ tripDetailsCount.totalRejected || '0' }}</h3>\r\n                                    <i class=\"fas fa-external-link-alt\"></i>\r\n                                </div>\r\n                            </div>\r\n                        </app-card>\r\n                    </div>\r\n                </div>\r\n            </app-card>\r\n\r\n            <!-- Search Panel -->\r\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\r\n                <h4>Search</h4>\r\n                <div class=\"row\">\r\n                    <!-- Driver Name -->\r\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"driverName\">Driver Name</label>\r\n                            <input type=\"text\" id=\"driverName\" formControlName=\"driverName\" class=\"form-control\"\r\n                                placeholder=\"Enter Driver Name\" />\r\n                        </div>\r\n                    </div> -->\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Driver Name<span class=\"text-danger\">*</span></label>\r\n                            <select type=\"text\" class=\"form-select\" formControlName=\"driverName\"\r\n                                placeholder=\"Enter Driver Name\">\r\n                                <option value=\"\" selected disabled>Select Driver Name</option>\r\n                                <option *ngFor=\"let driverListElemnt of driverList\" value=\"{{driverListElemnt?.name}}\">\r\n                                    {{driverListElemnt?.name}}</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <!-- Driver Number -->\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"driverNumber\">Driver Number</label>\r\n                            <input type=\"text\" id=\"driverNumber\" formControlName=\"driverNumber\" class=\"form-control\"\r\n                                placeholder=\"Enter Driver Number\" />\r\n                        </div>\r\n                    </div>\r\n\r\n                    <!-- Vehicle Number -->\r\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"vehicleNumber\">Vehicle Number</label>\r\n                            <input type=\"text\" id=\"vehicleNumber\" formControlName=\"vehiclenumber\" class=\"form-control\"\r\n                                placeholder=\"Enter Vehicle Number\" />\r\n                        </div>\r\n                    </div> -->\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Vehicle Number <span class=\"text-danger\">*</span></label>\r\n                            <select type=\"text\" class=\"form-select\" formControlName=\"vehiclenumber\"\r\n                                placeholder=\"Select Vehicle Number\">\r\n                                <option value=\"\" selected disabled>Select Vehicle Number</option>\r\n                                <option *ngFor=\"let vehicleListElement of vehicleList\"\r\n                                    value=\"{{vehicleListElement.vehicleNumber}}\">{{vehicleListElement.vehicleNumber}}\r\n                                </option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <!-- Status -->\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"status\">Status</label>\r\n                            <select id=\"status\" formControlName=\"status\" class=\"form-select\">\r\n                                <option value=\"\" disabled selected>Select Status</option>\r\n                                <option value=\"APPROVED\">APPROVED</option>\r\n                                <option value=\"INPROGRESS\">IN PROGRESS</option>\r\n                                <option value=\"FORWARDED\">FORWARDED</option>\r\n                                <option value=\"REQUESTFORCLARIFICATION\">REQUEST FOR CLARIFICATION</option>\r\n                                <option value=\"REJECT\">REJECT</option>\r\n                                <option value=\"SUBMITTED\">SUBMITTED</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n\r\n\r\n                </div>\r\n\r\n                <!-- Submit and Cancel buttons -->\r\n                <div class=\"row mt-3\">\r\n                    <div class=\"col-lg-12 text-end\">\r\n                        <div class=\"modal-footer\">\r\n                            <button type=\"submit\" class=\"btn btn-outline-info list-button-container\"\r\n                                (click)=\"search()\"><span class=\"list-text-alaign-center\">Submit</span></button>\r\n                            <button type=\"button\" class=\"btn btn-outline-secondary list-button-container\"\r\n                                (click)=\"onclear()\"><span class=\"list-text-alaign-center\">Clear</span></button>\r\n\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </app-card>\r\n        </form>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"outer-container\">\r\n    <div class=\"button-container\">\r\n        <button class=\"btn btn-outline-success list-button-container\" [routerLink]=\"['/container/trip-detail/add']\">\r\n            <span class=\"list-text-alaign-center\">Add</span>\r\n        </button>\r\n        <button class=\"btn btn-outline-secondary list-button-container\" (click)=\"onEdit()\" [disabled]=\"!editEnable\">\r\n            <span class=\"list-text-alaign-center\">Edit</span>\r\n        </button>\r\n        <button class=\"btn btn-outline-warning list-button-container\" (click)=\"onView()\" [disabled]=\"!viewEnable\">\r\n            <span class=\"list-text-alaign-center\">View</span>\r\n        </button>\r\n        <!-- <button (click)=\"onclear()\">\r\n            <span>Clear</span>\r\n        </button> -->\r\n    </div>\r\n</div>\r\n\r\n\r\n<app-mat-table-configuration *ngIf=\"columns?.length > 0\" [columns]=\"columns\" [actionKeys]=\"actionKeys\"\r\n    [dataSource]=\"dataSource\" [totalCount]=\"totelCount\" [pageSize]=\"pageSize\"\r\n    (paginationEvent)=\"handlePagination($event)\" (checkboxAction)=\"onChecked($event)\">\r\n</app-mat-table-configuration>\r\n\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-xl-4 mt-2\">\r\n        <div class=\"dropdown\">\r\n            <button class=\"btn btn-outline-primary dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\"\r\n                aria-expanded=\"false\">\r\n                Download\r\n            </button>\r\n            <ul class=\"dropdown-menu\">\r\n                <li><a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"exportToExcel()\">Excel</a></li>\r\n                <li><a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"generatePDF()\">PDF</a></li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -29,7 +29,7 @@ module.exports = "<div class=\"row\">\n    <div class=\"col-xl-12\">\n        <f
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n    <div class=\"col-xl-12\">\n        <form [formGroup]=\"tripFormSearchDetails\" autocomplete=\"off\">\n            <!-- Search Panel -->\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\n                <h4>Search</h4>\n                <div class=\"row\">\n                    <!-- Driver Name -->\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverName\">Driver Name</label>\n                            <input type=\"text\" id=\"driverName\" formControlName=\"driverName\" class=\"form-control\"\n                                placeholder=\"Enter Driver Name\" />\n                        </div>\n                    </div> -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Driver Name<span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-control\" formControlName=\"driverName\"\n                                placeholder=\"Enter Driver Name\">\n                                <option value=\"\" selected disabled>Select Driver Name</option>\n                                <option *ngFor=\"let driverListElemnt of driverList\" value=\"{{driverListElemnt?.name}}\">\n                                    {{driverListElemnt?.name}}</option>\n                            </select>\n                        </div>\n                    </div>\n\n                    <!-- Driver Number -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverNumber\">Driver Number</label>\n                            <input type=\"text\" id=\"driverNumber\" formControlName=\"driverNumber\" class=\"form-control\"\n                                placeholder=\"Enter Driver Number\" />\n                        </div>\n                    </div>\n\n                    <!-- Vehicle Number -->\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"vehicleNumber\">Vehicle Number</label>\n                            <input type=\"text\" id=\"vehicleNumber\" formControlName=\"vehiclenumber\" class=\"form-control\"\n                                placeholder=\"Enter Vehicle Number\" />\n                        </div>\n                    </div> -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Vehicle Number <span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-control\" formControlName=\"vehiclenumber\"\n                                placeholder=\"Select Vehicle Number\">\n                                <option value=\"\" selected disabled>Select Vehicle Number</option>\n                                <option *ngFor=\"let vehicleListElement of vehicleList\"\n                                    value=\"{{vehicleListElement.vehicleNumber}}\">{{vehicleListElement.vehicleNumber}}\n                                </option>\n                            </select>\n                        </div>\n                    </div>\n\n                    <!-- Status -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"status\">Status</label>\n                            <select id=\"status\" formControlName=\"status\" class=\"form-control\">\n                                <option value=\"\" disabled selected>Select Status</option>\n                                <option value=\"APPROVED\">APPROVED</option>\n                                <option value=\"INPROGRESS\">IN PROGRESS</option>\n                                <option value=\"FORWARDED\">FORWARDED</option>\n                                <option value=\"REQUESTFORCLARIFICATION\">REQUEST FOR CLARIFICATION</option>\n                                <option value=\"REJECT\">REJECT</option>\n                                <option value=\"SUBMITTED\">SUBMITTED</option>\n                            </select>\n                        </div>\n                    </div>\n\n\n                </div>\n\n                <!-- Submit and Cancel buttons -->\n                <div class=\"row mt-3\">\n                    <div class=\"col-lg-12 text-end\">\n                        <div class=\"modal-footer\">\n                            <button type=\"submit\" class=\"btn btn-outline-info list-button-container\"\n                                (click)=\"search()\"><span class=\"list-text-alaign-center\">Submit</span></button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary list-button-container\"\n                                (click)=\"onclear()\"><span class=\"list-text-alaign-center\">Clear</span></button>\n\n                        </div>\n                    </div>\n                </div>\n            </app-card>\n        </form>\n    </div>\n</div>\n\n\n\n\n<div class=\"outer-container\">\n    <div class=\"button-container\">\n        <!-- <button class=\"btn btn-outline-success list-button-container\" [routerLink]=\"['/container/trip-detail/add']\">\n            <span class=\"list-text-alaign-center\">Add</span>\n        </button> -->\n        <button class=\"btn btn-outline-secondary list-button-container\" (click)=\"onEdit()\" [disabled]=\"!editEnable\">\n            <span class=\"list-text-alaign-center\">Edit</span>\n        </button>\n        <button class=\"btn btn-outline-warning list-button-container\" (click)=\"onView()\" [disabled]=\"!viewEnable\">\n            <span class=\"list-text-alaign-center\">View</span>\n        </button>\n        <!-- <button (click)=\"onclear()\">\n            <span>Clear</span>\n        </button> -->\n    </div>\n</div>\n\n<table mat-table [dataSource]=\"dataSource\" class=\"table-design\">\n    <!-- Serial No Column -->\n    <ng-container matColumnDef=\"serialNo\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> S.No </th>\n        <td mat-cell *matCellDef=\"let element; let i = index\" class=\"text-center\"> {{ i + 1 }} </td>\n    </ng-container>\n\n    <!-- Driver Name Column -->\n    <ng-container matColumnDef=\"createdDate\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> CreatedDate </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.createdDate | date: 'dd-MM-yyyy'}} </td>\n    </ng-container>\n\n    <!-- Driver Name Column -->\n    <ng-container matColumnDef=\"vehicleNumber\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VehicleNumber </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.vehicleNumber}} </td>\n    </ng-container>\n\n    <!-- Mobile Number Column -->\n    <ng-container matColumnDef=\"customerName\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\">CustomerName</th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.customerName}} </td>\n    </ng-container>\n\n    <!-- Driving License Number Column -->\n    <ng-container matColumnDef=\"visitingPlace\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VisitingPlace </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.visitingPlace}} </td>\n    </ng-container>\n\n    <!-- Aadhar Number Column -->\n    <ng-container matColumnDef=\"driverName\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Driver Name </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.driverName}} </td>\n    </ng-container>\n\n    <!-- District Column -->\n    <ng-container matColumnDef=\"totalRent\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\">TotalRent </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.totalRent}} </td>\n    </ng-container>\n\n    <!-- Status Column -->\n    <ng-container matColumnDef=\"status\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Status </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.status}} </td>\n    </ng-container>\n\n    <!-- Action Column -->\n    <ng-container matColumnDef=\"action\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Action </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\n            <mat-radio-button (click)=\"onSelect(element)\"></mat-radio-button>\n        </td>\n    </ng-container>\n\n\n    <!-- Header and Row Definitions -->\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n</table>\n\n<mat-paginator [length]=\"totelCount\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"[10, 25, 50, 100]\"\n    (page)=\"pageEvent($event)\">\n</mat-paginator>"
+module.exports = "<div class=\"row\">\r\n    <div class=\"col-xl-12\">\r\n        <form [formGroup]=\"tripFormSearchDetails\" autocomplete=\"off\">\r\n            <!-- Search Panel -->\r\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\r\n                <h4>Search</h4>\r\n                <div class=\"row\">\r\n                    <!-- Driver Name -->\r\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"driverName\">Driver Name</label>\r\n                            <input type=\"text\" id=\"driverName\" formControlName=\"driverName\" class=\"form-control\"\r\n                                placeholder=\"Enter Driver Name\" />\r\n                        </div>\r\n                    </div> -->\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Driver Name<span class=\"text-danger\">*</span></label>\r\n                            <select type=\"text\" class=\"form-select\" formControlName=\"driverName\"\r\n                                placeholder=\"Enter Driver Name\">\r\n                                <option value=\"\" selected disabled>Select Driver Name</option>\r\n                                <option *ngFor=\"let driverListElemnt of driverList\" value=\"{{driverListElemnt?.name}}\">\r\n                                    {{driverListElemnt?.name}}</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <!-- Driver Number -->\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"driverNumber\">Driver Number</label>\r\n                            <input type=\"text\" id=\"driverNumber\" formControlName=\"driverNumber\" class=\"form-control\"\r\n                                placeholder=\"Enter Driver Number\" />\r\n                        </div>\r\n                    </div>\r\n\r\n                    <!-- Vehicle Number -->\r\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"vehicleNumber\">Vehicle Number</label>\r\n                            <input type=\"text\" id=\"vehicleNumber\" formControlName=\"vehiclenumber\" class=\"form-control\"\r\n                                placeholder=\"Enter Vehicle Number\" />\r\n                        </div>\r\n                    </div> -->\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Vehicle Number <span class=\"text-danger\">*</span></label>\r\n                            <select type=\"text\" class=\"form-select\" formControlName=\"vehiclenumber\"\r\n                                placeholder=\"Select Vehicle Number\">\r\n                                <option value=\"\" selected disabled>Select Vehicle Number</option>\r\n                                <option *ngFor=\"let vehicleListElement of vehicleList\"\r\n                                    value=\"{{vehicleListElement.vehicleNumber}}\">{{vehicleListElement.vehicleNumber}}\r\n                                </option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <!-- Status -->\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"status\">Status</label>\r\n                            <select id=\"status\" formControlName=\"status\" class=\"form-select\">\r\n                                <option value=\"\" disabled selected>Select Status</option>\r\n                                <option value=\"APPROVED\">APPROVED</option>\r\n                                <option value=\"INPROGRESS\">IN PROGRESS</option>\r\n                                <option value=\"FORWARDED\">FORWARDED</option>\r\n                                <option value=\"REQUESTFORCLARIFICATION\">REQUEST FOR CLARIFICATION</option>\r\n                                <option value=\"REJECT\">REJECT</option>\r\n                                <option value=\"SUBMITTED\">SUBMITTED</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n\r\n\r\n                </div>\r\n\r\n                <!-- Submit and Cancel buttons -->\r\n                <div class=\"row mt-3\">\r\n                    <div class=\"col-lg-12 text-end\">\r\n                        <div class=\"modal-footer\">\r\n                            <button type=\"submit\" class=\"btn btn-outline-info list-button-container\"\r\n                                (click)=\"search()\"><span class=\"list-text-alaign-center\">Submit</span></button>\r\n                            <button type=\"button\" class=\"btn btn-outline-secondary list-button-container\"\r\n                                (click)=\"onclear()\"><span class=\"list-text-alaign-center\">Clear</span></button>\r\n\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </app-card>\r\n        </form>\r\n    </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n<div class=\"outer-container\">\r\n    <div class=\"button-container\">\r\n        <!-- <button class=\"btn btn-outline-success list-button-container\" [routerLink]=\"['/container/trip-detail/add']\">\r\n            <span class=\"list-text-alaign-center\">Add</span>\r\n        </button> -->\r\n        <button class=\"btn btn-outline-secondary list-button-container\" (click)=\"onEdit()\" [disabled]=\"!editEnable\">\r\n            <span class=\"list-text-alaign-center\">Edit</span>\r\n        </button>\r\n        <button class=\"btn btn-outline-warning list-button-container\" (click)=\"onView()\" [disabled]=\"!viewEnable\">\r\n            <span class=\"list-text-alaign-center\">View</span>\r\n        </button>\r\n        <!-- <button (click)=\"onclear()\">\r\n            <span>Clear</span>\r\n        </button> -->\r\n    </div>\r\n</div>\r\n\r\n<!-- <app-card [hidHeader]=\"true\" blockClass=\"table-border-style\" class=\"list-panel\">\r\n    <div class=\"table-responsive text-center\">\r\n        <div class=\"example-table-container\">\r\n            <table mat-table [dataSource]=\"dataSource\" class=\"table-design\">\r\n                <ng-container matColumnDef=\"serialNo\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> S.No </th>\r\n                    <td mat-cell *matCellDef=\"let element; let i = index\" class=\"text-center\"> {{ i + 1 }} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"tripNumber\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">Trip Number </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.tripNumber}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"createdDate\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> CreatedDate </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.createdDate | date:\r\n                        'dd-MM-yyyy'}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"vehicleNumber\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VehicleNumber </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.vehicleNumber}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"customerName\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">CustomerName</th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.customerName}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"visitingPlace\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VisitingPlace </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.visitingPlace}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"driverName\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Driver Name </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.driverName}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"totalRent\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">TotalRent </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.totalRent}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"status\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Status </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\r\n                        <span class=\"badge m-r-5 badge-light-success\"\r\n                            *ngIf=\"element?.status == 'APPROVED'\">{{element?.status}}</span>\r\n                        <span class=\"badge m-r-5 badge-light-info\"\r\n                            *ngIf=\"element?.status == 'INPROGRESS'\">{{element?.status}}</span>\r\n                        <span class=\"badge m-r-5 badge-light-secondary\"\r\n                            *ngIf=\"element?.status == 'FORWARDED'\">{{element?.status}}</span>\r\n                        <span class=\"badge m-r-5 badge-light-warning \"\r\n                            *ngIf=\"element?.status == 'REQUESTFORCLARIFICATION'\">{{element?.status}}</span>\r\n                    </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"action\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Action </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\r\n                        <mat-radio-button (click)=\"onSelect(element)\"></mat-radio-button>\r\n                    </td>\r\n                </ng-container>\r\n\r\n                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n            </table>\r\n            <div *ngIf=\"isLoading\" class=\"table-loader\">\r\n                <mat-spinner diameter=\"64\"></mat-spinner>\r\n            </div>\r\n            <mat-paginator [length]=\"totelCount\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"[10, 25, 50, 100]\"\r\n                (page)=\"pageEvent($event)\">\r\n            </mat-paginator>\r\n        </div>\r\n    </div>\r\n</app-card> -->\r\n\r\n<app-mat-table-configuration [columns]=\"columns\" [actionKeys]=\"actionKeys\" [dataSource]=\"dataSource\"\r\n    [totalCount]=\"totelCount\" [pageSize]=\"pageSize\" (paginationEvent)=\"handlePagination($event)\"\r\n    (checkboxAction)=\"onChecked($event)\">\r\n</app-mat-table-configuration>\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-xl-4 mt-2\">\r\n        <div class=\"dropdown\">\r\n            <button class=\"btn btn-outline-primary dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\"\r\n                aria-expanded=\"false\">\r\n                Download\r\n            </button>\r\n            <ul class=\"dropdown-menu\">\r\n                <li><a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"exportToExcel()\">Excel</a></li>\r\n                <li><a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"generatePDF()\">PDF</a></li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -40,7 +40,7 @@ module.exports = "<div class=\"row\">\n    <div class=\"col-xl-12\">\n        <f
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n    <div class=\"col-xl-12\">\n        <form [formGroup]=\"tripFormSearchDetails\" autocomplete=\"off\">\n            <!-- Search Panel -->\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\n                <h4>Search</h4>\n                <div class=\"row\">\n                    <!-- Driver Name -->\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverName\">Driver Name</label>\n                            <input type=\"text\" id=\"driverName\" formControlName=\"driverName\" class=\"form-control\"\n                                placeholder=\"Enter Driver Name\" />\n                        </div>\n                    </div> -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Driver Name<span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-control\" formControlName=\"driverName\"\n                                placeholder=\"Enter Driver Name\">\n                                <option value=\"\" selected disabled>Select Driver Name</option>\n                                <option *ngFor=\"let driverListElemnt of driverList\" value=\"{{driverListElemnt?.name}}\">\n                                    {{driverListElemnt?.name}}</option>\n                            </select>\n                        </div>\n                    </div>\n\n                    <!-- Driver Number -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"driverNumber\">Driver Number</label>\n                            <input type=\"text\" id=\"driverNumber\" formControlName=\"driverNumber\" class=\"form-control\"\n                                placeholder=\"Enter Driver Number\" />\n                        </div>\n                    </div>\n\n                    <!-- Vehicle Number -->\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"vehicleNumber\">Vehicle Number</label>\n                            <input type=\"text\" id=\"vehicleNumber\" formControlName=\"vehiclenumber\" class=\"form-control\"\n                                placeholder=\"Enter Vehicle Number\" />\n                        </div>\n                    </div> -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label>Vehicle Number <span class=\"text-danger\">*</span></label>\n                            <select type=\"text\" class=\"form-control\" formControlName=\"vehiclenumber\"\n                                placeholder=\"Select Vehicle Number\">\n                                <option value=\"\" selected disabled>Select Vehicle Number</option>\n                                <option *ngFor=\"let vehicleListElement of vehicleList\"\n                                    value=\"{{vehicleListElement.vehicleNumber}}\">{{vehicleListElement.vehicleNumber}}\n                                </option>\n                            </select>\n                        </div>\n                    </div>\n\n                    <!-- Status -->\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\n                        <div class=\"form-group\">\n                            <label for=\"status\">Status</label>\n                            <select id=\"status\" formControlName=\"status\" class=\"form-control\">\n                                <option value=\"\" disabled selected>Select Status</option>\n                                <option value=\"APPROVED\">APPROVED</option>\n                                <option value=\"INPROGRESS\">IN PROGRESS</option>\n                                <option value=\"FORWARDED\">FORWARDED</option>\n                                <option value=\"REQUESTFORCLARIFICATION\">REQUEST FOR CLARIFICATION</option>\n                                <option value=\"REJECT\">REJECT</option>\n                                <option value=\"SUBMITTED\">SUBMITTED</option>\n                            </select>\n                        </div>\n                    </div>\n\n\n                </div>\n\n                <!-- Submit and Cancel buttons -->\n                <div class=\"row mt-3\">\n                    <div class=\"col-lg-12 text-end\">\n                        <div class=\"modal-footer\">\n                            <button type=\"submit\" class=\"btn btn-outline-info list-button-container\"\n                                (click)=\"search()\"><span class=\"list-text-alaign-center\">Submit</span></button>\n                            <button type=\"button\" class=\"btn btn-outline-secondary list-button-container\"\n                                (click)=\"onclear()\"><span class=\"list-text-alaign-center\">Clear</span></button>\n\n                        </div>\n                    </div>\n                </div>\n            </app-card>\n        </form>\n    </div>\n</div>\n\n\n\n\n<div class=\"outer-container\">\n    <div class=\"button-container\">\n        <!-- <button class=\"btn btn-outline-success list-button-container\" [routerLink]=\"['/container/trip-detail/add']\">\n            <span class=\"list-text-alaign-center\">Add</span>\n        </button> -->\n        <button class=\"btn btn-outline-secondary list-button-container\" (click)=\"onEdit()\" [disabled]=\"!editEnable\">\n            <span class=\"list-text-alaign-center\">Edit</span>\n        </button>\n        <button class=\"btn btn-outline-warning list-button-container\" (click)=\"onView()\" [disabled]=\"!viewEnable\">\n            <span class=\"list-text-alaign-center\">View</span>\n        </button>\n        <!-- <button (click)=\"onclear()\">\n            <span>Clear</span>\n        </button> -->\n    </div>\n</div>\n\n<table mat-table [dataSource]=\"dataSource\" class=\"table-design\">\n    <!-- Serial No Column -->\n    <ng-container matColumnDef=\"serialNo\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> S.No </th>\n        <td mat-cell *matCellDef=\"let element; let i = index\" class=\"text-center\"> {{ i + 1 }} </td>\n    </ng-container>\n\n    <!-- Driver Name Column -->\n    <ng-container matColumnDef=\"createdDate\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> CreatedDate </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.createdDate | date: 'dd-MM-yyyy'}} </td>\n    </ng-container>\n\n    <!-- Driver Name Column -->\n    <ng-container matColumnDef=\"vehicleNumber\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VehicleNumber </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.vehicleNumber}} </td>\n    </ng-container>\n\n    <!-- Mobile Number Column -->\n    <ng-container matColumnDef=\"customerName\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\">CustomerName</th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.customerName}} </td>\n    </ng-container>\n\n    <!-- Driving License Number Column -->\n    <ng-container matColumnDef=\"visitingPlace\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VisitingPlace </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.visitingPlace}} </td>\n    </ng-container>\n\n    <!-- Aadhar Number Column -->\n    <ng-container matColumnDef=\"driverName\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Driver Name </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.driverName}} </td>\n    </ng-container>\n\n    <!-- District Column -->\n    <ng-container matColumnDef=\"totalRent\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\">TotalRent </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.totalRent}} </td>\n    </ng-container>\n\n    <!-- Status Column -->\n    <ng-container matColumnDef=\"status\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Status </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.status}} </td>\n    </ng-container>\n\n    <!-- Action Column -->\n    <ng-container matColumnDef=\"action\">\n        <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Action </th>\n        <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\n            <mat-radio-button (click)=\"onSelect(element)\"></mat-radio-button>\n        </td>\n    </ng-container>\n\n\n    <!-- Header and Row Definitions -->\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n</table>\n\n<mat-paginator [length]=\"totelCount\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"[10, 25, 50, 100]\"\n    (page)=\"pageEvent($event)\">\n</mat-paginator>"
+module.exports = "<div class=\"row\">\r\n    <div class=\"col-xl-12\">\r\n        <form [formGroup]=\"tripFormSearchDetails\" autocomplete=\"off\">\r\n            <!-- Search Panel -->\r\n            <app-card [hidHeader]=\"true\" class=\"list-panel add-panel\">\r\n                <h4>Search</h4>\r\n                <div class=\"row\">\r\n                    <!-- Driver Name -->\r\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"driverName\">Driver Name</label>\r\n                            <input type=\"text\" id=\"driverName\" formControlName=\"driverName\" class=\"form-control\"\r\n                                placeholder=\"Enter Driver Name\" />\r\n                        </div>\r\n                    </div> -->\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Driver Name<span class=\"text-danger\">*</span></label>\r\n                            <select type=\"text\" class=\"form-select\" formControlName=\"driverName\"\r\n                                placeholder=\"Enter Driver Name\">\r\n                                <option value=\"\" selected disabled>Select Driver Name</option>\r\n                                <option *ngFor=\"let driverListElemnt of driverList\" value=\"{{driverListElemnt?.name}}\">\r\n                                    {{driverListElemnt?.name}}</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <!-- Driver Number -->\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"driverNumber\">Driver Number</label>\r\n                            <input type=\"text\" id=\"driverNumber\" formControlName=\"driverNumber\" class=\"form-control\"\r\n                                placeholder=\"Enter Driver Number\" />\r\n                        </div>\r\n                    </div>\r\n\r\n                    <!-- Vehicle Number -->\r\n                    <!-- <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"vehicleNumber\">Vehicle Number</label>\r\n                            <input type=\"text\" id=\"vehicleNumber\" formControlName=\"vehiclenumber\" class=\"form-control\"\r\n                                placeholder=\"Enter Vehicle Number\" />\r\n                        </div>\r\n                    </div> -->\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label>Vehicle Number <span class=\"text-danger\">*</span></label>\r\n                            <select type=\"text\" class=\"form-select\" formControlName=\"vehiclenumber\"\r\n                                placeholder=\"Select Vehicle Number\">\r\n                                <option value=\"\" selected disabled>Select Vehicle Number</option>\r\n                                <option *ngFor=\"let vehicleListElement of vehicleList\"\r\n                                    value=\"{{vehicleListElement.vehicleNumber}}\">{{vehicleListElement.vehicleNumber}}\r\n                                </option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <!-- Status -->\r\n                    <div class=\"col-lg-3 col-md-3 col-sm-6 col-12\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"status\">Status</label>\r\n                            <select id=\"status\" formControlName=\"status\" class=\"form-select\">\r\n                                <option value=\"\" disabled selected>Select Status</option>\r\n                                <option value=\"APPROVED\">APPROVED</option>\r\n                                <option value=\"INPROGRESS\">IN PROGRESS</option>\r\n                                <option value=\"FORWARDED\">FORWARDED</option>\r\n                                <option value=\"REQUESTFORCLARIFICATION\">REQUEST FOR CLARIFICATION</option>\r\n                                <option value=\"REJECT\">REJECT</option>\r\n                                <option value=\"SUBMITTED\">SUBMITTED</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n\r\n\r\n                </div>\r\n\r\n                <!-- Submit and Cancel buttons -->\r\n                <div class=\"row mt-3\">\r\n                    <div class=\"col-lg-12 text-end\">\r\n                        <div class=\"modal-footer\">\r\n                            <button type=\"submit\" class=\"btn btn-outline-info list-button-container\"\r\n                                (click)=\"search()\"><span class=\"list-text-alaign-center\">Submit</span></button>\r\n                            <button type=\"button\" class=\"btn btn-outline-secondary list-button-container\"\r\n                                (click)=\"onclear()\"><span class=\"list-text-alaign-center\">Clear</span></button>\r\n\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </app-card>\r\n        </form>\r\n    </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n<div class=\"outer-container\">\r\n    <div class=\"button-container\">\r\n        <!-- <button class=\"btn btn-outline-success list-button-container\" [routerLink]=\"['/container/trip-detail/add']\">\r\n            <span class=\"list-text-alaign-center\">Add</span>\r\n        </button> -->\r\n        <button class=\"btn btn-outline-secondary list-button-container\" (click)=\"onEdit()\" [disabled]=\"!editEnable\">\r\n            <span class=\"list-text-alaign-center\">Edit</span>\r\n        </button>\r\n        <button class=\"btn btn-outline-warning list-button-container\" (click)=\"onView()\" [disabled]=\"!viewEnable\">\r\n            <span class=\"list-text-alaign-center\">View</span>\r\n        </button>\r\n        <!-- <button (click)=\"onclear()\">\r\n            <span>Clear</span>\r\n        </button> -->\r\n    </div>\r\n</div>\r\n<!-- <app-card [hidHeader]=\"true\" blockClass=\"table-border-style\" class=\"list-panel\">\r\n    <div class=\"table-responsive text-center\">\r\n        <div class=\"example-table-container\">\r\n            <table mat-table [dataSource]=\"dataSource\" class=\"table-design\">\r\n                <ng-container matColumnDef=\"serialNo\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> S.No </th>\r\n                    <td mat-cell *matCellDef=\"let element; let i = index\" class=\"text-center\"> {{ i + 1 }} </td>\r\n                </ng-container>\r\n\r\n\r\n                <ng-container matColumnDef=\"tripNumber\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">Trip Number </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.tripNumber}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"createdDate\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> CreatedDate </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.createdDate | date:\r\n                        'dd-MM-yyyy'}} </td>\r\n                </ng-container>\r\n                <ng-container matColumnDef=\"vehicleNumber\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VehicleNumber </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.vehicleNumber}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"customerName\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">CustomerName</th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.customerName}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"visitingPlace\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> VisitingPlace </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.visitingPlace}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"driverName\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Driver Name </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.driverName}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"totalRent\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\">TotalRent </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\"> {{element.totalRent}} </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"status\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Status </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\r\n                        <span class=\"badge m-r-5 badge-light-success\"\r\n                            *ngIf=\"element?.status == 'APPROVED'\">{{element?.status}}</span>\r\n                        <span class=\"badge m-r-5 badge-light-info\"\r\n                            *ngIf=\"element?.status == 'INPROGRESS'\">{{element?.status}}</span>\r\n                        <span class=\"badge m-r-5 badge-light-secondary\"\r\n                            *ngIf=\"element?.status == 'FORWARDED'\">{{element?.status}}</span>\r\n                        <span class=\"badge m-r-5 badge-light-warning \"\r\n                            *ngIf=\"element?.status == 'REQUESTFORCLARIFICATION'\">{{element?.status}}</span>\r\n                    </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"action\">\r\n                    <th mat-header-cell *matHeaderCellDef class=\"text-center\"> Action </th>\r\n                    <td mat-cell *matCellDef=\"let element\" class=\"text-center\">\r\n                        <mat-radio-button (click)=\"onSelect(element)\"></mat-radio-button>\r\n                    </td>\r\n                </ng-container>\r\n\r\n\r\n                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n            </table>\r\n            <div *ngIf=\"isLoading\" class=\"table-loader\">\r\n                <mat-spinner diameter=\"64\"></mat-spinner>\r\n            </div>\r\n            <mat-paginator [length]=\"totelCount\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"[10, 25, 50, 100]\"\r\n                (page)=\"pageEvent($event)\">\r\n            </mat-paginator>\r\n        </div>\r\n    </div>\r\n</app-card> -->\r\n\r\n<app-mat-table-configuration [columns]=\"columns\" [actionKeys]=\"actionKeys\" [dataSource]=\"dataSource\"\r\n    [totalCount]=\"totelCount\" [pageSize]=\"pageSize\" (paginationEvent)=\"handlePagination($event)\"\r\n    (checkboxAction)=\"onChecked($event)\">\r\n</app-mat-table-configuration>\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-xl-4 mt-2\">\r\n        <div class=\"dropdown\">\r\n            <button class=\"btn btn-outline-primary dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\"\r\n                aria-expanded=\"false\">\r\n                Download\r\n            </button>\r\n            <ul class=\"dropdown-menu\">\r\n                <li><a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"exportToExcel()\">Excel</a></li>\r\n                <li><a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"generatePDF()\">PDF</a></li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -51,7 +51,7 @@ module.exports = "<div class=\"row\">\n    <div class=\"col-xl-12\">\n        <f
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ul class=\"breadcrumb\">\n    <li class=\"breadcrumb-item\">\n      <a [routerLink]=\"['/dashboard']\">Home</a>\n    </li>\n    <li class=\"breadcrumb-item\">\n      <a [routerLink]=\"['/container/trip-detail/list']\">Trip Details</a>\n    </li>\n    <li class=\"breadcrumb-item active\" aria-current=\"page\">View</li>\n  </ul>\n  \n  <app-card [hidHeader]=\"true\" class=\"view-panel\">\n    <h4>Trip Details</h4>\n    <hr>\n    <div class=\"container\">\n      <div class=\"row mb-3\">\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Vehicle Number</label>\n          <p class=\"view-text\">{{getTripDetails?.vehicleNumber}}</p>\n        </div>\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Customer Name</label>\n          <p class=\"view-text\">{{getTripDetails?.customerName}}</p>\n        </div>\n      </div>\n  \n      <div class=\"row mb-3\">\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Customer Mobile Number</label>\n          <p class=\"view-text\">{{getTripDetails?.customerMobileNumber}}</p>\n        </div>\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Driver Name</label>\n          <p class=\"view-text\">{{getTripDetails?.driverName}}</p>\n        </div>\n      </div>\n  \n      <div class=\"row mb-3\">\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Starting KM</label>\n          <p class=\"view-text\">{{getTripDetails?.startingKM}}</p>\n        </div>\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Closing KM</label>\n          <p class=\"view-text\">{{getTripDetails?.closingKM}}</p>\n        </div>\n      </div>\n  \n      <div class=\"row mb-3\">\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Used KM</label>\n          <p class=\"view-text\">{{getTripDetails?.usedKM}}</p>\n        </div>\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">AC or Non-AC</label>\n          <p class=\"view-text\">{{getTripDetails?.acOrNonAc}}</p>\n        </div>\n      </div>\n  \n      <div class=\"row mb-3\">\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Starting Time</label>\n          <p class=\"view-text\">{{getTripDetails?.startingTime}}</p>\n        </div>\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Closing Time</label>\n          <p class=\"view-text\">{{getTripDetails?.closingTime}}</p>\n        </div>\n      </div>\n  \n      <div class=\"row mb-3\">\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Total Time</label>\n          <p class=\"view-text\">{{getTripDetails?.totalTime}}</p>\n        </div>\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Visiting Place</label>\n          <p class=\"view-text\">{{getTripDetails?.visitingPlace}}</p>\n        </div>\n      </div>\n  \n      <div class=\"row mb-3\">\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Advance Amount</label>\n          <p class=\"view-text\">{{getTripDetails?.advanceAmount}}</p>\n        </div>\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Total Rent</label>\n          <p class=\"view-text\">{{getTripDetails?.totalRent}}</p>\n        </div>\n      </div>\n  \n      <div class=\"row mb-3\">\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Diesel Amount</label>\n          <p class=\"view-text\">{{getTripDetails?.diesel}}</p>\n        </div>\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Driver Payment</label>\n          <p class=\"view-text\">{{getTripDetails?.driverPayment}}</p>\n        </div>\n      </div>\n  \n      <div class=\"row mb-3\">\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Received Amount</label>\n          <p class=\"view-text\">{{getTripDetails?.receivedAmount}}</p>\n        </div>\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Pending Amount</label>\n          <p class=\"view-text\">{{getTripDetails?.pendingAmount}}</p>\n        </div>\n      </div>\n  \n      <div class=\"row mb-3\">\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Submitted By</label>\n          <p class=\"view-text\">{{getTripDetails?.submittedBy}}</p>\n        </div>\n        <div class=\"col-md-6\">\n          <label class=\"view-label\">Status</label>\n          <p class=\"view-text\">{{getTripDetails?.status}}</p>\n        </div>\n      </div>\n  \n      <div class=\"row mt-3\">\n        <div class=\"col-lg-12 text-end\">\n          <div class=\"modal-footer\">\n            <button type=\"button\" class=\"btn btn-outline-secondary\" [routerLink]=\"['/container/trip-detail/list']\">Back</button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </app-card>\n  "
+module.exports = "<ul class=\"breadcrumb\">\r\n  <li class=\"breadcrumb-item\">\r\n    <a [routerLink]=\"['/dashboard']\">Home</a>\r\n  </li>\r\n  <li class=\"breadcrumb-item\">\r\n    <a [routerLink]=\"['/container/trip-detail/list']\">Trip Details</a>\r\n  </li>\r\n  <li class=\"breadcrumb-item active\" aria-current=\"page\">View</li>\r\n</ul>\r\n\r\n<app-card [hidHeader]=\"true\" class=\"view-panel\">\r\n  <h4>Trip Details</h4>\r\n  <hr>\r\n  <div class=\"container\">\r\n    <div class=\"row mb-3\">\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Vehicle Number</label>\r\n        <p class=\"view-text\">{{getTripDetails?.vehicleNumber}}</p>\r\n      </div>\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Customer Name</label>\r\n        <p class=\"view-text\">{{getTripDetails?.customerName}}</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row mb-3\">\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Customer Mobile Number</label>\r\n        <p class=\"view-text\">{{getTripDetails?.customerMobileNumber}}</p>\r\n      </div>\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Driver Name</label>\r\n        <p class=\"view-text\">{{getTripDetails?.driverName}}</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row mb-3\">\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Starting KM</label>\r\n        <p class=\"view-text\">{{getTripDetails?.startingKM}}</p>\r\n      </div>\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Closing KM</label>\r\n        <p class=\"view-text\">{{getTripDetails?.closingKM}}</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row mb-3\">\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Used KM</label>\r\n        <p class=\"view-text\">{{getTripDetails?.usedKM}}</p>\r\n      </div>\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">AC or Non-AC</label>\r\n        <p class=\"view-text\">{{getTripDetails?.acOrNonAc}}</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row mb-3\">\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Starting Time</label>\r\n        <p class=\"view-text\">{{getTripDetails?.startingTime}}</p>\r\n      </div>\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Closing Time</label>\r\n        <p class=\"view-text\">{{getTripDetails?.closingTime}}</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row mb-3\">\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Total Time</label>\r\n        <p class=\"view-text\">{{getTripDetails?.totalTime}}</p>\r\n      </div>\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Visiting Place</label>\r\n        <p class=\"view-text\">{{getTripDetails?.visitingPlace}}</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row mb-3\">\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Advance Amount</label>\r\n        <p class=\"view-text\">{{getTripDetails?.advanceAmount}}</p>\r\n      </div>\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Total Rent</label>\r\n        <p class=\"view-text\">{{getTripDetails?.totalRent}}</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row mb-3\">\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Diesel Amount</label>\r\n        <p class=\"view-text\">{{getTripDetails?.diesel}}</p>\r\n      </div>\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Driver Payment</label>\r\n        <p class=\"view-text\">{{getTripDetails?.driverPayment}}</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row mb-3\">\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Received Amount</label>\r\n        <p class=\"view-text\">{{getTripDetails?.receivedAmount}}</p>\r\n      </div>\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Pending Amount</label>\r\n        <p class=\"view-text\">{{getTripDetails?.pendingAmount}}</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row mb-3\">\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Submitted By</label>\r\n        <p class=\"view-text\">{{getTripDetails?.submittedBy}}</p>\r\n      </div>\r\n      <div class=\"col-md-6\">\r\n        <label class=\"view-label\">Status</label>\r\n        <p class=\"view-text\">{{getTripDetails?.status}}</p>\r\n      </div>\r\n    </div>\r\n\r\n    <hr>\r\n    <div class=\"row modal-footer\" *ngIf=\"tripLogDetails?.length > 0\">\r\n      <h4>Trip Log Details</h4>\r\n      <hr>\r\n\r\n      <div class=\"table-responsive\">\r\n        <table class=\"table table-bordered\">\r\n          <thead>\r\n            <tr>\r\n              <th>S.No</th>\r\n              <th>Application No</th>\r\n              <th>User Name</th>\r\n              <th>Action</th>\r\n              <th>Comments</th>\r\n              <th>Remark</th>\r\n              <th>Created Date</th>\r\n            </tr>\r\n          </thead>\r\n          <tbody>\r\n            <tr *ngFor=\"let element of tripLogDetails; let i = index\">\r\n              <td>{{ i+1 }}</td>\r\n              <td>{{ element.applnNo }}</td>\r\n              <td>{{ element.userName }}</td>\r\n              <td class=\"text-center\">\r\n                <span *ngIf=\"element?.action == 'SUBMITTED'\" class=\"badge m-r-5 badge-light-primary\">\r\n                  {{element?.action}}</span>\r\n                <span *ngIf=\"element?.action == 'APPROVED'\" class=\"badge m-r-5 badge-light-success\">\r\n                  {{element?.action}}</span>\r\n                <span *ngIf=\"element?.action == 'REQUESTFORCLARIFICATION'\" class=\"badge m-r-5 badge-light-secondary\">\r\n                  {{element?.action}}</span>\r\n                <span *ngIf=\"element?.action == 'INPROGRESS'\" class=\"badge m-r-5 badge-light-success\">\r\n                  {{element?.action}}</span>\r\n                <span *ngIf=\"element?.action == 'FORWARDED'\" class=\"badge m-r-5 badge-light-warning\">\r\n                  {{element?.action}}</span>\r\n                <span *ngIf=\"element?.action == 'UPDATED'\" class=\"badge m-r-5 badge-light-primary\">\r\n                  {{element?.action}}</span>\r\n              </td>\r\n              <td>{{ element.comments }}</td>\r\n              <td>{{ element.remarks }}</td>\r\n              <td>{{ element.createdDate | date: 'dd-MM-yy HH:mm:ss' }}</td>\r\n\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row mt-3\">\r\n      <div class=\"col-lg-12 text-end\">\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-outline-secondary\" (click)=\"back()\">Back</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</app-card>"
 
 /***/ }),
 
@@ -62,7 +62,7 @@ module.exports = "<ul class=\"breadcrumb\">\n    <li class=\"breadcrumb-item\">\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbnRhaW5lci90cmlwLWRldGFpbHMvdHJpcC1kZXRhaWxzL2FkZC1lZGl0LXRyaXAtZGV0YWlscy9hZGQtZWRpdC10cmlwLWRldGFpbHMuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "/* Default style for the select (light color when no option is selected) */\n.form-select {\n  color: rgba(0, 0, 0, 0.5);\n  /* Light color for placeholder */ }\n/* When an option is selected, change text color to black */\n.form-select:valid {\n  color: black; }\n/* Ensure the placeholder option appears light inside the dropdown */\n.form-select option:disabled {\n  color: rgba(0, 0, 0, 0.5); }\n/* Ensure the dropdown options are always black */\n.form-select option {\n  color: black; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29udGFpbmVyL3RyaXAtZGV0YWlscy90cmlwLWRldGFpbHMvYWRkLWVkaXQtdHJpcC1kZXRhaWxzL0Q6XFwxOS1WLURldmVyIEhvbGRheXMgVUlcXERIRC1PTEQtRGVzaWduc1xcRGV2YXJIb2xpZGF5c1VJL3NyY1xcYXBwXFxjb250YWluZXJcXHRyaXAtZGV0YWlsc1xcdHJpcC1kZXRhaWxzXFxhZGQtZWRpdC10cmlwLWRldGFpbHNcXGFkZC1lZGl0LXRyaXAtZGV0YWlscy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFHQSwwRUFBQTtBQUNBO0VBQ0kseUJBQXlCO0VBQUUsZ0NBQUEsRUFBaUM7QUFHaEUsMkRBQUE7QUFDQTtFQUNJLFlBQVksRUFBQTtBQUdoQixvRUFBQTtBQUNBO0VBQ0kseUJBQXlCLEVBQUE7QUFHN0IsaURBQUE7QUFDQTtFQUNJLFlBQVksRUFBQSIsImZpbGUiOiJzcmMvYXBwL2NvbnRhaW5lci90cmlwLWRldGFpbHMvdHJpcC1kZXRhaWxzL2FkZC1lZGl0LXRyaXAtZGV0YWlscy9hZGQtZWRpdC10cmlwLWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvLyAubmdiLWRwLWNvbnRhaW5lciB7XHJcbi8vICAgICB6LWluZGV4OiAxMDUwICFpbXBvcnRhbnQ7XHJcbi8vICAgfVxyXG4vKiBEZWZhdWx0IHN0eWxlIGZvciB0aGUgc2VsZWN0IChsaWdodCBjb2xvciB3aGVuIG5vIG9wdGlvbiBpcyBzZWxlY3RlZCkgKi9cclxuLmZvcm0tc2VsZWN0IHtcclxuICAgIGNvbG9yOiByZ2JhKDAsIDAsIDAsIDAuNSk7IC8qIExpZ2h0IGNvbG9yIGZvciBwbGFjZWhvbGRlciAqL1xyXG59XHJcblxyXG4vKiBXaGVuIGFuIG9wdGlvbiBpcyBzZWxlY3RlZCwgY2hhbmdlIHRleHQgY29sb3IgdG8gYmxhY2sgKi9cclxuLmZvcm0tc2VsZWN0OnZhbGlkIHtcclxuICAgIGNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLyogRW5zdXJlIHRoZSBwbGFjZWhvbGRlciBvcHRpb24gYXBwZWFycyBsaWdodCBpbnNpZGUgdGhlIGRyb3Bkb3duICovXHJcbi5mb3JtLXNlbGVjdCBvcHRpb246ZGlzYWJsZWQge1xyXG4gICAgY29sb3I6IHJnYmEoMCwgMCwgMCwgMC41KTtcclxufVxyXG5cclxuLyogRW5zdXJlIHRoZSBkcm9wZG93biBvcHRpb25zIGFyZSBhbHdheXMgYmxhY2sgKi9cclxuLmZvcm0tc2VsZWN0IG9wdGlvbiB7XHJcbiAgICBjb2xvcjogYmxhY2s7XHJcbn1cclxuIl19 */"
 
 /***/ }),
 
@@ -105,24 +105,10 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
     AddEditTripDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.activatedRoute.params.subscribe(function (tripIdResponse) {
-            if (tripIdResponse.id && tripIdResponse.status == 'forward') {
+            if (tripIdResponse.id) {
                 _this.tripId = tripIdResponse.id;
-                console.log("FIRST METHOD");
-                _this.tripStatus = tripIdResponse.status;
-                _this.getTripDetailsForward(tripIdResponse.id);
-                _this.forwardApproveBtnShow = true;
-            }
-            else if (tripIdResponse.id && tripIdResponse.status == 'approved') {
-                _this.tripId = tripIdResponse.id;
-                _this.tripStatus = tripIdResponse.status;
-                _this.getTripDetailsApprove(tripIdResponse.id);
-                _this.approveBtnShow = true;
-                console.log("Second METHOD");
-            }
-            else if (tripIdResponse.id) {
-                console.log("THIRD METHOD");
-                _this.tripId = tripIdResponse.id;
-                _this.getTripDetailsForm(tripIdResponse.id);
+                _this.getTripDetailsForm(tripIdResponse.id, tripIdResponse.status);
+                _this.routingStatus = tripIdResponse.status;
             }
         });
         this.tripFormDetails = this.formBuilder.group({
@@ -161,7 +147,11 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
             // balanceAmount: ['', Validators.required],
             profitAmount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             submittedBy: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            discountAmount: ['0'],
             status: [''],
+            remark: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+            // verifiedByManager: ['', Validators.required],
+            // verifiedByProprietor: ['', Validators.required]
         });
         this.tripFormDetails.get('startingTime').valueChanges.subscribe(function () {
             _this.calculateTotalHours();
@@ -186,6 +176,22 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
             }
         });
     };
+    /* calculateTotalHours() {
+      const startTime = this.tripFormDetails.get('startingTime').value;
+      const closingTime = this.tripFormDetails.get('closingTime').value;
+      if (startTime && closingTime) {
+        const start = new Date(startTime);
+        const end = new Date(closingTime);
+  
+        if (start < end) {
+          const diff = (end.getTime() - start.getTime()) / (1000 * 60 * 60);
+          this.tripFormDetails.patchValue({ totalTime: diff.toFixed(2) });
+        } else {
+          this.tripFormDetails.patchValue({ totalTime: 'Invalid Time' });
+          this.toastrMsg.error("Please Select Correct Date");
+        }
+      }
+    } */
     AddEditTripDetailsComponent.prototype.calculateTotalHours = function () {
         var startTime = this.tripFormDetails.get('startingTime').value;
         var closingTime = this.tripFormDetails.get('closingTime').value;
@@ -193,8 +199,9 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
             var start = new Date(startTime);
             var end = new Date(closingTime);
             if (start < end) {
-                var diff = (end.getTime() - start.getTime()) / (1000 * 60 * 60);
-                this.tripFormDetails.patchValue({ totalTime: diff.toFixed(2) });
+                var diffInMinutes = (end.getTime() - start.getTime()) / (1000 * 60);
+                var totalHours = Math.floor(diffInMinutes / 60) + (diffInMinutes % 60) / 100;
+                this.tripFormDetails.patchValue({ totalTime: totalHours.toFixed(2) });
             }
             else {
                 this.tripFormDetails.patchValue({ totalTime: 'Invalid Time' });
@@ -209,20 +216,23 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    AddEditTripDetailsComponent.prototype.submit = function (tripFormDetails) {
-        console.log(tripFormDetails.value);
-        if (this.tripFormDetails.invalid) {
-            this.formSubmitted = true;
-        }
-        else if (tripFormDetails.value.acOrNonAc == 'AC' && tripFormDetails.value.startingKM >= tripFormDetails.value.closingKM) {
-            this.toastrMsg.warning('Please enter Starting KM greater than Closing KM');
-        }
-        else if (tripFormDetails.value.acOrNonAc == 'AC' && tripFormDetails.value.acStartingKM >= tripFormDetails.value.acClosingKM) {
-            this.toastrMsg.warning('Please enter AC Starting KM greater than AC Closing KM');
-        }
-        else {
-            this.submitPopUp.show();
-        }
+    AddEditTripDetailsComponent.prototype.submit = function (tripFormDetails, level) {
+        var _this = this;
+        this.leveStatus = level;
+        setTimeout(function () {
+            if (_this.tripFormDetails.invalid) {
+                _this.formSubmitted = true;
+            }
+            else if (tripFormDetails.value.startingKM >= tripFormDetails.value.closingKM) {
+                _this.toastrMsg.warning('Please enter Starting KM greater than Closing KM');
+            }
+            else if (tripFormDetails.value.acOrNonAc == 'AC' && tripFormDetails.value.acStartingKM >= tripFormDetails.value.acClosingKM) {
+                _this.toastrMsg.warning('Please enter AC Starting KM greater than AC Closing KM');
+            }
+            else {
+                _this.submitPopUp.show();
+            }
+        }, 100);
     };
     AddEditTripDetailsComponent.prototype.acDetect = function (event) {
         if (event === 'Non-AC') {
@@ -232,7 +242,14 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
             this.tripFormDetails.controls["acStartingKM"].updateValueAndValidity();
             this.tripFormDetails.controls['acClosingKM'].clearValidators();
             this.tripFormDetails.controls["acClosingKM"].updateValueAndValidity();
+            this.tripFormDetails.controls['acNote'].clearValidators();
+            this.tripFormDetails.controls["acNote"].updateValueAndValidity();
             this.acValidationFlag = true;
+            this.tripFormDetails.patchValue({
+                usedAcKM: '',
+                acStartingKM: '',
+                acClosingKM: ''
+            });
         }
         else {
             this.tripFormDetails.controls['usedAcKM'].setValidators([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]);
@@ -241,26 +258,49 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
             this.tripFormDetails.controls["acStartingKM"].updateValueAndValidity();
             this.tripFormDetails.controls['acClosingKM'].setValidators([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]);
             this.tripFormDetails.controls["acClosingKM"].updateValueAndValidity();
+            this.tripFormDetails.controls['acNote'].setValidators([_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]);
+            this.tripFormDetails.controls["acNote"].updateValueAndValidity();
             this.acValidationFlag = false;
+            this.tripFormDetails.patchValue({
+                usedAcKM: this.getTripDetails.usedAcKM,
+                acStartingKM: this.getTripDetails.acStartingKM,
+                acClosingKM: this.getTripDetails.acClosingKM
+            });
         }
     };
     AddEditTripDetailsComponent.prototype.finalSubmit = function () {
-        if (this.tripId) {
+        if (this.tripId && this.leveStatus == 'Level 1') {
             this.updateTripDetails();
         }
-        else {
+        else if (this.leveStatus == 'Level 2') {
+            this.forwardApprove();
+        }
+        else if (this.leveStatus == 'Level 3') {
+            this.approved();
+        }
+        else if (this.leveStatus == 'Level 1 REQ') {
+            this.requestForClarification();
+        }
+        else if (this.leveStatus == 'Level 1') {
             this.addTripDetails();
+        }
+        else {
+            this.toastrMsg.error('Somthing Went Wrong');
         }
     };
     AddEditTripDetailsComponent.prototype.forwardApprove = function () {
         var _this = this;
-        var req = {
-            "id": this.tripId,
-            "status": "FORWARDED"
-        };
-        this.commonService.getTripDetailsForward(req).subscribe(function (res) {
+        this.btnLoder = true;
+        this.commonService.getTripDetailsForward({
+            id: this.tripId,
+            status: "FORWARDED",
+            remarks: this.tripFormDetails.value.remark || '',
+        }).subscribe(function (res) {
+            _this.btnLoder = false;
             if (res.status = 's') {
+                _this.router.navigate(['/container/trip-detail/inprogresslist']);
                 _this.toastrMsg.success("Forwared submitted successfully");
+                _this.submitPopUp.hide();
             }
             else {
                 _this.toastrMsg.error(res.userDisplayMesg);
@@ -269,13 +309,17 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
     };
     AddEditTripDetailsComponent.prototype.approved = function () {
         var _this = this;
-        var req = {
-            "id": this.tripId,
-            "status": "APPROVED"
-        };
-        this.commonService.getTripDetailsForward(req).subscribe(function (res) {
+        this.btnLoder = true;
+        this.commonService.getTripDetailsForward({
+            id: this.tripId,
+            status: "APPROVED",
+            remarks: this.tripFormDetails.value.remark || '',
+        }).subscribe(function (res) {
+            _this.btnLoder = false;
             if (res.status = 's') {
                 _this.toastrMsg.success("Forwared submitted successfully");
+                _this.router.navigate(['/container/trip-detail/forwardlist']);
+                _this.submitPopUp.hide();
             }
             else {
                 _this.toastrMsg.error(res.userDisplayMesg);
@@ -284,13 +328,25 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
     };
     AddEditTripDetailsComponent.prototype.requestForClarification = function () {
         var _this = this;
-        var req = {
-            "id": this.tripId,
-            "status": "REQUESTFORCLARIFICATION"
-        };
-        this.commonService.getTripDetailsForward(req).subscribe(function (res) {
+        this.btnLoder = true;
+        this.commonService.getTripDetailsForward({
+            id: this.tripId,
+            status: "REQUESTFORCLARIFICATION",
+            remarks: this.tripFormDetails.value.remark || '',
+        }).subscribe(function (res) {
+            _this.btnLoder = false;
             if (res.status = 's') {
                 _this.toastrMsg.success("Forwared submitted successfully");
+                if (_this.routingStatus == 'forward') {
+                    _this.router.navigate(['/container/trip-detail/forwardlist']);
+                }
+                else if (_this.routingStatus == 'approved') {
+                    _this.router.navigate(['/container/trip-detail/inprogresslist']);
+                }
+                else {
+                    _this.router.navigate(['/container/trip-detail/list']);
+                }
+                _this.submitPopUp.hide();
             }
             else {
                 _this.toastrMsg.error(res.userDisplayMesg);
@@ -335,6 +391,8 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
             visitingPlace: tripFormDetails.visitingPlace || '',
             verifiedByManager: tripFormDetails.verifiedByManager || '',
             verifiedByProprietor: tripFormDetails.verifiedByProprietor || '',
+            discount: tripFormDetails.discountAmount || '',
+            remarks: tripFormDetails.remark || '',
         };
         this.btnLoder = true;
         this.commonService.tripDetailAddSubmit(addTripDetailsRequest).subscribe(function (addTripDetailsResponse) {
@@ -411,6 +469,8 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
     AddEditTripDetailsComponent.prototype.getReceivedAmount = function (receivedAmount) {
         var advanceAmount = this.tripFormDetails.controls.advanceAmount.value ? parseFloat(this.tripFormDetails.controls.advanceAmount.value) : 0;
         var totalRentAmount = this.tripFormDetails.controls.totalRent.value ? parseFloat(this.tripFormDetails.controls.totalRent.value) : 0;
+        var dayRent = this.tripFormDetails.controls.dayRent.value ? parseFloat(this.tripFormDetails.controls.dayRent.value) : 0;
+        var discount = this.tripFormDetails.controls.discountAmount.value ? parseFloat(this.tripFormDetails.controls.discountAmount.value) : 0;
         var finalAmount = advanceAmount + parseFloat(receivedAmount);
         if (totalRentAmount < finalAmount) {
             this.tripFormDetails.patchValue({
@@ -419,7 +479,8 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
         }
         if (receivedAmount) {
             this.tripFormDetails.patchValue({
-                pendingAmount: (totalRentAmount - (advanceAmount + parseFloat(receivedAmount))),
+                // pendingAmount: (totalRentAmount - (advanceAmount + parseFloat(receivedAmount))),
+                pendingAmount: ((totalRentAmount + dayRent) - (advanceAmount + receivedAmount + discount)),
                 balanceAmount: (totalRentAmount - (advanceAmount + parseFloat(receivedAmount)))
             });
         }
@@ -437,12 +498,46 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
         }
     };
     AddEditTripDetailsComponent.prototype.getTotalRentAmount = function (totalRentAmount) {
+        console.log(totalRentAmount);
         var advanceAmount = this.tripFormDetails.controls.advanceAmount.value ? parseFloat(this.tripFormDetails.controls.advanceAmount.value) : 0;
         var receivedAmount = this.tripFormDetails.controls.receivedAmount.value ? parseFloat(this.tripFormDetails.controls.receivedAmount.value) : 0;
+        var dayRent = this.tripFormDetails.controls.dayRent.value ? parseFloat(this.tripFormDetails.controls.dayRent.value) : 0;
+        var discount = this.tripFormDetails.controls.discountAmount.value ? parseFloat(this.tripFormDetails.controls.discountAmount.value) : 0;
+        console.log("total", totalRentAmount);
+        console.log("dayrent", dayRent);
+        console.log("receivedAmount", receivedAmount);
+        console.log("advanceAmount", advanceAmount);
+        console.log('discount', discount);
         if (this.tripFormDetails.controls.totalRent.value) {
             this.tripFormDetails.patchValue({
-                pendingAmount: (parseFloat(totalRentAmount) - (advanceAmount + receivedAmount)),
+                pendingAmount: ((totalRentAmount + dayRent) - (advanceAmount + receivedAmount + discount)),
+                // pendingAmount: (parseFloat(totalRentAmount) - (advanceAmount + receivedAmount)),
                 balanceAmount: (parseFloat(totalRentAmount) - (advanceAmount + receivedAmount))
+            });
+        }
+        else {
+            this.tripFormDetails.patchValue({
+                pendingAmount: 0,
+                balanceAmount: 0
+            });
+        }
+    };
+    AddEditTripDetailsComponent.prototype.getDiscountAmount = function (discountAmount) {
+        console.log(discountAmount);
+        var advanceAmount = this.tripFormDetails.controls.advanceAmount.value ? parseFloat(this.tripFormDetails.controls.advanceAmount.value) : 0;
+        var receivedAmount = this.tripFormDetails.controls.receivedAmount.value ? parseFloat(this.tripFormDetails.controls.receivedAmount.value) : 0;
+        var dayRent = this.tripFormDetails.controls.dayRent.value ? parseFloat(this.tripFormDetails.controls.dayRent.value) : 0;
+        var discount = this.tripFormDetails.controls.discountAmount.value ? parseFloat(this.tripFormDetails.controls.discountAmount.value) : 0;
+        console.log("total", discountAmount);
+        console.log("dayrent", dayRent);
+        console.log("receivedAmount", receivedAmount);
+        console.log("advanceAmount", advanceAmount);
+        console.log('discount', discount);
+        if (this.tripFormDetails.controls.totalRent.value) {
+            this.tripFormDetails.patchValue({
+                pendingAmount: ((discountAmount + dayRent) - (advanceAmount + receivedAmount + discount)),
+                // pendingAmount: (parseFloat(totalRentAmount) - (advanceAmount + receivedAmount)),
+                balanceAmount: (parseFloat(discountAmount) - (advanceAmount + receivedAmount))
             });
         }
         else {
@@ -456,6 +551,8 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
         var totalRentAmount = this.tripFormDetails.controls.totalRent.value ? parseFloat(this.tripFormDetails.controls.totalRent.value) : 0;
         var receivedAmount = this.tripFormDetails.controls.receivedAmount.value ? parseFloat(this.tripFormDetails.controls.receivedAmount.value) : 0;
         var pendingAmount = this.tripFormDetails.controls.pendingAmount.value ? parseFloat(this.tripFormDetails.controls.pendingAmount.value) : 0;
+        var dayRent = this.tripFormDetails.controls.dayRent.value ? parseFloat(this.tripFormDetails.controls.dayRent.value) : 0;
+        var discount = this.tripFormDetails.controls.discountAmount.value ? parseFloat(this.tripFormDetails.controls.discountAmount.value) : 0;
         var finalAmount = parseFloat(advanceAmount) + receivedAmount;
         if (totalRentAmount < finalAmount) {
             this.tripFormDetails.patchValue({
@@ -465,7 +562,8 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
         if (this.tripFormDetails.controls.advanceAmount.value &&
             this.tripFormDetails.controls.totalRent.value) {
             this.tripFormDetails.patchValue({
-                pendingAmount: (totalRentAmount - (parseFloat(advanceAmount) + receivedAmount)),
+                // Pending Amount = ((totalRentAmount + Day Rent) - (parseFloat(advanceAmount) + receivedAmount + discount))
+                pendingAmount: ((totalRentAmount + dayRent) - (parseFloat(advanceAmount) + receivedAmount + discount)),
                 balanceAmount: (totalRentAmount - (parseFloat(advanceAmount) + receivedAmount))
             });
         }
@@ -511,6 +609,20 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
             }
         });
     };
+    AddEditTripDetailsComponent.prototype.dayRentCalculation = function (dayRentAmount) {
+        console.log("Day Rent:", dayRentAmount);
+        var totalRentAmount = this.tripFormDetails.controls.totalRent.value ? parseFloat(this.tripFormDetails.controls.totalRent.value) : 0;
+        var receivedAmount = this.tripFormDetails.controls.receivedAmount.value ? parseFloat(this.tripFormDetails.controls.receivedAmount.value) : 0;
+        var advanceAmount = this.tripFormDetails.controls.advanceAmount.value ? parseFloat(this.tripFormDetails.controls.advanceAmount.value) : 0;
+        var discount = this.tripFormDetails.controls.discountAmount.value ? parseFloat(this.tripFormDetails.controls.discountAmount.value) : 0;
+        var dayRent = dayRentAmount ? parseFloat(dayRentAmount) : 0;
+        var newPendingAmount = (totalRentAmount + dayRent) - (advanceAmount + receivedAmount + discount);
+        var newBalanceAmount = totalRentAmount + dayRent - (advanceAmount + receivedAmount);
+        this.tripFormDetails.patchValue({
+            pendingAmount: newPendingAmount,
+            balanceAmount: newBalanceAmount
+        });
+    };
     AddEditTripDetailsComponent.prototype.acStaringKmCalculation = function (startingKM) {
         // formula <==> ("u = c - s")
         if (startingKM && this.tripFormDetails.controls.acClosingKM.value) {
@@ -528,13 +640,15 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
         }
     };
     AddEditTripDetailsComponent.prototype.profitAmoutCalculation = function (string) {
-        // Formula < == > ("Profit = Total Rent - (Toll + Fuel + Driver Payment + Permit)")
+        // Formula < == > ("Profit = Total Rent - (Toll + Fuel + Driver Payment + Permit+discount)+dayRent")
         var totalRentAmount = this.tripFormDetails.value.totalRent ? parseFloat(this.tripFormDetails.value.totalRent) : 0;
         var tollAmount = this.tripFormDetails.value.toll ? parseFloat(this.tripFormDetails.value.toll) : 0;
         var fuelAmount = this.tripFormDetails.value.diesel ? parseFloat(this.tripFormDetails.value.diesel) : 0;
         var driverPaymentAmount = this.tripFormDetails.value.driverPayment ? parseFloat(this.tripFormDetails.value.driverPayment) : 0;
         var permitAmount = this.tripFormDetails.value.permitAmount ? parseFloat(this.tripFormDetails.value.permitAmount) : 0;
-        var profitAmount = (totalRentAmount - (tollAmount + fuelAmount + driverPaymentAmount + permitAmount));
+        var discount = this.tripFormDetails.value.discountAmount ? parseFloat(this.tripFormDetails.value.discountAmount) : 0;
+        var dayRent = this.tripFormDetails.value.dayRent ? parseFloat(this.tripFormDetails.value.dayRent) : 0;
+        var profitAmount = (totalRentAmount - (tollAmount + fuelAmount + driverPaymentAmount + permitAmount + discount)) + dayRent;
         this.tripFormDetails.patchValue({
             profitAmount: profitAmount ? profitAmount : 0
         });
@@ -577,7 +691,8 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
             visitingPlace: tripFormDetails.visitingPlace || '',
             verifiedByManager: tripFormDetails.verifiedByManager || '',
             verifiedByProprietor: tripFormDetails.verifiedByProprietor || '',
-            id: this.tripId
+            id: this.tripId,
+            remarks: tripFormDetails.remark || '',
         };
         this.btnLoder = true;
         this.commonService.tripDetailModification(updateTripDetailsRequest).subscribe(function (updateTripDetailsResponse) {
@@ -592,11 +707,29 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
             }
         });
     };
-    AddEditTripDetailsComponent.prototype.getTripDetailsForm = function (tripId) {
+    AddEditTripDetailsComponent.prototype.getTripDetailsForm = function (tripId, status) {
         var _this = this;
         this.commonService.getTripDetails(tripId).subscribe(function (getTripDetailsResponse) {
             if (getTripDetailsResponse.status == 's') {
                 _this.getTripDetails = getTripDetailsResponse.data;
+                _this.commonService.getTripDetailLogs(getTripDetailsResponse.data.tripNumber).subscribe(function (gettripLogDetailsResponse) {
+                    if (gettripLogDetailsResponse.status == 's') {
+                        _this.tripLogDetails = gettripLogDetailsResponse.data;
+                    }
+                    else {
+                        _this.tripLogDetails = [];
+                    }
+                });
+                if (status == 'forward') {
+                    _this.tripFormDetails.disable();
+                    _this.tripFormDetails.get('remark').enable();
+                    _this.forwardApproveBtnShow = true;
+                }
+                else if (status == 'approved') {
+                    _this.tripFormDetails.disable();
+                    _this.tripFormDetails.get('remark').enable();
+                    _this.approveBtnShow = true;
+                }
                 _this.tripFormDetails.patchValue({
                     acClosingKM: getTripDetailsResponse.data.acClosingKM,
                     acNote: getTripDetailsResponse.data.acNote,
@@ -606,9 +739,6 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
                     advanceType: getTripDetailsResponse.data.advanceType,
                     balanceAmount: getTripDetailsResponse.data.balanceAmount,
                     closingKM: getTripDetailsResponse.data.closingKM,
-                    /* closingTime: getTripDetailsResponse.data.closingTime
-                      ? moment(getTripDetailsResponse.data.closingTime).format('YYYY-MM-DD HH:mm:ss')
-                      : '', */
                     customerMobileNumber: getTripDetailsResponse.data.customerMobileNumber,
                     customerName: getTripDetailsResponse.data.customerName,
                     date: getTripDetailsResponse.data.date
@@ -624,9 +754,6 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
                     profitAmount: getTripDetailsResponse.data.profitAmount,
                     receivedAmount: getTripDetailsResponse.data.receivedAmount,
                     startingKM: getTripDetailsResponse.data.startingKM,
-                    /* startingTime: getTripDetailsResponse.data.startingTime
-                      ? moment(getTripDetailsResponse.data.startingTime).format('YYYY-MM-DD HH:mm:ss')
-                      : '', */
                     status: getTripDetailsResponse.data.status,
                     submittedBy: getTripDetailsResponse.data.submittedBy,
                     toll: getTripDetailsResponse.data.toll,
@@ -636,143 +763,30 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
                     usedKM: getTripDetailsResponse.data.usedKM,
                     vehicleNumber: getTripDetailsResponse.data.vehicleNumber,
                     visitingPlace: getTripDetailsResponse.data.visitingPlace,
-                    /* startingTime: getTripDetailsResponse.data.startingTime
-                      ? moment(getTripDetailsResponse.data.startingTime).format('YYYY-MM-DD HH:mm')
-                      : '', */
                     startingTime: getTripDetailsResponse.data.startingTime
                         ? moment__WEBPACK_IMPORTED_MODULE_4__(getTripDetailsResponse.data.startingTime).toDate()
                         : '',
                     closingTime: getTripDetailsResponse.data.closingTime
                         ? moment__WEBPACK_IMPORTED_MODULE_4__(getTripDetailsResponse.data.closingTime).toDate()
+                        : '',
+                    remark: getTripDetailsResponse.data.remark
+                        ? getTripDetailsResponse.data.remark
                         : ''
                 });
-                console.log("this.tripFormDetails.value ", _this.tripFormDetails.value);
-                console.log('startingTime :', moment__WEBPACK_IMPORTED_MODULE_4__(getTripDetailsResponse.data.startingTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
-                console.log('closingTime :', moment__WEBPACK_IMPORTED_MODULE_4__(getTripDetailsResponse.data.closingTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
+                _this.acDetect(getTripDetailsResponse.data.acOrNonAc);
             }
         });
     };
-    AddEditTripDetailsComponent.prototype.getTripDetailsForward = function (tripId) {
-        var _this = this;
-        this.commonService.getTripDetails(tripId).subscribe(function (getTripDetailsResponse) {
-            if (getTripDetailsResponse.status == 's') {
-                _this.getTripDetails = getTripDetailsResponse.data;
-                _this.tripFormDetails.disable();
-                _this.tripFormDetails.patchValue({
-                    acClosingKM: getTripDetailsResponse.data.acClosingKM,
-                    acNote: getTripDetailsResponse.data.acNote,
-                    acOrNonAc: getTripDetailsResponse.data.acOrNonAc,
-                    acStartingKM: getTripDetailsResponse.data.acStartingKM,
-                    advanceAmount: getTripDetailsResponse.data.advanceAmount,
-                    advanceType: getTripDetailsResponse.data.advanceType,
-                    balanceAmount: getTripDetailsResponse.data.balanceAmount,
-                    closingKM: getTripDetailsResponse.data.closingKM,
-                    /* closingTime: getTripDetailsResponse.data.closingTime
-                      ? moment(getTripDetailsResponse.data.closingTime).format('YYYY-MM-DD HH:mm:ss')
-                      : '', */
-                    customerMobileNumber: getTripDetailsResponse.data.customerMobileNumber,
-                    customerName: getTripDetailsResponse.data.customerName,
-                    date: getTripDetailsResponse.data.date
-                        ? moment__WEBPACK_IMPORTED_MODULE_4__(getTripDetailsResponse.data.date).format('YYYY-MM-DD')
-                        : '',
-                    dayRent: getTripDetailsResponse.data.dayRent,
-                    diesel: getTripDetailsResponse.data.diesel,
-                    driverName: getTripDetailsResponse.data.driverName,
-                    driverPayment: getTripDetailsResponse.data.driverPayment,
-                    paymentType: getTripDetailsResponse.data.paymentType,
-                    pendingAmount: getTripDetailsResponse.data.pendingAmount,
-                    permitAmount: getTripDetailsResponse.data.permitAmount,
-                    profitAmount: getTripDetailsResponse.data.profitAmount,
-                    receivedAmount: getTripDetailsResponse.data.receivedAmount,
-                    startingKM: getTripDetailsResponse.data.startingKM,
-                    /* startingTime: getTripDetailsResponse.data.startingTime
-                      ? moment(getTripDetailsResponse.data.startingTime).format('YYYY-MM-DD HH:mm:ss')
-                      : '', */
-                    status: getTripDetailsResponse.data.status,
-                    submittedBy: getTripDetailsResponse.data.submittedBy,
-                    toll: getTripDetailsResponse.data.toll,
-                    totalRent: getTripDetailsResponse.data.totalRent,
-                    totalTime: getTripDetailsResponse.data.totalTime,
-                    usedAcKM: getTripDetailsResponse.data.usedAcKM,
-                    usedKM: getTripDetailsResponse.data.usedKM,
-                    vehicleNumber: getTripDetailsResponse.data.vehicleNumber,
-                    visitingPlace: getTripDetailsResponse.data.visitingPlace,
-                    /* startingTime: getTripDetailsResponse.data.startingTime
-                      ? moment(getTripDetailsResponse.data.startingTime).format('YYYY-MM-DD HH:mm')
-                      : '', */
-                    startingTime: getTripDetailsResponse.data.startingTime
-                        ? moment__WEBPACK_IMPORTED_MODULE_4__(getTripDetailsResponse.data.startingTime).toDate()
-                        : '',
-                    closingTime: getTripDetailsResponse.data.closingTime
-                        ? moment__WEBPACK_IMPORTED_MODULE_4__(getTripDetailsResponse.data.closingTime).toDate()
-                        : ''
-                });
-                console.log("this.tripFormDetails.value ", _this.tripFormDetails.value);
-                console.log('startingTime :', moment__WEBPACK_IMPORTED_MODULE_4__(getTripDetailsResponse.data.startingTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
-                console.log('closingTime :', moment__WEBPACK_IMPORTED_MODULE_4__(getTripDetailsResponse.data.closingTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
-            }
-        });
-    };
-    AddEditTripDetailsComponent.prototype.getTripDetailsApprove = function (tripId) {
-        var _this = this;
-        this.commonService.getTripDetails(tripId).subscribe(function (getTripDetailsResponse) {
-            if (getTripDetailsResponse.status == 's') {
-                _this.getTripDetails = getTripDetailsResponse.data;
-                _this.tripFormDetails.disable();
-                _this.tripFormDetails.patchValue({
-                    acClosingKM: getTripDetailsResponse.data.acClosingKM,
-                    acNote: getTripDetailsResponse.data.acNote,
-                    acOrNonAc: getTripDetailsResponse.data.acOrNonAc,
-                    acStartingKM: getTripDetailsResponse.data.acStartingKM,
-                    advanceAmount: getTripDetailsResponse.data.advanceAmount,
-                    advanceType: getTripDetailsResponse.data.advanceType,
-                    balanceAmount: getTripDetailsResponse.data.balanceAmount,
-                    closingKM: getTripDetailsResponse.data.closingKM,
-                    /* closingTime: getTripDetailsResponse.data.closingTime
-                      ? moment(getTripDetailsResponse.data.closingTime).format('YYYY-MM-DD HH:mm:ss')
-                      : '', */
-                    customerMobileNumber: getTripDetailsResponse.data.customerMobileNumber,
-                    customerName: getTripDetailsResponse.data.customerName,
-                    date: getTripDetailsResponse.data.date
-                        ? moment__WEBPACK_IMPORTED_MODULE_4__(getTripDetailsResponse.data.date).format('YYYY-MM-DD')
-                        : '',
-                    dayRent: getTripDetailsResponse.data.dayRent,
-                    diesel: getTripDetailsResponse.data.diesel,
-                    driverName: getTripDetailsResponse.data.driverName,
-                    driverPayment: getTripDetailsResponse.data.driverPayment,
-                    paymentType: getTripDetailsResponse.data.paymentType,
-                    pendingAmount: getTripDetailsResponse.data.pendingAmount,
-                    permitAmount: getTripDetailsResponse.data.permitAmount,
-                    profitAmount: getTripDetailsResponse.data.profitAmount,
-                    receivedAmount: getTripDetailsResponse.data.receivedAmount,
-                    startingKM: getTripDetailsResponse.data.startingKM,
-                    /* startingTime: getTripDetailsResponse.data.startingTime
-                      ? moment(getTripDetailsResponse.data.startingTime).format('YYYY-MM-DD HH:mm:ss')
-                      : '', */
-                    status: getTripDetailsResponse.data.status,
-                    submittedBy: getTripDetailsResponse.data.submittedBy,
-                    toll: getTripDetailsResponse.data.toll,
-                    totalRent: getTripDetailsResponse.data.totalRent,
-                    totalTime: getTripDetailsResponse.data.totalTime,
-                    usedAcKM: getTripDetailsResponse.data.usedAcKM,
-                    usedKM: getTripDetailsResponse.data.usedKM,
-                    vehicleNumber: getTripDetailsResponse.data.vehicleNumber,
-                    visitingPlace: getTripDetailsResponse.data.visitingPlace,
-                    /* startingTime: getTripDetailsResponse.data.startingTime
-                      ? moment(getTripDetailsResponse.data.startingTime).format('YYYY-MM-DD HH:mm')
-                      : '', */
-                    startingTime: getTripDetailsResponse.data.startingTime
-                        ? moment__WEBPACK_IMPORTED_MODULE_4__(getTripDetailsResponse.data.startingTime).toDate()
-                        : '',
-                    closingTime: getTripDetailsResponse.data.closingTime
-                        ? moment__WEBPACK_IMPORTED_MODULE_4__(getTripDetailsResponse.data.closingTime).toDate()
-                        : ''
-                });
-                console.log("this.tripFormDetails.value ", _this.tripFormDetails.value);
-                console.log('startingTime :', moment__WEBPACK_IMPORTED_MODULE_4__(getTripDetailsResponse.data.startingTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
-                console.log('closingTime :', moment__WEBPACK_IMPORTED_MODULE_4__(getTripDetailsResponse.data.closingTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss'));
-            }
-        });
+    AddEditTripDetailsComponent.prototype.back = function () {
+        if (this.routingStatus == 'forward') {
+            this.router.navigate(['/container/trip-detail/forwardlist']);
+        }
+        else if (this.routingStatus == 'approved') {
+            this.router.navigate(['/container/trip-detail/inprogresslist']);
+        }
+        else {
+            this.router.navigate(['/container/trip-detail/list']);
+        }
     };
     AddEditTripDetailsComponent.ctorParameters = function () { return [
         { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] },
@@ -800,7 +814,6 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
     return AddEditTripDetailsComponent;
 }());
 
-// transfetStartDate: this.editdata.dissolveStartDate ? new Date(new Date(this.editdata.dissolveStartDate).getTime() - (this.myDate.getTimezoneOffset() * 60000)).toISOString().slice(0, 16) : '',
 
 
 /***/ }),
@@ -846,6 +859,10 @@ var routes = [
     },
     {
         path: 'view/:id',
+        component: _view_trip_details_view_trip_details_component__WEBPACK_IMPORTED_MODULE_5__["ViewTripDetailsComponent"]
+    },
+    {
+        path: 'view/:id/:status',
         component: _view_trip_details_view_trip_details_component__WEBPACK_IMPORTED_MODULE_5__["ViewTripDetailsComponent"]
     },
     {
@@ -906,6 +923,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
 /* harmony import */ var src_app_service_common_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/service/common.service */ "./src/app/service/common.service.ts");
+/* harmony import */ var src_app_config_master_list_columns__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/config/master-list-columns */ "./src/app/config/master-list-columns.ts");
+
 
 
 
@@ -920,9 +939,12 @@ var TripDetailsComponent = /** @class */ (function () {
         this.commonService = commonService;
         this.router = router;
         this.toastrMsg = toastrMsg;
-        this.displayedColumns = ['serialNo', 'createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent', 'status', 'action'];
-        this.totelCount = 0;
+        this.columns = src_app_config_master_list_columns__WEBPACK_IMPORTED_MODULE_8__["MasterListColumns"].triplistcolumns;
+        this.actionKeys = ['checkbox']; // ['edit', 'delete'] for buttons
+        this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](); // Example data source
+        this.totalCount = 10;
         this.pageSize = 10;
+        this.tripDetailsCount = {};
     }
     TripDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -933,6 +955,7 @@ var TripDetailsComponent = /** @class */ (function () {
             status: ['']
         });
         this.getAll();
+        this.getTripDetailsCount();
         this.commonService.activeVechicle().subscribe(function (vehicleResponse) {
             if (vehicleResponse.status == 's') {
                 _this.vehicleList = vehicleResponse.data;
@@ -950,10 +973,30 @@ var TripDetailsComponent = /** @class */ (function () {
             }
         });
     };
+    TripDetailsComponent.prototype.getTripDetailsCount = function () {
+        var _this = this;
+        var today = new Date();
+        var firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+        var lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        var fromDate = firstDay.toISOString().split('T')[0];
+        var toDate = lastDay.toISOString().split('T')[0];
+        console.log(fromDate, toDate);
+        this.commonService.tripdetailsdashboardcount(fromDate, toDate).subscribe(function (tripdetailsdashboardcountResponse) {
+            if (tripdetailsdashboardcountResponse.status === 's') {
+                _this.tripDetailsCount = tripdetailsdashboardcountResponse.data[0] || {}; // Assign first object from data array
+            }
+            else {
+                console.warn('Failed to fetch trip details:', tripdetailsdashboardcountResponse.message);
+            }
+        }, function (error) {
+            console.error('API Error:', error);
+        });
+    };
     TripDetailsComponent.prototype.getAll = function (pageIndex, pageSize) {
         var _this = this;
         if (pageIndex === void 0) { pageIndex = 0; }
         if (pageSize === void 0) { pageSize = this.pageSize; }
+        this.isLoading = true;
         var tripFormSearchDetails = this.tripFormSearchDetails.value;
         var request = {
             filters: {
@@ -970,12 +1013,30 @@ var TripDetailsComponent = /** @class */ (function () {
             sortOrder: "DESC"
         };
         this.commonService.tripDetailsSearchList(request).subscribe(function (response) {
+            _this.isLoading = false;
             if (response.status == 's' && response.data) {
-                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](response.data.contents);
+                // const dataSource = response.data.contents.map((v, i) => ({
+                //   ...v,
+                //   sNo: i + 1
+                // }));
+                // console.log("dataSource", dataSource);
+                // this.dataSource = new MatTableDataSource(dataSource);
+                var startIndex_1 = pageIndex * pageSize; // Calculate start index dynamically
+                var dataSource_1 = response.data.contents.map(function (v, i) { return (tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, v, { sNo: startIndex_1 + i + 1 // Adjust serial number
+                 })); });
+                console.log("dataSource", dataSource_1);
+                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](dataSource_1);
+                setTimeout(function () {
+                    if (_this.dataSource.paginator) {
+                        _this.dataSource.paginator.pageIndex = _this.paginator.pageIndex;
+                        _this.dataSource.paginator.length = dataSource_1.length;
+                    }
+                });
                 _this.totelCount = response.data.totalElements;
             }
             else {
                 _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"]();
+                _this.totelCount = 0;
             }
         });
     };
@@ -1013,32 +1074,11 @@ var TripDetailsComponent = /** @class */ (function () {
             vehiclenumber: '',
             status: "",
         });
-        /* const request = {
-          "filters": {
-            "vehicleNumber": "",
-            "customerName": "",
-            "customerMobileNumber": "",
-            "driverName": "",
-            "visitingPlace": ""
-          },
-          "pageNo": 0,
-          "paginationSize": 10,
-          "sortField": "modifiedDate",
-          "sortOrder": "DESC"
-        }
-        this.commonService.tripDetailsSearchList(request).subscribe(response => {
-          if (response.status === 's' && response.data) {
-            this.dataSource = new MatTableDataSource(response.data.contents);
-            this.totelCount = response.data.totalElements;
-          } else {
-            this.dataSource = new MatTableDataSource();
-          }
-        }); */
         this.pageSize = 10;
-        this.search();
+        this.getAll();
     };
-    TripDetailsComponent.prototype.pageEvent = function (event) {
-        var pageIndex = event.pageIndex;
+    TripDetailsComponent.prototype.handlePagination = function (event) {
+        var pageIndex = event.currentPage;
         var pageSize = event.pageSize;
         this.getAll(pageIndex, pageSize);
     };
@@ -1049,7 +1089,8 @@ var TripDetailsComponent = /** @class */ (function () {
             this.editEnable = true;
         }
     };
-    TripDetailsComponent.prototype.onEdit = function () {
+    TripDetailsComponent.prototype.onEdit = function (event) {
+        console.log(this.selectObj);
         if (this.selectObj && this.selectObj.status === 'REQUESTFORCLARIFICATION') {
             this.router.navigate(['/container/trip-detail/modification', this.selectObj.id]);
         }
@@ -1063,6 +1104,33 @@ var TripDetailsComponent = /** @class */ (function () {
         }
         else {
             this.toastrMsg.error('View not able');
+        }
+    };
+    TripDetailsComponent.prototype.onChecked = function (element) {
+        var selectObj = this.dataSource.data.find(function (item) { return item.id === element.id; });
+        if (selectObj) {
+            this.selectObj = selectObj;
+            this.viewEnable = true;
+            this.editEnable = true;
+        }
+    };
+    TripDetailsComponent.prototype.getStatusStyle = function (status) {
+        console.log(status);
+        switch (status) {
+            case 'APPROVED':
+                return { 'color': 'green' };
+            case 'INPROGRESS':
+                return { 'color': 'blue' };
+            case 'FORWARDED':
+                return { 'color': 'orange' };
+            case 'REQUESTFORCLARIFICATION':
+                return {
+                    'color': 'red',
+                };
+            case 'REJECT':
+                return { 'color': 'red' };
+            default:
+                return { 'color': 'gray' };
         }
     };
     TripDetailsComponent.ctorParameters = function () { return [
@@ -1133,9 +1201,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MY_CUSTOM_FORMATS = {
-    fullPickerInput: 'DD/MM/YYYY HH:mm',
-    parseInput: 'DD/MM/YYYY HH:mm',
-    datePickerInput: 'DD/MM/YYYY',
+    fullPickerInput: 'DD-MM-YYYY HH:mm',
+    parseInput: 'DD-MM-YYYY HH:mm',
+    datePickerInput: 'DD-MM-YYYY',
     timePickerInput: 'HH:mm',
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'LL',
@@ -1210,6 +1278,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
 /* harmony import */ var src_app_service_common_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/service/common.service */ "./src/app/service/common.service.ts");
+/* harmony import */ var src_app_config_master_list_columns__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/config/master-list-columns */ "./src/app/config/master-list-columns.ts");
+
 
 
 
@@ -1224,9 +1294,13 @@ var TripdeatilsforwardComponent = /** @class */ (function () {
         this.commonService = commonService;
         this.router = router;
         this.toastrMsg = toastrMsg;
-        this.displayedColumns = ['serialNo', 'createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent', 'status', 'action'];
-        this.totelCount = 0;
+        this.columns = src_app_config_master_list_columns__WEBPACK_IMPORTED_MODULE_8__["MasterListColumns"].tripListForwardColumns;
+        this.actionKeys = ['checkbox']; // ['edit', 'delete'] for buttons
+        this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](); // Example data source
+        this.totalCount = 10;
         this.pageSize = 10;
+        this.displayedColumns = ['serialNo', 'tripNumber', 'createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent', 'status', 'action'];
+        this.totelCount = 0;
     }
     TripdeatilsforwardComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1258,6 +1332,7 @@ var TripdeatilsforwardComponent = /** @class */ (function () {
         var _this = this;
         if (pageIndex === void 0) { pageIndex = 0; }
         if (pageSize === void 0) { pageSize = this.pageSize; }
+        this.isLoading = true;
         var tripFormSearchDetails = this.tripFormSearchDetails.value;
         var request = {
             filters: {
@@ -1274,8 +1349,12 @@ var TripdeatilsforwardComponent = /** @class */ (function () {
             sortOrder: "DESC"
         };
         this.commonService.tripDetailsSearchList(request).subscribe(function (response) {
+            _this.isLoading = false;
             if (response.status == 's' && response.data) {
-                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](response.data.contents);
+                var serialNumber_1 = pageIndex * pageSize; // Calculate start index dynamically
+                var dataSource = response.data.contents.map(function (v, i) { return (tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, v, { sNo: serialNumber_1 + i + 1 // Adjust serial number
+                 })); });
+                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](dataSource);
                 _this.totelCount = response.data.totalElements;
             }
             else {
@@ -1284,71 +1363,27 @@ var TripdeatilsforwardComponent = /** @class */ (function () {
         });
     };
     TripdeatilsforwardComponent.prototype.search = function () {
-        var _this = this;
-        var tripFormSearchDetails = this.tripFormSearchDetails.value;
-        var request = {
-            filters: {
-                vehicleNumber: tripFormSearchDetails.vehiclenumber ? tripFormSearchDetails.vehiclenumber : '',
-                customerName: '',
-                customerMobileNumber: '',
-                driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
-                visitingPlace: "",
-                status: tripFormSearchDetails.status ? tripFormSearchDetails.status : ''
-            },
-            paginationSize: 10,
-            sortField: "modifiedDate",
-            pageNo: 0,
-            sortOrder: "DESC"
-        };
-        this.commonService.tripDetailsSearchList(request).subscribe(function (response) {
-            if (response.status === 's' && response.data) {
-                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](response.data.contents);
-                _this.totelCount = response.data.totalElements;
-            }
-            else {
-                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"]();
-            }
-        });
+        this.getAll();
     };
     TripdeatilsforwardComponent.prototype.onclear = function () {
         this.tripFormSearchDetails.patchValue({
             driverName: '',
             driverNumber: '',
             vehiclenumber: '',
-            status: "",
+            status: '',
         });
-        /* const request = {
-          "filters": {
-            "vehicleNumber": "",
-            "customerName": "",
-            "customerMobileNumber": "",
-            "driverName": "",
-            "visitingPlace": ""
-          },
-          "pageNo": 0,
-          "paginationSize": 10,
-          "sortField": "modifiedDate",
-          "sortOrder": "DESC"
-        }
-        this.commonService.tripDetailsSearchList(request).subscribe(response => {
-          if (response.status === 's' && response.data) {
-            this.dataSource = new MatTableDataSource(response.data.contents);
-            this.totelCount = response.data.totalElements;
-          } else {
-            this.dataSource = new MatTableDataSource();
-          }
-        }); */
         this.pageSize = 10;
-        this.search();
+        this.getAll();
     };
-    TripdeatilsforwardComponent.prototype.pageEvent = function (event) {
-        var pageIndex = event.pageIndex;
+    TripdeatilsforwardComponent.prototype.handlePagination = function (event) {
+        var pageIndex = event.currentPage;
         var pageSize = event.pageSize;
         this.getAll(pageIndex, pageSize);
     };
-    TripdeatilsforwardComponent.prototype.onSelect = function (obj) {
-        this.selectObj = obj ? obj : undefined;
-        if (obj) {
+    TripdeatilsforwardComponent.prototype.onChecked = function (element) {
+        var selectObj = this.dataSource.data.find(function (findElement) { return findElement.id == element.id; });
+        if (selectObj) {
+            this.selectObj = selectObj;
             this.viewEnable = true;
             this.editEnable = true;
         }
@@ -1363,10 +1398,29 @@ var TripdeatilsforwardComponent = /** @class */ (function () {
     };
     TripdeatilsforwardComponent.prototype.onView = function () {
         if (this.selectObj) {
-            this.router.navigate(['/container/trip-detail/view', this.selectObj.id]);
+            this.router.navigate(['/container/trip-detail/view', this.selectObj.id, "forward"]);
         }
         else {
             this.toastrMsg.error('View not able');
+        }
+    };
+    TripdeatilsforwardComponent.prototype.getStatusStyle = function (status) {
+        console.log(status);
+        switch (status) {
+            case 'APPROVED':
+                return { 'color': 'green' };
+            case 'INPROGRESS':
+                return { 'color': 'blue' };
+            case 'FORWARDED':
+                return { 'color': 'orange' };
+            case 'REQUESTFORCLARIFICATION':
+                return {
+                    'color': 'red',
+                };
+            case 'REJECT':
+                return { 'color': 'red' };
+            default:
+                return { 'color': 'gray' };
         }
     };
     TripdeatilsforwardComponent.ctorParameters = function () { return [
@@ -1425,7 +1479,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm5/table.es5.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
-/* harmony import */ var src_app_service_common_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/service/common.service */ "./src/app/service/common.service.ts");
+/* harmony import */ var src_app_config_master_list_columns__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/config/master-list-columns */ "./src/app/config/master-list-columns.ts");
+/* harmony import */ var src_app_service_common_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/service/common.service */ "./src/app/service/common.service.ts");
+
 
 
 
@@ -1440,9 +1496,13 @@ var TripdetailsinprogressComponent = /** @class */ (function () {
         this.commonService = commonService;
         this.router = router;
         this.toastrMsg = toastrMsg;
-        this.displayedColumns = ['serialNo', 'createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent', 'status', 'action'];
-        this.totelCount = 0;
+        this.columns = src_app_config_master_list_columns__WEBPACK_IMPORTED_MODULE_7__["MasterListColumns"].tripListInprogressColumns;
+        this.actionKeys = ['checkbox']; // ['edit', 'delete'] for buttons
+        this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](); // Example data source
+        this.totalCount = 10;
         this.pageSize = 10;
+        this.displayedColumns = ['serialNo', 'tripNumber', 'createdDate', 'vehicleNumber', 'customerName', 'visitingPlace', 'driverName', 'totalRent', 'status', 'action'];
+        this.totelCount = 0;
     }
     TripdetailsinprogressComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1474,6 +1534,7 @@ var TripdetailsinprogressComponent = /** @class */ (function () {
         var _this = this;
         if (pageIndex === void 0) { pageIndex = 0; }
         if (pageSize === void 0) { pageSize = this.pageSize; }
+        this.isLoading = true;
         var tripFormSearchDetails = this.tripFormSearchDetails.value;
         var request = {
             filters: {
@@ -1482,7 +1543,7 @@ var TripdetailsinprogressComponent = /** @class */ (function () {
                 customerMobileNumber: '',
                 driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
                 visitingPlace: "",
-                status: "INPROGRESS"
+                status: tripFormSearchDetails.status ? tripFormSearchDetails.status : "INPROGRESS"
             },
             paginationSize: pageSize,
             sortField: "modifiedDate",
@@ -1490,8 +1551,12 @@ var TripdetailsinprogressComponent = /** @class */ (function () {
             sortOrder: "DESC"
         };
         this.commonService.tripDetailsSearchList(request).subscribe(function (response) {
+            _this.isLoading = false;
             if (response.status == 's' && response.data) {
-                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](response.data.contents);
+                var serialNumber_1 = pageIndex * pageSize; // Calculate start index dynamically
+                var dataSource = response.data.contents.map(function (v, i) { return (tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, v, { sNo: serialNumber_1 + i + 1 // Adjust serial number
+                 })); });
+                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](dataSource);
                 _this.totelCount = response.data.totalElements;
             }
             else {
@@ -1500,71 +1565,27 @@ var TripdetailsinprogressComponent = /** @class */ (function () {
         });
     };
     TripdetailsinprogressComponent.prototype.search = function () {
-        var _this = this;
-        var tripFormSearchDetails = this.tripFormSearchDetails.value;
-        var request = {
-            filters: {
-                vehicleNumber: tripFormSearchDetails.vehiclenumber ? tripFormSearchDetails.vehiclenumber : '',
-                customerName: '',
-                customerMobileNumber: '',
-                driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
-                visitingPlace: "",
-                status: tripFormSearchDetails.status ? tripFormSearchDetails.status : ''
-            },
-            paginationSize: 10,
-            sortField: "modifiedDate",
-            pageNo: 0,
-            sortOrder: "DESC"
-        };
-        this.commonService.tripDetailsSearchList(request).subscribe(function (response) {
-            if (response.status === 's' && response.data) {
-                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"](response.data.contents);
-                _this.totelCount = response.data.totalElements;
-            }
-            else {
-                _this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"]();
-            }
-        });
+        this.getAll();
     };
     TripdetailsinprogressComponent.prototype.onclear = function () {
         this.tripFormSearchDetails.patchValue({
             driverName: '',
             driverNumber: '',
             vehiclenumber: '',
-            status: "",
+            status: '',
         });
-        /* const request = {
-          "filters": {
-            "vehicleNumber": "",
-            "customerName": "",
-            "customerMobileNumber": "",
-            "driverName": "",
-            "visitingPlace": ""
-          },
-          "pageNo": 0,
-          "paginationSize": 10,
-          "sortField": "modifiedDate",
-          "sortOrder": "DESC"
-        }
-        this.commonService.tripDetailsSearchList(request).subscribe(response => {
-          if (response.status === 's' && response.data) {
-            this.dataSource = new MatTableDataSource(response.data.contents);
-            this.totelCount = response.data.totalElements;
-          } else {
-            this.dataSource = new MatTableDataSource();
-          }
-        }); */
         this.pageSize = 10;
-        this.search();
+        this.getAll();
     };
-    TripdetailsinprogressComponent.prototype.pageEvent = function (event) {
-        var pageIndex = event.pageIndex;
+    TripdetailsinprogressComponent.prototype.handlePagination = function (event) {
+        var pageIndex = event.currentPage;
         var pageSize = event.pageSize;
         this.getAll(pageIndex, pageSize);
     };
-    TripdetailsinprogressComponent.prototype.onSelect = function (obj) {
-        this.selectObj = obj ? obj : undefined;
-        if (obj) {
+    TripdetailsinprogressComponent.prototype.onChecked = function (element) {
+        var selectObj = this.dataSource.data.find(function (findElement) { return findElement.id == element.id; });
+        if (selectObj) {
+            this.selectObj = selectObj;
             this.viewEnable = true;
             this.editEnable = true;
         }
@@ -1579,15 +1600,34 @@ var TripdetailsinprogressComponent = /** @class */ (function () {
     };
     TripdetailsinprogressComponent.prototype.onView = function () {
         if (this.selectObj) {
-            this.router.navigate(['/container/trip-detail/view', this.selectObj.id]);
+            this.router.navigate(['/container/trip-detail/view', this.selectObj.id, "approved"]);
         }
         else {
             this.toastrMsg.error('View not able');
         }
     };
+    TripdetailsinprogressComponent.prototype.getStatusStyle = function (status) {
+        console.log(status);
+        switch (status) {
+            case 'APPROVED':
+                return { 'color': 'green' };
+            case 'INPROGRESS':
+                return { 'color': 'blue' };
+            case 'FORWARDED':
+                return { 'color': 'orange' };
+            case 'REQUESTFORCLARIFICATION':
+                return {
+                    'color': 'red',
+                };
+            case 'REJECT':
+                return { 'color': 'red' };
+            default:
+                return { 'color': 'gray' };
+        }
+    };
     TripdetailsinprogressComponent.ctorParameters = function () { return [
         { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] },
-        { type: src_app_service_common_service__WEBPACK_IMPORTED_MODULE_7__["CommonService"] },
+        { type: src_app_service_common_service__WEBPACK_IMPORTED_MODULE_8__["CommonService"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
         { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"] }
     ]; };
@@ -1602,7 +1642,7 @@ var TripdetailsinprogressComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./tripdetailsinprogress.component.scss */ "./src/app/container/trip-details/trip-details/tripdetailsinprogress/tripdetailsinprogress.component.scss")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
-            src_app_service_common_service__WEBPACK_IMPORTED_MODULE_7__["CommonService"],
+            src_app_service_common_service__WEBPACK_IMPORTED_MODULE_8__["CommonService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
             ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"]])
     ], TripdetailsinprogressComponent);
@@ -1643,25 +1683,50 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ViewTripDetailsComponent = /** @class */ (function () {
-    function ViewTripDetailsComponent(commonService, activatedRoute) {
+    function ViewTripDetailsComponent(commonService, activatedRoute, router) {
         this.commonService = commonService;
         this.activatedRoute = activatedRoute;
+        this.router = router;
+        this.tripLogDetails = [];
     }
     ViewTripDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.activatedRoute.params.subscribe(function (tripIdResponse) {
             if (tripIdResponse.id) {
+                if (tripIdResponse.status) {
+                    _this.tripListStatus = tripIdResponse.status;
+                }
                 _this.commonService.getTripDetails(tripIdResponse.id).subscribe(function (getTripDetailsResponse) {
                     if (getTripDetailsResponse.status == 's') {
                         _this.getTripDetails = getTripDetailsResponse.data;
+                        _this.commonService.getTripDetailLogs(getTripDetailsResponse.data.tripNumber).subscribe(function (gettripLogDetailsResponse) {
+                            if (gettripLogDetailsResponse.status == 's') {
+                                _this.tripLogDetails = gettripLogDetailsResponse.data;
+                            }
+                            else {
+                                _this.tripLogDetails = [];
+                            }
+                        });
                     }
                 });
             }
         });
     };
+    ViewTripDetailsComponent.prototype.back = function () {
+        if (this.tripListStatus == 'approved') {
+            this.router.navigate(['/container/trip-detail/inprogresslist']);
+        }
+        else if (this.tripListStatus == 'forward') {
+            this.router.navigate(['/container/trip-detail/forwardlist']);
+        }
+        else {
+            this.router.navigate(['/container/trip-detail/list']);
+        }
+    };
     ViewTripDetailsComponent.ctorParameters = function () { return [
         { type: src_app_service_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] }
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
     ]; };
     ViewTripDetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1670,80 +1735,10 @@ var ViewTripDetailsComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./view-trip-details.component.scss */ "./src/app/container/trip-details/trip-details/view-trip-details/view-trip-details.component.scss")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_service_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], ViewTripDetailsComponent);
     return ViewTripDetailsComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/service/common.service.ts":
-/*!*******************************************!*\
-  !*** ./src/app/service/common.service.ts ***!
-  \*******************************************/
-/*! exports provided: CommonService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommonService", function() { return CommonService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
-
-
-
-
-var CommonService = /** @class */ (function () {
-    function CommonService(httpClient) {
-        this.httpClient = httpClient;
-        this.baseUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseURL;
-    }
-    CommonService.prototype.tripDetailsSearchList = function (obj) {
-        var url = this.baseUrl + 'tripDetails/search';
-        return this.httpClient.post(url, obj);
-    };
-    CommonService.prototype.tripDetailAddSubmit = function (requestObj) {
-        var url = this.baseUrl + 'tripDetails/add';
-        return this.httpClient.post(url, requestObj);
-    };
-    CommonService.prototype.tripDetailModification = function (requestObj) {
-        var url = this.baseUrl + 'tripDetails/update';
-        return this.httpClient.put(url, requestObj);
-    };
-    CommonService.prototype.activeVechicle = function () {
-        var url = this.baseUrl + 'vehicleDetails/active';
-        return this.httpClient.get(url);
-    };
-    CommonService.prototype.activeDriver = function () {
-        var url = this.baseUrl + 'DriverDetails/active';
-        return this.httpClient.get(url);
-    };
-    CommonService.prototype.getStatingKM = function (vehicleNumber) {
-        var url = this.baseUrl + 'tripDetails/getLastRecordByV/' + vehicleNumber;
-        return this.httpClient.get(url);
-    };
-    CommonService.prototype.getTripDetails = function (tripId) {
-        var url = this.baseUrl + 'tripDetails/getById/' + tripId;
-        return this.httpClient.get(url);
-    };
-    CommonService.prototype.getTripDetailsForward = function (req) {
-        var url = this.baseUrl + 'tripDetails/approval';
-        return this.httpClient.put(url, req);
-    };
-    CommonService.ctorParameters = function () { return [
-        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
-    ]; };
-    CommonService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
-    ], CommonService);
-    return CommonService;
 }());
 
 

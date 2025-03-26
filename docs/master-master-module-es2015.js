@@ -19,11 +19,11 @@ __webpack_require__.r(__webpack_exports__);
 const routes = [
     {
         path: 'driver-detail',
-        loadChildren: () => Promise.all(/*! import() | driver-details-driver-details-module */[__webpack_require__.e("common"), __webpack_require__.e("driver-details-driver-details-module")]).then(__webpack_require__.bind(null, /*! ./driver-details/driver-details.module */ "./src/app/master/driver-details/driver-details.module.ts")).then(module => module.DriverDetailsModule)
+        loadChildren: () => Promise.all(/*! import() | driver-details-driver-details-module */[__webpack_require__.e("default~driver-details-driver-details-module~driver-payment-driver-payment-module~payout-payout-modu~4f5b7abd"), __webpack_require__.e("common"), __webpack_require__.e("driver-details-driver-details-module")]).then(__webpack_require__.bind(null, /*! ./driver-details/driver-details.module */ "./src/app/master/driver-details/driver-details.module.ts")).then(module => module.DriverDetailsModule)
     },
     {
         path: 'vehicle-detail',
-        loadChildren: () => Promise.all(/*! import() | vehicle-details-vehicle-details-module */[__webpack_require__.e("default~trip-details-trip-details-trip-details-module~vehicle-details-vehicle-details-module"), __webpack_require__.e("common"), __webpack_require__.e("vehicle-details-vehicle-details-module")]).then(__webpack_require__.bind(null, /*! ./vehicle-details/vehicle-details.module */ "./src/app/master/vehicle-details/vehicle-details.module.ts")).then(module => module.VehicleDetailsModule)
+        loadChildren: () => Promise.all(/*! import() | vehicle-details-vehicle-details-module */[__webpack_require__.e("default~driver-details-driver-details-module~driver-payment-driver-payment-module~payout-payout-modu~4f5b7abd"), __webpack_require__.e("default~driver-payment-driver-payment-module~payout-payout-module~trip-details-at-trip-details-at-mo~7b4323c2"), __webpack_require__.e("default~driver-payment-driver-payment-module~trip-details-at-trip-details-at-module~trip-details-tri~5eb5727e"), __webpack_require__.e("common"), __webpack_require__.e("vehicle-details-vehicle-details-module")]).then(__webpack_require__.bind(null, /*! ./vehicle-details/vehicle-details.module */ "./src/app/master/vehicle-details/vehicle-details.module.ts")).then(module => module.VehicleDetailsModule)
     }
 ];
 let MasterRoutingModule = class MasterRoutingModule {

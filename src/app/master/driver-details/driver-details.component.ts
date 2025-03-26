@@ -146,6 +146,7 @@ export class DriverDetailsComponent implements OnInit, AfterViewInit {
   onChecked(viewObj) {
     const selectObj = this.dataSource.data.find((findElement: any) => findElement.id == viewObj.id);
     if (selectObj) {
+      this.selectObj = selectObj;
       this.viewEnable = true;
       this.editEnable = true;
     }
@@ -155,7 +156,7 @@ export class DriverDetailsComponent implements OnInit, AfterViewInit {
     if (this.selectObj) {
       this.router.navigate(['/master/driver-detail/modification', this.selectObj.id]);
     } else {
-      this.toastrMsg.error('View not able');
+      this.toastrMsg.error('Edit not able');
     }
   }
 
