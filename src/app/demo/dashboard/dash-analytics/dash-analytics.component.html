@@ -1,5 +1,4 @@
-<div class="row">
-  <!-- conversion-section start -->
+<!-- <div class="row">
   <div class="col-sm-12">
     <div class="row no-gutters">
       <div class="col-md-4 col-xl-2 col-sm-6">
@@ -46,9 +45,6 @@
       </div>
     </div>
   </div>
-  <!-- conversion-section end -->
-
-  <!-- account-section start -->
   <div class="col-xl-8">
     <app-card cardTitle="Daily Visitor" [options]="false">
       <app-apex-chart chartID="daily-visitor-aa-cc" [chartConfig]="this.chartDB.dailyVisitorAACC" [xAxis]="dailyVisitorAxis"></app-apex-chart>
@@ -114,9 +110,6 @@
       </div>
     </app-card>
   </div>
-  <!-- account-section end -->
-
-  <!-- customer overview start -->
   <div class="col-md-12">
     <app-card cardTitle="Campaign Monitor" cardClass="table-card" blockClass="p-0">
       <perfect-scrollbar [style.max-height]="'362px'">
@@ -473,5 +466,56 @@
       </perfect-scrollbar>
     </app-card>
   </div>
-  <!-- customer overview start -->
+</div> -->
+
+<div class="container mt-4">
+  <h2 class="fw-bold">
+    HELLO TEAM DC &nbsp;&nbsp;&nbsp;<span><i class="fa fa-car"></i></span>
+
+  </h2>
+
+  <nav class="d-flex justify-content-between align-items-center">
+    <div class="nav">
+      <!-- <a class="nav-link active text-success fw-bold" href="#">Popular Places</a> -->
+      <!-- <a class="nav-link text-muted" href="#">Recommended</a>
+      <a class="nav-link text-muted" href="#">Near Me</a> -->
+    </div>
+  </nav>
+  <br>
+  <app-card [hidHeader]="true" cardClass="comp-card">
+    <div class="row mt-3">
+      <div class="col-md-4" *ngFor="let place of driverTrips;let i = index">
+        <div class="card border-0 shadow-sm">
+          <img [src]="places[i]?.image" class="card-img-top rounded" alt="Place Image">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">{{ place.driverName }}</h5>
+            <p class="text-muted">Trips Count :{{ place.totalTrips }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-success fw-bold">Amount :{{ place.totalEarns }}</span>
+              <i class="bi bi-heart-fill text-success"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-card>
+  <br>
+
+  <app-card [hidHeader]="true" cardClass="comp-card">
+    <div class="row mt-3">
+      <div class="col-md-4" *ngFor="let place of totalVehicleTripsAndProfit;let i = index">
+        <div class="card border-0 shadow-sm">
+          <img [src]="places[i]?.image" class="card-img-top rounded" alt="Place Image">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">{{ place.vehicleNumber }}</h5>
+            <p class="text-muted">Trips Count :{{ place.totalTrips }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-success fw-bold">Amount :{{ place.totalProfit }}</span>
+              <i class="bi bi-heart-fill text-success"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-card>
 </div>

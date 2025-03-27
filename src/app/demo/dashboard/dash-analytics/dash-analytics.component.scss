@@ -1,0 +1,27 @@
+.card:hover {
+  transform: scale(1.05);
+}
+
+.nav a {
+  text-decoration: none;
+  margin-right: 15px;
+  font-size: 18px;
+}
+
+.nav a.active {
+  border-bottom: 2px solid green;
+}
+
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card img {
+  height: 150px;
+  object-fit: cover;
+}
+
+.rainbow {
+  font-size: 24px;
+}
