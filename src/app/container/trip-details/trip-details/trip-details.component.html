@@ -1,217 +1,214 @@
 <div class="row">
-    <div class="col-xl-12">
-        <form [formGroup]="tripFormSearchDetails" autocomplete="off">
-            <app-card cardTitle="Trip Request Status" blockClass="table-border-style" class="search-panel">
-                <div class="row"></div>
-                <div class="row">
-                    <!-- Trip Details -->
-                    <div class="col dashboard_bg1">
-                        <app-card [hidHeader]="true" cardClass="comp-card">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <span>Trip Details</span>
-                                    <h3 class="mt-2">{{ tripDetailsCount.total || '0' }}</h3>
-                                    <i class="fas fa-external-link-alt"></i>
-                                </div>
-                            </div>
-                        </app-card>
-                    </div>
-
-                    <!-- EAL Approved -->
-                    <div class="col dashboard_bg4">
-                        <app-card [hidHeader]="true" cardClass="comp-card">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <span>Total Approved</span>
-                                    <h3 class="mt-2">{{ tripDetailsCount.totalApproved || '0' }}</h3>
-                                    <i class="fas fas fa-check"></i>
-                                </div>
-                            </div>
-                        </app-card>
-                    </div>
-
-                    <!-- EAL Pending/Request for Clarification -->
-                    <div class="col dashboard_bg2">
-                        <app-card [hidHeader]="true" cardClass="comp-card">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <span>Total Request for Clarification</span>
-                                    <h3 class="mt-2">{{ tripDetailsCount.totalRequestforclarification || '0' }}</h3>
-                                    <i class="fas fa-hourglass-half"></i>
-                                </div>
-                            </div>
-                        </app-card>
-                    </div>
-
-                    <!-- EAL Rejected -->
-                    <div class="col dashboard_bg7">
-                        <app-card [hidHeader]="true" cardClass="comp-card">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <span>Total Rejected</span>
-                                    <h3 class="mt-2">{{ tripDetailsCount.totalRejected || '0' }}</h3>
-                                    <i class="fas fa-external-link-alt"></i>
-                                </div>
-                            </div>
-                        </app-card>
-                    </div>
-                </div>
-            </app-card>
-            <!-- Search Panel -->
-            <div class="accordion" id="accordionPanelsStayOpenExample">
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                  <button class="accordion-button collapsed" type="button" 
-                          data-bs-toggle="collapse" 
-                          data-bs-target="#panelsStayOpen-collapseOne" 
-                          aria-expanded="false" 
-                          aria-controls="panelsStayOpen-collapseOne">
-                    Search
-                  </button>
-                </h2>
-                
-                <div id="panelsStayOpen-collapseOne" 
-                     class="accordion-collapse collapse" 
-                     aria-labelledby="panelsStayOpen-headingOne" 
-                     data-bs-parent="#accordionPanelsStayOpenExample">
-                  <div class="accordion-body">
-                    <app-card [hidHeader]="true" class="list-panel add-panel">
-                      <div class="row">
-                        <!-- Driver Name -->
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                          <div class="form-group">
-                            <label>Driver Name<span class="text-danger">*</span></label>
-                            <select class="form-select" formControlName="driverName">
-                              <option value="" selected disabled>Select Driver Name</option>
-                              <option *ngFor="let driver of driverList" [value]="driver?.name">{{ driver?.name }}</option>
-                            </select>
-                          </div>
-                        </div>
-              
-                        <!-- Trip No -->
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                          <div class="form-group">
-                            <label>Trip No<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" formControlName="tripNo" placeholder="Enter Trip Number">
-                          </div>
-                        </div>
-              
-                        <!-- From Date -->
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                          <div class="form-group">
-                            <label>From Date<span class="text-danger">*</span></label>
-                            <input type="text" [owlDateTime]="dt3" class="form-control" [owlDateTimeTrigger]="dt3"
-                              placeholder="Select From Date" formControlName="fromDate">
-                            <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
-                          </div>
-                        </div>
-              
-                        <!-- To Date -->
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                          <div class="form-group">
-                            <label>To Date<span class="text-danger">*</span></label>
-                            <input type="text" [owlDateTime]="dt4" class="form-control" [owlDateTimeTrigger]="dt4"
-                              placeholder="Select To Date" formControlName="toDate">
-                            <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
-                          </div>
-                        </div>
-              
-                        <!-- Driver Number -->
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                          <div class="form-group">
-                            <label>Driver Number</label>
-                            <input type="text" formControlName="driverNumber" class="form-control" placeholder="Enter Driver Number">
-                          </div>
-                        </div>
-              
-                        <!-- Vehicle Number -->
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                          <div class="form-group">
-                            <label>Vehicle Number <span class="text-danger">*</span></label>
-                            <select class="form-select" formControlName="vehiclenumber">
-                              <option value="" selected disabled>Select Vehicle Number</option>
-                              <option *ngFor="let vehicle of vehicleList" [value]="vehicle.vehicleNumber">
-                                {{ vehicle.vehicleNumber }}
-                              </option>
-                            </select>
-                          </div>
-                        </div>
-              
-                        <!-- Status -->
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                          <div class="form-group">
-                            <label>Status</label>
-                            <select formControlName="status" class="form-select">
-                              <option value="" disabled selected>Select Status</option>
-                              <option value="APPROVED">APPROVED</option>
-                              <option value="INPROGRESS">IN PROGRESS</option>
-                              <option value="FORWARDED">FORWARDED</option>
-                              <option value="REQUESTFORCLARIFICATION">REQUEST FOR CLARIFICATION</option>
-                              <option value="REJECT">REJECT</option>
-                              <option value="SUBMITTED">SUBMITTED</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-              
-                      <!-- Buttons -->
-                      <div class="row mt-3">
-                        <div class="col-lg-12 text-end">
-                          <div class="modal-footer">
-                            <button type="submit" class="btn btn-outline-info" (click)="search()">
-                              <span>Submit</span>
-                            </button>
-                            <button type="button" class="btn btn-outline-secondary" (click)="onclear()">
-                              <span>Clear</span>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </app-card>
-                  </div>
+  <div class="col-xl-12">
+    <form [formGroup]="tripFormSearchDetails" autocomplete="off">
+      <app-card cardTitle="Trip Request Status" blockClass="table-border-style" class="search-panel">
+        <div class="row"></div>
+        <div class="row">
+          <!-- Trip Details -->
+          <div class="col dashboard_bg1">
+            <app-card [hidHeader]="true" cardClass="comp-card">
+              <div class="row align-items-center">
+                <div class="col">
+                  <span>Trip Details</span>
+                  <h3 class="mt-2">{{ tripDetailsCount.total || '0' }}</h3>
+                  <i class="fas fa-external-link-alt"></i>
                 </div>
               </div>
+            </app-card>
+          </div>
+
+          <!-- EAL Approved -->
+          <div class="col dashboard_bg4">
+            <app-card [hidHeader]="true" cardClass="comp-card">
+              <div class="row align-items-center">
+                <div class="col">
+                  <span>Total Approved</span>
+                  <h3 class="mt-2">{{ tripDetailsCount.totalApproved || '0' }}</h3>
+                  <i class="fas fas fa-check"></i>
+                </div>
+              </div>
+            </app-card>
+          </div>
+
+          <!-- EAL Pending/Request for Clarification -->
+          <div class="col dashboard_bg2">
+            <app-card [hidHeader]="true" cardClass="comp-card">
+              <div class="row align-items-center">
+                <div class="col">
+                  <span>Total Request for Clarification</span>
+                  <h3 class="mt-2">{{ tripDetailsCount.totalRequestforclarification || '0' }}</h3>
+                  <i class="fas fa-hourglass-half"></i>
+                </div>
+              </div>
+            </app-card>
+          </div>
+
+          <!-- EAL Rejected -->
+          <div class="col dashboard_bg7">
+            <app-card [hidHeader]="true" cardClass="comp-card">
+              <div class="row align-items-center">
+                <div class="col">
+                  <span>Total Rejected</span>
+                  <h3 class="mt-2">{{ tripDetailsCount.totalRejected || '0' }}</h3>
+                  <i class="fas fa-external-link-alt"></i>
+                </div>
+              </div>
+            </app-card>
+          </div>
+        </div>
+      </app-card>
+      <!-- Search Panel -->
+      <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
+              aria-controls="panelsStayOpen-collapseOne">
+              Search
+            </button>
+          </h2>
+
+          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse"
+            aria-labelledby="panelsStayOpen-headingOne" data-bs-parent="#accordionPanelsStayOpenExample">
+            <div class="accordion-body">
+              <app-card [hidHeader]="true" class="list-panel add-panel">
+                <div class="row">
+                  <!-- Driver Name -->
+                  <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label>Driver Name<span class="text-danger">*</span></label>
+                      <select class="form-select" formControlName="driverName">
+                        <option value="" selected disabled>Select Driver Name</option>
+                        <option *ngFor="let driver of driverList" [value]="driver?.name">{{ driver?.name }}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Trip No -->
+                  <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label>Trip No<span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" formControlName="tripNo" placeholder="Enter Trip Number">
+                    </div>
+                  </div>
+
+                  <!-- From Date -->
+                  <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label>From Date<span class="text-danger">*</span></label>
+                      <input type="text" [owlDateTime]="dt3" class="form-control" [owlDateTimeTrigger]="dt3"
+                        placeholder="Select From Date" formControlName="fromDate">
+                      <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                    </div>
+                  </div>
+
+                  <!-- To Date -->
+                  <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label>To Date<span class="text-danger">*</span></label>
+                      <input type="text" [owlDateTime]="dt4" class="form-control" [owlDateTimeTrigger]="dt4"
+                        placeholder="Select To Date" formControlName="toDate">
+                      <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+                    </div>
+                  </div>
+
+                  <!-- Driver Number -->
+                  <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label>Driver Number</label>
+                      <input type="text" formControlName="driverNumber" class="form-control"
+                        placeholder="Enter Driver Number">
+                    </div>
+                  </div>
+
+                  <!-- Vehicle Number -->
+                  <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label>Vehicle Number <span class="text-danger">*</span></label>
+                      <select class="form-select" formControlName="vehiclenumber">
+                        <option value="" selected disabled>Select Vehicle Number</option>
+                        <option *ngFor="let vehicle of vehicleList" [value]="vehicle.vehicleNumber">
+                          {{ vehicle.vehicleNumber }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Status -->
+                  <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                    <div class="form-group">
+                      <label>Status</label>
+                      <select formControlName="status" class="form-select">
+                        <option value="" disabled selected>Select Status</option>
+                        <option value="APPROVED">APPROVED</option>
+                        <option value="INPROGRESS">IN PROGRESS</option>
+                        <option value="FORWARDED">FORWARDED</option>
+                        <option value="REQUESTFORCLARIFICATION">REQUEST FOR CLARIFICATION</option>
+                        <option value="REJECT">REJECT</option>
+                        <option value="SUBMITTED">SUBMITTED</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="row mt-3">
+                  <div class="col-lg-12 text-end">
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-outline-info" (click)="search()">
+                        <span>Submit</span>
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary" (click)="onclear()">
+                        <span>Clear</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </app-card>
             </div>
-              
-        </form>
-    </div>
+          </div>
+        </div>
+      </div>
+      <br>
+    </form>
+  </div>
 </div>
 
 <div class="outer-container">
-    <div class="button-container">
-        <button class="btn btn-outline-success list-button-container" [routerLink]="['/container/trip-detail/add']">
-            <span class="list-text-alaign-center">Add</span>
-        </button>
-        <button class="btn btn-outline-secondary list-button-container" (click)="onEdit()" [disabled]="!editEnable">
-            <span class="list-text-alaign-center">Edit</span>
-        </button>
-        <button class="btn btn-outline-warning list-button-container" (click)="onView()" [disabled]="!viewEnable">
-            <span class="list-text-alaign-center">View</span>
-        </button>
-        <!-- <button (click)="onclear()">
+  <div class="button-container">
+    <button class="btn btn-outline-success list-button-container" [routerLink]="['/container/trip-detail/add']">
+      <span class="list-text-alaign-center">Add</span>
+    </button>
+    <button class="btn btn-outline-secondary list-button-container" (click)="onEdit()" [disabled]="!editEnable">
+      <span class="list-text-alaign-center">Edit</span>
+    </button>
+    <button class="btn btn-outline-warning list-button-container" (click)="onView()" [disabled]="!viewEnable">
+      <span class="list-text-alaign-center">View</span>
+    </button>
+    <!-- <button (click)="onclear()">
             <span>Clear</span>
         </button> -->
-    </div>
+  </div>
 </div>
 
 
 <app-mat-table-configuration *ngIf="columns?.length > 0" [columns]="columns" [actionKeys]="actionKeys"
-    [dataSource]="dataSource" [totalCount]="totelCount" [pageSize]="pageSize"
-    (paginationEvent)="handlePagination($event)" (checkboxAction)="onChecked($event)">
+  [dataSource]="dataSource" [totalCount]="totelCount" [pageSize]="pageSize" (paginationEvent)="handlePagination($event)"
+  (checkboxAction)="onChecked($event)">
 </app-mat-table-configuration>
 
 
 <div class="row">
-    <div class="col-xl-4 mt-2">
-        <div class="dropdown">
-            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Download
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="javascript:void(0)" (click)="exportToExcel()">Excel</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0)" (click)="generatePDF()">PDF</a></li>
-            </ul>
-        </div>
+  <div class="col-xl-4 mt-2">
+    <div class="dropdown">
+      <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+        aria-expanded="false">
+        Download
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="javascript:void(0)" (click)="exportToExcel()">Excel</a></li>
+        <li><a class="dropdown-item" href="javascript:void(0)" (click)="generatePDF()">PDF</a></li>
+      </ul>
     </div>
+  </div>
 </div>

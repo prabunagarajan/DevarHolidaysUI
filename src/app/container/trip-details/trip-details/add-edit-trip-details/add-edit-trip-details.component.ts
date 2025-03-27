@@ -213,8 +213,6 @@ export class AddEditTripDetailsComponent implements OnInit {
     } else if (this.leveStatus == 'Level 2') {
       this.forwardApprove()
     } else if (this.leveStatus == 'Level 3') {
-      console.log('Approved');
-      // this.approved();
       this.updateTripDetails('APPROVED');
     } else if (this.leveStatus == 'Level 1 REQ') {
       this.requestForClarification()
@@ -385,10 +383,11 @@ export class AddEditTripDetailsComponent implements OnInit {
   }
 
   numbersOnly(event: KeyboardEvent) {
-    const charCode = event.which ? event.which : event.keyCode;
+    const charCode = event.keyCode || event.which;
 
-    // Allow: Backspace (8), Delete (46), Arrow keys (37, 39), Tab (9), Enter (13)
+    // Allow navigation keys, Tab, Enter, Backspace, and Delete
     if (
+      event.ctrlKey || event.metaKey || // Allow Ctrl (for copy-paste)
       charCode === 8 ||  // Backspace
       charCode === 46 || // Delete
       charCode === 37 || // Left Arrow
@@ -396,17 +395,15 @@ export class AddEditTripDetailsComponent implements OnInit {
       charCode === 9 ||  // Tab
       charCode === 13    // Enter
     ) {
-      return; // Allow these keys
+      return;
     }
 
-    // Allow only numeric keys (0-9 from both top row and numpad)
-    if (
-      (charCode < 48 || charCode > 57) &&  // Top row numbers (0-9)
-      (charCode < 96 || charCode > 105)    // Numpad numbers (0-9)
-    ) {
-      event.preventDefault(); // Restrict other keys
+    // Allow only numeric input (0-9) from top row and numpad
+    if (!/^\d$/.test(event.key)) {
+      event.preventDefault(); // Block non-numeric keys
     }
   }
+
 
   getReceivedAmount(receivedAmount) {
     const advanceAmount = this.tripFormDetails.controls.advanceAmount.value ? parseFloat(this.tripFormDetails.controls.advanceAmount.value) : 0;
@@ -436,32 +433,15 @@ export class AddEditTripDetailsComponent implements OnInit {
         balanceAmount: 0
       });
     }
-
   }
   getTotalRentAmount(totalRentAmount) {
-    console.log(totalRentAmount);
-
     const advanceAmount = this.tripFormDetails.controls.advanceAmount.value ? parseFloat(this.tripFormDetails.controls.advanceAmount.value) : 0;
     const receivedAmount = this.tripFormDetails.controls.receivedAmount.value ? parseFloat(this.tripFormDetails.controls.receivedAmount.value) : 0;
     const dayRent = this.tripFormDetails.controls.dayRent.value ? parseFloat(this.tripFormDetails.controls.dayRent.value) : 0;
     const discount = this.tripFormDetails.controls.discountAmount.value ? parseFloat(this.tripFormDetails.controls.discountAmount.value) : 0;
-
-    console.log("total", totalRentAmount);
-    console.log("dayrent", dayRent);
-    console.log("receivedAmount", receivedAmount);
-    console.log("advanceAmount", advanceAmount);
-    console.log('discount', discount);
-
-
-
-
-
-
-
     if (this.tripFormDetails.controls.totalRent.value) {
       this.tripFormDetails.patchValue({
         pendingAmount: ((totalRentAmount + dayRent) - (advanceAmount + receivedAmount + discount)),
-        // pendingAmount: (parseFloat(totalRentAmount) - (advanceAmount + receivedAmount)),
         balanceAmount: (parseFloat(totalRentAmount) - (advanceAmount + receivedAmount))
       });
     } else {
@@ -473,19 +453,11 @@ export class AddEditTripDetailsComponent implements OnInit {
   }
 
 
-  getDiscountAmount(discountAmount) {
-
-    console.log(discountAmount);
-
+  /* getDiscountAmount(discountAmount) {
     const advanceAmount = this.tripFormDetails.controls.advanceAmount.value ? parseFloat(this.tripFormDetails.controls.advanceAmount.value) : 0;
     const receivedAmount = this.tripFormDetails.controls.receivedAmount.value ? parseFloat(this.tripFormDetails.controls.receivedAmount.value) : 0;
     const dayRent = this.tripFormDetails.controls.dayRent.value ? parseFloat(this.tripFormDetails.controls.dayRent.value) : 0;
     const discount = this.tripFormDetails.controls.discountAmount.value ? parseFloat(this.tripFormDetails.controls.discountAmount.value) : 0;
-    console.log("total", discountAmount);
-    console.log("dayrent", dayRent);
-    console.log("receivedAmount", receivedAmount);
-    console.log("advanceAmount", advanceAmount);
-    console.log('discount', discount);
     if (this.tripFormDetails.controls.totalRent.value) {
       this.tripFormDetails.patchValue({
         pendingAmount: ((discountAmount + dayRent) - (advanceAmount + receivedAmount + discount)),
@@ -498,13 +470,10 @@ export class AddEditTripDetailsComponent implements OnInit {
         balanceAmount: 0
       });
     }
+  } */
 
 
-
-  }
-
-
-  getAdvanceAmount(advanceAmount) {
+  /* getAdvanceAmount(advanceAmount) {
     const totalRentAmount = this.tripFormDetails.controls.totalRent.value ? parseFloat(this.tripFormDetails.controls.totalRent.value) : 0;
     const receivedAmount = this.tripFormDetails.controls.receivedAmount.value ? parseFloat(this.tripFormDetails.controls.receivedAmount.value) : 0;
     const pendingAmount = this.tripFormDetails.controls.pendingAmount.value ? parseFloat(this.tripFormDetails.controls.pendingAmount.value) : 0;
@@ -536,7 +505,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       });
     }
 
-  }
+  } */
 
   getStaringKM(statingKM) {
     this.commonService.getStatingKM(statingKM).subscribe(vehicleResponse => {
@@ -567,23 +536,21 @@ export class AddEditTripDetailsComponent implements OnInit {
 
 
 
-  dayRentCalculation(dayRentAmount) {
-    console.log("Day Rent:", dayRentAmount);
-
-    const totalRentAmount = this.tripFormDetails.controls.totalRent.value ? parseFloat(this.tripFormDetails.controls.totalRent.value) : 0;
-    const receivedAmount = this.tripFormDetails.controls.receivedAmount.value ? parseFloat(this.tripFormDetails.controls.receivedAmount.value) : 0;
-    const advanceAmount = this.tripFormDetails.controls.advanceAmount.value ? parseFloat(this.tripFormDetails.controls.advanceAmount.value) : 0;
-    const discount = this.tripFormDetails.controls.discountAmount.value ? parseFloat(this.tripFormDetails.controls.discountAmount.value) : 0;
-
-    const dayRent = dayRentAmount ? parseFloat(dayRentAmount) : 0;
-    const newPendingAmount = (totalRentAmount + dayRent) - (advanceAmount + receivedAmount + discount);
-    const newBalanceAmount = totalRentAmount + dayRent - (advanceAmount + receivedAmount);
-
-    this.tripFormDetails.patchValue({
-      pendingAmount: newPendingAmount,
-      balanceAmount: newBalanceAmount
-    });
-  }
+  /*  dayRentCalculation(dayRentAmount) {
+     const totalRentAmount = this.tripFormDetails.controls.totalRent.value ? parseFloat(this.tripFormDetails.controls.totalRent.value) : 0;
+     const receivedAmount = this.tripFormDetails.controls.receivedAmount.value ? parseFloat(this.tripFormDetails.controls.receivedAmount.value) : 0;
+     const advanceAmount = this.tripFormDetails.controls.advanceAmount.value ? parseFloat(this.tripFormDetails.controls.advanceAmount.value) : 0;
+     const discount = this.tripFormDetails.controls.discountAmount.value ? parseFloat(this.tripFormDetails.controls.discountAmount.value) : 0;
+ 
+     const dayRent = dayRentAmount ? parseFloat(dayRentAmount) : 0;
+     const newPendingAmount = (totalRentAmount + dayRent) - (advanceAmount + receivedAmount + discount);
+     const newBalanceAmount = totalRentAmount + dayRent - (advanceAmount + receivedAmount);
+ 
+     this.tripFormDetails.patchValue({
+       pendingAmount: newPendingAmount,
+       balanceAmount: newBalanceAmount
+     });
+   } */
 
 
   acStaringKmCalculation(startingKM) {
@@ -604,7 +571,8 @@ export class AddEditTripDetailsComponent implements OnInit {
   }
 
   profitAmoutCalculation(string) {
-    // Formula < == > ("Profit = Total Rent - (Toll + Fuel + Driver Payment + Permit+discount)+dayRent")
+    /* Formula < == > ("Profit = Total Rent - (Toll + Fuel + Driver Payment + Permit+discount)+dayRent") */
+
     const totalRentAmount = this.tripFormDetails.value.totalRent ? parseFloat(this.tripFormDetails.value.totalRent) : 0;
     const tollAmount = this.tripFormDetails.value.toll ? parseFloat(this.tripFormDetails.value.toll) : 0;
     const fuelAmount = this.tripFormDetails.value.diesel ? parseFloat(this.tripFormDetails.value.diesel) : 0;
@@ -612,10 +580,33 @@ export class AddEditTripDetailsComponent implements OnInit {
     const permitAmount = this.tripFormDetails.value.permitAmount ? parseFloat(this.tripFormDetails.value.permitAmount) : 0;
     const discount = this.tripFormDetails.value.discountAmount ? parseFloat(this.tripFormDetails.value.discountAmount) : 0;
     const dayRent = this.tripFormDetails.value.dayRent ? parseFloat(this.tripFormDetails.value.dayRent) : 0;
+    const advanceAmount = this.tripFormDetails.value.advanceAmount ? parseFloat(this.tripFormDetails.value.advanceAmount) : 0;
+    const receivedAmount = this.tripFormDetails.value.receivedAmount ? parseFloat(this.tripFormDetails.value.receivedAmount) : 0;
+
+    /* Profit Amount Calculation - Start */
+    // Profit = (Total Rent - (Toll + Fuel + Driver Payment + Permit + discount))+ Day Rent
+
     const profitAmount = (totalRentAmount - (tollAmount + fuelAmount + driverPaymentAmount + permitAmount + discount)) + dayRent;
-    this.tripFormDetails.patchValue({
-      profitAmount: profitAmount ? profitAmount : 0
-    });
+    if (profitAmount) {
+      this.tripFormDetails.patchValue({
+        profitAmount: profitAmount ? profitAmount : 0
+      });
+    }
+
+    /* Profit Amount Calculation - End */
+
+    /* Pending Amount Calculation - Start */
+
+    // Pending Amount = ((totalRentAmount +  Day Rent) - (parseFloat(advanceAmount) + receivedAmount + discount))
+    const pendingAmount = ((totalRentAmount + dayRent) - (advanceAmount + receivedAmount + discount));
+
+    if (pendingAmount) {
+      this.tripFormDetails.patchValue({
+        pendingAmount: pendingAmount ? pendingAmount : 0
+      });
+    }
+
+    /* Pending Amount Calculation - End */
   }
 
   updateTripDetails(status) {
@@ -683,7 +674,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       this.tripFormDetails.patchValue({
         driverNumber: selectedDriver.mobileNumber
       })
-    } 
+    }
   }
 
 
@@ -737,7 +728,7 @@ export class AddEditTripDetailsComponent implements OnInit {
           startingKM: getTripDetailsResponse.data.startingKM,
           status: getTripDetailsResponse.data.status,
           submittedBy: getTripDetailsResponse.data.submittedBy,
-          driverNumber:getTripDetailsResponse.data.driverMobileNumber,
+          driverNumber: getTripDetailsResponse.data.driverMobileNumber,
           toll: getTripDetailsResponse.data.toll,
           totalRent: getTripDetailsResponse.data.totalRent,
           totalTime: getTripDetailsResponse.data.totalTime,
