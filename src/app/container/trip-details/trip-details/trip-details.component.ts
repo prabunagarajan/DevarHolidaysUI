@@ -171,7 +171,17 @@ export class TripDetailsComponent implements OnInit {
     }
     this.commonService.tripDetailsSearchList(request).subscribe(response => {
       if (response.status === 's' && response.data) {
-        this.dataSource = new MatTableDataSource(response.data.contents);
+        const pageIndex = request.pageNo; 
+        const pageSize = request.paginationSize; 
+        const serialNumber = pageIndex * pageSize; 
+
+        const dataSource = response.data.contents.map((v, i) => ({
+            ...v,
+            sNo: serialNumber + i + 1 
+        }));
+
+        this.dataSource = new MatTableDataSource(dataSource);
+        // this.dataSource = new MatTableDataSource(response.data.contents);
         this.totelCount = response.data.totalElements;
       } else {
         this.dataSource = new MatTableDataSource();
