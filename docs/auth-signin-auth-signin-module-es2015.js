@@ -96,7 +96,7 @@ let AuthSigninComponent = class AuthSigninComponent {
     }
     signInFun(signInForm) {
         console.log('signInForm :', signInForm.value);
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['dashboard/analytics']);
         /* Temprory Commented */
         /* if (!signInForm.valid) {
           this.signInSubmitted = true;

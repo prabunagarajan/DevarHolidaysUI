@@ -90,6 +90,22 @@ var CommonService = /** @class */ (function () {
             .set('toDate', toDate);
         return this.httpClient.post(url, {}, { params: params });
     };
+    CommonService.prototype.dashBoardCount = function (month, year) {
+        var url = this.baseUrl + 'tripDetails/getTotalDriverTripsAndSalary';
+        var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]()
+            .set('month', month)
+            .set('year', year);
+        return this.httpClient.get(url, { params: params });
+        ;
+    };
+    CommonService.prototype.getTotalVehicleTripsAndProfit = function (month, year) {
+        var url = this.baseUrl + 'tripDetails/getTotalVehicleTripsAndProfit';
+        var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]()
+            .set('month', month)
+            .set('year', year);
+        return this.httpClient.get(url, { params: params });
+        ;
+    };
     CommonService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
     ]; };

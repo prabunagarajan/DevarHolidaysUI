@@ -90,6 +90,22 @@ let CommonService = class CommonService {
             .set('toDate', toDate);
         return this.httpClient.post(url, {}, { params });
     }
+    dashBoardCount(month, year) {
+        const url = this.baseUrl + 'tripDetails/getTotalDriverTripsAndSalary';
+        const params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]()
+            .set('month', month)
+            .set('year', year);
+        return this.httpClient.get(url, { params });
+        ;
+    }
+    getTotalVehicleTripsAndProfit(month, year) {
+        const url = this.baseUrl + 'tripDetails/getTotalVehicleTripsAndProfit';
+        const params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]()
+            .set('month', month)
+            .set('year', year);
+        return this.httpClient.get(url, { params });
+        ;
+    }
 };
 CommonService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }

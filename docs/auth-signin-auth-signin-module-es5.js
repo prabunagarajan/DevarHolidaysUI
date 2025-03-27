@@ -99,7 +99,7 @@ var AuthSigninComponent = /** @class */ (function () {
     };
     AuthSigninComponent.prototype.signInFun = function (signInForm) {
         console.log('signInForm :', signInForm.value);
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['dashboard/analytics']);
         /* Temprory Commented */
         /* if (!signInForm.valid) {
           this.signInSubmitted = true;
