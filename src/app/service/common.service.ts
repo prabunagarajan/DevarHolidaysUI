@@ -86,7 +86,21 @@ export class CommonService {
     return this.httpClient.post<any>(url, {}, { params });
   }
 
+dashBoardCount(month:any,year:any): Observable<any>{
+  const url=this.baseUrl+'tripDetails/getTotalDriverTripsAndSalary';
+  const params = new HttpParams()
+  .set('month', month)
+  .set('year', year);
+  return this.httpClient.get<any>(url, { params }); ;
+}
 
+getTotalVehicleTripsAndProfit(month:any,year:any): Observable<any>{
+  const url=this.baseUrl+'tripDetails/getTotalVehicleTripsAndProfit';
+  const params = new HttpParams()
+  .set('month', month)
+  .set('year', year);
+  return this.httpClient.get<any>(url, { params }); ;
+}
 
 
 }
