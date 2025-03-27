@@ -2184,3 +2184,13 @@ td .form-group {
 //   color:#fff!important;
 //   padding:5px!important;
 // }
+
+
+.accordion-button:focus, 
+.accordion-button:active, 
+.accordion-button:not(.collapsed) {
+    background-color: transparent !important; /* Remove background color */
+    box-shadow: none !important; /* Remove outline shadow */
+    border-color: transparent !important; /* Remove border color */
+    color: inherit !important; /* Keep text color unchanged */
+}
