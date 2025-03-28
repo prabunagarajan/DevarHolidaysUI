@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"auth-wrapper maintenance\">\n  <div class=\"container\">\n    <div class=\"row justify-content-center\">\n      <div class=\"col-md-8\">\n        <div class=\"text-center\">\n          <img src=\"assets/images/maintenance/404.png\" alt=\"\" class=\"img-fluid\">\n          <h5 class=\"text-muted my-4\">Oops! Page not found!</h5>\n          <button class=\"btn waves-effect waves-light btn-primary mb-4\"><i class=\"feather icon-refresh-ccw mr-2\"></i>Reload</button>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"auth-wrapper maintenance\">\r\n  <div class=\"container\">\r\n    <div class=\"row justify-content-center\">\r\n      <div class=\"col-md-8\">\r\n        <div class=\"text-center\">\r\n          <img src=\"assets/images/maintenance/404.png\" alt=\"\" class=\"img-fluid\">\r\n          <h5 class=\"text-muted my-4\">Oops! Page not found!</h5>\r\n          <button class=\"btn waves-effect waves-light btn-primary mb-4\"><i class=\"feather icon-refresh-ccw mr-2\"></i>Reload</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
