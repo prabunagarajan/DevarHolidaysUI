@@ -50,9 +50,9 @@ export class TripdeatilsforwardComponent implements OnInit {
       driverNumber: [''],
       vehiclenumber: [''],
       status: [''],
-      tripNo:[''],
-      fromDate:[''],
-      toDate:[''],
+      tripNo: [''],
+      fromDate: [''],
+      toDate: [''],
     })
     this.getAll();
     this.getTripDetailsCount();
@@ -84,12 +84,12 @@ export class TripdeatilsforwardComponent implements OnInit {
         driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
         visitingPlace: "",
         status: "FORWARDED",
-         fromDate: tripFormSearchDetails.fromDate
-                  ? moment(tripFormSearchDetails.fromDate).format('YYYY-MM-DD')
-                  : '',
-                toDate: tripFormSearchDetails.toDate
-                  ? moment(tripFormSearchDetails.toDate).format('YYYY-MM-DD') : '',
-                tripNo: tripFormSearchDetails.tripNo ? tripFormSearchDetails.tripNo : '',
+        fromDate: tripFormSearchDetails.fromDate
+          ? moment(tripFormSearchDetails.fromDate).format('YYYY-MM-DD')
+          : '',
+        toDate: tripFormSearchDetails.toDate
+          ? moment(tripFormSearchDetails.toDate).format('YYYY-MM-DD') : '',
+        tripNo: tripFormSearchDetails.tripNo ? tripFormSearchDetails.tripNo : '',
       },
       paginationSize: pageSize,
       sortField: "modifiedDate",
@@ -121,10 +121,10 @@ export class TripdeatilsforwardComponent implements OnInit {
     const today = new Date();
     const fromDateObj = new Date();
     fromDateObj.setDate(today.getDate() - 30); // 30 days before today
-    
+
     const fromDate = fromDateObj.toISOString().split('T')[0]; // Format as YYYY-MM-DD
     const toDate = today.toISOString().split('T')[0]; // Today's date in YYYY-MM-DD format
-    
+
     console.log(fromDate, toDate);
     this.commonService.tripdetailsdashboardcount(fromDate, toDate).subscribe(
       (tripdetailsdashboardcountResponse: any) => {
@@ -139,7 +139,7 @@ export class TripdeatilsforwardComponent implements OnInit {
       }
     );
   }
-  
+
   onclear() {
     this.tripFormSearchDetails.patchValue({
       driverName: '',
@@ -205,7 +205,7 @@ export class TripdeatilsforwardComponent implements OnInit {
     }
   }
 
-  /* generatePDF() {
+  generatePDF() {
     console.log('generatePDF :')
     const doc = new jsPDF();
 
@@ -237,17 +237,18 @@ export class TripdeatilsforwardComponent implements OnInit {
     const columns = ['S.No', 'Trip No', 'Created Date', 'Vehicle Number', 'Customer Name', 'Visiting Place', 'Driver Name', 'Total Rent', 'Status'];
 
     // Convert list data to an array format with serial numbers
-    const rows = this.dataSource.data.map((item, index) => [
-      index + 1, // Serial number starts from 1
-      item.tripNumber,
-      moment(item.createdDate).format('DD-MM-YYYY'),
-      String(item.vehicleNumber), // Convert number to string
-      String(item.customerName), // Convert number to string
-      String(item.visitingPlace), // Convert number to string
-      item.driverName,
-      item.totalRent,
-      item.status
-    ]);
+    let rows = [];
+    this.dataSource.data.forEach((element: any, i: number) => {
+      rows[i] = [];
+      rows[i].push(i + 1);
+      rows[i].push(element ? moment(element.createdDate).format('DD-MM-YYYY') : '')
+      rows[i].push(element ? element.vehicleNumber : '')
+      rows[i].push(element ? element.customerName : '')
+      rows[i].push(element ? element.visitingPlace : '')
+      rows[i].push(element ? element.driverName : '')
+      rows[i].push(element ? element.totalRent : '')
+      rows[i].push(element ? element.status : '')
+    });
 
     // Add table to the PDF
     autoTable(doc, {
@@ -260,17 +261,18 @@ export class TripdeatilsforwardComponent implements OnInit {
     doc.save('Trip_Details_L3.pdf');
   }
   exportToExcel() {
-    const rows = this.dataSource.data.map((item, index) => [
-      index + 1, // Serial number starts from 1
-      item.tripNumber,
-      moment(item.createdDate).format('DD-MM-YYYY'), // Format date
-      String(item.vehicleNumber),
-      String(item.customerName),
-      String(item.visitingPlace),
-      item.driverName,
-      item.totalRent,
-      item.status
-    ]);
+    let rows = [];
+    this.dataSource.data.forEach((element: any, i: number) => {
+      rows[i] = [];
+      rows[i].push(i + 1);
+      rows[i].push(element ? moment(element.createdDate).format('DD-MM-YYYY') : '')
+      rows[i].push(element ? element.vehicleNumber : '')
+      rows[i].push(element ? element.customerName : '')
+      rows[i].push(element ? element.visitingPlace : '')
+      rows[i].push(element ? element.driverName : '')
+      rows[i].push(element ? element.totalRent : '')
+      rows[i].push(element ? element.status : '')
+    });
 
     const options = {
       headers: [
@@ -286,6 +288,6 @@ export class TripdeatilsforwardComponent implements OnInit {
       ]
     };
     new ngxCsv(rows, 'Trip_Details_L3', options);
-  } */
+  }
 }
 

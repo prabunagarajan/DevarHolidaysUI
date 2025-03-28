@@ -182,7 +182,7 @@ export class DriverDetailsComponent implements OnInit, AfterViewInit {
     this.getAll(pageIndex, pageSize);
   }
 
-  /* generatePDF() {
+  generatePDF() {
     console.log('generatePDF :')
     const doc = new jsPDF();
 
@@ -213,20 +213,21 @@ export class DriverDetailsComponent implements OnInit, AfterViewInit {
     // Define table columns with Serial Number
     const columns = ['S.No', 'Name', 'Mobile Number', 'Driving License Number', 'Aadhar Number', 'District'];
 
-    // Convert list data to an array format with serial numbers
-    const rows = this.dataSource.data.map((item, index) => [
-      index + 1, // Serial number starts from 1
-      item.name,
-      String(item.mobileNumber), // Convert number to string
-      String(item.drivingLicenseNumber), // Convert number to string
-      String(item.aadharNumber), // Convert number to string
-      item.district
-    ]);
+    let data = [];
+    this.dataSource.data.forEach((element: any, i: number) => {
+      data[i] = [];
+      data[i].push(i + 1);
+      data[i].push(element ? element.name : '')
+      data[i].push(element ? element.mobileNumber : '')
+      data[i].push(element ? element.drivingLicenseNumber : '')
+      data[i].push(element ? element.aadharNumber : '')
+      data[i].push(element ? element.district : '')
+    });
 
     // Add table to the PDF
     autoTable(doc, {
       head: [columns],
-      body: rows,
+      body: data,
       startY: 20
     });
 
@@ -236,14 +237,16 @@ export class DriverDetailsComponent implements OnInit, AfterViewInit {
 
 
   exportToExcel() {
-    const rows = this.dataSource.data.map((item, index) => [
-      index + 1, // Serial number starts from 1
-      item.name,
-      String(item.mobileNumber), // Convert number to string
-      String(item.drivingLicenseNumber), // Convert number to string
-      String(item.aadharNumber), // Convert number to string
-      item.district
-    ]);
+    let rows = [];
+    this.dataSource.data.forEach((element: any, i: number) => {
+      rows[i] = [];
+      rows[i].push(i + 1);
+      rows[i].push(element ? element.name : '')
+      rows[i].push(element ? element.mobileNumber : '')
+      rows[i].push(element ? element.drivingLicenseNumber : '')
+      rows[i].push(element ? element.aadharNumber : '')
+      rows[i].push(element ? element.district : '')
+    });
 
 
     const options = {
@@ -252,5 +255,5 @@ export class DriverDetailsComponent implements OnInit, AfterViewInit {
       ]
     };
     new ngxCsv(rows, 'Driver_Details', options);
-  } */
+  }
 } 

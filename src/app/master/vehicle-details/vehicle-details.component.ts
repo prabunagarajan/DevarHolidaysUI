@@ -114,76 +114,91 @@ export class VehicleDetailsComponent implements OnInit {
     });
     this.loadDriverDetails();
   }
-  /*  generatePDF() {
-     console.log('generatePDF :')
-     const doc = new jsPDF();
- 
-     // Get page dimensions
-     const pageWidth = doc.internal.pageSize.getWidth();
-     const pageHeight = doc.internal.pageSize.getHeight();
- 
-     // Add Watermark - "DC Holidays"
-     doc.setTextColor(200, 200, 200); // Light gray color
-     doc.setFontSize(40); // Large font size
-     doc.setFont('helvetica', 'bold'); // Bold font
- 
-     // Calculate center position
-     const textWidth = doc.getTextWidth('DC Holidays');
-     const x = (pageWidth - textWidth) / 2;
-     const y = pageHeight / 2;
- 
-     // Add rotated watermark text
-     doc.text('DC Holidays', x, y, { angle: 45 });
- 
-     // Reset text color to black for actual content
-     doc.setTextColor(0);
- 
-     // Title
-     doc.setFontSize(14);
-     doc.text('Vehicle Details', 14, 10);
- 
-     // Define table columns with Serial Number
-     const columns = ['S.No', 'Vehicle No', 'Vehicle Name', 'Insurance Date', 'Tax Date', 'Fc Date', 'Polution Date'];
- 
-     // Convert list data to an array format with serial numbers
-     const rows = this.dataSource.data.map((item, index) => [
-       index + 1, // Serial number starts from 1
-       item.vehicleNumber,
-       String(item.vehicleName), // Convert number to string
-       String(item.insuranceDate), // Convert number to string
-       String(item.taxDate), // Convert number to string
-       item.fcDate,
-       item.polutionDate,
-     ]);
- 
-     // Add table to the PDF
-     autoTable(doc, {
-       head: [columns],
-       body: rows,
-       startY: 20
-     });
- 
-     // Save the PDF
-     doc.save('Vehicle_Details.pdf');
-   }
- 
-   exportToExcel() {
-     const rows = this.dataSource.data.map((item, index) => [
-       index + 1, // Serial number starts from 1
-       item.vehicleNumber,
-       String(item.vehicleName), // Convert number to string
-       String(item.insuranceDate), // Convert number to string
-       String(item.taxDate), // Convert number to string
-       item.fcDate,
-       item.polutionDate,
-     ]);
- 
-     const options = {
-       headers: [
-         'S.No', 'Vehicle No', 'Vehicle Name', 'Insurance Date', 'Tax Date', 'Fc Date', 'Polution Date'
-       ]
-     };
-     new ngxCsv(rows, 'Vehicle_Details', options);
-   } */
+  generatePDF() {
+    console.log('generatePDF :')
+    const doc = new jsPDF();
+
+    // Get page dimensions
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    // Add Watermark - "DC Holidays"
+    doc.setTextColor(200, 200, 200); // Light gray color
+    doc.setFontSize(40); // Large font size
+    doc.setFont('helvetica', 'bold'); // Bold font
+
+    // Calculate center position
+    const textWidth = doc.getTextWidth('DC Holidays');
+    const x = (pageWidth - textWidth) / 2;
+    const y = pageHeight / 2;
+
+    // Add rotated watermark text
+    doc.text('DC Holidays', x, y, { angle: 45 });
+
+    // Reset text color to black for actual content
+    doc.setTextColor(0);
+
+    // Title
+    doc.setFontSize(14);
+    doc.text('Vehicle Details', 14, 10);
+
+    // Define table columns with Serial Number
+    const columns = ['S.No', 'Vehicle No', 'Vehicle Name', 'Insurance Date', 'Tax Date', 'Fc Date', 'Polution Date'];
+
+    // Convert list data to an array format with serial numbers
+    /* const rows = this.dataSource.data.map((item, index) => [
+      index + 1, // Serial number starts from 1
+      item.vehicleNumber,
+      String(item.vehicleName), // Convert number to string
+      String(item.insuranceDate), // Convert number to string
+      String(item.taxDate), // Convert number to string
+      item.fcDate,
+      item.polutionDate,
+    ]); */
+
+    let rows = [];
+    this.dataSource.data.forEach((element: any, i: number) => {
+      rows[i] = [];
+      rows[i].push(i + 1);
+      rows[i].push(element ? element.vehicleNumber : '')
+      rows[i].push(element ? element.vehicleName : '')
+      rows[i].push(element ? moment(element.insuranceDate).format("DD-MM-YYYY") : '')
+      rows[i].push(element ? moment(element.taxDate).format("DD-MM-YYYY") : '')
+      rows[i].push(element ? moment(element.fcDate).format("DD-MM-YYYY") : '')
+      rows[i].push(element ? moment(element.polutionDate).format("DD-MM-YYYY") : '')
+    });
+
+
+    // Add table to the PDF
+    autoTable(doc, {
+      head: [columns],
+      body: rows,
+      startY: 20
+    });
+
+    // Save the PDF
+    doc.save('Vehicle_Details.pdf');
+  }
+
+  exportToExcel() {
+    let rows = [];
+    this.dataSource.data.forEach((element: any, i: number) => {
+      rows[i] = [];
+      rows[i].push(i + 1);
+      rows[i].push(element ? element.vehicleNumber : '')
+      rows[i].push(element ? element.vehicleName : '')
+      rows[i].push(element ? moment(element.insuranceDate).format("DD-MM-YYYY") : '')
+      rows[i].push(element ? moment(element.taxDate).format("DD-MM-YYYY") : '')
+      rows[i].push(element ? moment(element.fcDate).format("DD-MM-YYYY") : '')
+      rows[i].push(element ? moment(element.polutionDate).format("DD-MM-YYYY") : '')
+    });
+
+    const options = {
+      headers: [
+        'S.No', 'Vehicle No', 'Vehicle Name', 'Insurance Date', 'Tax Date', 'Fc Date', 'Polution Date'
+      ]
+    };
+    new ngxCsv(rows, 'Vehicle_Details', options);
+  }
 
 }

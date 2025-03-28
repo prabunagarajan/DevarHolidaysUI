@@ -86,13 +86,13 @@ export class payoutHistoryComponent implements OnInit {
     }
     this.commonService.payoutBalanceHistory(request).subscribe(response => {
       if (response.status === 's' && response.data) {
-        const pageIndex = request.pageNo; 
-        const pageSize = request.paginationSize; 
-        const serialNumber = pageIndex * pageSize; 
+        const pageIndex = request.pageNo;
+        const pageSize = request.paginationSize;
+        const serialNumber = pageIndex * pageSize;
 
         const dataSource = response.data.contents.map((v, i) => ({
-            ...v,
-            sNo: serialNumber + i + 1 
+          ...v,
+          sNo: serialNumber + i + 1
         }));
 
         this.dataSource = new MatTableDataSource(dataSource);
@@ -219,74 +219,86 @@ export class payoutHistoryComponent implements OnInit {
     }
   }
 
-  /*  generatePDF() {
-     console.log('generatePDF :')
-     const doc = new jsPDF();
+  generatePDF() {
+    console.log('generatePDF :')
+    const doc = new jsPDF();
+
+    // Get page dimensions
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    // Add Watermark - "DC Holidays"
+    doc.setTextColor(200, 200, 200); // Light gray color
+    doc.setFontSize(40); // Large font size
+    doc.setFont('helvetica', 'bold'); // Bold font
+
+    // Calculate center position
+    const textWidth = doc.getTextWidth('DC Holidays');
+    const x = (pageWidth - textWidth) / 2;
+    const y = pageHeight / 2;
+
+    // Add rotated watermark text
+    doc.text('DC Holidays', x, y, { angle: 45 });
+
+    // Reset text color to black for actual content
+    doc.setTextColor(0);
+
+    // Title
+    doc.setFontSize(14);
+    doc.text('Pending Details', 14, 10);
+
+    // Define table columns with Serial Number
+    const columns = ['S.No', 'WalletId', 'Created Date', 'Application Number', 'Amount', 'Transaction Name',];
+
+    // Convert list data to an array format with serial numbers
+    /* const rows = this.dataSource.data.map((item, index) => [
+      index + 1, // Serial number starts from 1
+      item.walletId,
+      moment(item.createdDate).format('DD-MM-YYYY'),
+      String(item.applicationNumber), // Convert number to string
+      item.amount,
+      String(item.transactionName), // Convert number to string
  
-     // Get page dimensions
-     const pageWidth = doc.internal.pageSize.getWidth();
-     const pageHeight = doc.internal.pageSize.getHeight();
- 
-     // Add Watermark - "DC Holidays"
-     doc.setTextColor(200, 200, 200); // Light gray color
-     doc.setFontSize(40); // Large font size
-     doc.setFont('helvetica', 'bold'); // Bold font
- 
-     // Calculate center position
-     const textWidth = doc.getTextWidth('DC Holidays');
-     const x = (pageWidth - textWidth) / 2;
-     const y = pageHeight / 2;
- 
-     // Add rotated watermark text
-     doc.text('DC Holidays', x, y, { angle: 45 });
- 
-     // Reset text color to black for actual content
-     doc.setTextColor(0);
- 
-     // Title
-     doc.setFontSize(14);
-     doc.text('Pending Details', 14, 10);
- 
-     // Define table columns with Serial Number
-     const columns = ['S.No', 'WalletId', 'Created Date', 'Application Number', 'Amount', 'Transaction Name',];
- 
-     // Convert list data to an array format with serial numbers
-     const rows = this.dataSource.data.map((item, index) => [
-       index + 1, // Serial number starts from 1
-       item.walletId,
-       moment(item.createdDate).format('DD-MM-YYYY'),
-       String(item.applicationNumber), // Convert number to string
-       item.amount,
-       String(item.transactionName), // Convert number to string
- 
-     ]);
- 
-     // Add table to the PDF
-     autoTable(doc, {
-       head: [columns],
-       body: rows,
-       startY: 20
-     });
- 
-     // Save the PDF
-     doc.save('PaymentDetails.pdf');
-   }
-   exportToExcel() {
-     const rows = this.dataSource.data.map((item, index) => [
-       index + 1, // Serial number starts from 1
-       item.walletId,
-       moment(item.createdDate).format('DD-MM-YYYY'),
-       String(item.applicationNumber), // Convert number to string
-       item.amount,
-       String(item.transactionName), // Convert number to string
- 
-     ]);
- 
-     const options = {
-       headers: [
-         'S.No', 'Wallet Id', 'Created Date', 'Application Number', 'Amount', 'Transaction Name'
-       ]
-     };
-     new ngxCsv(rows, 'Payment_Details', options);
-   } */
+    ]); */
+
+    let rows = [];
+    this.dataSource.data.forEach((element: any, i: number) => {
+      rows[i] = [];
+      rows[i].push(i + 1);
+      rows[i].push(element ? element.walletId : '')
+      rows[i].push(element ? moment(element.createdDate).format('DD-MM-YYYY') : '')
+      rows[i].push(element ? element.applicationNumber : '')
+      rows[i].push(element ? element.amount : '')
+      rows[i].push(element ? element.transactionName : '')
+    });
+
+    // Add table to the PDF
+    autoTable(doc, {
+      head: [columns],
+      body: rows,
+      startY: 20
+    });
+
+    // Save the PDF
+    doc.save('Pay Out Histry.pdf');
+  }
+  exportToExcel() {
+    let rows = [];
+    this.dataSource.data.forEach((element: any, i: number) => {
+      rows[i] = [];
+      rows[i].push(i + 1);
+      rows[i].push(element ? element.walletId : '')
+      rows[i].push(element ? moment(element.createdDate).format('DD-MM-YYYY') : '')
+      rows[i].push(element ? element.applicationNumber : '')
+      rows[i].push(element ? element.amount : '')
+      rows[i].push(element ? element.transactionName : '')
+    });
+
+    const options = {
+      headers: [
+        'S.No', 'Wallet Id', 'Created Date', 'Application Number', 'Amount', 'Transaction Name'
+      ]
+    };
+    new ngxCsv(rows, 'Pay_Out_Histry', options);
+  }
 }
