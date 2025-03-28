@@ -178,7 +178,7 @@ export class TripdetailsinprogressComponent implements OnInit {
     }
   }
 
-  /*  generatePDF() {
+   generatePDF() {
      console.log('generatePDF :')
      const doc = new jsPDF();
  
@@ -210,17 +210,18 @@ export class TripdetailsinprogressComponent implements OnInit {
      const columns = ['S.No', 'Trip No', 'Created Date', 'Vehicle Number', 'Customer Name', 'Visiting Place', 'Driver Name', 'Total Rent', 'Status'];
  
      // Convert list data to an array format with serial numbers
-     const rows = this.dataSource.data.map((item, index) => [
-       index + 1, // Serial number starts from 1
-       item.tripNumber,
-       moment(item.createdDate).format('DD-MM-YYYY'),
-       String(item.vehicleNumber), // Convert number to string
-       String(item.customerName), // Convert number to string
-       String(item.visitingPlace), // Convert number to string
-       item.driverName,
-       item.totalRent,
-       item.status
-     ]);
+     let rows = [];
+    this.dataSource.data.forEach((element: any, i: number) => {
+      rows[i] = [];
+      rows[i].push(i + 1);
+      rows[i].push(element ? moment(element.createdDate).format('DD-MM-YYYY') : '')
+      rows[i].push(element ? element.vehicleNumber : '')
+      rows[i].push(element ? element.customerName : '')
+      rows[i].push(element ? element.visitingPlace : '')
+      rows[i].push(element ? element.driverName : '')
+      rows[i].push(element ? element.totalRent : '')
+      rows[i].push(element ? element.status : '')
+    });
  
      // Add table to the PDF
      autoTable(doc, {
@@ -233,17 +234,18 @@ export class TripdetailsinprogressComponent implements OnInit {
      doc.save('Trip_Details_L2.pdf');
    }
    exportToExcel() {
-     const rows = this.dataSource.data.map((item, index) => [
-       index + 1, // Serial number starts from 1
-       item.tripNumber,
-       moment(item.createdDate).format('DD-MM-YYYY'), // Format date
-       String(item.vehicleNumber),
-       String(item.customerName),
-       String(item.visitingPlace),
-       item.driverName,
-       item.totalRent,
-       item.status
-     ]);
+    let rows = [];
+    this.dataSource.data.forEach((element: any, i: number) => {
+      rows[i] = [];
+      rows[i].push(i + 1);
+      rows[i].push(element ? moment(element.createdDate).format('DD-MM-YYYY') : '')
+      rows[i].push(element ? element.vehicleNumber : '')
+      rows[i].push(element ? element.customerName : '')
+      rows[i].push(element ? element.visitingPlace : '')
+      rows[i].push(element ? element.driverName : '')
+      rows[i].push(element ? element.totalRent : '')
+      rows[i].push(element ? element.status : '')
+    });
  
      const options = {
        headers: [
@@ -251,7 +253,7 @@ export class TripdetailsinprogressComponent implements OnInit {
        ]
      };
      new ngxCsv(rows, 'Trip_Details_L2', options);
-   } */
+   }
 
 }
 

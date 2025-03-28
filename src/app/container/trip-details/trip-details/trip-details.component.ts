@@ -50,9 +50,9 @@ export class TripDetailsComponent implements OnInit {
       driverNumber: [''],
       vehiclenumber: [''],
       status: [''],
-      tripNo:[''],
-      fromDate:[''],
-      toDate:[''],
+      tripNo: [''],
+      fromDate: [''],
+      toDate: [''],
     })
     this.getAll();
     this.getTripDetailsCount();
@@ -157,12 +157,12 @@ export class TripDetailsComponent implements OnInit {
         driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
         visitingPlace: "",
         status: tripFormSearchDetails.status ? tripFormSearchDetails.status : '',
-        fromDate: tripFormSearchDetails.fromDate 
-        ? moment(tripFormSearchDetails.fromDate).format('YYYY-MM-DD') 
-        : '',
-        toDate: tripFormSearchDetails.toDate 
-        ? moment(tripFormSearchDetails.toDate).format('YYYY-MM-DD') : '',
-        tripNo:tripFormSearchDetails.tripNo ? tripFormSearchDetails.tripNo : '',
+        fromDate: tripFormSearchDetails.fromDate
+          ? moment(tripFormSearchDetails.fromDate).format('YYYY-MM-DD')
+          : '',
+        toDate: tripFormSearchDetails.toDate
+          ? moment(tripFormSearchDetails.toDate).format('YYYY-MM-DD') : '',
+        tripNo: tripFormSearchDetails.tripNo ? tripFormSearchDetails.tripNo : '',
       },
       paginationSize: 10,
       sortField: "modifiedDate",
@@ -171,13 +171,13 @@ export class TripDetailsComponent implements OnInit {
     }
     this.commonService.tripDetailsSearchList(request).subscribe(response => {
       if (response.status === 's' && response.data) {
-        const pageIndex = request.pageNo; 
-        const pageSize = request.paginationSize; 
-        const serialNumber = pageIndex * pageSize; 
+        const pageIndex = request.pageNo;
+        const pageSize = request.paginationSize;
+        const serialNumber = pageIndex * pageSize;
 
         const dataSource = response.data.contents.map((v, i) => ({
-            ...v,
-            sNo: serialNumber + i + 1 
+          ...v,
+          sNo: serialNumber + i + 1
         }));
 
         this.dataSource = new MatTableDataSource(dataSource);
@@ -265,80 +265,94 @@ export class TripDetailsComponent implements OnInit {
     }
   }
 
-  // generatePDF() {
-  //   console.log('generatePDF :')
-  //   const doc = new jsPDF();
+  generatePDF() {
+    console.log('generatePDF :')
+    const doc = new jsPDF();
 
-  //   // Get page dimensions
-  //   const pageWidth = doc.internal.pageSize.getWidth();
-  //   const pageHeight = doc.internal.pageSize.getHeight();
+    // Get page dimensions
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
 
-  //   // Add Watermark - "DC Holidays"
-  //   doc.setTextColor(200, 200, 200); // Light gray color
-  //   doc.setFontSize(40); // Large font size
-  //   doc.setFont('helvetica', 'bold'); // Bold font
+    // Add Watermark - "DC Holidays"
+    doc.setTextColor(200, 200, 200); // Light gray color
+    doc.setFontSize(40); // Large font size
+    doc.setFont('helvetica', 'bold'); // Bold font
 
-  //   // Calculate center position
-  //   const textWidth = doc.getTextWidth('DC Holidays');
-  //   const x = (pageWidth - textWidth) / 2;
-  //   const y = pageHeight / 2;
+    // Calculate center position
+    const textWidth = doc.getTextWidth('DC Holidays');
+    const x = (pageWidth - textWidth) / 2;
+    const y = pageHeight / 2;
 
-  //   // Add rotated watermark text
-  //   doc.text('DC Holidays', x, y, { angle: 45 });
+    // Add rotated watermark text
+    doc.text('DC Holidays', x, y, { angle: 45 });
 
-  //   // Reset text color to black for actual content
-  //   doc.setTextColor(0);
+    // Reset text color to black for actual content
+    doc.setTextColor(0);
 
-  //   // Title
-  //   doc.setFontSize(14);
-  //   doc.text('Trip Details L1', 14, 10);
+    // Title
+    doc.setFontSize(14);
+    doc.text('Trip Details L1', 14, 10);
 
-  //   // Define table columns with Serial Number
-  //   const columns = ['S.No', 'Trip No', 'Created Date', 'Vehicle Number', 'Customer Name', 'Visiting Place', 'Driver Name', 'Total Rent', 'Status'];
+    // Define table columns with Serial Number
+    const columns = ['S.No', 'Trip No', 'Created Date', 'Vehicle Number', 'Customer Name', 'Visiting Place', 'Driver Name', 'Total Rent', 'Status'];
 
-  //   // Convert list data to an array format with serial numbers
-  //   const rows = this.dataSource.data.map((item, index) => [
-  //     index + 1, // Serial number starts from 1
-  //     item.tripNumber,
-  //     moment(item.createdDate).format('DD-MM-YYYY'),
-  //     String(item.vehicleNumber), // Convert number to string
-  //     String(item.customerName), // Convert number to string
-  //     String(item.visitingPlace), // Convert number to string
-  //     item.driverName,
-  //     item.totalRent,
-  //     item.status
-  //   ]);
+    // Convert list data to an array format with serial numbers
+    /* const rows = this.dataSource.data.map((item, index) => [
+      index + 1, // Serial number starts from 1
+      item.tripNumber,
+      moment(item.createdDate).format('DD-MM-YYYY'),
+      String(item.vehicleNumber), // Convert number to string
+      String(item.customerName), // Convert number to string
+      String(item.visitingPlace), // Convert number to string
+      item.driverName,
+      item.totalRent,
+      item.status
+    ]); */
 
-  //   // Add table to the PDF
-  //   autoTable(doc, {
-  //     head: [columns],
-  //     body: rows,
-  //     startY: 20
-  //   });
+    let rows = [];
+    this.dataSource.data.forEach((element: any, i: number) => {
+      rows[i] = [];
+      rows[i].push(i + 1);
+      rows[i].push(element ? moment(element.createdDate).format('DD-MM-YYYY') : '')
+      rows[i].push(element ? element.vehicleNumber : '')
+      rows[i].push(element ? element.customerName : '')
+      rows[i].push(element ? element.visitingPlace : '')
+      rows[i].push(element ? element.driverName : '')
+      rows[i].push(element ? element.totalRent : '')
+      rows[i].push(element ? element.status : '')
+    });
 
-  //   // Save the PDF
-  //   doc.save('Trip_Details_L1.pdf');
-  // }
-  // exportToExcel() {
-  //   const rows = this.dataSource.data.map((item, index) => [
-  //     index + 1, // Serial number starts from 1
-  //     item.tripNumber,
-  //     moment(item.createdDate).format('DD-MM-YYYY'), // Format date
-  //     String(item.vehicleNumber),
-  //     String(item.customerName),
-  //     String(item.visitingPlace),
-  //     item.driverName,
-  //     item.totalRent,
-  //     item.status
-  //   ]);
+    // Add table to the PDF
+    autoTable(doc, {
+      head: [columns],
+      body: rows,
+      startY: 20
+    });
 
-  //   const options = {
-  //     headers: [
-  //       'S.No', 'Trip No', 'Created Date', 'Vehicle Number', 'Customer Name', 'Visiting Place', 'Driver Name', 'Total Rent', 'Status'
-  //     ]
-  //   };
-  //   new ngxCsv(rows, 'Trip_Details_L1', options);
-  // }
+    // Save the PDF
+    doc.save('Trip_Details_L1.pdf');
+  }
+  exportToExcel() {
+    let rows = [];
+    this.dataSource.data.forEach((element: any, i: number) => {
+      rows[i] = [];
+      rows[i].push(i + 1);
+      rows[i].push(element ? moment(element.createdDate).format('DD-MM-YYYY') : '')
+      rows[i].push(element ? element.vehicleNumber : '')
+      rows[i].push(element ? element.customerName : '')
+      rows[i].push(element ? element.visitingPlace : '')
+      rows[i].push(element ? element.driverName : '')
+      rows[i].push(element ? element.totalRent : '')
+      rows[i].push(element ? element.status : '')
+    });
+
+    const options = {
+      headers: [
+        'S.No', 'Trip No', 'Created Date', 'Vehicle Number', 'Customer Name', 'Visiting Place', 'Driver Name', 'Total Rent', 'Status'
+      ]
+    };
+    new ngxCsv(rows, 'Trip_Details_L1', options);
+  }
 
 }
 

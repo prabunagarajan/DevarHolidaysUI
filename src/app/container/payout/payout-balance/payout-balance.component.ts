@@ -158,70 +158,74 @@ export class PayoutBalanceComponent implements OnInit {
     }
   }
 
-  /* generatePDF() {
+  generatePDF() {
     console.log('generatePDF :')
     const doc = new jsPDF();
- 
+
     // Get page dimensions
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
- 
+
     // Add Watermark - "DC Holidays"
     doc.setTextColor(200, 200, 200); // Light gray color
     doc.setFontSize(40); // Large font size
     doc.setFont('helvetica', 'bold'); // Bold font
- 
+
     // Calculate center position
     const textWidth = doc.getTextWidth('DC Holidays');
     const x = (pageWidth - textWidth) / 2;
     const y = pageHeight / 2;
- 
+
     // Add rotated watermark text
     doc.text('DC Holidays', x, y, { angle: 45 });
- 
+
     // Reset text color to black for actual content
     doc.setTextColor(0);
- 
+
     // Title
     doc.setFontSize(14);
     doc.text('Pending Details', 14, 10);
- 
+
     // Define table columns with Serial Number
     const columns = ['S.No', 'date', 'name', 'walletId', 'amount'];
- 
+
     // Convert list data to an array format with serial numbers
-    const rows = this.dataSource.data.map((item, index) => [
-      index + 1, // Serial number starts from 1
-      moment(item.createdDate).format('DD-MM-YYYY'),
-      item.walletId,
-      item.name,
-      String(item.amount), // Convert number to string
-    ]);
- 
+    let rows = [];
+    this.dataSource.data.forEach((element: any, i: number) => {
+      rows[i] = [];
+      rows[i].push(i + 1);
+      rows[i].push(element ? moment(element.createdDate).format('DD-MM-YYYY') : '')
+      rows[i].push(element ? element.walletId : '')
+      rows[i].push(element ? element.name : '')
+      rows[i].push(element ? element.amount : '')
+    });
+
     // Add table to the PDF
     autoTable(doc, {
       head: [columns],
       body: rows,
       startY: 20
     });
- 
+
     // Save the PDF
-    doc.save('PaymentDetails.pdf');
+    doc.save('Pay Out Balance.pdf');
   }
   exportToExcel() {
-    const rows = this.dataSource.data.map((item, index) => [
-      index + 1, // Serial number starts from 1
-      moment(item.createdDate).format('DD-MM-YYYY'),
-      item.walletId,
-      item.name,
-      String(item.amount), // Convert number to string
-    ]);
- 
+    let rows = [];
+    this.dataSource.data.forEach((element: any, i: number) => {
+      rows[i] = [];
+      rows[i].push(i + 1);
+      rows[i].push(element ? moment(element.createdDate).format('DD-MM-YYYY') : '')
+      rows[i].push(element ? element.walletId : '')
+      rows[i].push(element ? element.name : '')
+      rows[i].push(element ? element.amount : '')
+    });
+
     const options = {
       headers: [
         'S.No', 'date', 'name', 'walletId', 'amount'
       ]
     };
-    new ngxCsv(rows, 'Payment_Details', options);
-  } */
+    new ngxCsv(rows, 'Pay_Out_Balance', options);
+  }
 }
