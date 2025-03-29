@@ -14,65 +14,114 @@ export class DashAnalyticsComponent implements OnInit {
   public dailyVisitorAxis: any;
   public deviceProgressBar: any;
 
-  places = [
-    {
-      image: 'assets/CAR/CAR.jpeg'
-    },
-    {
-      image: 'assets/CAR/CAR1.jpeg'
-    },
-    {
-      image: 'assets/CAR/CAR3.jpeg'
-    },
-    {
-      image: 'assets/CAR/CAR4.jpeg'
-    },
-    {
-      image: 'assets/CAR/CAR5.jpeg'
-    },
-    {
-      image: 'assets/CAR/CAR6.jpeg'
-    },
-    {
-      image: 'assets/CAR/CAR7.jpeg'
-    },
+  // places = [
+  //   {
+  //     image: 'assets/CAR/CAR.jpeg'
+  //   },
+  //   {
+  //     image: 'assets/CAR/CAR1.jpeg'
+  //   },
+  //   {
+  //     image: 'assets/CAR/CAR3.jpeg'
+  //   },
+  //   {
+  //     image: 'assets/CAR/CAR4.jpeg'
+  //   },
+  //   {
+  //     image: 'assets/CAR/CAR5.jpeg'
+  //   },
+  //   {
+  //     image: 'assets/CAR/CAR6.jpeg'
+  //   },
+  //   {
+  //     image: 'assets/CAR/CAR7.jpeg'
+  //   },
+  // ];
+  // totalVehicleTripsAndProfit: any;
+
+  // constructor(public apexEvent: ApexChartService, private commonservice: CommonService) {
+  //   this.chartDB = ChartDB;
+  //   this.dailyVisitorStatus = '1y';
+
+  //   this.deviceProgressBar = [
+  //     {
+  //       type: 'success',
+  //       value: 66
+  //     }, {
+  //       type: 'primary',
+  //       value: 26
+  //     }, {
+  //       type: 'danger',
+  //       value: 8
+  //     }
+  //   ];
+  // }
+
+  // driverTrips: any[] = [];
+
+
+  // ngOnInit() {
+  //   const today = new Date();
+  //   const month = today.getMonth() + 1;
+  //   const year = today.getFullYear();
+  //   this.commonservice.dashBoardCount(month, year).subscribe(res => {
+  //     this.driverTrips = res;
+  //     console.log(this.driverTrips);
+
+  //   })
+  //   this.commonservice.getTotalVehicleTripsAndProfit(month, year).subscribe(res => {
+  //     this.totalVehicleTripsAndProfit = res;
+  //     console.log(this.driverTrips);
+
+  //   })
+  // }
+
+  allImages = [
+    'assets/CAR/CAR.jpeg',
+    'assets/CAR/CAR1.jpeg',
+    'assets/CAR/CAR3.jpeg',
+    'assets/CAR/CAR4.jpeg',
+    'assets/CAR/CAR5.jpeg',
+    'assets/CAR/CAR6.jpeg',
+    'assets/CAR/CAR7.jpeg'
   ];
+
+  places: any[] = [];
   totalVehicleTripsAndProfit: any;
+  driverTrips: any[] = [];
 
   constructor(public apexEvent: ApexChartService, private commonservice: CommonService) {
     this.chartDB = ChartDB;
     this.dailyVisitorStatus = '1y';
 
     this.deviceProgressBar = [
-      {
-        type: 'success',
-        value: 66
-      }, {
-        type: 'primary',
-        value: 26
-      }, {
-        type: 'danger',
-        value: 8
-      }
+      { type: 'success', value: 66 },
+      { type: 'primary', value: 26 },
+      { type: 'danger', value: 8 }
     ];
   }
 
-  driverTrips: any[] = [];
-
-
   ngOnInit() {
+    this.assignRandomImages();
+
     const today = new Date();
     const month = today.getMonth() + 1;
     const year = today.getFullYear();
+
     this.commonservice.dashBoardCount(month, year).subscribe(res => {
       this.driverTrips = res;
       console.log(this.driverTrips);
+    });
 
-    })
     this.commonservice.getTotalVehicleTripsAndProfit(month, year).subscribe(res => {
       this.totalVehicleTripsAndProfit = res;
-      console.log(this.driverTrips);
+      console.log(this.totalVehicleTripsAndProfit);
+    });
+  }
 
-    })
+  assignRandomImages() {
+    this.places = this.allImages
+      .map(image => ({ image })) // Convert to object format
+      .sort(() => 0.5 - Math.random()); // Shuffle the images randomly
   }
 }
