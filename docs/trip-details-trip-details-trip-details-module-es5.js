@@ -62,7 +62,7 @@ module.exports = "<ul class=\"breadcrumb\">\r\n  <li class=\"breadcrumb-item\">\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/* Default style for the select (light color when no option is selected) */\n.form-select {\n  color: rgba(0, 0, 0, 0.5);\n  /* Light color for placeholder */ }\n/* When an option is selected, change text color to black */\n.form-select:valid {\n  color: black; }\n/* Ensure the placeholder option appears light inside the dropdown */\n.form-select option:disabled {\n  color: rgba(0, 0, 0, 0.5); }\n/* Ensure the dropdown options are always black */\n.form-select option {\n  color: black; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29udGFpbmVyL3RyaXAtZGV0YWlscy90cmlwLWRldGFpbHMvYWRkLWVkaXQtdHJpcC1kZXRhaWxzL0Q6XFwxOS1WLURldmVyIEhvbGRheXMgVUlcXERIRC1PTEQtRGVzaWduc1xcRGV2YXJIb2xpZGF5c1VJL3NyY1xcYXBwXFxjb250YWluZXJcXHRyaXAtZGV0YWlsc1xcdHJpcC1kZXRhaWxzXFxhZGQtZWRpdC10cmlwLWRldGFpbHNcXGFkZC1lZGl0LXRyaXAtZGV0YWlscy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFHQSwwRUFBQTtBQUNBO0VBQ0kseUJBQXlCO0VBQUUsZ0NBQUEsRUFBaUM7QUFHaEUsMkRBQUE7QUFDQTtFQUNJLFlBQVksRUFBQTtBQUdoQixvRUFBQTtBQUNBO0VBQ0kseUJBQXlCLEVBQUE7QUFHN0IsaURBQUE7QUFDQTtFQUNJLFlBQVksRUFBQSIsImZpbGUiOiJzcmMvYXBwL2NvbnRhaW5lci90cmlwLWRldGFpbHMvdHJpcC1kZXRhaWxzL2FkZC1lZGl0LXRyaXAtZGV0YWlscy9hZGQtZWRpdC10cmlwLWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvLyAubmdiLWRwLWNvbnRhaW5lciB7XHJcbi8vICAgICB6LWluZGV4OiAxMDUwICFpbXBvcnRhbnQ7XHJcbi8vICAgfVxyXG4vKiBEZWZhdWx0IHN0eWxlIGZvciB0aGUgc2VsZWN0IChsaWdodCBjb2xvciB3aGVuIG5vIG9wdGlvbiBpcyBzZWxlY3RlZCkgKi9cclxuLmZvcm0tc2VsZWN0IHtcclxuICAgIGNvbG9yOiByZ2JhKDAsIDAsIDAsIDAuNSk7IC8qIExpZ2h0IGNvbG9yIGZvciBwbGFjZWhvbGRlciAqL1xyXG59XHJcblxyXG4vKiBXaGVuIGFuIG9wdGlvbiBpcyBzZWxlY3RlZCwgY2hhbmdlIHRleHQgY29sb3IgdG8gYmxhY2sgKi9cclxuLmZvcm0tc2VsZWN0OnZhbGlkIHtcclxuICAgIGNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLyogRW5zdXJlIHRoZSBwbGFjZWhvbGRlciBvcHRpb24gYXBwZWFycyBsaWdodCBpbnNpZGUgdGhlIGRyb3Bkb3duICovXHJcbi5mb3JtLXNlbGVjdCBvcHRpb246ZGlzYWJsZWQge1xyXG4gICAgY29sb3I6IHJnYmEoMCwgMCwgMCwgMC41KTtcclxufVxyXG5cclxuLyogRW5zdXJlIHRoZSBkcm9wZG93biBvcHRpb25zIGFyZSBhbHdheXMgYmxhY2sgKi9cclxuLmZvcm0tc2VsZWN0IG9wdGlvbiB7XHJcbiAgICBjb2xvcjogYmxhY2s7XHJcbn1cclxuIl19 */"
+module.exports = "/* Default style for the select (light color when no option is selected) */\n.form-select {\n  color: rgba(0, 0, 0, 0.5);\n  /* Light color for placeholder */ }\n/* When an option is selected, change text color to black */\n.form-select:valid {\n  color: black; }\n/* Ensure the placeholder option appears light inside the dropdown */\n.form-select option:disabled {\n  color: rgba(0, 0, 0, 0.5); }\n/* Ensure the dropdown options are always black */\n.form-select option {\n  color: black; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29udGFpbmVyL3RyaXAtZGV0YWlscy90cmlwLWRldGFpbHMvYWRkLWVkaXQtdHJpcC1kZXRhaWxzL0U6XFxEQ1xcZGV2YXJjYWJzbmV3XFxkZXZhcmNhYnNfVUlcXERldmFySG9saWRheXNVSS9zcmNcXGFwcFxcY29udGFpbmVyXFx0cmlwLWRldGFpbHNcXHRyaXAtZGV0YWlsc1xcYWRkLWVkaXQtdHJpcC1kZXRhaWxzXFxhZGQtZWRpdC10cmlwLWRldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBR0EsMEVBQUE7QUFDQTtFQUNJLHlCQUF5QjtFQUFFLGdDQUFBLEVBQWlDO0FBR2hFLDJEQUFBO0FBQ0E7RUFDSSxZQUFZLEVBQUE7QUFHaEIsb0VBQUE7QUFDQTtFQUNJLHlCQUF5QixFQUFBO0FBRzdCLGlEQUFBO0FBQ0E7RUFDSSxZQUFZLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9jb250YWluZXIvdHJpcC1kZXRhaWxzL3RyaXAtZGV0YWlscy9hZGQtZWRpdC10cmlwLWRldGFpbHMvYWRkLWVkaXQtdHJpcC1kZXRhaWxzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gLm5nYi1kcC1jb250YWluZXIge1xyXG4vLyAgICAgei1pbmRleDogMTA1MCAhaW1wb3J0YW50O1xyXG4vLyAgIH1cclxuLyogRGVmYXVsdCBzdHlsZSBmb3IgdGhlIHNlbGVjdCAobGlnaHQgY29sb3Igd2hlbiBubyBvcHRpb24gaXMgc2VsZWN0ZWQpICovXHJcbi5mb3JtLXNlbGVjdCB7XHJcbiAgICBjb2xvcjogcmdiYSgwLCAwLCAwLCAwLjUpOyAvKiBMaWdodCBjb2xvciBmb3IgcGxhY2Vob2xkZXIgKi9cclxufVxyXG5cclxuLyogV2hlbiBhbiBvcHRpb24gaXMgc2VsZWN0ZWQsIGNoYW5nZSB0ZXh0IGNvbG9yIHRvIGJsYWNrICovXHJcbi5mb3JtLXNlbGVjdDp2YWxpZCB7XHJcbiAgICBjb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi8qIEVuc3VyZSB0aGUgcGxhY2Vob2xkZXIgb3B0aW9uIGFwcGVhcnMgbGlnaHQgaW5zaWRlIHRoZSBkcm9wZG93biAqL1xyXG4uZm9ybS1zZWxlY3Qgb3B0aW9uOmRpc2FibGVkIHtcclxuICAgIGNvbG9yOiByZ2JhKDAsIDAsIDAsIDAuNSk7XHJcbn1cclxuXHJcbi8qIEVuc3VyZSB0aGUgZHJvcGRvd24gb3B0aW9ucyBhcmUgYWx3YXlzIGJsYWNrICovXHJcbi5mb3JtLXNlbGVjdCBvcHRpb24ge1xyXG4gICAgY29sb3I6IGJsYWNrO1xyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -627,8 +627,36 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
             });
         }
     };
+    // profitAmoutCalculation(string) {
+    //   const totalRentAmount = this.tripFormDetails.value.totalRent ? parseFloat(this.tripFormDetails.value.totalRent) : 0;
+    //   const tollAmount = this.tripFormDetails.value.toll ? parseFloat(this.tripFormDetails.value.toll) : 0;
+    //   const fuelAmount = this.tripFormDetails.value.diesel ? parseFloat(this.tripFormDetails.value.diesel) : 0;
+    //   const driverPaymentAmount = this.tripFormDetails.value.driverPayment ? parseFloat(this.tripFormDetails.value.driverPayment) : 0;
+    //   const permitAmount = this.tripFormDetails.value.permitAmount ? parseFloat(this.tripFormDetails.value.permitAmount) : 0;
+    //   const discount = this.tripFormDetails.value.discountAmount ? parseFloat(this.tripFormDetails.value.discountAmount) : 0;
+    //   const dayRent = this.tripFormDetails.value.dayRent ? parseFloat(this.tripFormDetails.value.dayRent) : 0;
+    //   const advanceAmount = this.tripFormDetails.value.advanceAmount ? parseFloat(this.tripFormDetails.value.advanceAmount) : 0;
+    //   const receivedAmount = this.tripFormDetails.value.receivedAmount ? parseFloat(this.tripFormDetails.value.receivedAmount) : 0;
+    //   /* Profit Amount Calculation - Start */
+    //   // Profit = (Total Rent - (Toll + Fuel + Driver Payment + Permit + discount))+ Day Rent
+    //   const profitAmount = (totalRentAmount - (tollAmount + fuelAmount + driverPaymentAmount + permitAmount + discount)) + dayRent;
+    //   if (profitAmount) {
+    //     this.tripFormDetails.patchValue({
+    //       profitAmount: profitAmount ? profitAmount : 0
+    //     });
+    //   }
+    //   /* Profit Amount Calculation - End */
+    //   /* Pending Amount Calculation - Start */
+    //   // Pending Amount = ((totalRentAmount +  Day Rent) - (parseFloat(advanceAmount) + receivedAmount + discount))
+    //   const pendingAmount = ((totalRentAmount + dayRent) - (advanceAmount + receivedAmount + discount));
+    //   if (pendingAmount) {
+    //     this.tripFormDetails.patchValue({
+    //       pendingAmount: pendingAmount ? pendingAmount : 0
+    //     });
+    //   }
+    //   /* Pending Amount Calculation - End */
+    // }
     AddEditTripDetailsComponent.prototype.profitAmoutCalculation = function (string) {
-        /* Formula < == > ("Profit = Total Rent - (Toll + Fuel + Driver Payment + Permit+discount)+dayRent") */
         var totalRentAmount = this.tripFormDetails.value.totalRent ? parseFloat(this.tripFormDetails.value.totalRent) : 0;
         var tollAmount = this.tripFormDetails.value.toll ? parseFloat(this.tripFormDetails.value.toll) : 0;
         var fuelAmount = this.tripFormDetails.value.diesel ? parseFloat(this.tripFormDetails.value.diesel) : 0;
@@ -638,24 +666,18 @@ var AddEditTripDetailsComponent = /** @class */ (function () {
         var dayRent = this.tripFormDetails.value.dayRent ? parseFloat(this.tripFormDetails.value.dayRent) : 0;
         var advanceAmount = this.tripFormDetails.value.advanceAmount ? parseFloat(this.tripFormDetails.value.advanceAmount) : 0;
         var receivedAmount = this.tripFormDetails.value.receivedAmount ? parseFloat(this.tripFormDetails.value.receivedAmount) : 0;
-        /* Profit Amount Calculation - Start */
-        // Profit = (Total Rent - (Toll + Fuel + Driver Payment + Permit + discount))+ Day Rent
-        var profitAmount = (totalRentAmount - (tollAmount + fuelAmount + driverPaymentAmount + permitAmount + discount)) + dayRent;
-        if (profitAmount) {
-            this.tripFormDetails.patchValue({
-                profitAmount: profitAmount ? profitAmount : 0
-            });
-        }
-        /* Profit Amount Calculation - End */
-        /* Pending Amount Calculation - Start */
-        // Pending Amount = ((totalRentAmount +  Day Rent) - (parseFloat(advanceAmount) + receivedAmount + discount))
+        /* Corrected Profit Amount Calculation */
+        // Profit = (Total Rent + Day Rent) - (Toll + Fuel + Driver Payment + Permit + Discount)
+        var profitAmount = (totalRentAmount + dayRent) - (tollAmount + fuelAmount + driverPaymentAmount + permitAmount + discount);
+        this.tripFormDetails.patchValue({
+            profitAmount: profitAmount >= 0 ? profitAmount : 0
+        });
+        /* Corrected Pending Amount Calculation */
+        // Pending Amount = (Total Rent + Day Rent) - (Advance Amount + Received Amount + Discount)
         var pendingAmount = ((totalRentAmount + dayRent) - (advanceAmount + receivedAmount + discount));
-        if (pendingAmount) {
-            this.tripFormDetails.patchValue({
-                pendingAmount: pendingAmount ? pendingAmount : 0
-            });
-        }
-        /* Pending Amount Calculation - End */
+        this.tripFormDetails.patchValue({
+            pendingAmount: pendingAmount >= 0 ? pendingAmount : 0
+        });
     };
     AddEditTripDetailsComponent.prototype.updateTripDetails = function (status) {
         var _this = this;
