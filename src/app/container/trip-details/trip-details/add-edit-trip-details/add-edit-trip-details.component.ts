@@ -570,9 +570,45 @@ export class AddEditTripDetailsComponent implements OnInit {
     }
   }
 
-  profitAmoutCalculation(string) {
-    /* Formula < == > ("Profit = Total Rent - (Toll + Fuel + Driver Payment + Permit+discount)+dayRent") */
+  // profitAmoutCalculation(string) {
 
+  //   const totalRentAmount = this.tripFormDetails.value.totalRent ? parseFloat(this.tripFormDetails.value.totalRent) : 0;
+  //   const tollAmount = this.tripFormDetails.value.toll ? parseFloat(this.tripFormDetails.value.toll) : 0;
+  //   const fuelAmount = this.tripFormDetails.value.diesel ? parseFloat(this.tripFormDetails.value.diesel) : 0;
+  //   const driverPaymentAmount = this.tripFormDetails.value.driverPayment ? parseFloat(this.tripFormDetails.value.driverPayment) : 0;
+  //   const permitAmount = this.tripFormDetails.value.permitAmount ? parseFloat(this.tripFormDetails.value.permitAmount) : 0;
+  //   const discount = this.tripFormDetails.value.discountAmount ? parseFloat(this.tripFormDetails.value.discountAmount) : 0;
+  //   const dayRent = this.tripFormDetails.value.dayRent ? parseFloat(this.tripFormDetails.value.dayRent) : 0;
+  //   const advanceAmount = this.tripFormDetails.value.advanceAmount ? parseFloat(this.tripFormDetails.value.advanceAmount) : 0;
+  //   const receivedAmount = this.tripFormDetails.value.receivedAmount ? parseFloat(this.tripFormDetails.value.receivedAmount) : 0;
+
+  //   /* Profit Amount Calculation - Start */
+  //   // Profit = (Total Rent - (Toll + Fuel + Driver Payment + Permit + discount))+ Day Rent
+
+  //   const profitAmount = (totalRentAmount - (tollAmount + fuelAmount + driverPaymentAmount + permitAmount + discount)) + dayRent;
+  //   if (profitAmount) {
+  //     this.tripFormDetails.patchValue({
+  //       profitAmount: profitAmount ? profitAmount : 0
+  //     });
+  //   }
+
+  //   /* Profit Amount Calculation - End */
+
+  //   /* Pending Amount Calculation - Start */
+
+  //   // Pending Amount = ((totalRentAmount +  Day Rent) - (parseFloat(advanceAmount) + receivedAmount + discount))
+  //   const pendingAmount = ((totalRentAmount + dayRent) - (advanceAmount + receivedAmount + discount));
+
+  //   if (pendingAmount) {
+  //     this.tripFormDetails.patchValue({
+  //       pendingAmount: pendingAmount ? pendingAmount : 0
+  //     });
+  //   }
+
+  //   /* Pending Amount Calculation - End */
+  // }
+
+  profitAmoutCalculation(string) {
     const totalRentAmount = this.tripFormDetails.value.totalRent ? parseFloat(this.tripFormDetails.value.totalRent) : 0;
     const tollAmount = this.tripFormDetails.value.toll ? parseFloat(this.tripFormDetails.value.toll) : 0;
     const fuelAmount = this.tripFormDetails.value.diesel ? parseFloat(this.tripFormDetails.value.diesel) : 0;
@@ -582,32 +618,24 @@ export class AddEditTripDetailsComponent implements OnInit {
     const dayRent = this.tripFormDetails.value.dayRent ? parseFloat(this.tripFormDetails.value.dayRent) : 0;
     const advanceAmount = this.tripFormDetails.value.advanceAmount ? parseFloat(this.tripFormDetails.value.advanceAmount) : 0;
     const receivedAmount = this.tripFormDetails.value.receivedAmount ? parseFloat(this.tripFormDetails.value.receivedAmount) : 0;
-
-    /* Profit Amount Calculation - Start */
-    // Profit = (Total Rent - (Toll + Fuel + Driver Payment + Permit + discount))+ Day Rent
-
-    const profitAmount = (totalRentAmount - (tollAmount + fuelAmount + driverPaymentAmount + permitAmount + discount)) + dayRent;
-    if (profitAmount) {
-      this.tripFormDetails.patchValue({
-        profitAmount: profitAmount ? profitAmount : 0
-      });
-    }
-
-    /* Profit Amount Calculation - End */
-
-    /* Pending Amount Calculation - Start */
-
-    // Pending Amount = ((totalRentAmount +  Day Rent) - (parseFloat(advanceAmount) + receivedAmount + discount))
+  
+    /* Corrected Profit Amount Calculation */
+    // Profit = (Total Rent + Day Rent) - (Toll + Fuel + Driver Payment + Permit + Discount)
+    const profitAmount = (totalRentAmount + dayRent) - (tollAmount + fuelAmount + driverPaymentAmount + permitAmount + discount);
+  
+    this.tripFormDetails.patchValue({
+      profitAmount: profitAmount >= 0 ? profitAmount : 0
+    });
+  
+    /* Corrected Pending Amount Calculation */
+    // Pending Amount = (Total Rent + Day Rent) - (Advance Amount + Received Amount + Discount)
     const pendingAmount = ((totalRentAmount + dayRent) - (advanceAmount + receivedAmount + discount));
-
-    if (pendingAmount) {
-      this.tripFormDetails.patchValue({
-        pendingAmount: pendingAmount ? pendingAmount : 0
-      });
-    }
-
-    /* Pending Amount Calculation - End */
+  
+    this.tripFormDetails.patchValue({
+      pendingAmount: pendingAmount >= 0 ? pendingAmount : 0
+    });
   }
+  
 
   updateTripDetails(status) {
     const tripFormDetails = this.tripFormDetails.value;
