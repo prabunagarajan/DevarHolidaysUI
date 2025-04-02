@@ -72,7 +72,7 @@ export class AddEditTripDetailsComponent implements OnInit {
       visitingPlace: ['', Validators.required],
       advanceType: ['', Validators.required],
       advanceAmount: ['0', Validators.required],
-      dayRent: ['0', Validators.required],
+      dayRent: ['0'],
       toll: ['0', Validators.required],
       totalRent: ['0', Validators.required],
       diesel: ['0', Validators.required],

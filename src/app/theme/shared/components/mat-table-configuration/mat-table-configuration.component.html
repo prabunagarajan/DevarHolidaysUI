@@ -1,16 +1,3 @@
-<!-- <div class="outer-container">
-    <div class="button-container">
-        <button class="btn btn-outline-success list-button-container" (click)="onAdd()">
-            <span class="list-text-align-center">Add</span>
-        </button>
-        <button class="btn btn-outline-secondary list-button-container" (click)="onEdit($event)" >
-            <span class="list-text-align-center">Edit</span>
-        </button>
-        <button class="btn btn-outline-warning list-button-container" (click)="onView()" >
-            <span class="list-text-align-center">View</span>
-        </button>
-    </div>
-</div> -->
 <app-card [hidHeader]="true" blockClass="table-border-style" class="list-panel">
     <div class="table-responsive">
         <div class="example-table-container">
@@ -34,6 +21,7 @@
                         </ng-template>
                     </td>
                 </ng-container>
+
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef>Actions</th>
                     <td mat-cell *matCellDef="let row">
@@ -62,15 +50,23 @@
                         </ng-template>
 
                     </td>
-
                 </ng-container>
-
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
+
+            <!-- Show message when no records are available -->
+
+            <ng-container *ngIf="dataSource?.filteredData?.length == 0">
+                <mat-error class="text-center" style="font-size: 20px;">
+                    <b><span>No Records</span></b>
+                </mat-error>
+            </ng-container>
         </div>
     </div>
+
+    <!-- Paginator -->
     <div class="paginator-container">
         <mat-paginator [length]="totalCount" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
             (page)="handlePagination($event)">

@@ -78,18 +78,16 @@ export class TripdeatilsforwardComponent implements OnInit {
     const tripFormSearchDetails = this.tripFormSearchDetails.value;
     const request = {
       filters: {
-        vehicleNumber: tripFormSearchDetails.vehiclenumber ? tripFormSearchDetails.vehiclenumber : '',
-        customerName: '',
-        customerMobileNumber: '',
         driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
-        visitingPlace: "",
-        status: "FORWARDED",
+        tripNumber: tripFormSearchDetails.tripNo ? tripFormSearchDetails.tripNo : '',
         fromDate: tripFormSearchDetails.fromDate
           ? moment(tripFormSearchDetails.fromDate).format('YYYY-MM-DD')
           : '',
         toDate: tripFormSearchDetails.toDate
           ? moment(tripFormSearchDetails.toDate).format('YYYY-MM-DD') : '',
-        tripNo: tripFormSearchDetails.tripNo ? tripFormSearchDetails.tripNo : '',
+        driverMobileNumber: tripFormSearchDetails.driverNumber ? tripFormSearchDetails.driverNumber : '',
+        vehicleNumber: tripFormSearchDetails.vehiclenumber ? tripFormSearchDetails.vehiclenumber : '',
+        status: tripFormSearchDetails.status ? tripFormSearchDetails.status : 'FORWARDED'
       },
       paginationSize: pageSize,
       sortField: "modifiedDate",

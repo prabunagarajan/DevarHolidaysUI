@@ -10,51 +10,51 @@
               <div class="row align-items-center">
                 <div class="col">
                   <span>Trip Details</span>
-                  <h3 class="mt-2">{{ tripDetailsCount.total || '0' }}</h3>
+                  <h3 class="mt-2">{{ tripDetailsCount?.total || '0' }}</h3>
                   <i class="fas fa-external-link-alt"></i>
                 </div>
               </div>
             </app-card>
           </div>
 
-          <!-- EAL Approved -->
+          <!-- Approved -->
           <div class="col dashboard_bg4">
             <app-card [hidHeader]="true" cardClass="comp-card">
               <div class="row align-items-center">
                 <div class="col">
                   <span>Total Approved</span>
-                  <h3 class="mt-2">{{ tripDetailsCount.totalApproved || '0' }}</h3>
+                  <h3 class="mt-2">{{ tripDetailsCount?.totalApproved || '0' }}</h3>
                   <i class="fas fas fa-check"></i>
                 </div>
               </div>
             </app-card>
           </div>
 
-          <!-- EAL Pending/Request for Clarification -->
+          <!-- Pending/Request for Clarification -->
           <div class="col dashboard_bg2">
             <app-card [hidHeader]="true" cardClass="comp-card">
               <div class="row align-items-center">
                 <div class="col">
                   <span>Total Request for Clarification</span>
-                  <h3 class="mt-2">{{ tripDetailsCount.totalRequestforclarification || '0' }}</h3>
+                  <h3 class="mt-2">{{ tripDetailsCount?.totalRequestforclarification || '0' }}</h3>
                   <i class="fas fa-hourglass-half"></i>
                 </div>
               </div>
             </app-card>
           </div>
 
-          <!-- EAL Rejected -->
-          <div class="col dashboard_bg7">
+          <!-- Rejected -->
+          <!-- <div class="col dashboard_bg7">
             <app-card [hidHeader]="true" cardClass="comp-card">
               <div class="row align-items-center">
                 <div class="col">
                   <span>Total Rejected</span>
-                  <h3 class="mt-2">{{ tripDetailsCount.totalRejected || '0' }}</h3>
+                  <h3 class="mt-2">{{ tripDetailsCount?.totalRejected || '0' }}</h3>
                   <i class="fas fa-external-link-alt"></i>
                 </div>
               </div>
             </app-card>
-          </div>
+          </div> -->
         </div>
       </app-card>
       <!-- Search Panel -->
@@ -76,7 +76,7 @@
                   <!-- Driver Name -->
                   <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                     <div class="form-group">
-                      <label>Driver Name<span class="text-danger">*</span></label>
+                      <label>Driver Name</label>
                       <select class="form-select" formControlName="driverName">
                         <option value="" selected disabled>Select Driver Name</option>
                         <option *ngFor="let driver of driverList" [value]="driver?.name">{{ driver?.name }}</option>
@@ -87,7 +87,7 @@
                   <!-- Trip No -->
                   <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                     <div class="form-group">
-                      <label>Trip No<span class="text-danger">*</span></label>
+                      <label>Trip No</label>
                       <input type="text" class="form-control" formControlName="tripNo" placeholder="Enter Trip Number">
                     </div>
                   </div>
@@ -95,22 +95,38 @@
                   <!-- From Date -->
                   <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                     <div class="form-group">
-                      <label>From Date<span class="text-danger">*</span></label>
-                      <input type="text" [owlDateTime]="dt3" class="form-control" [owlDateTimeTrigger]="dt3"
-                        placeholder="Select From Date" formControlName="fromDate">
+                      <label>From Date</label>
+                      <div class="input-group">
+                        <input type="text" [owlDateTime]="dt3" class="form-control" [owlDateTimeTrigger]="dt3" readonly
+                          [max]="maxDate" placeholder="Select From Date" formControlName="fromDate">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" [owlDateTimeTrigger]="dt3">
+                            <i class="fa fa-calendar"></i>
+                          </button>
+                        </div>
+                      </div>
                       <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
                     </div>
                   </div>
 
+
                   <!-- To Date -->
                   <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                     <div class="form-group">
-                      <label>To Date<span class="text-danger">*</span></label>
-                      <input type="text" [owlDateTime]="dt4" class="form-control" [owlDateTimeTrigger]="dt4"
-                        placeholder="Select To Date" formControlName="toDate">
+                      <label>To Date</label>
+                      <div class="input-group">
+                        <input type="text" [owlDateTime]="dt4" readonly [max]="maxDate" class="form-control"
+                          [owlDateTimeTrigger]="dt4" placeholder="Select To Date" formControlName="toDate" />
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" [owlDateTimeTrigger]="dt4">
+                            <i class="fa fa-calendar"></i> <!-- Calendar icon -->
+                          </button>
+                        </div>
+                      </div>
                       <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
                     </div>
                   </div>
+
 
                   <!-- Driver Number -->
                   <div class="col-lg-3 col-md-3 col-sm-6 col-12">
@@ -124,7 +140,7 @@
                   <!-- Vehicle Number -->
                   <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                     <div class="form-group">
-                      <label>Vehicle Number <span class="text-danger">*</span></label>
+                      <label>Vehicle Number </label>
                       <select class="form-select" formControlName="vehiclenumber">
                         <option value="" selected disabled>Select Vehicle Number</option>
                         <option *ngFor="let vehicle of vehicleList" [value]="vehicle.vehicleNumber">
@@ -144,7 +160,7 @@
                         <option value="INPROGRESS">IN PROGRESS</option>
                         <option value="FORWARDED">FORWARDED</option>
                         <option value="REQUESTFORCLARIFICATION">REQUEST FOR CLARIFICATION</option>
-                        <option value="REJECT">REJECT</option>
+                        <!--  <option value="REJECT">REJECT</option> -->
                         <option value="SUBMITTED">SUBMITTED</option>
                       </select>
                     </div>

@@ -4,75 +4,79 @@
             <!-- <h5>Driver Details</h5> -->
             <div class="accordion" id="accordionPanelsStayOpenExample">
                 <div class="accordion-item">
-                  <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
-                      aria-controls="panelsStayOpen-collapseOne">
-                      Search
-                    </button>
-                  </h2>
-        
-                  <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse"
-                    aria-labelledby="panelsStayOpen-headingOne" data-bs-parent="#accordionPanelsStayOpenExample">
-                    <div class="accordion-body">
-            <app-card [hidHeader]="true" class="list-panel add-panel">
-                <div class="row">
-                    <!-- Aadhar Number -->
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Aadhar Number </label>
-                            <input type="text" formControlName="aadharNumber" class="form-control"
-                                placeholder="Enter Aadhar Number" maxlength="12" required
-                                (keypress)="keyPress($event)" />
-                        </div>
-                    </div>
+                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
+                            aria-controls="panelsStayOpen-collapseOne">
+                            Search
+                        </button>
+                    </h2>
 
-                    <!-- Aadhar Number -->
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Driving License Number</label>
-                            <input type="text" formControlName="drivingLicenseNumber" class="form-control"
-                                placeholder="Enter Driving Licence Number" />
-                        </div>
-                    </div>
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse"
+                        aria-labelledby="panelsStayOpen-headingOne" data-bs-parent="#accordionPanelsStayOpenExample">
+                        <div class="accordion-body">
+                            <app-card [hidHeader]="true" class="list-panel add-panel">
+                                <div class="row">
+                                    <!-- Aadhar Number -->
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label>Aadhar Number </label>
+                                            <input type="text" formControlName="aadharNumber" class="form-control"
+                                                placeholder="Enter Aadhar Number" maxlength="12" required
+                                                (keypress)="keyPress($event)" />
+                                        </div>
+                                    </div>
 
-                    <!-- Aadhar Number -->
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Mobile Number </label>
-                            <input type="text" formControlName="mobileNumber" class="form-control"
-                                placeholder="Enter Mobiel Number" maxlength="10" (keypress)="keyPress($event)" />
-                        </div>
-                    </div>
+                                    <!-- Aadhar Number -->
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label>Driving License Number</label>
+                                            <input type="text" formControlName="drivingLicenseNumber"
+                                                class="form-control" placeholder="Enter Driving Licence Number" />
+                                        </div>
+                                    </div>
 
-                    <!-- Aadhar Number -->
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Driver Name</label>
-                            <input type="text" formControlName="driverName" class="form-control"
-                                placeholder="Enter Driver Name" />
+                                    <!-- Aadhar Number -->
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label>Mobile Number </label>
+                                            <input type="text" formControlName="mobileNumber" class="form-control"
+                                                placeholder="Enter Mobiel Number" maxlength="10"
+                                                (keypress)="keyPress($event)" />
+                                        </div>
+                                    </div>
+
+                                    <!-- Aadhar Number -->
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label>Driver Name</label>
+                                            <input type="text" formControlName="driverName" class="form-control"
+                                                placeholder="Enter Driver Name" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Submit and Cancel buttons -->
+                                <div class="row mt-3">
+                                    <div class="col-lg-12 text-end">
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-outline-info list-button-container"
+                                                (click)="search()">
+                                                <span class="list-text-alaign-center">Submit</span>
+                                            </button>
+                                            <button type="button"
+                                                class="btn btn-outline-secondary list-button-container"
+                                                (click)="onclear()"><span
+                                                    class="list-text-alaign-center">Clear</span></button>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </app-card>
                         </div>
                     </div>
                 </div>
-
-                <!-- Submit and Cancel buttons -->
-                <div class="row mt-3">
-                    <div class="col-lg-12 text-end">
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-outline-info list-button-container" (click)="search()">
-                                <span class="list-text-alaign-center">Submit</span>
-                            </button>
-                            <button type="button" class="btn btn-outline-secondary list-button-container"
-                                (click)="onclear()"><span class="list-text-alaign-center">Clear</span></button>
-
-                        </div>
-                    </div>
-                </div>
-
-            </app-card>
-            </div>
-            </div>
-            </div>
             </div>
             <br>
         </form>
@@ -181,6 +185,7 @@
     [totalCount]="totelCount" [pageSize]="pageSize" (paginationEvent)="handlePagination($event)"
     (checkboxAction)="onChecked($event)">
 </app-mat-table-configuration>
+
 
 
 
