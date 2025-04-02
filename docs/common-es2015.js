@@ -67,9 +67,9 @@ let CommonService = class CommonService {
         const url = this.baseUrl + 'balance/getBalanceHistoryDetails';
         return this.httpClient.post(url, requestObj);
     }
-    payoutBalance() {
+    payoutBalance(request) {
         const url = this.baseUrl + 'balance/getAllBalanceDetails';
-        return this.httpClient.get(url);
+        return this.httpClient.get(url, request);
     }
     driverPaymentList(obj) {
         const url = this.baseUrl + 'DriverSalary/search';

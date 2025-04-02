@@ -67,9 +67,9 @@ var CommonService = /** @class */ (function () {
         var url = this.baseUrl + 'balance/getBalanceHistoryDetails';
         return this.httpClient.post(url, requestObj);
     };
-    CommonService.prototype.payoutBalance = function () {
+    CommonService.prototype.payoutBalance = function (request) {
         var url = this.baseUrl + 'balance/getAllBalanceDetails';
-        return this.httpClient.get(url);
+        return this.httpClient.get(url, request);
     };
     CommonService.prototype.driverPaymentList = function (obj) {
         var url = this.baseUrl + 'DriverSalary/search';
