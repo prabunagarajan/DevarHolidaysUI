@@ -14,7 +14,7 @@
     <div class="col-xl-12">
         <form [formGroup]="tripFormDetails" autocomplete="off">
             <app-card [hidHeader]="true" class="list-panel add-panel">
-                <h3>Customer & Vehicel Details</h3>
+                <h3>Customer & Vehicle Details</h3>
                 <hr>
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
@@ -328,7 +328,7 @@
                         </div>
                     </div>
                     <!-- (keyup)="dayRentCalculation($event.target.value)" -->
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                    <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Day Rent<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" formControlName="dayRent"
@@ -337,6 +337,21 @@
                                 maxlength="10" [ngClass]="{ 'is-invalid': formSubmitted && tripForm.dayRent.errors }" />
                             <div *ngIf="formSubmitted && tripForm.dayRent.errors" class="invalid-feedback">
                                 <div *ngIf="tripForm.dayRent.errors.required">Day Rent is required
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Total Rent<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" formControlName="totalRent"
+                                placeholder="Enter Total Rent"
+                                (keyup)="getTotalRentAmount($event.target.value); profitAmoutCalculation('Total Rent')"
+                                (keydown)="numbersOnly($event)" [attr.disabled]="isDisabled ? true : null"
+                                maxlength="10"
+                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.totalRent.errors }" />
+                            <div *ngIf="formSubmitted && tripForm.totalRent.errors" class="invalid-feedback">
+                                <div *ngIf="tripForm.totalRent.errors.required">Total Rent is required
                                 </div>
                             </div>
                         </div>
@@ -354,21 +369,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Total Rent<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" formControlName="totalRent"
-                                placeholder="Enter Total Rent"
-                                (keyup)="getTotalRentAmount($event.target.value); profitAmoutCalculation('Total Rent')"
-                                (keydown)="numbersOnly($event)" [attr.disabled]="isDisabled ? true : null"
-                                maxlength="10"
-                                [ngClass]="{ 'is-invalid': formSubmitted && tripForm.totalRent.errors }" />
-                            <div *ngIf="formSubmitted && tripForm.totalRent.errors" class="invalid-feedback">
-                                <div *ngIf="tripForm.totalRent.errors.required">Total Rent is required
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Fuel<span class="text-danger">*</span></label>
@@ -454,6 +455,7 @@
                                 placeholder="Enter Payment Type" [attr.disabled]="isDisabled ? true : null"
                                 [ngClass]="{ 'is-invalid': formSubmitted && tripForm.paymentType.errors }">
                                 <option value="" hidden> Select Payment Type </option>
+                                <option value="NO PAY"> No - Pay </option>
                                 <option value="UPI"> UPI - GPay / PhonePay </option>
                                 <option value="HAND"> Hand </option>
                             </select>

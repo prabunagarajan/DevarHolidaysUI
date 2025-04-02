@@ -36,6 +36,7 @@ export class TripDetailsComponent implements OnInit {
   driverList: any;
   isLoading: boolean;
   tripDetailsCount: any = {};
+  maxDate = moment();
   constructor(
     private formBuilder: FormBuilder,
     private commonService: CommonService,
@@ -81,18 +82,11 @@ export class TripDetailsComponent implements OnInit {
 
     const fromDate = firstDay.toISOString().split('T')[0];
     const toDate = lastDay.toISOString().split('T')[0];
-    console.log(fromDate, toDate);
-
     this.commonService.tripdetailsdashboardcount(fromDate, toDate).subscribe(
       (tripdetailsdashboardcountResponse: any) => {
         if (tripdetailsdashboardcountResponse.status === 's') {
           this.tripDetailsCount = tripdetailsdashboardcountResponse.data[0] || {}; // Assign first object from data array
-        } else {
-          console.warn('Failed to fetch trip details:', tripdetailsdashboardcountResponse.message);
         }
-      },
-      (error) => {
-        console.error('API Error:', error);
       }
     );
   }
@@ -103,12 +97,16 @@ export class TripDetailsComponent implements OnInit {
     const tripFormSearchDetails = this.tripFormSearchDetails.value;
     const request = {
       filters: {
-        vehicleNumber: tripFormSearchDetails.vehiclenumber ? tripFormSearchDetails.vehiclenumber : '',
-        customerName: '',
-        customerMobileNumber: '',
         driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
-        visitingPlace: "",
-        status: ""
+        tripNumber: tripFormSearchDetails.tripNo ? tripFormSearchDetails.tripNo : '',
+        fromDate: tripFormSearchDetails.fromDate
+          ? moment(tripFormSearchDetails.fromDate).format('YYYY-MM-DD')
+          : '',
+        toDate: tripFormSearchDetails.toDate
+          ? moment(tripFormSearchDetails.toDate).format('YYYY-MM-DD') : '',
+        driverMobileNumber: tripFormSearchDetails.driverNumber ? tripFormSearchDetails.driverNumber : '',
+        vehicleNumber: tripFormSearchDetails.vehiclenumber ? tripFormSearchDetails.vehiclenumber : '',
+        status: tripFormSearchDetails.status ? tripFormSearchDetails.status : ''
       },
       paginationSize: pageSize,
       sortField: "modifiedDate",
@@ -129,8 +127,6 @@ export class TripDetailsComponent implements OnInit {
           ...v,
           sNo: startIndex + i + 1 // Adjust serial number
         }));
-
-        console.log("dataSource", dataSource);
         this.dataSource = new MatTableDataSource(dataSource);
         setTimeout(() => {
           if (this.dataSource.paginator) {
@@ -148,7 +144,7 @@ export class TripDetailsComponent implements OnInit {
   }
 
   search() {
-    const tripFormSearchDetails = this.tripFormSearchDetails.value;
+    /* const tripFormSearchDetails = this.tripFormSearchDetails.value;
     const request = {
       filters: {
         vehicleNumber: tripFormSearchDetails.vehiclenumber ? tripFormSearchDetails.vehiclenumber : '',
@@ -186,14 +182,18 @@ export class TripDetailsComponent implements OnInit {
       } else {
         this.dataSource = new MatTableDataSource();
       }
-    });
+    }); */
+    this.getAll();
   }
   onclear() {
     this.tripFormSearchDetails.patchValue({
       driverName: '',
+      tripNo: '',
+      fromDate: '',
+      toDate: '',
       driverNumber: '',
       vehiclenumber: '',
-      status: "",
+      status: '',
     });
     this.pageSize = 10;
     this.getAll();
@@ -245,7 +245,6 @@ export class TripDetailsComponent implements OnInit {
   }
 
   getStatusStyle(status: string): { [key: string]: string } {
-    console.log(status);
 
     switch (status) {
       case 'APPROVED':
@@ -266,7 +265,6 @@ export class TripDetailsComponent implements OnInit {
   }
 
   generatePDF() {
-    console.log('generatePDF :')
     const doc = new jsPDF();
 
     // Get page dimensions

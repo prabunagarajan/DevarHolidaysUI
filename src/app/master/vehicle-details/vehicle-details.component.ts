@@ -51,8 +51,12 @@ export class VehicleDetailsComponent implements OnInit {
   }
 
   loadDriverDetails(pageIndex = 0, pageSize = this.pageSize) {
+    const vehicleFormSearchDetails = this.vehicleFormSearchDetails.value;
     const request = {
-      filters: {},
+      filters: {
+        vehicleNumber: vehicleFormSearchDetails.vehicleNumber ? vehicleFormSearchDetails.vehicleNumber : '',
+        vehicleName: vehicleFormSearchDetails.vehicleName ? vehicleFormSearchDetails.vehicleName : ''
+      },
       pageNo: pageIndex,
       paginationSize: pageSize,
       sortField: 'modifiedDate',
