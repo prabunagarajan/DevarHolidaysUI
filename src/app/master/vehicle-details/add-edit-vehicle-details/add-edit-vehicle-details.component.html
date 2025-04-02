@@ -20,36 +20,63 @@
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
               <label>FC Date <span class="text-danger">*</span></label>
-              <input type="text" [owlDateTime]="dt1" class="form-control" [owlDateTimeTrigger]="dt1"
-                placeholder="Select Fc Date" formControlName="fcDate">
+              <div class="input-group">
+                <input type="text" readonly [owlDateTime]="dt1" class="form-control"
+                  [ngClass]="{ 'is-invalid': formSubmitted && f.fcDate.errors }" placeholder="Select FC Date"
+                  formControlName="fcDate">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" [owlDateTimeTrigger]="dt1">
+                    <i class="fa fa-calendar"></i> <!-- Calendar icon -->
+                  </button>
+                </div>
+              </div>
               <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
               <div *ngIf="formSubmitted && f.fcDate.errors" class="invalid-feedback">
                 <div *ngIf="f.fcDate.errors.required">FC Date is required</div>
               </div>
             </div>
           </div>
+
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
               <label>Insurance Date<span class="text-danger">*</span></label>
-              <input type="text" [owlDateTime]="dt2" class="form-control" [owlDateTimeTrigger]="dt2"
-                placeholder="Select Insurance Date" formControlName="insuranceDate">
+              <div class="input-group">
+                <input type="text" readonly [owlDateTime]="dt2"
+                  [ngClass]="{ 'is-invalid': formSubmitted && f.insuranceDate.errors }" class="form-control"
+                  placeholder="Select Insurance Date" formControlName="insuranceDate">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" [owlDateTimeTrigger]="dt2">
+                    <i class="fa fa-calendar"></i> <!-- Calendar icon -->
+                  </button>
+                </div>
+              </div>
               <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
               <div *ngIf="formSubmitted && f.insuranceDate.errors" class="invalid-feedback">
                 <div *ngIf="f.insuranceDate.errors.required">Insurance Date is required</div>
               </div>
             </div>
           </div>
+
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
               <label>Pollution Date<span class="text-danger">*</span></label>
-              <input type="text" [owlDateTime]="dt3" class="form-control" [owlDateTimeTrigger]="dt3"
-                placeholder="Select Pollution Date" formControlName="polutionDate">
+              <div class="input-group">
+                <input type="text" readonly [owlDateTime]="dt3"
+                  [ngClass]="{ 'is-invalid': formSubmitted && f.polutionDate.errors }" class="form-control"
+                  placeholder="Select Pollution Date" formControlName="polutionDate">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" [owlDateTimeTrigger]="dt3">
+                    <i class="fa fa-calendar"></i> <!-- Calendar icon -->
+                  </button>
+                </div>
+              </div>
               <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
               <div *ngIf="formSubmitted && f.polutionDate.errors" class="invalid-feedback">
                 <div *ngIf="f.polutionDate.errors.required">Pollution Date is required</div>
               </div>
             </div>
           </div>
+
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
               <label>Remarks<span class="text-danger">*</span></label>
@@ -79,22 +106,28 @@
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
               <label>Tax Date<span class="text-danger">*</span></label>
-              <!-- <input type="text" formControlName="taxDate" class="form-control" bsDatepicker
-                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
-                [ngClass]="{ 'is-invalid': formSubmitted && f.taxDate.errors }" /> -->
-              <input type="text" [owlDateTime]="dt4" class="form-control" [owlDateTimeTrigger]="dt4"
-                placeholder="Select Tax Date" formControlName="taxDate">
+              <div class="input-group">
+                <input type="text" [owlDateTime]="dt4" readonly class="form-control" [owlDateTimeTrigger]="dt4"
+                  [ngClass]="{ 'is-invalid': formSubmitted && f.taxDate.errors }" placeholder="Select Tax Date"
+                  formControlName="taxDate">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" [owlDateTimeTrigger]="dt4">
+                    <i class="fa fa-calendar"></i> <!-- Calendar icon -->
+                  </button>
+                </div>
+              </div>
               <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
               <div *ngIf="formSubmitted && f.taxDate.errors" class="invalid-feedback">
                 <div *ngIf="f.taxDate.errors.required">Tax Date is required</div>
               </div>
             </div>
           </div>
+
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
               <label>Vehicle Color<span class="text-danger">*</span></label>
-              <input type="text" formControlName="vehicleColor" class="form-control"
-              placeholder="Enter Vehicle color"  [ngClass]="{ 'is-invalid': formSubmitted && f.vehicleColor.errors }" />
+              <input type="text" formControlName="vehicleColor" class="form-control" placeholder="Enter Vehicle color"
+                [ngClass]="{ 'is-invalid': formSubmitted && f.vehicleColor.errors }" />
               <div *ngIf="formSubmitted && f.vehicleColor.errors" class="invalid-feedback">
                 <div *ngIf="f.vehicleColor.errors.required">Vehicle Color is required</div>
               </div>
@@ -103,8 +136,8 @@
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
               <label>Vehicle Name<span class="text-danger">*</span></label>
-              <input type="text" formControlName="vehicleName" class="form-control"
-             placeholder="Enter Vehicle name"   [ngClass]="{ 'is-invalid': formSubmitted && f.vehicleName.errors }" />
+              <input type="text" formControlName="vehicleName" class="form-control" placeholder="Enter Vehicle name"
+                [ngClass]="{ 'is-invalid': formSubmitted && f.vehicleName.errors }" />
               <div *ngIf="formSubmitted && f.vehicleName.errors" class="invalid-feedback">
                 <div *ngIf="f.vehicleName.errors.required">Vehicle Name is required</div>
               </div>
@@ -115,8 +148,8 @@
           <div class="col-lg-3 col-md-3 col-sm-6 col-12">
             <div class="form-group">
               <label>Vehicle Number<span class="text-danger">*</span></label>
-              <input type="text" formControlName="vehicleNumber" class="form-control"
-               placeholder="Enter Vehicle number" [ngClass]="{ 'is-invalid': formSubmitted && f.vehicleNumber.errors }"
+              <input type="text" formControlName="vehicleNumber" class="form-control" placeholder="Enter Vehicle number"
+                [ngClass]="{ 'is-invalid': formSubmitted && f.vehicleNumber.errors }"
                 (keydown)="spaceNotAllowd($event)" />
               <div *ngIf="formSubmitted && f.vehicleNumber.errors" class="invalid-feedback">
                 <div *ngIf="f.vehicleNumber.errors.required">Vehicle Number is required</div>

@@ -74,18 +74,16 @@ export class TripdetailsinprogressComponent implements OnInit {
     const tripFormSearchDetails = this.tripFormSearchDetails.value;
     const request = {
       filters: {
-        vehicleNumber: tripFormSearchDetails.vehiclenumber ? tripFormSearchDetails.vehiclenumber : '',
-        customerName: '',
-        customerMobileNumber: '',
         driverName: tripFormSearchDetails.driverName ? tripFormSearchDetails.driverName : '',
-        visitingPlace: "",
-        status: tripFormSearchDetails.status ? tripFormSearchDetails.status : "INPROGRESS",
+        tripNumber: tripFormSearchDetails.tripNo ? tripFormSearchDetails.tripNo : '',
         fromDate: tripFormSearchDetails.fromDate
           ? moment(tripFormSearchDetails.fromDate).format('YYYY-MM-DD')
           : '',
         toDate: tripFormSearchDetails.toDate
           ? moment(tripFormSearchDetails.toDate).format('YYYY-MM-DD') : '',
-        tripNo: tripFormSearchDetails.tripNo ? tripFormSearchDetails.tripNo : '',
+        driverMobileNumber: tripFormSearchDetails.driverNumber ? tripFormSearchDetails.driverNumber : '',
+        vehicleNumber: tripFormSearchDetails.vehiclenumber ? tripFormSearchDetails.vehiclenumber : '',
+        status: tripFormSearchDetails.status ? tripFormSearchDetails.status : 'INPROGRESS'
       },
       paginationSize: pageSize,
       sortField: "modifiedDate",
@@ -178,62 +176,38 @@ export class TripdetailsinprogressComponent implements OnInit {
     }
   }
 
-   generatePDF() {
-     console.log('generatePDF :')
-     const doc = new jsPDF();
- 
-     // Get page dimensions
-     const pageWidth = doc.internal.pageSize.getWidth();
-     const pageHeight = doc.internal.pageSize.getHeight();
- 
-     // Add Watermark - "DC Holidays"
-     doc.setTextColor(200, 200, 200); // Light gray color
-     doc.setFontSize(40); // Large font size
-     doc.setFont('helvetica', 'bold'); // Bold font
- 
-     // Calculate center position
-     const textWidth = doc.getTextWidth('DC Holidays');
-     const x = (pageWidth - textWidth) / 2;
-     const y = pageHeight / 2;
- 
-     // Add rotated watermark text
-     doc.text('DC Holidays', x, y, { angle: 45 });
- 
-     // Reset text color to black for actual content
-     doc.setTextColor(0);
- 
-     // Title
-     doc.setFontSize(14);
-     doc.text('Trip Details L2', 14, 10);
- 
-     // Define table columns with Serial Number
-     const columns = ['S.No', 'Trip No', 'Created Date', 'Vehicle Number', 'Customer Name', 'Visiting Place', 'Driver Name', 'Total Rent', 'Status'];
- 
-     // Convert list data to an array format with serial numbers
-     let rows = [];
-    this.dataSource.data.forEach((element: any, i: number) => {
-      rows[i] = [];
-      rows[i].push(i + 1);
-      rows[i].push(element ? moment(element.createdDate).format('DD-MM-YYYY') : '')
-      rows[i].push(element ? element.vehicleNumber : '')
-      rows[i].push(element ? element.customerName : '')
-      rows[i].push(element ? element.visitingPlace : '')
-      rows[i].push(element ? element.driverName : '')
-      rows[i].push(element ? element.totalRent : '')
-      rows[i].push(element ? element.status : '')
-    });
- 
-     // Add table to the PDF
-     autoTable(doc, {
-       head: [columns],
-       body: rows,
-       startY: 20
-     });
- 
-     // Save the PDF
-     doc.save('Trip_Details_L2.pdf');
-   }
-   exportToExcel() {
+  generatePDF() {
+    console.log('generatePDF :')
+    const doc = new jsPDF();
+
+    // Get page dimensions
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    // Add Watermark - "DC Holidays"
+    doc.setTextColor(200, 200, 200); // Light gray color
+    doc.setFontSize(40); // Large font size
+    doc.setFont('helvetica', 'bold'); // Bold font
+
+    // Calculate center position
+    const textWidth = doc.getTextWidth('DC Holidays');
+    const x = (pageWidth - textWidth) / 2;
+    const y = pageHeight / 2;
+
+    // Add rotated watermark text
+    doc.text('DC Holidays', x, y, { angle: 45 });
+
+    // Reset text color to black for actual content
+    doc.setTextColor(0);
+
+    // Title
+    doc.setFontSize(14);
+    doc.text('Trip Details L2', 14, 10);
+
+    // Define table columns with Serial Number
+    const columns = ['S.No', 'Trip No', 'Created Date', 'Vehicle Number', 'Customer Name', 'Visiting Place', 'Driver Name', 'Total Rent', 'Status'];
+
+    // Convert list data to an array format with serial numbers
     let rows = [];
     this.dataSource.data.forEach((element: any, i: number) => {
       rows[i] = [];
@@ -246,14 +220,38 @@ export class TripdetailsinprogressComponent implements OnInit {
       rows[i].push(element ? element.totalRent : '')
       rows[i].push(element ? element.status : '')
     });
- 
-     const options = {
-       headers: [
-         'S.No', 'Trip No', 'Created Date', 'Vehicle Number', 'Customer Name', 'Visiting Place', 'Driver Name', 'Total Rent', 'Status'
-       ]
-     };
-     new ngxCsv(rows, 'Trip_Details_L2', options);
-   }
+
+    // Add table to the PDF
+    autoTable(doc, {
+      head: [columns],
+      body: rows,
+      startY: 20
+    });
+
+    // Save the PDF
+    doc.save('Trip_Details_L2.pdf');
+  }
+  exportToExcel() {
+    let rows = [];
+    this.dataSource.data.forEach((element: any, i: number) => {
+      rows[i] = [];
+      rows[i].push(i + 1);
+      rows[i].push(element ? moment(element.createdDate).format('DD-MM-YYYY') : '')
+      rows[i].push(element ? element.vehicleNumber : '')
+      rows[i].push(element ? element.customerName : '')
+      rows[i].push(element ? element.visitingPlace : '')
+      rows[i].push(element ? element.driverName : '')
+      rows[i].push(element ? element.totalRent : '')
+      rows[i].push(element ? element.status : '')
+    });
+
+    const options = {
+      headers: [
+        'S.No', 'Trip No', 'Created Date', 'Vehicle Number', 'Customer Name', 'Visiting Place', 'Driver Name', 'Total Rent', 'Status'
+      ]
+    };
+    new ngxCsv(rows, 'Trip_Details_L2', options);
+  }
 
 }
 

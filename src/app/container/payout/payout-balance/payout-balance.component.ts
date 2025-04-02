@@ -46,6 +46,7 @@ export class PayoutBalanceComponent implements OnInit {
 
     this.payoutBalanceFormSearchDetails = this.formBuilder.group({
       driverName: [''],
+      driverMobileNumber: ['']
     })
     this.getAll();
     this.commonService.activeDriver().subscribe(driverResponse => {
@@ -65,38 +66,50 @@ export class PayoutBalanceComponent implements OnInit {
     console.log(paymentPendingFormSearchDetails);
 
     const request = {
-      filters: {
-        walletId: paymentPendingFormSearchDetails.driverName ? paymentPendingFormSearchDetails.driverName : '',
-        applicationNumber: paymentPendingFormSearchDetails.applicationNumber ? paymentPendingFormSearchDetails.applicationNumber : '',
-        transactionName: paymentPendingFormSearchDetails.transactionName ? paymentPendingFormSearchDetails.transactionName : '',
+      "filters": {
+        "walletId": paymentPendingFormSearchDetails.driverMobileNumber ? paymentPendingFormSearchDetails.driverMobileNumber : ''
       },
-      paginationSize: pageSize,
-      sortField: "modifiedDate",
-      pageNo: pageIndex,
-      sortOrder: "DESC"
+      "paginationSize": pageSize,
+      "sortField": "modifiedDate",
+      "pageNo": pageIndex,
+      "sortOrder": "DESC"
     }
-    this.commonService.payoutBalance().subscribe(response => {
-      if (response.status == 's' && response.data) {
+
+    this.commonService.payoutBalance(request).subscribe(response => {
+      if (response.status === 's' && response.data) {
         const serialNumber = pageIndex * pageSize; // Calculate start index dynamically
         const dataSource = response.data.map((v, i) => ({
           ...v,
           sNo: serialNumber + i + 1 // Adjust serial number
         }));
         this.dataSource = new MatTableDataSource(dataSource);
-        this.transactionList = response.data.contents;
-        this.totelCount = response.data.length;
+        this.transactionList = response.data.contents || []; // Adjusted to access 'contents' properly
+        this.totalCount = response.data.totalCount || 0; // Corrected variable name and assumed 'totalCount' exists in the response
       } else {
         this.dataSource = new MatTableDataSource();
+        this.transactionList = [];
+        this.totalCount = 0; // Reset total count if no data is found
       }
-    })
+    });
   }
 
+
   search() {
-    this.getAll();
+    const driverElement = this.driverList.find(element => element.mobileNumber == this.payoutBalanceFormSearchDetails.controls.driverName.value);
+    console.log('driverElement :', driverElement)
+    if (driverElement) {
+      this.payoutBalanceFormSearchDetails.patchValue({
+        driverMobileNumber: driverElement.mobileNumber
+      });
+      this.getAll();
+    }
+
+
   }
   onclear() {
     this.payoutBalanceFormSearchDetails.patchValue({
       driverName: '',
+      driverMobileNumber: '',
       createdDate: '',
       applicationNumber: '',
       transactionName: '',

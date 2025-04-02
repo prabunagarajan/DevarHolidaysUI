@@ -31,9 +31,9 @@ export class AuthSigninComponent implements OnInit {
 
   signInFun(signInForm) {
     console.log('signInForm :', signInForm.value);
-    /* this.router.navigate(['dashboard/analytics']); */
+    this.router.navigate(['dashboard/analytics']);
     /* Temprory Commented */
-    if (!signInForm.valid) {
+    /* if (!signInForm.valid) {
       this.signInSubmitted = true;
     } else {
       const signInRequest = {
@@ -55,7 +55,7 @@ export class AuthSigninComponent implements OnInit {
             this.alertMsg.error(signInResponse.userDisplayMesg, 'Error');
           }
         });
-    }
+    } */
 
   }
 

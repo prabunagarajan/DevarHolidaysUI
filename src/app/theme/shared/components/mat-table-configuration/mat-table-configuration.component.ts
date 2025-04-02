@@ -45,7 +45,6 @@ export class MatTableConfigurationComponent implements OnInit, OnChanges, AfterV
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    console.log("Columns received in child:", this.columns);
 
     if (!this.columns || !Array.isArray(this.columns)) {
       console.error("columns is undefined or not an array. Initializing as an empty array.");
@@ -112,7 +111,6 @@ export class MatTableConfigurationComponent implements OnInit, OnChanges, AfterV
 
 
   onCheckboxAction(event: any) {
-    console.log('Checkbox action:', event);
   }
   
 }

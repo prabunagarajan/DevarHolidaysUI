@@ -59,9 +59,9 @@ export class CommonService {
     return this.httpClient.post(url, requestObj);
   }
 
-  payoutBalance(): Observable<any> {
+  payoutBalance(request): Observable<any> {
     const url = this.baseUrl + 'balance/getAllBalanceDetails';
-    return this.httpClient.get(url);
+    return this.httpClient.get(url , request);
   }
 
   driverPaymentList(obj): Observable<any> {
