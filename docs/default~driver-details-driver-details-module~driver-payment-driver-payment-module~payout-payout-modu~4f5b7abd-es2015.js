@@ -22041,7 +22041,7 @@ MasterListColumns.triplistcolumns = [
         name: 'date',
         displayName: 'Date',
         type: 'string',
-        displayFcn: (item) => moment__WEBPACK_IMPORTED_MODULE_0__(item.createdDate).format("DD-MM-YYYY HH-MM")
+        displayFcn: (item) => moment__WEBPACK_IMPORTED_MODULE_0__(item.date).format("DD-MM-YYYY HH-MM")
     },
     {
         name: 'vehicleNumber',
@@ -22100,7 +22100,7 @@ MasterListColumns.tripListInprogressColumns = [
         name: 'date',
         displayName: 'Date',
         type: 'string',
-        displayFcn: (item) => moment__WEBPACK_IMPORTED_MODULE_0__(item.createdDate).format("DD-MM-YYYY HH-MM")
+        displayFcn: (item) => moment__WEBPACK_IMPORTED_MODULE_0__(item.date).format("DD-MM-YYYY HH-MM")
     },
     {
         name: 'vehicleNumber',
@@ -22159,7 +22159,7 @@ MasterListColumns.tripListForwardColumns = [
         name: 'date',
         displayName: 'Date',
         type: 'string',
-        displayFcn: (item) => moment__WEBPACK_IMPORTED_MODULE_0__(item.createdDate).format("DD-MM-YYYY HH-MM")
+        displayFcn: (item) => moment__WEBPACK_IMPORTED_MODULE_0__(item.date).format("DD-MM-YYYY HH-MM")
     },
     {
         name: 'vehicleNumber',
@@ -22218,7 +22218,7 @@ MasterListColumns.tripListPendingPaymentColumns = [
         name: 'date',
         displayName: 'Date',
         type: 'string',
-        displayFcn: (item) => moment__WEBPACK_IMPORTED_MODULE_0__(item.createdDate).format("DD-MM-YYYY HH-MM")
+        displayFcn: (item) => moment__WEBPACK_IMPORTED_MODULE_0__(item.date).format("DD-MM-YYYY HH-MM")
     },
     {
         name: 'vehicleNumber',
@@ -22326,7 +22326,7 @@ MasterListColumns.payOutBalanceListColumns = [
         displayFcn: (item) => moment__WEBPACK_IMPORTED_MODULE_0__(item.createdDate).format("DD-MM-YYYY HH-MM")
     },
     {
-        name: 'driverName',
+        name: 'name',
         displayName: 'Name',
         type: 'string'
     },
@@ -22335,7 +22335,13 @@ MasterListColumns.payOutBalanceListColumns = [
         displayName: 'Wallet Id',
         type: 'string',
         align: 'center'
-    }
+    },
+    {
+        name: 'amount',
+        displayName: 'Amount',
+        type: 'string',
+        align: 'center'
+    },
 ];
 MasterListColumns.payOutBalanceHistryListColumns = [
     {

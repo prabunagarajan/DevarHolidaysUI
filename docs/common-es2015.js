@@ -67,9 +67,9 @@ let CommonService = class CommonService {
         const url = this.baseUrl + 'balance/getBalanceHistoryDetails';
         return this.httpClient.post(url, requestObj);
     }
-    payoutBalance() {
+    payoutBalance(request) {
         const url = this.baseUrl + 'balance/getAllBalanceDetails';
-        return this.httpClient.get(url);
+        return this.httpClient.get(url, request);
     }
     driverPaymentList(obj) {
         const url = this.baseUrl + 'DriverSalary/search';
@@ -89,6 +89,22 @@ let CommonService = class CommonService {
             .set('fromDate', fromDate)
             .set('toDate', toDate);
         return this.httpClient.post(url, {}, { params });
+    }
+    dashBoardCount(month, year) {
+        const url = this.baseUrl + 'tripDetails/getTotalDriverTripsAndSalary';
+        const params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]()
+            .set('month', month)
+            .set('year', year);
+        return this.httpClient.get(url, { params });
+        ;
+    }
+    getTotalVehicleTripsAndProfit(month, year) {
+        const url = this.baseUrl + 'tripDetails/getTotalVehicleTripsAndProfit';
+        const params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]()
+            .set('month', month)
+            .set('year', year);
+        return this.httpClient.get(url, { params });
+        ;
     }
 };
 CommonService.ctorParameters = () => [

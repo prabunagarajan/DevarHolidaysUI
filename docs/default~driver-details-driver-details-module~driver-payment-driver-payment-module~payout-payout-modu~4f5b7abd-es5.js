@@ -22042,7 +22042,7 @@ var MasterListColumns = /** @class */ (function () {
             name: 'date',
             displayName: 'Date',
             type: 'string',
-            displayFcn: function (item) { return moment__WEBPACK_IMPORTED_MODULE_0__(item.createdDate).format("DD-MM-YYYY HH-MM"); }
+            displayFcn: function (item) { return moment__WEBPACK_IMPORTED_MODULE_0__(item.date).format("DD-MM-YYYY HH-MM"); }
         },
         {
             name: 'vehicleNumber',
@@ -22101,7 +22101,7 @@ var MasterListColumns = /** @class */ (function () {
             name: 'date',
             displayName: 'Date',
             type: 'string',
-            displayFcn: function (item) { return moment__WEBPACK_IMPORTED_MODULE_0__(item.createdDate).format("DD-MM-YYYY HH-MM"); }
+            displayFcn: function (item) { return moment__WEBPACK_IMPORTED_MODULE_0__(item.date).format("DD-MM-YYYY HH-MM"); }
         },
         {
             name: 'vehicleNumber',
@@ -22160,7 +22160,7 @@ var MasterListColumns = /** @class */ (function () {
             name: 'date',
             displayName: 'Date',
             type: 'string',
-            displayFcn: function (item) { return moment__WEBPACK_IMPORTED_MODULE_0__(item.createdDate).format("DD-MM-YYYY HH-MM"); }
+            displayFcn: function (item) { return moment__WEBPACK_IMPORTED_MODULE_0__(item.date).format("DD-MM-YYYY HH-MM"); }
         },
         {
             name: 'vehicleNumber',
@@ -22219,7 +22219,7 @@ var MasterListColumns = /** @class */ (function () {
             name: 'date',
             displayName: 'Date',
             type: 'string',
-            displayFcn: function (item) { return moment__WEBPACK_IMPORTED_MODULE_0__(item.createdDate).format("DD-MM-YYYY HH-MM"); }
+            displayFcn: function (item) { return moment__WEBPACK_IMPORTED_MODULE_0__(item.date).format("DD-MM-YYYY HH-MM"); }
         },
         {
             name: 'vehicleNumber',
@@ -22327,7 +22327,7 @@ var MasterListColumns = /** @class */ (function () {
             displayFcn: function (item) { return moment__WEBPACK_IMPORTED_MODULE_0__(item.createdDate).format("DD-MM-YYYY HH-MM"); }
         },
         {
-            name: 'driverName',
+            name: 'name',
             displayName: 'Name',
             type: 'string'
         },
@@ -22336,7 +22336,13 @@ var MasterListColumns = /** @class */ (function () {
             displayName: 'Wallet Id',
             type: 'string',
             align: 'center'
-        }
+        },
+        {
+            name: 'amount',
+            displayName: 'Amount',
+            type: 'string',
+            align: 'center'
+        },
     ];
     MasterListColumns.payOutBalanceHistryListColumns = [
         {

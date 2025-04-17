@@ -217,7 +217,7 @@ module.exports = "<div id=\"{{this.chartID}}\"></div>\r\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"loading\" class=\"overlay\">\r\n    <mat-spinner></mat-spinner>\r\n</div>"
+module.exports = "<div *ngIf=\"loading\" class=\"overlay\">\r\n    <!-- <mat-spinner></mat-spinner> -->\r\n    <div class=\"loader\">\r\n        <div class=\"car\">\r\n          <svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" id=\"Capa_1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 512 512\" style=\"enable-background:new 0 0 512 512;\" xml:space=\"preserve\">\r\n      <g>\r\n          <path style=\"fill:#E38100;\" d=\"M326.62,370.719l77.178-30.896c6.691-2.675,11.087-9.154,11.096-16.366V300.1l-88.274,35.31V370.719   z\"/>\r\n          <path style=\"fill:#E38100;\" d=\"M185.381,370.719v-35.31L97.106,300.1v23.357c0.009,7.212,4.405,13.691,11.096,16.366   L185.381,370.719z\"/>\r\n      </g>\r\n      <path style=\"fill:#FFBC05;\" d=\"M190.898,491.902l30.331,12.994c22.21,9.472,47.333,9.472,69.543,0l30.331-12.95  c34.886-14.839,56.328-50.378,53.185-88.16l-12.358-147.824l12.694-151.699c2.966-35.875-16.251-69.94-48.498-85.944l-6.965-3.469  c-39.776-19.8-86.544-19.8-126.321,0l-6.965,3.469c-32.247,16.004-51.464,50.069-48.498,85.944l12.694,151.699l-12.358,147.86  C134.605,441.577,156.038,477.072,190.898,491.902z\"/>\r\n      <path style=\"fill:#E38100;\" d=\"M138.33,396.23c49.672,65.508,133.921,94.63,213.439,73.771  c-8.518,9.428-18.979,16.905-30.667,21.901l-30.331,12.994c-22.21,9.472-47.333,9.472-69.543,0l-30.331-12.95  c-34.886-14.839-56.328-50.378-53.185-88.16L138.33,396.23z\"/>\r\n      <path style=\"fill:#23AEC8;\" d=\"M324.36,368.795l2.26-1.474c5.455-3.619,8.457-9.957,7.803-16.472l-7.803-77.337H185.381  l-7.768,77.337c-0.662,6.506,2.33,12.844,7.768,16.472l2.225,1.474C229.032,396.319,282.924,396.319,324.36,368.795z\"/>\r\n      <path style=\"fill:#1967A3;\" d=\"M323.027,369.607c-41.277,26.668-94.436,26.35-135.386-0.812l-2.26-1.474  c-5.455-3.619-8.457-9.957-7.803-16.472l5.941-59.144C217.389,335.674,267.82,363.834,323.027,369.607z\"/>\r\n      <path style=\"fill:#23AEC8;\" d=\"M326.62,150.033H185.381l-6.779-40.677c-1.227-7.362,2.304-14.707,8.827-18.335l17.116-9.507  c31.991-17.778,70.902-17.778,102.893,0l17.116,9.507c6.523,3.628,10.054,10.972,8.827,18.335L326.62,150.033z\"/>\r\n      <path style=\"fill:#1967A3;\" d=\"M187.437,91.022l8.624-4.793c34.692,30.605,76.19,52.479,121.042,63.805H185.381l-6.779-40.677  C177.365,101.994,180.905,94.65,187.437,91.022z\"/>\r\n      <g>\r\n          \r\n              <rect x=\"285.98\" y=\"423.671\" transform=\"matrix(-0.5547 0.8321 -0.8321 -0.5547 853.9575 407.9586)\" style=\"fill:#555160;\" width=\"63.657\" height=\"17.656\"/>\r\n          \r\n              <rect x=\"185.38\" y=\"400.698\" transform=\"matrix(-0.8321 0.5547 -0.5547 -0.8321 595.7145 684.6945)\" style=\"fill:#555160;\" width=\"17.656\" height=\"63.657\"/>\r\n      </g>\r\n      <g>\r\n      </g>\r\n      <g>\r\n      </g>\r\n      <g>\r\n      </g>\r\n      <g>\r\n      </g>\r\n      <g>\r\n      </g>\r\n      <g>\r\n      </g>\r\n      <g>\r\n      </g>\r\n      <g>\r\n      </g>\r\n      <g>\r\n      </g>\r\n      <g>\r\n      </g>\r\n      <g>\r\n      </g>\r\n      <g>\r\n      </g>\r\n      <g>\r\n      </g>\r\n      <g>\r\n      </g>\r\n      <g>\r\n      </g>\r\n      </svg>\r\n        </div>\r\n      </div>\r\n      \r\n      <div class=\"icon-credit\">Icons made by <a href=\"https://www.flaticon.com/authors/mynamepong\" title=\"mynamepong\">mynamepong</a> from <a href=\"https://www.flaticon.com/\" title=\"Flaticon\">www.flaticon.com</a> is licensed by <a href=\"http://creativecommons.org/licenses/by/3.0/\" title=\"Creative Commons BY 3.0\"\r\n          target=\"_blank\">CC 3.0 BY</a></div>\r\n</div>"
 
 /***/ }),
 
@@ -228,7 +228,7 @@ module.exports = "<div *ngIf=\"loading\" class=\"overlay\">\r\n    <mat-spinner>
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <div class=\"outer-container\">\r\n    <div class=\"button-container\">\r\n        <button class=\"btn btn-outline-success list-button-container\" (click)=\"onAdd()\">\r\n            <span class=\"list-text-align-center\">Add</span>\r\n        </button>\r\n        <button class=\"btn btn-outline-secondary list-button-container\" (click)=\"onEdit($event)\" >\r\n            <span class=\"list-text-align-center\">Edit</span>\r\n        </button>\r\n        <button class=\"btn btn-outline-warning list-button-container\" (click)=\"onView()\" >\r\n            <span class=\"list-text-align-center\">View</span>\r\n        </button>\r\n    </div>\r\n</div> -->\r\n<app-card [hidHeader]=\"true\" blockClass=\"table-border-style\" class=\"list-panel\">\r\n    <div class=\"table-responsive\">\r\n        <div class=\"example-table-container\">\r\n            <table mat-table [dataSource]=\"dataSource\" matSort class=\"mat-elevation-z8 custom-table\">\r\n                <ng-container *ngFor=\"let column of columns\" [matColumnDef]=\"column.name\">\r\n                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column?.displayName }}</th>\r\n                    <td mat-cell *matCellDef=\"let row\">\r\n                        <ng-container *ngIf=\"column.type === 'options'; else normalCell\">\r\n                            <span class=\"badge\"\r\n                                [ngClass]=\"column.badgeColors[row[column.name]] ? column.badgeColors[row[column.name]] : 'badge-success'\">\r\n                                {{ row[column.name] }}\r\n                            </span>\r\n                        </ng-container>\r\n                        <ng-template #normalCell>\r\n                            <ng-container *ngIf=\"column.displayFcn; else defaultCell\">\r\n                                {{ column.displayFcn(row) }}\r\n                            </ng-container>\r\n                            <ng-template #defaultCell>\r\n                                {{ row[column?.name] }}\r\n                            </ng-template>\r\n                        </ng-template>\r\n                    </td>\r\n                </ng-container>\r\n                <ng-container matColumnDef=\"actions\">\r\n                    <th mat-header-cell *matHeaderCellDef>Actions</th>\r\n                    <td mat-cell *matCellDef=\"let row\">\r\n                        <ng-container *ngIf=\"actionKeys.includes('checkbox'); else actionButtons\">\r\n                            <mat-radio-group [(ngModel)]=\"selectedRow\">\r\n                                <mat-radio-button [value]=\"row\" (change)=\"onCheckboxChecked(row.id ? row.id : i, $event)\"\r\n                                ></mat-radio-button>\r\n                            </mat-radio-group>\r\n                        </ng-container>\r\n\r\n                        <ng-template #actionButtons>\r\n                            <ng-container *ngFor=\"let action of actionKeys\">\r\n                                <button *ngIf=\"action == 'edit'\" mat-button (click)=\"onEditClicked(row)\">\r\n                                    <i class=\"feather icon-edit\"></i>\r\n                                </button>\r\n                                <button *ngIf=\"action == 'view'\" mat-button (click)=\"onViewClicked(row)\">\r\n                                    <i class=\"feather icon-eye\"></i>\r\n                                </button>\r\n                                <button *ngIf=\"action == 'delete'\" mat-button (click)=\"onDeleteClicked(row)\">\r\n                                    <i class=\"feather icon-trash\"></i>\r\n                                </button>\r\n                                <button *ngIf=\"action == 'download'\" mat-button (click)=\"onDownloadClicked(row)\">\r\n                                    <i class=\"feather icon-download\"></i>\r\n                                </button>\r\n                            </ng-container>\r\n                        </ng-template>\r\n\r\n                    </td>\r\n\r\n                </ng-container>\r\n\r\n\r\n                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n            </table>\r\n        </div>\r\n    </div>\r\n    <div class=\"paginator-container\">\r\n        <mat-paginator [length]=\"totalCount\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"pageSizeOptions\"\r\n            (page)=\"handlePagination($event)\">\r\n        </mat-paginator>\r\n    </div>\r\n</app-card>"
+module.exports = "<app-card [hidHeader]=\"true\" blockClass=\"table-border-style\" class=\"list-panel\">\r\n    <div class=\"table-responsive\">\r\n        <div class=\"example-table-container\">\r\n            <table mat-table [dataSource]=\"dataSource\" matSort class=\"mat-elevation-z8 custom-table\">\r\n                <ng-container *ngFor=\"let column of columns\" [matColumnDef]=\"column.name\">\r\n                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column?.displayName }}</th>\r\n                    <td mat-cell *matCellDef=\"let row\">\r\n                        <ng-container *ngIf=\"column.type === 'options'; else normalCell\">\r\n                            <span class=\"badge\"\r\n                                [ngClass]=\"column.badgeColors[column.displayFcn ? column.displayFcn(row) : row[column.name]] || 'badge-success'\">\r\n                                {{ column.displayFcn ? column.displayFcn(row) : row[column.name] }}\r\n                            </span>\r\n                        </ng-container>\r\n                        <ng-template #normalCell>\r\n                            <ng-container *ngIf=\"column.displayFcn; else defaultCell\">\r\n                                {{ column.displayFcn(row) }}\r\n                            </ng-container>\r\n                            <ng-template #defaultCell>\r\n                                {{ row[column?.name] }}\r\n                            </ng-template>\r\n                        </ng-template>\r\n                    </td>\r\n                </ng-container>\r\n\r\n                <ng-container matColumnDef=\"actions\">\r\n                    <th mat-header-cell *matHeaderCellDef>Actions</th>\r\n                    <td mat-cell *matCellDef=\"let row\">\r\n                        <ng-container *ngIf=\"actionKeys.includes('checkbox'); else actionButtons\">\r\n                            <mat-radio-group [(ngModel)]=\"selectedRow\">\r\n                                <mat-radio-button [value]=\"row\"\r\n                                    (change)=\"onCheckboxChecked(row.id ? row.id : i, $event)\"></mat-radio-button>\r\n                            </mat-radio-group>\r\n                        </ng-container>\r\n\r\n                        <ng-template #actionButtons>\r\n                            <ng-container *ngFor=\"let action of actionKeys\">\r\n                                <button *ngIf=\"action == 'edit'\" mat-button (click)=\"onEditClicked(row)\">\r\n                                    <i class=\"feather icon-edit\"></i>\r\n                                </button>\r\n                                <button *ngIf=\"action == 'view'\" mat-button (click)=\"onViewClicked(row)\">\r\n                                    <i class=\"feather icon-eye\"></i>\r\n                                </button>\r\n                                <button *ngIf=\"action == 'delete'\" mat-button (click)=\"onDeleteClicked(row)\">\r\n                                    <i class=\"feather icon-trash\"></i>\r\n                                </button>\r\n                                <button *ngIf=\"action == 'download'\" mat-button (click)=\"onDownloadClicked(row)\">\r\n                                    <i class=\"feather icon-download\"></i>\r\n                                </button>\r\n                            </ng-container>\r\n                        </ng-template>\r\n\r\n                    </td>\r\n                </ng-container>\r\n\r\n                <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n                <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\r\n            </table>\r\n\r\n            <!-- Show message when no records are available -->\r\n\r\n            <ng-container *ngIf=\"dataSource?.filteredData?.length == 0\">\r\n                <mat-error class=\"text-center\" style=\"font-size: 20px;\">\r\n                    <b><span>No Records</span></b>\r\n                </mat-error>\r\n            </ng-container>\r\n        </div>\r\n    </div>\r\n\r\n    <!-- Paginator -->\r\n    <div class=\"paginator-container\">\r\n        <mat-paginator [length]=\"totalCount\" [pageSize]=\"pageSize\" [pageSizeOptions]=\"pageSizeOptions\"\r\n            (page)=\"handlePagination($event)\">\r\n        </mat-paginator>\r\n    </div>\r\n</app-card>"
 
 /***/ }),
 
@@ -1926,18 +1926,20 @@ const NavigationItems = [
                         type: 'item',
                         url: '/container/trip-detail/list',
                     },
-                    {
-                        id: 'trip-details-inprogress',
-                        title: 'Trip Details Inprogress',
-                        type: 'item',
-                        url: '/container/trip-detail/inprogresslist',
-                    },
+                    /* {
+                      id: 'trip-details-inprogress',
+                      title: 'Trip Details Inprogress',
+                      type: 'item',
+                      url: '/container/trip-detail/inprogresslist',
+                    }, */
+                    /* ...(sessionStorage.getItem('roll') === 'admin' ? [ */
                     {
                         id: 'trip-details-forward',
                         title: 'Trip Details Forward',
                         type: 'item',
                         url: '/container/trip-detail/forwardlist',
                     },
+                    /* ] : []), // Show only if user is admin */
                     {
                         id: 'trip-payment-pending',
                         title: 'Trip Payment Pending',
@@ -1991,298 +1993,407 @@ const NavigationItems = [
             },
         ]
     }
-    /*  {
-       id: 'navigation',
-       title: 'Navigation',
-       type: 'group',
-       icon: 'feather icon-monitor',
-       children: [
-         {
-           id: 'dashboard',
-           title: 'Dashboard',
-           type: 'item',
-           url: '/dashboard/analytics',
-           icon: 'feather icon-home'
-         },
-         {
-           id: 'page-layouts',
-           title: 'Horizontal Layouts',
-           type: 'item',
-           url: '/layout/horizontal',
-           target: true,
-           icon: 'feather icon-layout'
-         }
-       ]
-     },
-     {
-       id: 'ui-element',
-       title: 'UI ELEMENT & FORMS',
-       type: 'group',
-       icon: 'feather icon-layers',
-       children: [
-         {
-           id: 'basic',
-           title: 'Basic',
-           type: 'collapse',
-           icon: 'feather icon-box',
-           children: [
-             {
-               id: 'alert',
-               title: 'Alert',
-               type: 'item',
-               url: '/basic/alert'
-             },
-             {
-               id: 'button',
-               title: 'Button',
-               type: 'item',
-               url: '/basic/button'
-             },
-             {
-               id: 'badges',
-               title: 'Badges',
-               type: 'item',
-               url: '/basic/badges'
-             },
-             {
-               id: 'breadcrumb-pagination',
-               title: 'Breadcrumbs & Pagination',
-               type: 'item',
-               url: '/basic/breadcrumb-paging'
-             },
-             {
-               id: 'cards',
-               title: 'Cards',
-               type: 'item',
-               url: '/basic/cards'
-             },
-             {
-               id: 'collapse',
-               title: 'Collapse',
-               type: 'item',
-               url: '/basic/collapse'
-             },
-             {
-               id: 'carousel',
-               title: 'Carousel',
-               type: 'item',
-               url: '/basic/carousel'
-             },
-             {
-               id: 'grid-system',
-               title: 'Grid System',
-               type: 'item',
-               url: '/basic/grid-system'
-             },
-             {
-               id: 'progress',
-               title: 'Progress',
-               type: 'item',
-               url: '/basic/progress'
-             },
-             {
-               id: 'modal',
-               title: 'Modal',
-               type: 'item',
-               url: '/basic/modal'
-             },
-             {
-               id: 'spinner',
-               title: 'Spinner',
-               type: 'item',
-               url: '/basic/spinner'
-             },
-             {
-               id: 'tabs-pills',
-               title: 'Tabs & Pills',
-               type: 'item',
-               url: '/basic/tabs-pills'
-             },
-             {
-               id: 'typography',
-               title: 'Typography',
-               type: 'item',
-               url: '/basic/typography'
-             },
-             {
-               id: 'tooltip-popovers',
-               title: 'Tooltip & Popovers',
-               type: 'item',
-               url: '/basic/tooltip-popovers'
-             },
-             {
-               id: 'other',
-               title: 'Other',
-               type: 'item',
-               url: '/basic/other'
-             }
-           ]
-         },
-         {
-           id: 'forms-element',
-           title: 'Form Elements',
-           type: 'item',
-           url: '/forms/basic',
-           icon: 'feather icon-file-text'
-         }
-       ]
-     },
-     {
-       id: 'table',
-       title: 'Table & Charts',
-       type: 'group',
-       icon: 'feather icon-list',
-       children: [
-         {
-           id: 'bootstrap',
-           title: 'Bootstrap Table',
-           type: 'item',
-           url: '/tbl-bootstrap/bt-basic',
-           icon: 'feather icon-server'
-         },
-         {
-           id: 'apex',
-           title: 'Apex Chart',
-           type: 'item',
-           url: '/charts/apex',
-           icon: 'feather icon-pie-chart'
-         }
-       ]
-     },
-     {
-       id: 'pages',
-       title: 'Pages',
-       type: 'group',
-       icon: 'feather icon-file-text',
-       children: [
-         {
-           id: 'auth',
-           title: 'Authentication',
-           type: 'collapse',
-           icon: 'feather icon-lock',
-           children: [
-             {
-               id: 'signup',
-               title: 'Sign up',
-               type: 'item',
-               url: '/auth/signup',
-               target: true,
-               breadcrumbs: false
-             },
-             {
-               id: 'signin',
-               title: 'Sign in',
-               type: 'item',
-               url: '/auth/signin',
-               target: true,
-               breadcrumbs: false
-             },
-             {
-               id: 'reset-password',
-               title: 'Reset Password',
-               type: 'item',
-               url: '/auth/reset-password',
-               target: true,
-               breadcrumbs: false
-             },
-             {
-               id: 'change-password',
-               title: 'Change Password',
-               type: 'item',
-               url: '/auth/change-password',
-               target: true,
-               breadcrumbs: false
-             }
-           ]
-         },
-         {
-           id: 'maintenance',
-           title: 'Maintenance',
-           type: 'collapse',
-           icon: 'feather icon-sliders',
-           children: [
-             {
-               id: 'error',
-               title: 'Error',
-               type: 'item',
-               url: '/maintenance/error',
-               target: true,
-               breadcrumbs: false
-             },
-             {
-               id: 'coming-soon',
-               title: 'Maintenance',
-               type: 'item',
-               url: '/maintenance/coming-soon',
-               target: true,
-               breadcrumbs: false
-             }
-           ]
-         }
-       ]
-     },
-     {
-       id: 'other',
-       title: 'Other',
-       type: 'group',
-       icon: 'feather icon-align-left',
-       children: [
-         {
-           id: 'menu-level',
-           title: 'Menu Levels',
-           type: 'collapse',
-           icon: 'feather icon-menu',
-           children: [
-             {
-               id: 'menu-level-2.1',
-               title: 'Menu Level 2.1',
-               type: 'item',
-               url: 'javascript:',
-               external: true
-             },
-             {
-               id: 'menu-level-2.2',
-               title: 'Menu Level 2.2',
-               type: 'collapse',
-               children: [
-                 {
-                   id: 'menu-level-2.2.1',
-                   title: 'Menu Level 2.2.1',
-                   type: 'item',
-                   url: 'javascript:',
-                   external: true
-                 },
-                 {
-                   id: 'menu-level-2.2.2',
-                   title: 'Menu Level 2.2.2',
-                   type: 'item',
-                   url: 'javascript:',
-                   external: true
-                 }
-               ]
-             }
-           ]
-         },
-         {
-           id: 'disabled-menu',
-           title: 'Disabled Menu',
-           type: 'item',
-           url: 'javascript:',
-           classes: 'nav-item disabled',
-           icon: 'feather icon-power',
-           external: true
-         },
-         {
-           id: 'sample-page',
-           title: 'Sample Page',
-           type: 'item',
-           url: '/sample-page',
-           classes: 'nav-item',
-           icon: 'feather icon-sidebar'
-         }
-       ]
-     } */
 ];
+/* const NavigationItems = [
+
+  {
+    id: 'master',
+    title: 'Master',
+    type: 'group',
+    icon: 'feather icon-monitor',
+    children: [
+      {
+        id: 'driverdetails',
+        title: 'Driver Details',
+        type: 'item',
+        url: '/master/driver-detail/list',
+        icon: 'feather icon-home'
+      },
+      {
+        id: 'vehicledetails',
+        title: 'Vehicle Details',
+        type: 'item',
+        url: '/master/vehicle-detail/list',
+        icon: 'feather icon-home'
+      }
+
+    ]
+  },
+  {
+    id: 'trip-details',
+    title: 'Trip Details',
+    type: 'group',
+    icon: 'feather icon-monitor',
+    children: [
+      {
+        id: 'trip-details-main',
+        title: 'Trip Details',
+        type: 'collapse',
+        icon: 'feather icon-home',
+        children: [
+          {
+            id: 'trip-details-list',
+            title: 'Trip Details',
+            type: 'item',
+            url: '/container/trip-detail/list',
+          },
+          {
+            id: 'trip-details-inprogress',
+            title: 'Trip Details Inprogress',
+            type: 'item',
+            url: '/container/trip-detail/inprogresslist',
+          },
+          {
+            id: 'trip-details-forward',
+            title: 'Trip Details Forward',
+            type: 'item',
+            url: '/container/trip-detail/forwardlist',
+          },
+          {
+            id: 'trip-payment-pending',
+            title: 'Trip Payment Pending',
+            type: 'item',
+            url: '/container/trip-payment-pending/list',
+          },
+        ]
+      }
+    ]
+  },
+  {
+    id: 'payout',
+    title: 'Payout Details',
+    type: 'group',
+    icon: 'feather icon-monitor',
+    children: [
+      {
+        id: 'driver-payout-main',
+        title: 'Payout Details',
+        type: 'collapse',
+        icon: 'feather icon-home',
+        children: [
+          {
+            id: 'driver-payout-list',
+            title: 'Driver payout Balance',
+            type: 'item',
+            url: '/container/payout/payment-balance',
+          },
+          {
+            id: 'driver-payout-list',
+            title: 'Driver Payout History',
+            type: 'item',
+            url: '/container/payout/payment-history',
+          },
+        ]
+      }
+    ]
+  },
+  {
+    id: 'payment-details',
+    title: 'Payment Details',
+    type: 'group',
+    icon: 'feather icon-monitor',
+    children: [
+      {
+        id: 'AdvancePayment',
+        title: 'Payment Details',
+        type: 'item',
+        url: '/container/driver-payment/list',
+        icon: 'feather icon-credit-card'
+      },
+    ]
+  },
+  {
+    id: 'navigation',
+    title: 'Navigation',
+    type: 'group',
+    icon: 'feather icon-monitor',
+    children: [
+      {
+        id: 'dashboard',
+        title: 'Dashboard',
+        type: 'item',
+        url: '/dashboard/analytics',
+        icon: 'feather icon-home'
+      },
+      {
+        id: 'page-layouts',
+        title: 'Horizontal Layouts',
+        type: 'item',
+        url: '/layout/horizontal',
+        target: true,
+        icon: 'feather icon-layout'
+      }
+    ]
+  },
+  {
+    id: 'ui-element',
+    title: 'UI ELEMENT & FORMS',
+    type: 'group',
+    icon: 'feather icon-layers',
+    children: [
+      {
+        id: 'basic',
+        title: 'Basic',
+        type: 'collapse',
+        icon: 'feather icon-box',
+        children: [
+          {
+            id: 'alert',
+            title: 'Alert',
+            type: 'item',
+            url: '/basic/alert'
+          },
+          {
+            id: 'button',
+            title: 'Button',
+            type: 'item',
+            url: '/basic/button'
+          },
+          {
+            id: 'badges',
+            title: 'Badges',
+            type: 'item',
+            url: '/basic/badges'
+          },
+          {
+            id: 'breadcrumb-pagination',
+            title: 'Breadcrumbs & Pagination',
+            type: 'item',
+            url: '/basic/breadcrumb-paging'
+          },
+          {
+            id: 'cards',
+            title: 'Cards',
+            type: 'item',
+            url: '/basic/cards'
+          },
+          {
+            id: 'collapse',
+            title: 'Collapse',
+            type: 'item',
+            url: '/basic/collapse'
+          },
+          {
+            id: 'carousel',
+            title: 'Carousel',
+            type: 'item',
+            url: '/basic/carousel'
+          },
+          {
+            id: 'grid-system',
+            title: 'Grid System',
+            type: 'item',
+            url: '/basic/grid-system'
+          },
+          {
+            id: 'progress',
+            title: 'Progress',
+            type: 'item',
+            url: '/basic/progress'
+          },
+          {
+            id: 'modal',
+            title: 'Modal',
+            type: 'item',
+            url: '/basic/modal'
+          },
+          {
+            id: 'spinner',
+            title: 'Spinner',
+            type: 'item',
+            url: '/basic/spinner'
+          },
+          {
+            id: 'tabs-pills',
+            title: 'Tabs & Pills',
+            type: 'item',
+            url: '/basic/tabs-pills'
+          },
+          {
+            id: 'typography',
+            title: 'Typography',
+            type: 'item',
+            url: '/basic/typography'
+          },
+          {
+            id: 'tooltip-popovers',
+            title: 'Tooltip & Popovers',
+            type: 'item',
+            url: '/basic/tooltip-popovers'
+          },
+          {
+            id: 'other',
+            title: 'Other',
+            type: 'item',
+            url: '/basic/other'
+          }
+        ]
+      },
+      {
+        id: 'forms-element',
+        title: 'Form Elements',
+        type: 'item',
+        url: '/forms/basic',
+        icon: 'feather icon-file-text'
+      }
+    ]
+  },
+  {
+    id: 'table',
+    title: 'Table & Charts',
+    type: 'group',
+    icon: 'feather icon-list',
+    children: [
+      {
+        id: 'bootstrap',
+        title: 'Bootstrap Table',
+        type: 'item',
+        url: '/tbl-bootstrap/bt-basic',
+        icon: 'feather icon-server'
+      },
+      {
+        id: 'apex',
+        title: 'Apex Chart',
+        type: 'item',
+        url: '/charts/apex',
+        icon: 'feather icon-pie-chart'
+      }
+    ]
+  },
+  {
+    id: 'pages',
+    title: 'Pages',
+    type: 'group',
+    icon: 'feather icon-file-text',
+    children: [
+      {
+        id: 'auth',
+        title: 'Authentication',
+        type: 'collapse',
+        icon: 'feather icon-lock',
+        children: [
+          {
+            id: 'signup',
+            title: 'Sign up',
+            type: 'item',
+            url: '/auth/signup',
+            target: true,
+            breadcrumbs: false
+          },
+          {
+            id: 'signin',
+            title: 'Sign in',
+            type: 'item',
+            url: '/auth/signin',
+            target: true,
+            breadcrumbs: false
+          },
+          {
+            id: 'reset-password',
+            title: 'Reset Password',
+            type: 'item',
+            url: '/auth/reset-password',
+            target: true,
+            breadcrumbs: false
+          },
+          {
+            id: 'change-password',
+            title: 'Change Password',
+            type: 'item',
+            url: '/auth/change-password',
+            target: true,
+            breadcrumbs: false
+          }
+        ]
+      },
+      {
+        id: 'maintenance',
+        title: 'Maintenance',
+        type: 'collapse',
+        icon: 'feather icon-sliders',
+        children: [
+          {
+            id: 'error',
+            title: 'Error',
+            type: 'item',
+            url: '/maintenance/error',
+            target: true,
+            breadcrumbs: false
+          },
+          {
+            id: 'coming-soon',
+            title: 'Maintenance',
+            type: 'item',
+            url: '/maintenance/coming-soon',
+            target: true,
+            breadcrumbs: false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'other',
+    title: 'Other',
+    type: 'group',
+    icon: 'feather icon-align-left',
+    children: [
+      {
+        id: 'menu-level',
+        title: 'Menu Levels',
+        type: 'collapse',
+        icon: 'feather icon-menu',
+        children: [
+          {
+            id: 'menu-level-2.1',
+            title: 'Menu Level 2.1',
+            type: 'item',
+            url: 'javascript:',
+            external: true
+          },
+          {
+            id: 'menu-level-2.2',
+            title: 'Menu Level 2.2',
+            type: 'collapse',
+            children: [
+              {
+                id: 'menu-level-2.2.1',
+                title: 'Menu Level 2.2.1',
+                type: 'item',
+                url: 'javascript:',
+                external: true
+              },
+              {
+                id: 'menu-level-2.2.2',
+                title: 'Menu Level 2.2.2',
+                type: 'item',
+                url: 'javascript:',
+                external: true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'disabled-menu',
+        title: 'Disabled Menu',
+        type: 'item',
+        url: 'javascript:',
+        classes: 'nav-item disabled',
+        icon: 'feather icon-power',
+        external: true
+      },
+      {
+        id: 'sample-page',
+        title: 'Sample Page',
+        type: 'item',
+        url: '/sample-page',
+        classes: 'nav-item',
+        icon: 'feather icon-sidebar'
+      }
+    ]
+  }
+]; */
 let NavigationItem = class NavigationItem {
     get() {
         return NavigationItems;
@@ -3030,7 +3141,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n          align-items: center;\n  z-index: 1000; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvc2hhcmVkL2NvbXBvbmVudHMvbG9hZGVyL0Q6XFwxOS1WLURldmVyIEhvbGRheXMgVUlcXERIRC1PTEQtRGVzaWduc1xcRGV2YXJIb2xpZGF5c1VJL3NyY1xcYXBwXFx0aGVtZVxcc2hhcmVkXFxjb21wb25lbnRzXFxsb2FkZXJcXGxvYWRlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGVBQWU7RUFDZixNQUFNO0VBQ04sT0FBTztFQUNQLFdBQVc7RUFDWCxZQUFZO0VBQ1osb0NBQW9DO0VBQ3BDLG9CQUFhO0VBQWIsYUFBYTtFQUNiLHdCQUF1QjtVQUF2Qix1QkFBdUI7RUFDdkIseUJBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQixhQUFhLEVBQUEiLCJmaWxlIjoic3JjL2FwcC90aGVtZS9zaGFyZWQvY29tcG9uZW50cy9sb2FkZXIvbG9hZGVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm92ZXJsYXkge1xyXG4gICAgcG9zaXRpb246IGZpeGVkO1xyXG4gICAgdG9wOiAwO1xyXG4gICAgbGVmdDogMDtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAwLCAwLCAwLjUpO1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgIHotaW5kZXg6IDEwMDA7XHJcbiAgfSJdfQ== */"
+module.exports = ".overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n          align-items: center;\n  z-index: 1000; }\n\n*,\n*::before,\n*::after {\n  box-sizing: border-box; }\n\n.icon-credit {\n  position: fixed;\n  bottom: 5px;\n  width: 100%;\n  text-align: center;\n  font-size: 11px; }\n\n.icon-credit a {\n    color: #222; }\n\n.loader {\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n          align-items: center;\n  /* &::before {\r\n    width: 265px;\r\n    height: 265px;\r\n    border: 11px solid rgba(182, 182, 182, 0);\r\n  }\r\n\r\n  &::after {\r\n    width: 95px;\r\n    height: 95px;\r\n    border: 8px solid rgba(179, 179, 179, 0);\r\n  } */ }\n\n.loader::before, .loader::after {\n    content: '';\n    position: absolute;\n    border-radius: 50%;\n    -webkit-animation: tracks 10s linear forwards;\n            animation: tracks 10s linear forwards; }\n\n.car {\n  position: relative;\n  z-index: 1;\n  -webkit-transform-origin: bottom bottom;\n          transform-origin: bottom bottom;\n  -webkit-animation: drift 3.2s linear infinite;\n          animation: drift 3.2s linear infinite; }\n\n.car::before, .car::after {\n    content: '';\n    position: absolute;\n    top: 10px;\n    border-radius: 50%; }\n\n.car::before {\n    background: #eee;\n    -webkit-animation: smoke .5s linear infinite;\n            animation: smoke .5s linear infinite; }\n\n.car::after {\n    background: #eee;\n    -webkit-animation: smoke .5s linear .7s infinite;\n            animation: smoke .5s linear .7s infinite; }\n\nsvg {\n  position: relative;\n  width: 150px;\n  padding: 0 0 150px;\n  z-index: 1; }\n\n@-webkit-keyframes smoke {\n  from {\n    left: 65px;\n    width: 0px;\n    height: 0px;\n    opacity: 1; }\n  to {\n    left: -10px;\n    width: 40px;\n    height: 40px;\n    opacity: 0; } }\n\n@keyframes smoke {\n  from {\n    left: 65px;\n    width: 0px;\n    height: 0px;\n    opacity: 1; }\n  to {\n    left: -10px;\n    width: 40px;\n    height: 40px;\n    opacity: 0; } }\n\n@-webkit-keyframes drift {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n@keyframes drift {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n@-webkit-keyframes tracks {\n  from {\n    border-color: rgba(0, 0, 0, 0); }\n  to {\n    border-color: black; } }\n\n@keyframes tracks {\n  from {\n    border-color: rgba(0, 0, 0, 0); }\n  to {\n    border-color: black; } }\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvc2hhcmVkL2NvbXBvbmVudHMvbG9hZGVyL0Q6XFwxOS1WLURldmVyIEhvbGRheXMgVUlcXERIRC1PTEQtRGVzaWduc1xcRGV2YXJIb2xpZGF5c1VJL3NyY1xcYXBwXFx0aGVtZVxcc2hhcmVkXFxjb21wb25lbnRzXFxsb2FkZXJcXGxvYWRlci5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvdGhlbWUvc2hhcmVkL2NvbXBvbmVudHMvbG9hZGVyL2xvYWRlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGVBQWU7RUFDZixNQUFNO0VBQ04sT0FBTztFQUNQLFdBQVc7RUFDWCxZQUFZO0VBQ1osb0NBQW9DO0VBQ3BDLG9CQUFhO0VBQWIsYUFBYTtFQUNiLHdCQUF1QjtVQUF2Qix1QkFBdUI7RUFDdkIseUJBQW1CO1VBQW5CLG1CQUFtQjtFQUNuQixhQUFhLEVBQUE7O0FBS2Y7OztFQUdBLHNCQUFzQixFQUFBOztBQUd4QjtFQUNFLGVBQWU7RUFDZixXQUFXO0VBQ1gsV0FBVztFQUNYLGtCQUFrQjtFQUNsQixlQUFlLEVBQUE7O0FBTGpCO0lBUUksV0FBVyxFQUFBOztBQUlmO0VBQ0UsZUFBZTtFQUNmLE1BQU07RUFDTixRQUFRO0VBQ1IsU0FBUztFQUNULE9BQU87RUFHUCxvQkFBYTtFQUFiLGFBQWE7RUFDYix3QkFBdUI7VUFBdkIsdUJBQXVCO0VBQ3ZCLHlCQUFtQjtVQUFuQixtQkFBbUI7RUFXbkI7Ozs7Ozs7Ozs7S0NURyxFRG1CQzs7QUEvQk47SUFjSSxXQUFXO0lBQ1gsa0JBQWtCO0lBQ2xCLGtCQUFrQjtJQUNsQiw2Q0FBcUM7WUFBckMscUNBQXFDLEVBQUE7O0FBaUJ6QztFQUNFLGtCQUFrQjtFQUNsQixVQUFVO0VBQ1YsdUNBQStCO1VBQS9CLCtCQUErQjtFQUMvQiw2Q0FBcUM7VUFBckMscUNBQXFDLEVBQUE7O0FBSnZDO0lBUUksV0FBVztJQUNYLGtCQUFrQjtJQUNsQixTQUFTO0lBQ1Qsa0JBQWtCLEVBQUE7O0FBWHRCO0lBZUksZ0JBQWdCO0lBQ2hCLDRDQUFvQztZQUFwQyxvQ0FBb0MsRUFBQTs7QUFoQnhDO0lBb0JJLGdCQUFnQjtJQUNoQixnREFBd0M7WUFBeEMsd0NBQXdDLEVBQUE7O0FBSTVDO0VBQ0Usa0JBQWtCO0VBQ2xCLFlBQVk7RUFDWixrQkFBa0I7RUFDbEIsVUFBVSxFQUFBOztBQUdaO0VBQ0U7SUFDRSxVQUFVO0lBQ1YsVUFBVTtJQUNWLFdBQVc7SUFDWCxVQUFVLEVBQUE7RUFFWjtJQUNFLFdBQVc7SUFDWCxXQUFXO0lBQ1gsWUFBWTtJQUNaLFVBQVUsRUFBQSxFQUFBOztBQVhkO0VBQ0U7SUFDRSxVQUFVO0lBQ1YsVUFBVTtJQUNWLFdBQVc7SUFDWCxVQUFVLEVBQUE7RUFFWjtJQUNFLFdBQVc7SUFDWCxXQUFXO0lBQ1gsWUFBWTtJQUNaLFVBQVUsRUFBQSxFQUFBOztBQUlkO0VBQ0U7SUFDRSwrQkFBdUI7WUFBdkIsdUJBQXVCLEVBQUE7RUFFekI7SUFDRSxpQ0FBeUI7WUFBekIseUJBQXlCLEVBQUEsRUFBQTs7QUFMN0I7RUFDRTtJQUNFLCtCQUF1QjtZQUF2Qix1QkFBdUIsRUFBQTtFQUV6QjtJQUNFLGlDQUF5QjtZQUF6Qix5QkFBeUIsRUFBQSxFQUFBOztBQUk3QjtFQUNFO0lBQ0UsOEJBQTJCLEVBQUE7RUFFN0I7SUFDRSxtQkFBMkIsRUFBQSxFQUFBOztBQUwvQjtFQUNFO0lBQ0UsOEJBQTJCLEVBQUE7RUFFN0I7SUFDRSxtQkFBMkIsRUFBQSxFQUFBIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvc2hhcmVkL2NvbXBvbmVudHMvbG9hZGVyL2xvYWRlci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5vdmVybGF5IHtcclxuICAgIHBvc2l0aW9uOiBmaXhlZDtcclxuICAgIHRvcDogMDtcclxuICAgIGxlZnQ6IDA7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMC41KTtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICB6LWluZGV4OiAxMDAwO1xyXG4gIH1cclxuXHJcblxyXG5cclxuICAqLFxyXG4qOjpiZWZvcmUsXHJcbio6OmFmdGVyIHtcclxuICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xyXG59XHJcblxyXG4uaWNvbi1jcmVkaXQge1xyXG4gIHBvc2l0aW9uOiBmaXhlZDtcclxuICBib3R0b206IDVweDtcclxuICB3aWR0aDogMTAwJTtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgZm9udC1zaXplOiAxMXB4O1xyXG4gIFxyXG4gIGEge1xyXG4gICAgY29sb3I6ICMyMjI7XHJcbiAgfVxyXG59XHJcblxyXG4ubG9hZGVyIHtcclxuICBwb3NpdGlvbjogZml4ZWQ7XHJcbiAgdG9wOiAwO1xyXG4gIHJpZ2h0OiAwO1xyXG4gIGJvdHRvbTogMDtcclxuICBsZWZ0OiAwO1xyXG4gIC8vIGJhY2tncm91bmQ6ICM2NjY7XHJcbiAgLy8gYmFja2dyb3VuZC1pbWFnZTogcmFkaWFsLWdyYWRpZW50KCM4ODgsICM1NTUpO1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBcclxuICAmOjpiZWZvcmUsXHJcbiAgJjo6YWZ0ZXIge1xyXG4gICAgY29udGVudDogJyc7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XHJcbiAgICBhbmltYXRpb246IHRyYWNrcyAxMHMgbGluZWFyIGZvcndhcmRzO1xyXG5cclxuICB9XHJcbiAgXHJcbiAgLyogJjo6YmVmb3JlIHtcclxuICAgIHdpZHRoOiAyNjVweDtcclxuICAgIGhlaWdodDogMjY1cHg7XHJcbiAgICBib3JkZXI6IDExcHggc29saWQgcmdiYSgxODIsIDE4MiwgMTgyLCAwKTtcclxuICB9XHJcblxyXG4gICY6OmFmdGVyIHtcclxuICAgIHdpZHRoOiA5NXB4O1xyXG4gICAgaGVpZ2h0OiA5NXB4O1xyXG4gICAgYm9yZGVyOiA4cHggc29saWQgcmdiYSgxNzksIDE3OSwgMTc5LCAwKTtcclxuICB9ICovXHJcbn1cclxuXHJcbi5jYXIge1xyXG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICB6LWluZGV4OiAxO1xyXG4gIHRyYW5zZm9ybS1vcmlnaW46IGJvdHRvbSBib3R0b207XHJcbiAgYW5pbWF0aW9uOiBkcmlmdCAzLjJzIGxpbmVhciBpbmZpbml0ZTtcclxuICBcclxuICAmOjpiZWZvcmUsXHJcbiAgJjo6YWZ0ZXIge1xyXG4gICAgY29udGVudDogJyc7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICB0b3A6IDEwcHg7XHJcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XHJcbiAgfVxyXG5cclxuICAmOjpiZWZvcmUge1xyXG4gICAgYmFja2dyb3VuZDogI2VlZTtcclxuICAgIGFuaW1hdGlvbjogc21va2UgLjVzIGxpbmVhciBpbmZpbml0ZTtcclxuICB9ICBcclxuXHJcbiAgJjo6YWZ0ZXIge1xyXG4gICAgYmFja2dyb3VuZDogI2VlZTtcclxuICAgIGFuaW1hdGlvbjogc21va2UgLjVzIGxpbmVhciAuN3MgaW5maW5pdGU7XHJcbiAgfVxyXG59XHJcblxyXG5zdmcge1xyXG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICB3aWR0aDogMTUwcHg7XHJcbiAgcGFkZGluZzogMCAwIDE1MHB4O1xyXG4gIHotaW5kZXg6IDE7XHJcbn1cclxuXHJcbkBrZXlmcmFtZXMgc21va2Uge1xyXG4gIGZyb20ge1xyXG4gICAgbGVmdDogNjVweDtcclxuICAgIHdpZHRoOiAwcHg7XHJcbiAgICBoZWlnaHQ6IDBweDtcclxuICAgIG9wYWNpdHk6IDE7XHJcbiAgfVxyXG4gIHRvIHtcclxuICAgIGxlZnQ6IC0xMHB4O1xyXG4gICAgd2lkdGg6IDQwcHg7XHJcbiAgICBoZWlnaHQ6IDQwcHg7XHJcbiAgICBvcGFjaXR5OiAwO1xyXG4gIH1cclxufVxyXG5cclxuQGtleWZyYW1lcyBkcmlmdCB7XHJcbiAgZnJvbSB7XHJcbiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgwZGVnKTtcclxuICB9XHJcbiAgdG8ge1xyXG4gICAgdHJhbnNmb3JtOiByb3RhdGUoMzYwZGVnKTtcclxuICB9XHJcbn1cclxuXHJcbkBrZXlmcmFtZXMgdHJhY2tzIHtcclxuICBmcm9tIHtcclxuICAgIGJvcmRlci1jb2xvcjogcmdiYSgwLDAsMCwwKTtcclxuICB9XHJcbiAgdG8ge1xyXG4gICAgYm9yZGVyLWNvbG9yOiByZ2JhKDAsMCwwLDEpO1xyXG4gIH1cclxufSIsIi5vdmVybGF5IHtcbiAgcG9zaXRpb246IGZpeGVkO1xuICB0b3A6IDA7XG4gIGxlZnQ6IDA7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMC41KTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIHotaW5kZXg6IDEwMDA7IH1cblxuKixcbio6OmJlZm9yZSxcbio6OmFmdGVyIHtcbiAgYm94LXNpemluZzogYm9yZGVyLWJveDsgfVxuXG4uaWNvbi1jcmVkaXQge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGJvdHRvbTogNXB4O1xuICB3aWR0aDogMTAwJTtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBmb250LXNpemU6IDExcHg7IH1cbiAgLmljb24tY3JlZGl0IGEge1xuICAgIGNvbG9yOiAjMjIyOyB9XG5cbi5sb2FkZXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIHRvcDogMDtcbiAgcmlnaHQ6IDA7XG4gIGJvdHRvbTogMDtcbiAgbGVmdDogMDtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIC8qICY6OmJlZm9yZSB7XHJcbiAgICB3aWR0aDogMjY1cHg7XHJcbiAgICBoZWlnaHQ6IDI2NXB4O1xyXG4gICAgYm9yZGVyOiAxMXB4IHNvbGlkIHJnYmEoMTgyLCAxODIsIDE4MiwgMCk7XHJcbiAgfVxyXG5cclxuICAmOjphZnRlciB7XHJcbiAgICB3aWR0aDogOTVweDtcclxuICAgIGhlaWdodDogOTVweDtcclxuICAgIGJvcmRlcjogOHB4IHNvbGlkIHJnYmEoMTc5LCAxNzksIDE3OSwgMCk7XHJcbiAgfSAqLyB9XG4gIC5sb2FkZXI6OmJlZm9yZSwgLmxvYWRlcjo6YWZ0ZXIge1xuICAgIGNvbnRlbnQ6ICcnO1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XG4gICAgYW5pbWF0aW9uOiB0cmFja3MgMTBzIGxpbmVhciBmb3J3YXJkczsgfVxuXG4uY2FyIHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB6LWluZGV4OiAxO1xuICB0cmFuc2Zvcm0tb3JpZ2luOiBib3R0b20gYm90dG9tO1xuICBhbmltYXRpb246IGRyaWZ0IDMuMnMgbGluZWFyIGluZmluaXRlOyB9XG4gIC5jYXI6OmJlZm9yZSwgLmNhcjo6YWZ0ZXIge1xuICAgIGNvbnRlbnQ6ICcnO1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IDEwcHg7XG4gICAgYm9yZGVyLXJhZGl1czogNTAlOyB9XG4gIC5jYXI6OmJlZm9yZSB7XG4gICAgYmFja2dyb3VuZDogI2VlZTtcbiAgICBhbmltYXRpb246IHNtb2tlIC41cyBsaW5lYXIgaW5maW5pdGU7IH1cbiAgLmNhcjo6YWZ0ZXIge1xuICAgIGJhY2tncm91bmQ6ICNlZWU7XG4gICAgYW5pbWF0aW9uOiBzbW9rZSAuNXMgbGluZWFyIC43cyBpbmZpbml0ZTsgfVxuXG5zdmcge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHdpZHRoOiAxNTBweDtcbiAgcGFkZGluZzogMCAwIDE1MHB4O1xuICB6LWluZGV4OiAxOyB9XG5cbkBrZXlmcmFtZXMgc21va2Uge1xuICBmcm9tIHtcbiAgICBsZWZ0OiA2NXB4O1xuICAgIHdpZHRoOiAwcHg7XG4gICAgaGVpZ2h0OiAwcHg7XG4gICAgb3BhY2l0eTogMTsgfVxuICB0byB7XG4gICAgbGVmdDogLTEwcHg7XG4gICAgd2lkdGg6IDQwcHg7XG4gICAgaGVpZ2h0OiA0MHB4O1xuICAgIG9wYWNpdHk6IDA7IH0gfVxuXG5Aa2V5ZnJhbWVzIGRyaWZ0IHtcbiAgZnJvbSB7XG4gICAgdHJhbnNmb3JtOiByb3RhdGUoMGRlZyk7IH1cbiAgdG8ge1xuICAgIHRyYW5zZm9ybTogcm90YXRlKDM2MGRlZyk7IH0gfVxuXG5Aa2V5ZnJhbWVzIHRyYWNrcyB7XG4gIGZyb20ge1xuICAgIGJvcmRlci1jb2xvcjogcmdiYSgwLCAwLCAwLCAwKTsgfVxuICB0byB7XG4gICAgYm9yZGVyLWNvbG9yOiBibGFjazsgfSB9XG4iXX0= */"
 
 /***/ }),
 
@@ -3302,7 +3413,6 @@ let MatTableConfigurationComponent = class MatTableConfigurationComponent {
         this.checkboxAction.emit(row);
     }
     ngOnInit() {
-        console.log("Columns received in child:", this.columns);
         if (!this.columns || !Array.isArray(this.columns)) {
             console.error("columns is undefined or not an array. Initializing as an empty array.");
             this.columns = [];
@@ -3349,7 +3459,6 @@ let MatTableConfigurationComponent = class MatTableConfigurationComponent {
         this.deleteAction.emit(row);
     }
     onCheckboxAction(event) {
-        console.log('Checkbox action:', event);
     }
 };
 MatTableConfigurationComponent.ctorParameters = () => [

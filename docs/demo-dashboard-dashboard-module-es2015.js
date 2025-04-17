@@ -22,7 +22,7 @@ const routes = [
         children: [
             {
                 path: 'analytics',
-                loadChildren: () => Promise.all(/*! import() | dash-analytics-dash-analytics-module */[__webpack_require__.e("default~crt-apex-crt-apex-module~dash-analytics-dash-analytics-module"), __webpack_require__.e("dash-analytics-dash-analytics-module")]).then(__webpack_require__.bind(null, /*! ./dash-analytics/dash-analytics.module */ "./src/app/demo/dashboard/dash-analytics/dash-analytics.module.ts")).then(module => module.DashAnalyticsModule)
+                loadChildren: () => Promise.all(/*! import() | dash-analytics-dash-analytics-module */[__webpack_require__.e("default~crt-apex-crt-apex-module~dash-analytics-dash-analytics-module"), __webpack_require__.e("common"), __webpack_require__.e("dash-analytics-dash-analytics-module")]).then(__webpack_require__.bind(null, /*! ./dash-analytics/dash-analytics.module */ "./src/app/demo/dashboard/dash-analytics/dash-analytics.module.ts")).then(module => module.DashAnalyticsModule)
             }
         ]
     }
